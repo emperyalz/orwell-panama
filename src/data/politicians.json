@@ -1,0 +1,2844 @@
+[
+  {
+    "id": "DEP-015",
+    "name": "Jamis Acosta",
+    "slug": "jamis-acosta",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-015.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "jamisdiputado",
+        "profileUrl": "https://www.instagram.com/jamisdiputado/",
+        "avatar": "/images/avatars/DEP-015-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "acostajamis",
+        "profileUrl": "https://www.tiktok.com/@acostajamis",
+        "avatar": "/images/avatars/DEP-015-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "HDJamisAcosta",
+        "profileUrl": "https://x.com/HDJamisAcosta",
+        "avatar": "/images/avatars/DEP-015-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JAMIS_ACOSTA"
+  },
+  {
+    "id": "DEP-037",
+    "name": "Crispiano Adames",
+    "slug": "crispiano-adames",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-037.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "crispianoan",
+        "profileUrl": "https://www.instagram.com/crispianoan/",
+        "avatar": "/images/avatars/DEP-037-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "CrispianoAN",
+        "profileUrl": "https://x.com/CrispianoAN",
+        "avatar": "/images/avatars/DEP-037-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "facebook",
+        "handle": "Dr-Crispiano-Adames-Navarro-100063704724051",
+        "profileUrl": "https://www.facebook.com/p/Dr-Crispiano-Adames-Navarro-100063704724051/",
+        "avatar": "/images/avatars/DEP-037-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "crispianoadames",
+        "profileUrl": "https://www.tiktok.com/@crispianoadames",
+        "avatar": "/images/avatars/DEP-037-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/CRISPIANO_ADAMES_NAVARRO"
+  },
+  {
+    "id": "DEP-059",
+    "name": "Roberto Archibold",
+    "slug": "roberto-archibold",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "12-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-059.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "hdrobertoarchibold",
+        "profileUrl": "https://www.instagram.com/hdrobertoarchibold/",
+        "avatar": "/images/avatars/DEP-059-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "hdrobertoarchibold",
+        "profileUrl": "https://www.tiktok.com/@hdrobertoarchibold",
+        "avatar": "/images/avatars/DEP-059-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "RobertoArchibo3",
+        "profileUrl": "https://x.com/RobertoArchibo3",
+        "avatar": "/images/avatars/DEP-059-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ROBERTO__ARCHIBOLD"
+  },
+  {
+    "id": "DEP-058",
+    "name": "Arquesio Arias",
+    "slug": "arquesio-arias",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Comarca Guna Yala",
+    "circuit": "10-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-058.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "arquesio",
+        "profileUrl": "https://x.com/arquesio",
+        "avatar": "/images/avatars/DEP-058-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 70,
+        "pollingTier": "dormant"
+      },
+      {
+        "platform": "instagram",
+        "handle": "dr.arquesioarias",
+        "profileUrl": "https://www.instagram.com/dr.arquesioarias/",
+        "avatar": "/images/avatars/DEP-058-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ARQUESIO__ARIAS_FELIX"
+  },
+  {
+    "id": "DEP-039",
+    "name": "José Pérez Barboni",
+    "slug": "jose-perez-barboni",
+    "party": "MOCA",
+    "partyFull": "Movimiento Otro Camino",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-039.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "perezbarboni",
+        "profileUrl": "https://www.instagram.com/perezbarboni/",
+        "avatar": "/images/avatars/DEP-039-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "PerezBarboni",
+        "profileUrl": "https://x.com/PerezBarboni",
+        "avatar": "/images/avatars/DEP-039-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "perezbarboni",
+        "profileUrl": "https://www.tiktok.com/@perezbarboni",
+        "avatar": "/images/avatars/DEP-039-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JOSE_PEREZ_BARBONI"
+  },
+  {
+    "id": "DEP-070",
+    "name": "Lilia Batista",
+    "slug": "lilia-batista",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-070.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "hdliliabatistadeguerra",
+        "profileUrl": "https://www.instagram.com/hdliliabatistadeguerra/",
+        "avatar": "/images/avatars/DEP-070-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "liliabatistadeG",
+        "profileUrl": "https://x.com/liliabatistadeG",
+        "avatar": "/images/avatars/DEP-070-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/LILIA_E_BATISTA_DE_GUERRA"
+  },
+  {
+    "id": "ALC-002",
+    "name": "Irma Hernández Berrío",
+    "slug": "irma-hernandez-berrio",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Alcaldesa",
+    "roleCategory": "Mayor",
+    "province": "Panamá",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/ALC-002.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "irmaehernandezb",
+        "profileUrl": "https://www.instagram.com/irmaehernandezb/",
+        "avatar": "/images/avatars/ALC-002-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "irmaehernandezb",
+        "profileUrl": "https://www.tiktok.com/@irmaehernandezb",
+        "avatar": "/images/avatars/ALC-002-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "irmaehernandezb",
+        "profileUrl": "https://x.com/irmaehernandezb",
+        "avatar": "/images/avatars/ALC-002-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      }
+    ]
+  },
+  {
+    "id": "DEP-042",
+    "name": "Jorge Bloise",
+    "slug": "jorge-bloise",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-042.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "jorgeibloise",
+        "profileUrl": "https://www.instagram.com/jorgeibloise/",
+        "avatar": "/images/avatars/DEP-042-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "jorgeibloise",
+        "profileUrl": "https://x.com/jorgeibloise",
+        "avatar": "/images/avatars/DEP-042-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "jorgeibloise",
+        "profileUrl": "https://www.tiktok.com/@jorgeibloise",
+        "avatar": "/images/avatars/DEP-042-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "facebook",
+        "handle": "jorgebloise",
+        "profileUrl": "https://www.facebook.com/jorgebloise",
+        "avatar": "/images/avatars/DEP-042-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JORGE_BLOISE_IGLESIAS"
+  },
+  {
+    "id": "DEP-055",
+    "name": "Francisco Brea",
+    "slug": "francisco-brea",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Veraguas",
+    "circuit": "9-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-055.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "panchito_diputado",
+        "profileUrl": "https://www.instagram.com/panchito_diputado/",
+        "avatar": "/images/avatars/DEP-055-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 105,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "BreaPanchito",
+        "profileUrl": "https://x.com/BreaPanchito",
+        "avatar": "/images/avatars/DEP-055-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "cool"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/FRANCISCO__BREA"
+  },
+  {
+    "id": "DEP-031",
+    "name": "Alexandra Brenes",
+    "slug": "alexandra-brenes",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-031.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "alebrenes_3",
+        "profileUrl": "https://www.instagram.com/alebrenes_3/",
+        "avatar": "/images/avatars/DEP-031-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "AlexandraBrene6",
+        "profileUrl": "https://x.com/AlexandraBrene6",
+        "avatar": "/images/avatars/DEP-031-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ALEXANDRA_BRENES"
+  },
+  {
+    "id": "DEP-052",
+    "name": "Raphael Buchanan",
+    "slug": "raphael-buchanan",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-6",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-052.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "HDBuchanan8_6",
+        "profileUrl": "https://x.com/HDBuchanan8_6",
+        "avatar": "/images/avatars/DEP-052-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "instagram",
+        "handle": "raphaelbuchanan25",
+        "profileUrl": "https://www.instagram.com/raphaelbuchanan25/",
+        "avatar": "/images/avatars/DEP-052-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/RAPHAEL_BUCHANAN"
+  },
+  {
+    "id": "DEP-033",
+    "name": "Luis Eduardo Camacho",
+    "slug": "luis-eduardo-camacho",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-033.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "lcamachocastro",
+        "profileUrl": "https://www.instagram.com/lcamachocastro/",
+        "avatar": "/images/avatars/DEP-033-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "camachocastro",
+        "profileUrl": "https://x.com/camachocastro",
+        "avatar": "/images/avatars/DEP-033-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "lecamachocastro",
+        "profileUrl": "https://www.tiktok.com/@lecamachocastro",
+        "avatar": "/images/avatars/DEP-033-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/LUIS_EDUARDO__CAMACHO"
+  },
+  {
+    "id": "DEP-065",
+    "name": "Miguel A. Campos",
+    "slug": "miguel-a-campos",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Veraguas",
+    "circuit": "9-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-065.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "miguelangelcamposlima",
+        "profileUrl": "https://www.instagram.com/miguelangelcamposlima/",
+        "avatar": "/images/avatars/DEP-065-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "miguelacamposl",
+        "profileUrl": "https://x.com/miguelacamposl",
+        "avatar": "/images/avatars/DEP-065-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 75,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "miguel39655",
+        "profileUrl": "https://www.tiktok.com/@miguel39655",
+        "avatar": "/images/avatars/DEP-065-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/MIGUEL_aNGEL_CAMPOS"
+  },
+  {
+    "id": "GOV-005",
+    "name": "Elías Corro Cano",
+    "slug": "elias-corro-cano",
+    "party": "IND",
+    "partyFull": "Independiente",
+    "role": "Gobernador",
+    "roleCategory": "Governor",
+    "province": "Herrera",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/GOV-005.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "titocorro",
+        "profileUrl": "https://x.com/titocorro",
+        "avatar": "/images/avatars/GOV-005-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "titocorro16",
+        "profileUrl": "https://www.instagram.com/titocorro16/",
+        "avatar": "/images/avatars/GOV-005-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.mingob.gob.pa/gobernacion-la-provincia-herrera"
+  },
+  {
+    "id": "DEP-003",
+    "name": "Orlando Carrasquilla",
+    "slug": "orlando-carrasquilla",
+    "party": "CD",
+    "partyFull": "Cambio Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Coclé",
+    "circuit": "2-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-003.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "hdorlandocarrasquilla",
+        "profileUrl": "https://www.instagram.com/hdorlandocarrasquilla/",
+        "avatar": "/images/avatars/DEP-003-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "carrasquilla30",
+        "profileUrl": "https://x.com/carrasquilla30",
+        "avatar": "/images/avatars/DEP-003-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ORLANDO_CARRASQUILLA"
+  },
+  {
+    "id": "DEP-004",
+    "name": "Dana Castañeda",
+    "slug": "dana-castaneda",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Coclé",
+    "circuit": "2-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-004.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "danacastanedaguardia",
+        "profileUrl": "https://www.instagram.com/danacastanedaguardia/",
+        "avatar": "/images/avatars/DEP-004-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 105,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Danacastanedag",
+        "profileUrl": "https://x.com/Danacastanedag",
+        "avatar": "/images/avatars/DEP-004-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/DANA__CASTANEDA"
+  },
+  {
+    "id": "DEP-067",
+    "name": "Shirley Castañedas",
+    "slug": "shirley-castanedas",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-067.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "shirleycastrm",
+        "profileUrl": "https://www.instagram.com/shirleycastrm/",
+        "avatar": "/images/avatars/DEP-067-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 110,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "ShirleyCastRM",
+        "profileUrl": "https://x.com/ShirleyCastRM",
+        "avatar": "/images/avatars/DEP-067-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/SHIRLEY__CASTANEDAS"
+  },
+  {
+    "id": "DEP-026",
+    "name": "Marcos Castillero",
+    "slug": "marcos-castillero",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Herrera",
+    "circuit": "6-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-026.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "castillero_me",
+        "profileUrl": "https://www.instagram.com/castillero_me/",
+        "avatar": "/images/avatars/DEP-026-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "castillero_me",
+        "profileUrl": "https://x.com/castillero_me",
+        "avatar": "/images/avatars/DEP-026-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/Marco_Castillero"
+  },
+  {
+    "id": "DEP-021",
+    "name": "Eliécer Castrellón",
+    "slug": "eliecer-castrellon",
+    "party": "PP",
+    "partyFull": "Partido Popular",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-6",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-021.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "castrellon_eliecer25",
+        "profileUrl": "https://www.instagram.com/castrellon_eliecer25/",
+        "avatar": "/images/avatars/DEP-021-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "juniercb",
+        "profileUrl": "https://x.com/juniercb",
+        "avatar": "/images/avatars/DEP-021-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ELIECER_CASTRELLON"
+  },
+  {
+    "id": "DEP-043",
+    "name": "Ernesto Cedeño",
+    "slug": "ernesto-cedeno",
+    "party": "MOCA",
+    "partyFull": "Movimiento Otro Camino",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-043.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "abogadoernestocedeno",
+        "profileUrl": "https://www.instagram.com/abogadoernestocedeno/",
+        "avatar": "/images/avatars/DEP-043-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "ernestocedeno",
+        "profileUrl": "https://x.com/ernestocedeno",
+        "avatar": "/images/avatars/DEP-043-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "cedenoabogado",
+        "profileUrl": "https://www.facebook.com/cedenoabogado/",
+        "avatar": "/images/avatars/DEP-043-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ERNESTO_CEDENO"
+  },
+  {
+    "id": "DEP-050",
+    "name": "Alaín Cedeño",
+    "slug": "alain-cedeno",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-6",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-050.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "alaindiputado",
+        "profileUrl": "https://www.instagram.com/alaindiputado/",
+        "avatar": "/images/avatars/DEP-050-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 120,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "alain_diputado",
+        "profileUrl": "https://x.com/alain_diputado",
+        "avatar": "/images/avatars/DEP-050-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "aIaindiputado",
+        "profileUrl": "https://www.facebook.com/aIaindiputado/",
+        "avatar": "/images/avatars/DEP-050-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ALAIN_ALBENIS_CEDENO_HERRERA"
+  },
+  {
+    "id": "DEP-036",
+    "name": "Walkiria Chandler",
+    "slug": "walkiria-chandler",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-036.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "walkiriachd",
+        "profileUrl": "https://www.instagram.com/walkiriachd/",
+        "avatar": "/images/avatars/DEP-036-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "WalkiriaChD",
+        "profileUrl": "https://x.com/WalkiriaChD",
+        "avatar": "/images/avatars/DEP-036-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "walkiriachd",
+        "profileUrl": "https://www.tiktok.com/@walkiriachd",
+        "avatar": "/images/avatars/DEP-036-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/WALKIRIA_CHANDLER_D'ORCY"
+  },
+  {
+    "id": "DEP-068",
+    "name": "Manuel Cheng",
+    "slug": "manuel-cheng",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-068.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "manuelchengp",
+        "profileUrl": "https://www.instagram.com/manuelchengp/",
+        "avatar": "/images/avatars/DEP-068-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "manuelchengpa",
+        "profileUrl": "https://x.com/manuelchengpa",
+        "avatar": "/images/avatars/DEP-068-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/MANUEL_CHENG_PENALBA"
+  },
+  {
+    "id": "DEP-011",
+    "name": "Yamireliz Chong",
+    "slug": "yamireliz-chong",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Colón",
+    "circuit": "3-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-011.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "yamirelizchong",
+        "profileUrl": "https://www.instagram.com/yamirelizchong/",
+        "avatar": "/images/avatars/DEP-011-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "YamirelizChong",
+        "profileUrl": "https://x.com/YamirelizChong",
+        "avatar": "/images/avatars/DEP-011-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "youtube",
+        "handle": "yamirelizchong",
+        "profileUrl": "https://www.youtube.com/@yamirelizchong",
+        "avatar": "/images/avatars/DEP-011-youtube.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "yamirelizchong",
+        "profileUrl": "https://www.tiktok.com/@yamirelizchong",
+        "avatar": "/images/avatars/DEP-011-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/YAMIRELIZ_CHONG"
+  },
+  {
+    "id": "ALC-005",
+    "name": "Eloy Chong",
+    "slug": "eloy-chong",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Alcalde",
+    "roleCategory": "Mayor",
+    "province": "Panamá Oeste",
+    "district": "La Chorrera",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/ALC-005.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "eloychong_",
+        "profileUrl": "https://www.instagram.com/eloychong_/",
+        "avatar": "/images/avatars/ALC-005-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "EloyChong_",
+        "profileUrl": "https://x.com/EloyChong_",
+        "avatar": "/images/avatars/ALC-005-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ]
+  },
+  {
+    "id": "DEP-018",
+    "name": "Ariana Coba",
+    "slug": "ariana-coba",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-018.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "arycoba",
+        "profileUrl": "https://www.instagram.com/arycoba/",
+        "avatar": "/images/avatars/DEP-018-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "arycoba",
+        "profileUrl": "https://x.com/arycoba",
+        "avatar": "/images/avatars/DEP-018-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ARIANA__COBA"
+  },
+  {
+    "id": "DEP-024",
+    "name": "Manuel Cohen",
+    "slug": "manuel-cohen",
+    "party": "CD",
+    "partyFull": "Cambio Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Herrera",
+    "circuit": "6-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-024.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "manuel_cohens",
+        "profileUrl": "https://www.instagram.com/manuel_cohens/",
+        "avatar": "/images/avatars/DEP-024-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "ManuelCohenS",
+        "profileUrl": "https://x.com/ManuelCohenS",
+        "avatar": "/images/avatars/DEP-024-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "manuelcohen58",
+        "profileUrl": "https://www.tiktok.com/@manuelcohen58",
+        "avatar": "/images/avatars/DEP-024-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/MANUEL_COHEN_SALERNO"
+  },
+  {
+    "id": "GOV-001",
+    "name": "Omaira 'Mayín' Correa Delgado",
+    "slug": "omaira-mayin-correa-delgado",
+    "party": "IND",
+    "partyFull": "Independiente",
+    "role": "Gobernadora",
+    "roleCategory": "Governor",
+    "province": "Panamá",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/GOV-001.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "CorreaMayin",
+        "profileUrl": "https://x.com/CorreaMayin",
+        "avatar": "/images/avatars/GOV-001-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "instagram",
+        "handle": "mayincorrea",
+        "profileUrl": "https://www.instagram.com/mayincorrea/",
+        "avatar": "/images/avatars/GOV-001-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.mingob.gob.pa/gobernacion-de-la-provincia-panama"
+  },
+  {
+    "id": "DEP-030",
+    "name": "Luis Duke",
+    "slug": "luis-duke",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-030.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "luchoduke",
+        "profileUrl": "https://www.instagram.com/luchoduke/",
+        "avatar": "/images/avatars/DEP-030-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "LuchoDuke",
+        "profileUrl": "https://x.com/LuchoDuke",
+        "avatar": "/images/avatars/DEP-030-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "oficialelduke",
+        "profileUrl": "https://www.tiktok.com/@oficialelduke",
+        "avatar": "/images/avatars/DEP-030-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 70,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "DukeLucho",
+        "profileUrl": "https://www.facebook.com/DukeLucho/",
+        "avatar": "/images/avatars/DEP-030-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/LUIS_LUCHO_DUKE"
+  },
+  {
+    "id": "DEP-029",
+    "name": "Eduardo Gaitán",
+    "slug": "eduardo-gaitan",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-029.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "eduardoagaitan",
+        "profileUrl": "https://www.instagram.com/eduardoagaitan/",
+        "avatar": "/images/avatars/DEP-029-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "EduardoAGaitan",
+        "profileUrl": "https://x.com/EduardoAGaitan",
+        "avatar": "/images/avatars/DEP-029-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "washpanama",
+        "profileUrl": "https://www.tiktok.com/@washpanama",
+        "avatar": "/images/avatars/DEP-029-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "eduardoagaitan",
+        "profileUrl": "https://www.facebook.com/eduardoagaitan",
+        "avatar": "/images/avatars/DEP-029-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/EDUARDO_GAITaN"
+  },
+  {
+    "id": "ALC-004",
+    "name": "Diógenes Galván",
+    "slug": "diogenes-galvan",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Alcalde",
+    "roleCategory": "Mayor",
+    "province": "Colón",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/ALC-004.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "diogenesgalvan",
+        "profileUrl": "https://www.instagram.com/diogenesgalvan/",
+        "avatar": "/images/avatars/ALC-004-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Diogenesgalvann",
+        "profileUrl": "https://x.com/Diogenesgalvann",
+        "avatar": "/images/avatars/ALC-004-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ]
+  },
+  {
+    "id": "DEP-038",
+    "name": "Sergio Gálvez",
+    "slug": "sergio-galvez",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-038.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "chellogalvez",
+        "profileUrl": "https://www.instagram.com/chellogalvez/",
+        "avatar": "/images/avatars/DEP-038-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "chelloalcalde",
+        "profileUrl": "https://x.com/chelloalcalde",
+        "avatar": "/images/avatars/DEP-038-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/SERGIO_RAFAEL_GALVEZ_EVERS"
+  },
+  {
+    "id": "DEP-016",
+    "name": "Osmán Gómez",
+    "slug": "osman-gomez",
+    "party": "ALZ",
+    "partyFull": "Partido Alianza",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-016.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "osmangomez2330",
+        "profileUrl": "https://www.instagram.com/osmangomez2330/",
+        "avatar": "/images/avatars/DEP-016-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "osmangomez2330",
+        "profileUrl": "https://www.tiktok.com/@osmangomez2330",
+        "avatar": "/images/avatars/DEP-016-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/OSMAN_GoMEZ"
+  },
+  {
+    "id": "DEP-007",
+    "name": "Néstor Guardia",
+    "slug": "nestor-guardia",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Coclé",
+    "circuit": "2-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-007.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "tinguardia",
+        "profileUrl": "https://x.com/tinguardia",
+        "avatar": "/images/avatars/DEP-007-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "hdtinguardia",
+        "profileUrl": "https://www.instagram.com/hdtinguardia/",
+        "avatar": "/images/avatars/DEP-007-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/NESTOR_ANTONIO_GUARDIA_JAEN"
+  },
+  {
+    "id": "DEP-008",
+    "name": "Julio De La Guardia",
+    "slug": "julio-de-la-guardia",
+    "party": "CD",
+    "partyFull": "Cambio Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Coclé",
+    "circuit": "2-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-008.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "delaguardiaj1",
+        "profileUrl": "https://x.com/delaguardiaj1",
+        "avatar": "/images/avatars/DEP-008-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "juliodelaguardia",
+        "profileUrl": "https://www.instagram.com/juliodelaguardia/",
+        "avatar": "/images/avatars/DEP-008-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ALAIN_ALBENIS_CEDENO_HERRERA"
+  },
+  {
+    "id": "DEP-044",
+    "name": "Grace Hernández",
+    "slug": "grace-hernandez",
+    "party": "MOCA",
+    "partyFull": "Movimiento Otro Camino",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-044.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "grace_diputada",
+        "profileUrl": "https://www.instagram.com/grace_diputada/",
+        "avatar": "/images/avatars/DEP-044-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "grace_diputada",
+        "profileUrl": "https://www.tiktok.com/@grace_diputada",
+        "avatar": "/images/avatars/DEP-044-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Grace_diputada",
+        "profileUrl": "https://x.com/Grace_diputada",
+        "avatar": "/images/avatars/DEP-044-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "gracehndz2024",
+        "profileUrl": "https://www.facebook.com/gracehndz2024",
+        "avatar": "/images/avatars/DEP-044-facebook.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/GRACE_HERNANDEZ"
+  },
+  {
+    "id": "DEP-005",
+    "name": "Jorge Herrera",
+    "slug": "jorge-herrera",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Coclé",
+    "circuit": "2-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-005.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "jorgeherrerahd",
+        "profileUrl": "https://www.instagram.com/jorgeherrerahd/",
+        "avatar": "/images/avatars/DEP-005-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "jherrerahd",
+        "profileUrl": "https://x.com/jherrerahd",
+        "avatar": "/images/avatars/DEP-005-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JORGE_HERRERA"
+  },
+  {
+    "id": "ALC-010",
+    "name": "Eric Jaén",
+    "slug": "eric-jaen",
+    "party": "MOCA",
+    "partyFull": "Movimiento Otro Camino",
+    "role": "Alcalde",
+    "roleCategory": "Mayor",
+    "province": "Veraguas",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/ALC-010.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "ericj_jaenv",
+        "profileUrl": "https://www.instagram.com/ericj_jaenv/",
+        "avatar": "/images/avatars/ALC-010-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "ing_jaen",
+        "profileUrl": "https://x.com/ing_jaen",
+        "avatar": "/images/avatars/ALC-010-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ]
+  },
+  {
+    "id": "DEP-019",
+    "name": "Medín Jiménez",
+    "slug": "medin-jimenez",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-019.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "hdmedinjimenez",
+        "profileUrl": "https://www.instagram.com/hdmedinjimenez/",
+        "avatar": "/images/avatars/DEP-019-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "MedinJimenez",
+        "profileUrl": "https://x.com/MedinJimenez",
+        "avatar": "/images/avatars/DEP-019-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/MEDIN_JIMENEZ_PITTi"
+  },
+  {
+    "id": "GOV-009",
+    "name": "Arnulfo Díaz de León",
+    "slug": "arnulfo-diaz-de-leon",
+    "party": "IND",
+    "partyFull": "Independiente",
+    "role": "Gobernador",
+    "roleCategory": "Governor",
+    "province": "Darién",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/GOV-009.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "Dr_ArnulfoDiaz",
+        "profileUrl": "https://x.com/Dr_ArnulfoDiaz",
+        "avatar": "/images/avatars/GOV-009-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "hd_arnulfodiaz",
+        "profileUrl": "https://www.instagram.com/hd_arnulfodiaz/",
+        "avatar": "/images/avatars/GOV-009-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.mingob.gob.pa/gobernacion-la-provincia-darien"
+  },
+  {
+    "id": "ALC-006",
+    "name": "Joaquín De León",
+    "slug": "joaquin-de-leon",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Alcalde",
+    "roleCategory": "Mayor",
+    "province": "Chiriquí",
+    "district": "David",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/ALC-006.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "joaquin_deleon",
+        "profileUrl": "https://www.instagram.com/joaquin_deleon/",
+        "avatar": "/images/avatars/ALC-006-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Joaquindeleon_",
+        "profileUrl": "https://x.com/Joaquindeleon_",
+        "avatar": "/images/avatars/ALC-006-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.mingob.gob.pa/gobernacion-la-provincia-darien"
+  },
+  {
+    "id": "DEP-069",
+    "name": "Yuzaida Marín",
+    "slug": "yuzaida-marin",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-069.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "yuzaida.marin",
+        "profileUrl": "https://www.instagram.com/yuzaida.marin/",
+        "avatar": "/images/avatars/DEP-069-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Yuzaidadiputada",
+        "profileUrl": "https://x.com/Yuzaidadiputada",
+        "avatar": "/images/avatars/DEP-069-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/YUZAIDA_MARiN"
+  },
+  {
+    "id": "ALC-001",
+    "name": "Mayer Mizrachi",
+    "slug": "mayer-mizrachi",
+    "party": "PP",
+    "partyFull": "Partido Popular",
+    "role": "Alcalde",
+    "roleCategory": "Mayor",
+    "province": "Panamá",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/ALC-001.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "mayermm",
+        "profileUrl": "https://www.instagram.com/mayermm/",
+        "avatar": "/images/avatars/ALC-001-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "mayermm",
+        "profileUrl": "https://www.tiktok.com/@mayermm",
+        "avatar": "/images/avatars/ALC-001-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Mayer",
+        "profileUrl": "https://x.com/Mayer",
+        "avatar": "/images/avatars/ALC-001-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://mupa.gob.pa/alcalde-de-panama/"
+  },
+  {
+    "id": "DEP-022",
+    "name": "Isaac Mosquera",
+    "slug": "isaac-mosquera",
+    "party": "MOLIRENA",
+    "partyFull": "MOLIRENA",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Darién",
+    "circuit": "5-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-022.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "diputadoisaacmosquera08",
+        "profileUrl": "https://www.instagram.com/diputadoisaacmosquera08/",
+        "avatar": "/images/avatars/DEP-022-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "IsaacMosquera15",
+        "profileUrl": "https://x.com/IsaacMosquera15",
+        "avatar": "/images/avatars/DEP-022-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ISAAC_MOSQUERA"
+  },
+  {
+    "id": "PRES-001",
+    "name": "José Raúl Mulino",
+    "slug": "jose-raul-mulino",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Presidente de la República",
+    "roleCategory": "President",
+    "province": "Nacional",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/PRES-001.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "joseraulmulino",
+        "profileUrl": "https://www.instagram.com/joseraulmulino/",
+        "avatar": "/images/avatars/PRES-001-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "JoseRaulMulino",
+        "profileUrl": "https://x.com/JoseRaulMulino",
+        "avatar": "/images/avatars/PRES-001-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.presidencia.gob.pa/pagina/presidente-de-la-republica-de-panama"
+  },
+  {
+    "id": "GOV-006",
+    "name": "Aixa Santamaría Muñoz",
+    "slug": "aixa-santamaria-munoz",
+    "party": "IND",
+    "partyFull": "Independiente",
+    "role": "Gobernadora",
+    "roleCategory": "Governor",
+    "province": "Chiriquí",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/GOV-006.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "aixa.santamaria",
+        "profileUrl": "https://www.instagram.com/aixa.santamaria/",
+        "avatar": "/images/avatars/GOV-006-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.mingob.gob.pa/gobernacion-la-provincia-chiriqui"
+  },
+  {
+    "id": "DEP-035",
+    "name": "Luis Omar Ortega",
+    "slug": "luis-omar-ortega",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-035.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "OmarOrtegaHD",
+        "profileUrl": "https://x.com/OmarOrtegaHD",
+        "avatar": "/images/avatars/DEP-035-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "hd.omarortega",
+        "profileUrl": "https://www.instagram.com/hd.omarortega/",
+        "avatar": "/images/avatars/DEP-035-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/OMAR_ORTEGA"
+  },
+  {
+    "id": "DEP-013",
+    "name": "Augusto Palacios",
+    "slug": "augusto-palacios",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-013.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "tutopalaciosm",
+        "profileUrl": "https://x.com/tutopalaciosm",
+        "avatar": "/images/avatars/DEP-013-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "tutopalaciosm",
+        "profileUrl": "https://www.instagram.com/tutopalaciosm/",
+        "avatar": "/images/avatars/DEP-013-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "tutopalaciosm",
+        "profileUrl": "https://www.tiktok.com/@tutopalaciosm",
+        "avatar": "/images/avatars/DEP-013-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/AUGUSTO_PALACIOS"
+  },
+  {
+    "id": "ALC-003",
+    "name": "Stefany Dayan Peñalba",
+    "slug": "stefany-dayan-penalba",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Alcaldesa",
+    "roleCategory": "Mayor",
+    "province": "Panamá Oeste",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/ALC-003.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "stefanydayanpenalba",
+        "profileUrl": "https://www.instagram.com/stefanydayanpenalba/",
+        "avatar": "/images/avatars/ALC-003-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "stefanydayanpenalba",
+        "profileUrl": "https://www.tiktok.com/@stefanydayanpenalba",
+        "avatar": "/images/avatars/ALC-003-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Stefanypenalba",
+        "profileUrl": "https://x.com/Stefanypenalba",
+        "avatar": "/images/avatars/ALC-003-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      }
+    ]
+  },
+  {
+    "id": "DEP-034",
+    "name": "Raúl Pineda",
+    "slug": "raul-pineda",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-034.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "raulpineda86",
+        "profileUrl": "https://www.instagram.com/raulpineda86/",
+        "avatar": "/images/avatars/DEP-034-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "raulpinedav",
+        "profileUrl": "https://x.com/raulpinedav",
+        "avatar": "/images/avatars/DEP-034-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "raulpineda86",
+        "profileUrl": "https://www.facebook.com/raulpineda86/",
+        "avatar": "/images/avatars/DEP-034-facebook.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/RAUL__PINEDA"
+  },
+  {
+    "id": "DEP-056",
+    "name": "Didiano Pinilla",
+    "slug": "didiano-pinilla",
+    "party": "CD",
+    "partyFull": "Cambio Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Veraguas",
+    "circuit": "9-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-056.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "didipinilla",
+        "profileUrl": "https://www.instagram.com/didipinilla/",
+        "avatar": "/images/avatars/DEP-056-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "didipinilla",
+        "profileUrl": "https://x.com/didipinilla",
+        "avatar": "/images/avatars/DEP-056-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/DIDIANO_PINILLA_RiOS"
+  },
+  {
+    "id": "DEP-064",
+    "name": "Janine Prado",
+    "slug": "janine-prado",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Veraguas",
+    "circuit": "9-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-064.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "janineprado06",
+        "profileUrl": "https://x.com/janineprado06",
+        "avatar": "/images/avatars/DEP-064-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "instagram",
+        "handle": "janinepc06",
+        "profileUrl": "https://www.instagram.com/janinepc06/",
+        "avatar": "/images/avatars/DEP-064-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "janineprado06",
+        "profileUrl": "https://www.tiktok.com/@janineprado06",
+        "avatar": "/images/avatars/DEP-064-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "facebook",
+        "handle": "JaninePrado",
+        "profileUrl": "https://facebook.com/JaninePrado",
+        "avatar": "/images/avatars/DEP-064-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JAIME_PRADO"
+  },
+  {
+    "id": "DEP-071",
+    "name": "Patsy Lee Rentería",
+    "slug": "patsy-lee-renteria",
+    "party": "PP",
+    "partyFull": "Partido Popular",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-071.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "patsyleer",
+        "profileUrl": "https://www.instagram.com/patsyleer/",
+        "avatar": "/images/avatars/DEP-071-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "patsyleer",
+        "profileUrl": "https://x.com/patsyleer",
+        "avatar": "/images/avatars/DEP-071-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/PATSY__LEE_RENTERiA"
+  },
+  {
+    "id": "DEP-012",
+    "name": "Rogelio Revello",
+    "slug": "rogelio-revello",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Colón",
+    "circuit": "3-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-012.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "eltiorevan",
+        "profileUrl": "https://x.com/eltiorevan",
+        "avatar": "/images/avatars/DEP-012-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "instagram",
+        "handle": "eltiorevan",
+        "profileUrl": "https://www.instagram.com/eltiorevan/",
+        "avatar": "/images/avatars/DEP-012-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ROGELIO_REVELLO"
+  },
+  {
+    "id": "DEP-049",
+    "name": "Betserai Richards",
+    "slug": "betserai-richards",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-6",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-049.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "betseraitv",
+        "profileUrl": "https://www.instagram.com/betseraitv/",
+        "avatar": "/images/avatars/DEP-049-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "betseraitv",
+        "profileUrl": "https://www.tiktok.com/@betseraitv",
+        "avatar": "/images/avatars/DEP-049-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "Betseraitv",
+        "profileUrl": "https://x.com/Betseraitv",
+        "avatar": "/images/avatars/DEP-049-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/BETSARAI_RICHARD"
+  },
+  {
+    "id": "DEP-002",
+    "name": "Benicio Robinson",
+    "slug": "benicio-robinson",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Bocas del Toro",
+    "circuit": "1-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-002.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "beniciorobinson",
+        "profileUrl": "https://www.instagram.com/beniciorobinson/",
+        "avatar": "/images/avatars/DEP-002-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "BenicioRobinson",
+        "profileUrl": "https://x.com/BenicioRobinson",
+        "avatar": "/images/avatars/DEP-002-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "facebook",
+        "handle": "beniciorobinson",
+        "profileUrl": "https://facebook.com/beniciorobinson",
+        "avatar": "/images/avatars/DEP-002-facebook.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/BENICIO_ROBINSON"
+  },
+  {
+    "id": "DEP-032",
+    "name": "Yarelis Rodríguez",
+    "slug": "yarelis-rodriguez",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-032.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "drayarelisrod",
+        "profileUrl": "https://x.com/drayarelisrod",
+        "avatar": "/images/avatars/DEP-032-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "yarelis_o1rodriguez",
+        "profileUrl": "https://www.instagram.com/yarelis_o1rodriguez/",
+        "avatar": "/images/avatars/DEP-032-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "cool"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "doctorayarelisrodriguez",
+        "profileUrl": "https://www.tiktok.com/@doctorayarelisrodriguez",
+        "avatar": "/images/avatars/DEP-032-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/YARELIS_RODRiGUEZ"
+  },
+  {
+    "id": "DEP-001",
+    "name": "Yesica Romero",
+    "slug": "yesica-romero",
+    "party": "CD",
+    "partyFull": "Cambio Democrático",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Bocas del Toro",
+    "circuit": "1-1",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/DEP-001.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "hdyesicaromerog",
+        "profileUrl": "https://www.instagram.com/hdyesicaromerog/",
+        "avatar": "/images/avatars/DEP-001-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "yesica_romerog",
+        "profileUrl": "https://x.com/yesica_romerog",
+        "avatar": "/images/avatars/DEP-001-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "yessicaromero856",
+        "profileUrl": "https://www.tiktok.com/@yessicaromero856",
+        "avatar": "/images/avatars/DEP-001-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/YESSICA__ROMERO"
+  },
+  {
+    "id": "DEP-009",
+    "name": "Jairo Salazar",
+    "slug": "jairo-salazar",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Colón",
+    "circuit": "3-1",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/DEP-009.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "jairobolota",
+        "profileUrl": "https://www.instagram.com/jairobolota/",
+        "avatar": "/images/avatars/DEP-009-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "JAIROBOLOTA",
+        "profileUrl": "https://x.com/JAIROBOLOTA",
+        "avatar": "/images/avatars/DEP-009-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "jairobolotaoficial",
+        "profileUrl": "https://www.tiktok.com/@jairobolotaoficial",
+        "avatar": "/images/avatars/DEP-009-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JAIRO_SALAZAR"
+  },
+  {
+    "id": "DEP-014",
+    "name": "Carlos Saldaña",
+    "slug": "carlos-saldana",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-1",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-014.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "carlitinsalda08",
+        "profileUrl": "https://www.instagram.com/carlitinsalda08/",
+        "avatar": "/images/avatars/DEP-014-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "carlosesaldanaa",
+        "profileUrl": "https://x.com/carlosesaldanaa",
+        "avatar": "/images/avatars/DEP-014-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 70,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/CARLOS_SALDA209A"
+  },
+  {
+    "id": "DEP-051",
+    "name": "Manuel Samaniego",
+    "slug": "manuel-samaniego",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-6",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-051.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "manuelsamaniegor",
+        "profileUrl": "https://www.instagram.com/manuelsamaniegor/",
+        "avatar": "/images/avatars/DEP-051-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "M_SamaniegoR",
+        "profileUrl": "https://x.com/M_SamaniegoR",
+        "avatar": "/images/avatars/DEP-051-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/MANUEL_SAMANIEGO"
+  },
+  {
+    "id": "GOV-002",
+    "name": "Marilyn Vallarino B. de Sellhorn",
+    "slug": "marilyn-vallarino-b-de-sellhorn",
+    "party": "IND",
+    "partyFull": "Independiente",
+    "role": "Gobernadora",
+    "roleCategory": "Governor",
+    "province": "Panamá Oeste",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/GOV-002.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "MaryVallarino",
+        "profileUrl": "https://x.com/MaryVallarino",
+        "avatar": "/images/avatars/GOV-002-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "marylinvallarino",
+        "profileUrl": "https://www.instagram.com/marylinvallarino/",
+        "avatar": "/images/avatars/GOV-002-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.mingob.gob.pa/gobernacion-la-provincia-panama-oeste"
+  },
+  {
+    "id": "DEP-045",
+    "name": "Javier Sucre",
+    "slug": "javier-sucre",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-045.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "javiersucrem",
+        "profileUrl": "https://www.instagram.com/javiersucrem/",
+        "avatar": "/images/avatars/DEP-045-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "JavierSucre2",
+        "profileUrl": "https://x.com/JavierSucre2",
+        "avatar": "/images/avatars/DEP-045-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JAVIER_SUCRE"
+  },
+  {
+    "id": "DEP-040",
+    "name": "Paulette Thomas",
+    "slug": "paulette-thomas",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputada",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-040.jpg",
+    "accounts": [
+      {
+        "platform": "x_twitter",
+        "handle": "thomas_paulette",
+        "profileUrl": "https://x.com/thomas_paulette",
+        "avatar": "/images/avatars/DEP-040-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "instagram",
+        "handle": "thomas_paulette",
+        "profileUrl": "https://www.instagram.com/thomas_paulette/",
+        "avatar": "/images/avatars/DEP-040-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "paulette.thomas.908",
+        "profileUrl": "https://www.facebook.com/paulette.thomas.908",
+        "avatar": "/images/avatars/DEP-040-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/PAULETTE_THOMAS"
+  },
+  {
+    "id": "DEP-066",
+    "name": "Lenin Ulate",
+    "slug": "lenin-ulate",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-066.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "lenin_ulate",
+        "profileUrl": "https://www.instagram.com/lenin_ulate/",
+        "avatar": "/images/avatars/DEP-066-instagram.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "lenin_ulate",
+        "profileUrl": "https://x.com/lenin_ulate",
+        "avatar": "/images/avatars/DEP-066-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 70,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "leninulate",
+        "profileUrl": "https://www.tiktok.com/@leninulate",
+        "avatar": "/images/avatars/DEP-066-tiktok.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/LENIN_A_ULATE"
+  },
+  {
+    "id": "DEP-048",
+    "name": "Ariel Vallarino",
+    "slug": "ariel-vallarino",
+    "party": "RM",
+    "partyFull": "Realizando Metas",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-5",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-048.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "arielvallarino",
+        "profileUrl": "https://www.instagram.com/arielvallarino/",
+        "avatar": "/images/avatars/DEP-048-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 105,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "arielvallarino",
+        "profileUrl": "https://x.com/arielvallarino",
+        "avatar": "/images/avatars/DEP-048-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ARIEL_VALLARINO"
+  },
+  {
+    "id": "DEP-025",
+    "name": "José Luis Varela",
+    "slug": "jose-luis-varela",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Herrera",
+    "circuit": "6-2",
+    "hasHeadshot": false,
+    "headshot": "/images/headshots/DEP-025.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "varelapopi",
+        "profileUrl": "https://www.instagram.com/varelapopi/",
+        "avatar": "/images/avatars/DEP-025-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 110,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "varelapopi",
+        "profileUrl": "https://x.com/varelapopi",
+        "avatar": "/images/avatars/DEP-025-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 110,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JOSE_LUIS_POPI_VARELA"
+  },
+  {
+    "id": "DEP-023",
+    "name": "Jaime Vargas",
+    "slug": "jaime-vargas",
+    "party": "PRD",
+    "partyFull": "Partido Revolucionario Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Darién",
+    "circuit": "5-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-023.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "diputado_pinogana_jaimevargas",
+        "profileUrl": "https://www.instagram.com/diputado_pinogana_jaimevargas/",
+        "avatar": "/images/avatars/DEP-023-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "hot"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JAIME_EDGARDO_VARGAS_CENTELLA"
+  },
+  {
+    "id": "DEP-062",
+    "name": "Eduardo Vásquez",
+    "slug": "eduardo-vasquez",
+    "party": "CD",
+    "partyFull": "Cambio Democrático",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-2",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-062.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "eduardofanavasquez",
+        "profileUrl": "https://www.instagram.com/eduardofanavasquez/",
+        "avatar": "/images/avatars/DEP-062-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "eduardofanavasq",
+        "profileUrl": "https://x.com/eduardofanavasq",
+        "avatar": "/images/avatars/DEP-062-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/EDUARDO_VASQUEZ"
+  },
+  {
+    "id": "DEP-020",
+    "name": "Jhonathan Vega",
+    "slug": "jhonathan-vega",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-5",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-020.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "jhonathanevega",
+        "profileUrl": "https://www.instagram.com/jhonathanevega/",
+        "avatar": "/images/avatars/DEP-020-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "jhonathanevega",
+        "profileUrl": "https://x.com/jhonathanevega",
+        "avatar": "/images/avatars/DEP-020-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "jhonathanevega",
+        "profileUrl": "https://www.tiktok.com/@jhonathanevega",
+        "avatar": "/images/avatars/DEP-020-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/JHONATHAN_VEGA"
+  },
+  {
+    "id": "DEP-063",
+    "name": "Edwin Vergara",
+    "slug": "edwin-vergara",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá Oeste",
+    "circuit": "13-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-063.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "edwinavergarac",
+        "profileUrl": "https://www.instagram.com/edwinavergarac/",
+        "avatar": "/images/avatars/DEP-063-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 100,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "E_Vergara",
+        "profileUrl": "https://x.com/E_Vergara",
+        "avatar": "/images/avatars/DEP-063-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "edwinvergara__",
+        "profileUrl": "https://www.tiktok.com/@edwinvergara__",
+        "avatar": "/images/avatars/DEP-063-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/EDWIN_VERGARA"
+  },
+  {
+    "id": "DEP-017",
+    "name": "Ricardo Vigil",
+    "slug": "ricardo-vigil",
+    "party": "PAN",
+    "partyFull": "Partido Panameñista",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Chiriquí",
+    "circuit": "4-3",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-017.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "soyricardovigil",
+        "profileUrl": "https://www.instagram.com/soyricardovigil/",
+        "avatar": "/images/avatars/DEP-017-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "rickyv644",
+        "profileUrl": "https://x.com/rickyv644",
+        "avatar": "/images/avatars/DEP-017-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/RICARDO_VIGIL_LOPEZ"
+  },
+  {
+    "id": "DEP-046",
+    "name": "Neftalí Zamora",
+    "slug": "neftali-zamora",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-5",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-046.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "neftalizamorai",
+        "profileUrl": "https://www.instagram.com/neftalizamorai/",
+        "avatar": "/images/avatars/DEP-046-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "hot"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "neftalizamorai",
+        "profileUrl": "https://x.com/neftalizamorai",
+        "avatar": "/images/avatars/DEP-046-x_twitter.jpg",
+        "verdict": "CONFIRMED",
+        "score": 90,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "neftalizamorai",
+        "profileUrl": "https://www.tiktok.com/@neftalizamorai",
+        "avatar": "/images/avatars/DEP-046-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "facebook",
+        "handle": "neftalizamorai",
+        "profileUrl": "https://facebook.com/neftalizamorai",
+        "avatar": "/images/avatars/DEP-046-facebook.jpg",
+        "verdict": "PROBABLE",
+        "score": 80,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/NEFTALI_ZAMORA"
+  },
+  {
+    "id": "DEP-041",
+    "name": "Roberto Zúñiga",
+    "slug": "roberto-zuniga",
+    "party": "LP",
+    "partyFull": "Libre Postulación",
+    "role": "Diputado",
+    "roleCategory": "Deputy",
+    "province": "Panamá",
+    "circuit": "8-4",
+    "hasHeadshot": true,
+    "headshot": "/images/headshots/DEP-041.jpg",
+    "accounts": [
+      {
+        "platform": "instagram",
+        "handle": "robertojzuniga",
+        "profileUrl": "https://www.instagram.com/robertojzuniga/",
+        "avatar": "/images/avatars/DEP-041-instagram.jpg",
+        "verdict": "CONFIRMED",
+        "score": 95,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "tiktok",
+        "handle": "robertojzuniga",
+        "profileUrl": "https://www.tiktok.com/@robertojzuniga",
+        "avatar": "/images/avatars/DEP-041-tiktok.jpg",
+        "verdict": "PROBABLE",
+        "score": 75,
+        "pollingTier": "warm"
+      },
+      {
+        "platform": "x_twitter",
+        "handle": "robertojzuniga",
+        "profileUrl": "https://x.com/robertojzuniga",
+        "avatar": "/images/avatars/DEP-041-x_twitter.jpg",
+        "verdict": "PROBABLE",
+        "score": 85,
+        "pollingTier": "warm"
+      }
+    ],
+    "officialGovUrl": "https://www.asamblea.gob.pa/Diputados/ROBERTO_ZuNIGA"
+  }
+]
