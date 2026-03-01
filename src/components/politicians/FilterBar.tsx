@@ -12,6 +12,7 @@ interface FilterBarProps {
   hasActiveFilters: boolean;
   parties: string[];
   provinces: string[];
+  variant?: "default" | "dark";
 }
 
 export function FilterBar({
@@ -21,7 +22,10 @@ export function FilterBar({
   hasActiveFilters,
   parties,
   provinces,
+  variant = "default",
 }: FilterBarProps) {
+  const isDark = variant === "dark";
+
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Select
@@ -29,23 +33,30 @@ export function FilterBar({
         onChange={(v) => onFilterChange("role", v as RoleCategory | "")}
         placeholder="Cargo"
         options={ROLE_CATEGORIES.map((r) => ({ value: r.value, label: r.label }))}
+        variant={variant}
       />
       <Select
         value={filters.province}
         onChange={(v) => onFilterChange("province", v)}
         placeholder="Provincia"
         options={provinces.map((p) => ({ value: p, label: p }))}
+        variant={variant}
       />
       <Select
         value={filters.party}
         onChange={(v) => onFilterChange("party", v)}
         placeholder="Partido"
         options={parties.map((p) => ({ value: p, label: p }))}
+        variant={variant}
       />
       {hasActiveFilters && (
         <button
           onClick={onReset}
-          className="flex h-10 items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)] transition-colors"
+          className={`flex h-10 items-center gap-1.5 rounded-lg border px-3 text-sm transition-colors ${
+            isDark
+              ? "border-[#333] bg-[#1a1a1a] text-[#888] hover:text-white hover:bg-[#222]"
+              : "border-[var(--border)] bg-[var(--card)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]"
+          }`}
         >
           <RotateCcw className="h-3.5 w-3.5" />
           Limpiar

@@ -1,5 +1,5 @@
 export interface PoliticianAccount {
-  platform: "instagram" | "x_twitter" | "tiktok" | "facebook" | "youtube";
+  platform: "instagram" | "x_twitter" | "tiktok" | "facebook" | "youtube" | "discord" | "twitch" | "linkedin";
   handle: string;
   profileUrl: string;
   avatar: string;
@@ -23,6 +23,8 @@ export interface Politician {
   headshot: string;
   accounts: PoliticianAccount[];
   officialGovUrl?: string;
+  wikipediaUrl?: string;
+  personalWebsite?: string;
 }
 
 export type Platform = PoliticianAccount["platform"];

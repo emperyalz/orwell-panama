@@ -52,13 +52,29 @@ export function PoliticianCard({ politician }: PoliticianCardProps) {
         <div className="mt-auto pt-2 border-t border-[var(--border)]">
           <div className="flex items-center justify-between">
             <PlatformIcons accounts={politician.accounts} size={18} showLinks={false} />
-            {politician.officialGovUrl && (
-              <img
-                src="/icons/official/asamblea-nacional.png"
-                alt="Perfil oficial"
-                className="h-4 w-4 opacity-50"
-              />
-            )}
+            <div className="flex items-center gap-1.5">
+              {politician.officialGovUrl && (
+                <img
+                  src="/icons/official/asamblea-nacional.png"
+                  alt="Perfil oficial"
+                  className="h-4 w-4 opacity-50"
+                />
+              )}
+              {politician.wikipediaUrl && (
+                <img
+                  src="/icons/official/wikipedia.svg"
+                  alt="Wikipedia"
+                  className="h-4 w-4 opacity-50 dark:invert"
+                />
+              )}
+              {politician.personalWebsite && (
+                <img
+                  src="/icons/official/website.svg"
+                  alt="Sitio Web"
+                  className="h-4 w-4 opacity-50 dark:invert"
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

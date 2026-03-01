@@ -1,3 +1,17 @@
+/** Map party code → logo file (mixed formats from Wikipedia/official sources). */
+const PARTY_LOGOS: Record<string, string> = {
+  cd: "/icons/parties/cd.png",
+  prd: "/icons/parties/prd.png",
+  pan: "/icons/parties/pan.png",
+  lp: "/icons/parties/lp.svg",
+  rm: "/icons/parties/rm.png",
+  moca: "/icons/parties/moca.svg",
+  pp: "/icons/parties/pp.png",
+  molirena: "/icons/parties/molirena.png",
+  alz: "/icons/parties/alz.jpg",
+  ind: "/icons/parties/ind.svg",
+};
+
 interface PartyBadgeProps {
   party: string;
   partyFull?: string;
@@ -23,12 +37,16 @@ export function PartyBadge({
     lg: "text-base",
   };
 
+  const logoPath =
+    PARTY_LOGOS[party.toLowerCase()] ??
+    `/icons/parties/${party.toLowerCase()}.svg`;
+
   return (
     <div className="flex items-center gap-1.5">
       <img
-        src={`/icons/parties/${party.toLowerCase()}.svg`}
+        src={logoPath}
         alt={party}
-        className={sizeClasses[size]}
+        className={`${sizeClasses[size]} object-contain`}
       />
       <span className={`font-medium text-[var(--foreground)] ${textSizeClasses[size]}`}>
         {showFull && partyFull ? partyFull : party}

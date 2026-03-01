@@ -92,4 +92,22 @@ export const PLATFORM_CONFIG: Record<
     color: "#ff0000",
     urlPrefix: "https://www.youtube.com/",
   },
+  discord: {
+    label: "Discord",
+    icon: "/icons/platforms/discord.svg",
+    color: "#5865F2",
+    urlPrefix: "https://discord.gg/",
+  },
+  twitch: {
+    label: "Twitch",
+    icon: "/icons/platforms/twitch.svg",
+    color: "#9146FF",
+    urlPrefix: "https://www.twitch.tv/",
+  },
+  linkedin: {
+    label: "LinkedIn",
+    icon: "/icons/platforms/linkedin.svg",
+    color: "#0A66C2",
+    urlPrefix: "https://www.linkedin.com/in/",
+  },
 };

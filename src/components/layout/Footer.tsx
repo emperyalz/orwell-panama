@@ -26,7 +26,7 @@ export function Footer() {
             Las cuentas de redes sociales han sido verificadas mediante búsquedas
             públicas y fuentes oficiales.
           </p>
-          <p className="text-xs">© {new Date().getFullYear()} Orwell Panamá</p>
+          <p className="text-xs">© {new Date().getFullYear()} ORWELL | POLÍTICA</p>
         </div>
       </div>
     </footer>
