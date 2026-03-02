@@ -416,108 +416,113 @@ export function FeaturedHero() {
       {/* 3-card hero grid: carousel left (3/5) | YouTube top-right | article bottom-right */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:grid-rows-2 lg:h-[480px]">
 
-        {/* ── Left: Video carousel (3/5 columns, full height) ── */}
-        <div className="group relative lg:col-span-3 lg:row-span-2 min-h-[320px] overflow-hidden rounded-2xl bg-black">
-          {total === 0 ? (
-            /* Loading or empty state */
-            <div className="flex h-full min-h-[320px] items-center justify-center bg-[var(--muted)]">
-              <Play className="h-12 w-12 opacity-20 text-[var(--foreground)]" />
-            </div>
-          ) : (
-            <>
-              {/* Slides */}
-              {items.map((video, i) => (
-                <div
-                  key={video.url}
-                  className={`absolute inset-0 transition-opacity duration-500 ${
-                    i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                  }`}
-                >
-                  <CarouselSlide
-                    video={video}
-                    active={i === current}
-                    onEnded={handleEnded}
-                    playing={playing}
-                    setPlaying={setPlaying}
-                  />
-                </div>
-              ))}
+        {/* ── Left: carousel + thumbnail strip (flex row, thumbnails outside the frame) ── */}
+        <div className="lg:col-span-3 lg:row-span-2 flex gap-2 min-h-[320px]">
 
-              {/* Thumbnail strip — inside the carousel, top-right overlay */}
-              {total > 1 && (
-                <div className="absolute top-3 right-3 z-20 flex gap-1.5">
-                  {items.map((video, i) => (
-                    <button
-                      key={i}
-                      onClick={() => goTo(i)}
-                      className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
-                        i === current
-                          ? "ring-2 ring-white scale-110 shadow-lg"
-                          : "opacity-55 hover:opacity-90 hover:scale-105"
-                      }`}
-                      aria-label={`${video.handle || video.platform} — video ${i + 1}`}
-                    >
-                      {video.mp4 ? (
-                        <video
-                          src={video.mp4}
-                          preload="metadata"
-                          muted
-                          playsInline
-                          className="absolute inset-0 h-full w-full object-cover"
-                          onLoadedMetadata={(e) => {
-                            (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
-                          }}
-                        />
-                      ) : video.poster ? (
-                        <img
-                          src={video.poster}
-                          alt={video.handle || video.platform}
-                          className="absolute inset-0 h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
-                      )}
-                      <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
-                        <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Prev / Next arrows */}
-              <button
-                onClick={prev}
-                className="absolute left-3 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
-                aria-label="Previous video"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={next}
-                className="absolute right-3 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
-                aria-label="Next video"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-
-              {/* Dot navigation */}
-              {total > 1 && (
-                <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-1.5">
-                  {items.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => goTo(i)}
-                      className={`h-1.5 rounded-full transition-all duration-300 focus:outline-none ${
-                        i === current ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
-                      }`}
-                      aria-label={`Go to video ${i + 1}`}
+          {/* Carousel — fills remaining width */}
+          <div className="group relative flex-1 overflow-hidden rounded-2xl bg-black">
+            {total === 0 ? (
+              /* Loading or empty state */
+              <div className="flex h-full min-h-[320px] items-center justify-center bg-[var(--muted)]">
+                <Play className="h-12 w-12 opacity-20 text-[var(--foreground)]" />
+              </div>
+            ) : (
+              <>
+                {/* Slides */}
+                {items.map((video, i) => (
+                  <div
+                    key={video.url}
+                    className={`absolute inset-0 transition-opacity duration-500 ${
+                      i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                    }`}
+                  >
+                    <CarouselSlide
+                      video={video}
+                      active={i === current}
+                      onEnded={handleEnded}
+                      playing={playing}
+                      setPlaying={setPlaying}
                     />
-                  ))}
-                </div>
-              )}
-            </>
+                  </div>
+                ))}
+
+                {/* Prev / Next arrows */}
+                <button
+                  onClick={prev}
+                  className="absolute left-3 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
+                  aria-label="Previous video"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={next}
+                  className="absolute right-3 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
+                  aria-label="Next video"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+
+                {/* Dot navigation */}
+                {total > 1 && (
+                  <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-1.5">
+                    {items.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => goTo(i)}
+                        className={`h-1.5 rounded-full transition-all duration-300 focus:outline-none ${
+                          i === current ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
+                        }`}
+                        aria-label={`Go to video ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* Thumbnail strip — OUTSIDE the carousel, flush against its right edge */}
+          {total > 1 && (
+            <div className="flex shrink-0 flex-col justify-center gap-1.5">
+              {items.map((video, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className={`relative h-14 w-10 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
+                    i === current
+                      ? "ring-2 ring-red-500 scale-105 shadow-lg opacity-100"
+                      : "opacity-50 hover:opacity-85 hover:scale-105"
+                  }`}
+                  aria-label={`${video.handle || video.platform} — video ${i + 1}`}
+                >
+                  {video.mp4 ? (
+                    <video
+                      src={video.mp4}
+                      preload="metadata"
+                      muted
+                      playsInline
+                      className="absolute inset-0 h-full w-full object-cover"
+                      onLoadedMetadata={(e) => {
+                        (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
+                      }}
+                    />
+                  ) : video.poster ? (
+                    <img
+                      src={video.poster}
+                      alt={video.handle || video.platform}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
+                  )}
+                  <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
+                    <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
+                  </div>
+                </button>
+              ))}
+            </div>
           )}
+
         </div>
 
         {/* ── Top-right: YouTube video ── */}

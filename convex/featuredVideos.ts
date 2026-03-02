@@ -413,8 +413,11 @@ export const downloadOne = internalAction({
         if (igMeta.handle && !handle) {
           resolvedHandle = igMeta.handle;
         }
-        // Avatar: Instagram blocks unauthenticated profile image fetches — use gradient fallback
-        avatarUrl = undefined;
+        // Avatar: use unavatar.io as a proxy — it fetches IG profile pics without auth
+        const igHandleClean = (resolvedHandle ?? handle ?? igMeta.handle)?.replace(/^@/, "");
+        if (igHandleClean) {
+          avatarUrl = `https://unavatar.io/instagram/${igHandleClean}`;
+        }
       } else {
         throw new Error(`unsupported_platform: ${platform}`);
       }
@@ -647,18 +650,28 @@ export const refreshAvatarsAndHandles = action({
           });
           updated++;
         }
-        // Instagram: avatars blocked without auth, but we can try to get the handle
+        // Instagram: use unavatar.io proxy to get real profile pictures
         else if (platform === "instagram") {
+          let newHandle = r.handle;
+          // Try to extract real handle if missing
           if (!hasRealHandle) {
             const igMeta = await getInstagramMetadata(r.sourceUrl);
-            if (igMeta.handle) {
-              await ctx.runMutation(internal.featuredVideos.upsert, {
-                sourceUrl: r.sourceUrl,
-                status: "done",
-                handle: igMeta.handle,
-              });
-              updated++;
-            }
+            if (igMeta.handle) newHandle = igMeta.handle;
+          }
+          // Build unavatar.io avatar URL from the handle
+          const cleanHandle = newHandle?.replace(/^@/, "");
+          const newAvatarUrl = cleanHandle
+            ? `https://unavatar.io/instagram/${cleanHandle}`
+            : r.avatarUrl;
+          // Only write if something changed
+          if (newHandle !== r.handle || newAvatarUrl !== r.avatarUrl) {
+            await ctx.runMutation(internal.featuredVideos.upsert, {
+              sourceUrl: r.sourceUrl,
+              status: "done",
+              handle: newHandle,
+              avatarUrl: newAvatarUrl,
+            });
+            updated++;
           }
         }
       } catch (e) {
