@@ -405,57 +405,12 @@ export function FeaturedHero() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Section header: label left, thumbnail strip right */}
-      <div className="mb-5 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="h-5 w-1 shrink-0 rounded-full bg-red-600" />
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
-            Destacados
-          </h2>
-        </div>
-
-        {/* Thumbnail strip — above the grid, right-aligned */}
-        {total > 1 && (
-          <div className="flex gap-1.5">
-            {items.map((video, i) => (
-              <button
-                key={i}
-                onClick={() => { goTo(i); }}
-                className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
-                  i === current
-                    ? "ring-2 ring-red-500 scale-110 shadow-lg"
-                    : "opacity-55 hover:opacity-90 hover:scale-105"
-                }`}
-                aria-label={`${video.handle} — video ${i + 1}`}
-              >
-                {video.mp4 ? (
-                  <video
-                    src={video.mp4}
-                    preload="metadata"
-                    muted
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-cover"
-                    onLoadedMetadata={(e) => {
-                      (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
-                    }}
-                  />
-                ) : video.poster ? (
-                  <img
-                    src={video.poster}
-                    alt={video.handle}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
-                )}
-                {/* Platform chip */}
-                <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
-                  <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
+      {/* Section header */}
+      <div className="mb-5 flex items-center gap-3">
+        <span className="h-5 w-1 shrink-0 rounded-full bg-red-600" />
+        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
+          Destacados
+        </h2>
       </div>
 
       {/* 3-card hero grid: carousel left (3/5) | YouTube top-right | article bottom-right */}
@@ -470,6 +425,65 @@ export function FeaturedHero() {
             </div>
           ) : (
             <>
+              {/* Slides */}
+              {items.map((video, i) => (
+                <div
+                  key={video.url}
+                  className={`absolute inset-0 transition-opacity duration-500 ${
+                    i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <CarouselSlide
+                    video={video}
+                    active={i === current}
+                    onEnded={handleEnded}
+                    playing={playing}
+                    setPlaying={setPlaying}
+                  />
+                </div>
+              ))}
+
+              {/* Thumbnail strip — inside the carousel, top-right overlay */}
+              {total > 1 && (
+                <div className="absolute top-3 right-3 z-20 flex gap-1.5">
+                  {items.map((video, i) => (
+                    <button
+                      key={i}
+                      onClick={() => goTo(i)}
+                      className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
+                        i === current
+                          ? "ring-2 ring-white scale-110 shadow-lg"
+                          : "opacity-55 hover:opacity-90 hover:scale-105"
+                      }`}
+                      aria-label={`${video.handle || video.platform} — video ${i + 1}`}
+                    >
+                      {video.mp4 ? (
+                        <video
+                          src={video.mp4}
+                          preload="metadata"
+                          muted
+                          playsInline
+                          className="absolute inset-0 h-full w-full object-cover"
+                          onLoadedMetadata={(e) => {
+                            (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
+                          }}
+                        />
+                      ) : video.poster ? (
+                        <img
+                          src={video.poster}
+                          alt={video.handle || video.platform}
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
+                      )}
+                      <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
+                        <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {/* Prev / Next arrows */}
               <button
