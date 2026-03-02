@@ -211,6 +211,47 @@ async function storeImage(
   }
 }
 
+// ─── Helper: fetch Instagram profile avatar and store bytes in Convex ─────────
+// Tries multiple sources in order until one succeeds.
+
+async function getInstagramAvatarAndStore(
+  ctx: { storage: { store: (blob: Blob) => Promise<string>; getUrl: (id: string) => Promise<string | null> } },
+  username: string,
+): Promise<string | undefined> {
+  const clean = username.replace(/^@/, "");
+  if (!clean) return undefined;
+
+  // ── Source 1: unavatar.io — server-side download avoids browser CORS issues ─
+  const unavatarUrl = `https://unavatar.io/instagram/${clean}`;
+  const stored1 = await storeImage(ctx, unavatarUrl, "https://www.instagram.com/");
+  if (stored1) return stored1;
+
+  // ── Source 2: Instagram profile page og:image → download bytes ─────────────
+  try {
+    const res = await fetch(`https://www.instagram.com/${clean}/`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; Twitterbot/1.0)",
+        "Accept": "text/html",
+      },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (res.ok) {
+      const html = await res.text();
+      const ogImageMatch =
+        html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ??
+        html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+      if (ogImageMatch?.[1]) {
+        const stored2 = await storeImage(ctx, ogImageMatch[1], "https://www.instagram.com/");
+        if (stored2) return stored2;
+      }
+    }
+  } catch { /* continue */ }
+
+  // ── Source 3: store nothing, let the browser try the unavatar.io URL directly ─
+  // (returns the URL itself as a last resort — AvatarBadge onError fallback handles failure)
+  return unavatarUrl;
+}
+
 // ─── Helper: extract Instagram metadata (og:image + handle) from page HTML ────
 
 async function getInstagramMetadata(sourceUrl: string): Promise<{
@@ -413,10 +454,10 @@ export const downloadOne = internalAction({
         if (igMeta.handle && !handle) {
           resolvedHandle = igMeta.handle;
         }
-        // Avatar: use unavatar.io as a proxy — it fetches IG profile pics without auth
+        // Avatar: download + store in Convex (server-side bypasses Instagram's browser blocks)
         const igHandleClean = (resolvedHandle ?? handle ?? igMeta.handle)?.replace(/^@/, "");
         if (igHandleClean) {
-          avatarUrl = `https://unavatar.io/instagram/${igHandleClean}`;
+          avatarUrl = await getInstagramAvatarAndStore(ctx, igHandleClean);
         }
       } else {
         throw new Error(`unsupported_platform: ${platform}`);
@@ -595,8 +636,11 @@ export const resetErrors = action({
 // Instagram avatar fetching is blocked without auth — those stay as gradient initials.
 
 export const refreshAvatarsAndHandles = action({
-  args: {},
-  handler: async (ctx) => {
+  args: {
+    // Set forceInstagram=true to re-download Instagram avatars even if one is already stored
+    forceInstagram: v.optional(v.boolean()),
+  },
+  handler: async (ctx, { forceInstagram = false }) => {
     const all: Array<{
       _id: string;
       sourceUrl: string;
@@ -617,8 +661,9 @@ export const refreshAvatarsAndHandles = action({
       const hasRealHandle = r.handle && !GENERIC_HANDLES.includes(r.handle) && r.handle !== platform;
       const hasAvatar = !!r.avatarUrl;
 
-      // Skip if already has both real handle and avatar
-      if (hasRealHandle && hasAvatar) continue;
+      // For Instagram with forceInstagram, always re-download avatar
+      const isInstagram = platform === "instagram";
+      if (hasRealHandle && hasAvatar && !(isInstagram && forceInstagram)) continue;
 
       try {
         if (platform === "tiktok") {
@@ -650,7 +695,7 @@ export const refreshAvatarsAndHandles = action({
           });
           updated++;
         }
-        // Instagram: use unavatar.io proxy to get real profile pictures
+        // Instagram: download + store avatar bytes in Convex (bypasses browser-side IG blocks)
         else if (platform === "instagram") {
           let newHandle = r.handle;
           // Try to extract real handle if missing
@@ -658,10 +703,10 @@ export const refreshAvatarsAndHandles = action({
             const igMeta = await getInstagramMetadata(r.sourceUrl);
             if (igMeta.handle) newHandle = igMeta.handle;
           }
-          // Build unavatar.io avatar URL from the handle
+          // Download and store avatar bytes in Convex so the URL is guaranteed to work
           const cleanHandle = newHandle?.replace(/^@/, "");
           const newAvatarUrl = cleanHandle
-            ? `https://unavatar.io/instagram/${cleanHandle}`
+            ? await getInstagramAvatarAndStore(ctx, cleanHandle)
             : r.avatarUrl;
           // Only write if something changed
           if (newHandle !== r.handle || newAvatarUrl !== r.avatarUrl) {

@@ -416,11 +416,11 @@ export function FeaturedHero() {
       {/* 3-card hero grid: carousel left (3/5) | YouTube top-right | article bottom-right */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:grid-rows-2 lg:h-[480px]">
 
-        {/* ── Left: carousel + thumbnail strip (flex row, thumbnails outside the frame) ── */}
-        <div className="lg:col-span-3 lg:row-span-2 flex gap-2 min-h-[320px]">
+        {/* ── Left: carousel column — relative wrapper so thumbnails can escape overflow-hidden ── */}
+        <div className="relative lg:col-span-3 lg:row-span-2 min-h-[320px]">
 
-          {/* Carousel — fills remaining width */}
-          <div className="group relative flex-1 overflow-hidden rounded-2xl bg-black">
+          {/* Carousel — fills the full wrapper, clipped to rounded corners */}
+          <div className="group absolute inset-0 overflow-hidden rounded-2xl bg-black">
             {total === 0 ? (
               /* Loading or empty state */
               <div className="flex h-full min-h-[320px] items-center justify-center bg-[var(--muted)]">
@@ -481,17 +481,18 @@ export function FeaturedHero() {
             )}
           </div>
 
-          {/* Thumbnail strip — OUTSIDE the carousel, flush against its right edge */}
+          {/* Thumbnail strip — sibling to carousel, NOT inside overflow-hidden.
+              Sits on top of the video's top-right corner via absolute + z-30.  */}
           {total > 1 && (
-            <div className="flex shrink-0 flex-col justify-center gap-1.5">
+            <div className="absolute top-3 right-3 z-30 flex gap-1.5">
               {items.map((video, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  className={`relative h-14 w-10 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
+                  className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
                     i === current
-                      ? "ring-2 ring-red-500 scale-105 shadow-lg opacity-100"
-                      : "opacity-50 hover:opacity-85 hover:scale-105"
+                      ? "ring-2 ring-white scale-110 shadow-lg opacity-100"
+                      : "opacity-55 hover:opacity-90 hover:scale-105"
                   }`}
                   aria-label={`${video.handle || video.platform} — video ${i + 1}`}
                 >
