@@ -331,12 +331,21 @@ function CarouselSlide({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <AvatarBadge avatar={video.avatar} handle={video.handle} gradient={gradient} size="md" />
+            {video.handle && (
+              <AvatarBadge avatar={video.avatar} handle={video.handle} gradient={gradient} size="md" />
+            )}
+            {!video.handle && video.avatar && (
+              <AvatarBadge avatar={video.avatar} handle={video.platform} gradient={gradient} size="md" />
+            )}
             <div>
-              <p className="text-sm font-bold text-white drop-shadow">
-                {video.handle.startsWith("@") ? video.handle : `@${video.handle}`}
+              {video.handle ? (
+                <p className="text-sm font-bold text-white drop-shadow">
+                  {video.handle.startsWith("@") ? video.handle : `@${video.handle}`}
+                </p>
+              ) : null}
+              <p className={`capitalize text-white/70 ${video.handle ? "text-[11px]" : "text-xs font-semibold"}`}>
+                {video.platform}
               </p>
-              <p className="text-[11px] capitalize text-white/70">{video.platform}</p>
             </div>
           </div>
         </div>
@@ -359,13 +368,21 @@ export function FeaturedHero() {
   const featured = allReady.filter((r) => r.isFeatured);
   const sourceRecords = featured.length > 0 ? featured : allReady;
 
+  // Generic platform-name handles like "instagram" / "x" aren't real @handles
+  const GENERIC = new Set(["instagram", "x", "tiktok", "youtube", "facebook", "twitter"]);
+
   const items: CarouselVideo[] = sourceRecords.map((r) => {
     const platform = normalizePlatform(r.platform);
+    const rawHandle = r.handle;
+    // Use stored handle if it's real (not a generic platform fallback)
+    const handle = rawHandle && !GENERIC.has(rawHandle.replace(/^@/, "").toLowerCase())
+      ? rawHandle
+      : null;
     return {
       url: r.sourceUrl,
       mp4: r.mp4Url ?? undefined,
       poster: r.posterUrl ?? undefined,
-      handle: r.handle ?? platform,
+      handle: handle ?? "",
       avatar: r.avatarUrl ?? undefined,
       platform,
       embedSrc: buildEmbedSrc(r.sourceUrl, platform),
@@ -388,12 +405,57 @@ export function FeaturedHero() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Section label */}
-      <div className="mb-5 flex items-center gap-3">
-        <span className="h-5 w-1 rounded-full bg-red-600" />
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
-          Destacados
-        </h2>
+      {/* Section header: label left, thumbnail strip right */}
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="h-5 w-1 shrink-0 rounded-full bg-red-600" />
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
+            Destacados
+          </h2>
+        </div>
+
+        {/* Thumbnail strip — above the grid, right-aligned */}
+        {total > 1 && (
+          <div className="flex gap-1.5">
+            {items.map((video, i) => (
+              <button
+                key={i}
+                onClick={() => { goTo(i); }}
+                className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
+                  i === current
+                    ? "ring-2 ring-red-500 scale-110 shadow-lg"
+                    : "opacity-55 hover:opacity-90 hover:scale-105"
+                }`}
+                aria-label={`${video.handle} — video ${i + 1}`}
+              >
+                {video.mp4 ? (
+                  <video
+                    src={video.mp4}
+                    preload="metadata"
+                    muted
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                    onLoadedMetadata={(e) => {
+                      (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
+                    }}
+                  />
+                ) : video.poster ? (
+                  <img
+                    src={video.poster}
+                    alt={video.handle}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
+                )}
+                {/* Platform chip */}
+                <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
+                  <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* 3-card hero grid: carousel left (3/5) | YouTube top-right | article bottom-right */}
@@ -408,66 +470,6 @@ export function FeaturedHero() {
             </div>
           ) : (
             <>
-              {/* Slides */}
-              {items.map((video, i) => (
-                <div
-                  key={video.url}
-                  className={`absolute inset-0 transition-opacity duration-500 ${
-                    i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                  }`}
-                >
-                  <CarouselSlide
-                    video={video}
-                    active={i === current}
-                    onEnded={handleEnded}
-                    playing={playing}
-                    setPlaying={setPlaying}
-                  />
-                </div>
-              ))}
-
-              {/* Thumbnail strip — top-right corner overlay */}
-              {total > 1 && (
-                <div className="absolute top-3 right-3 z-20 flex gap-1.5">
-                  {items.map((video, i) => (
-                    <button
-                      key={i}
-                      onClick={() => { goTo(i); }}
-                      className={`relative h-11 w-8 shrink-0 overflow-hidden rounded-md transition-all duration-300 focus:outline-none ${
-                        i === current
-                          ? "ring-2 ring-white scale-110"
-                          : "opacity-55 hover:opacity-90 hover:scale-105"
-                      }`}
-                      aria-label={`${video.handle} — video ${i + 1}`}
-                    >
-                      {video.mp4 ? (
-                        <video
-                          src={video.mp4}
-                          preload="metadata"
-                          muted
-                          playsInline
-                          className="absolute inset-0 h-full w-full object-cover"
-                          onLoadedMetadata={(e) => {
-                            (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
-                          }}
-                        />
-                      ) : video.poster ? (
-                        <img
-                          src={video.poster}
-                          alt={video.handle}
-                          className="absolute inset-0 h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
-                      )}
-                      {/* Platform chip */}
-                      <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
-                        <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
 
               {/* Prev / Next arrows */}
               <button

@@ -211,9 +211,12 @@ async function storeImage(
   }
 }
 
-// ─── Helper: extract Instagram og:image URL from page HTML ───────────────────
+// ─── Helper: extract Instagram metadata (og:image + handle) from page HTML ────
 
-async function getInstagramOgImage(sourceUrl: string): Promise<string | undefined> {
+async function getInstagramMetadata(sourceUrl: string): Promise<{
+  ogImageUrl?: string;
+  handle?: string;
+}> {
   try {
     const res = await fetch(sourceUrl, {
       headers: {
@@ -222,13 +225,46 @@ async function getInstagramOgImage(sourceUrl: string): Promise<string | undefine
       },
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return undefined;
+    if (!res.ok) return {};
     const html = await res.text();
-    const match = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
-      ?? html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-    return match?.[1];
+
+    // ── og:image ──────────────────────────────────────────────────────────────
+    const ogImageMatch =
+      html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ??
+      html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+    const ogImageUrl = ogImageMatch?.[1];
+
+    // ── handle extraction (best-effort) ──────────────────────────────────────
+    let handle: string | undefined;
+
+    // 1. og:title may contain (@username): "Yo Mayer (@yomayer) • Instagram Reels"
+    const ogTitleMatch =
+      html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) ??
+      html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+    const ogTitle = ogTitleMatch?.[1];
+    if (ogTitle) {
+      const parenHandle = ogTitle.match(/\(@([A-Za-z0-9_.]{1,30})\)/);
+      if (parenHandle) handle = `@${parenHandle[1]}`;
+    }
+
+    // 2. JSON-LD alternateName: "alternateName":"@username"
+    if (!handle) {
+      const altName = html.match(/"alternateName"\s*:\s*"(@[A-Za-z0-9_.]{1,30})"/);
+      if (altName) handle = altName[1];
+    }
+
+    // 3. "username":"value" in embedded JSON (filter out common false-positives)
+    if (!handle) {
+      const BAD = new Set(["instagram", "web", "meta", "facebook", "null", "undefined"]);
+      const usernameField = html.match(/"username"\s*:\s*"([A-Za-z0-9_.]{2,30})"/);
+      if (usernameField && !BAD.has(usernameField[1].toLowerCase())) {
+        handle = `@${usernameField[1]}`;
+      }
+    }
+
+    return { ogImageUrl, handle };
   } catch {
-    return undefined;
+    return {};
   }
 }
 
@@ -369,10 +405,13 @@ export const downloadOne = internalAction({
         }
       } else if (platform === "instagram") {
         downloadUrl = await getCobaltDownloadUrl(sourceUrl);
-        // og:image from Instagram page (server-side fetch → store in Convex)
-        const ogImageUrl = await getInstagramOgImage(sourceUrl);
-        if (ogImageUrl) {
-          posterUrl = await storeImage(ctx, ogImageUrl, "https://www.instagram.com/");
+        // Fetch og:image + handle from Instagram page (server-side, no auth needed for public posts)
+        const igMeta = await getInstagramMetadata(sourceUrl);
+        if (igMeta.ogImageUrl) {
+          posterUrl = await storeImage(ctx, igMeta.ogImageUrl, "https://www.instagram.com/");
+        }
+        if (igMeta.handle && !handle) {
+          resolvedHandle = igMeta.handle;
         }
         // Avatar: Instagram blocks unauthenticated profile image fetches — use gradient fallback
         avatarUrl = undefined;
@@ -511,8 +550,8 @@ export const refreshThumbnails = action({
 
       try {
         if (platform === "instagram") {
-          const ogUrl = await getInstagramOgImage(r.sourceUrl);
-          if (ogUrl) posterUrl = await storeImage(ctx, ogUrl, "https://www.instagram.com/");
+          const igMeta = await getInstagramMetadata(r.sourceUrl);
+          if (igMeta.ogImageUrl) posterUrl = await storeImage(ctx, igMeta.ogImageUrl, "https://www.instagram.com/");
         } else if (platform === "tiktok") {
           const info = await getTikTokInfo(r.sourceUrl);
           if (info.thumbnailUrl) posterUrl = await storeImage(ctx, info.thumbnailUrl, "https://www.tiktok.com/");
@@ -570,7 +609,8 @@ export const refreshAvatarsAndHandles = action({
     for (const r of all) {
       if (r.status !== "done") continue;
 
-      const platform = r.platform ?? detectPlatform(r.sourceUrl);
+      // Normalize legacy "twitter" platform value to "x"
+      const platform = (r.platform === "twitter" ? "x" : r.platform) ?? detectPlatform(r.sourceUrl);
       const hasRealHandle = r.handle && !GENERIC_HANDLES.includes(r.handle) && r.handle !== platform;
       const hasAvatar = !!r.avatarUrl;
 
@@ -607,7 +647,20 @@ export const refreshAvatarsAndHandles = action({
           });
           updated++;
         }
-        // Instagram: avatars blocked without auth — skip
+        // Instagram: avatars blocked without auth, but we can try to get the handle
+        else if (platform === "instagram") {
+          if (!hasRealHandle) {
+            const igMeta = await getInstagramMetadata(r.sourceUrl);
+            if (igMeta.handle) {
+              await ctx.runMutation(internal.featuredVideos.upsert, {
+                sourceUrl: r.sourceUrl,
+                status: "done",
+                handle: igMeta.handle,
+              });
+              updated++;
+            }
+          }
+        }
       } catch (e) {
         console.warn(`[refreshAvatarsAndHandles] failed for ${r.sourceUrl}:`, e);
       }
