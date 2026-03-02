@@ -4,26 +4,24 @@
  * Flow: social media URL → platform-specific API → raw MP4 bytes → Convex file storage → permanent URL
  *
  * Platform strategies:
- *  - TikTok    → tikwm.com public API (no auth, returns direct CDN URL)
- *  - X/Twitter → vxtwitter.com public API (no auth, returns direct video URL)
+ *  - TikTok    → tikwm.com public API (no auth, returns direct CDN URL + avatar)
+ *  - X/Twitter → vxtwitter.com public API (no auth, returns direct video URL + avatar)
  *  - Instagram → self-hosted cobalt at https://cobalt-orwell.onrender.com (no auth required)
  *  - YouTube   → iframe embed only (no download needed, YouTube embeds work cleanly)
  *
- * VideoSection calls `processAll` on page load. It schedules a `downloadOne`
- * background action for every video not yet in the DB. Each action runs
- * independently on Convex's infrastructure (no Vercel timeout). When done,
- * the reactive `list` query auto-updates every subscribed client.
+ * Admin mutations allow adding/removing/reordering videos from the admin panel.
  */
 
 import { v } from "convex/values";
-import { action, internalAction, internalMutation, query } from "./_generated/server";
+import { action, internalAction, internalMutation, mutation, query } from "./_generated/server";
 import { api, internal } from "./_generated/api";
 
-// ─── Query: return all stored video records ───────────────────────────────────
+// ─── Query: return all stored video records (ordered by displayOrder) ──────────
 
 export const list = query({
   handler: async (ctx) => {
-    return ctx.db.query("featuredVideos").collect();
+    const rows = await ctx.db.query("featuredVideos").collect();
+    return rows.sort((a, b) => (a.displayOrder ?? 999) - (b.displayOrder ?? 999));
   },
 });
 
@@ -34,9 +32,14 @@ export const upsert = internalMutation({
     sourceUrl: v.string(),
     platform: v.optional(v.string()),
     handle: v.optional(v.string()),
+    avatarUrl: v.optional(v.string()),
     storageId: v.optional(v.id("_storage")),
     mp4Url: v.optional(v.string()),
     posterUrl: v.optional(v.string()),
+    title: v.optional(v.string()),
+    isFeatured: v.optional(v.boolean()),
+    displayOrder: v.optional(v.number()),
+    isActive: v.optional(v.boolean()),
     status: v.union(
       v.literal("pending"),
       v.literal("processing"),
@@ -60,6 +63,82 @@ export const upsert = internalMutation({
   },
 });
 
+// ─── Admin mutation: add a new video URL (triggers download pipeline) ──────────
+
+export const addVideo = mutation({
+  args: {
+    sourceUrl: v.string(),
+    handle: v.optional(v.string()),
+    title: v.optional(v.string()),
+    isFeatured: v.optional(v.boolean()),
+  },
+  handler: async (ctx, { sourceUrl, handle, title, isFeatured }) => {
+    const existing = await ctx.db
+      .query("featuredVideos")
+      .withIndex("by_sourceUrl", (q) => q.eq("sourceUrl", sourceUrl))
+      .first();
+
+    if (existing) {
+      // If it errored, allow re-queue by resetting to pending
+      if (existing.status === "error") {
+        await ctx.db.patch(existing._id, {
+          status: "pending",
+          errorMsg: undefined,
+          updatedAt: Date.now(),
+        });
+      }
+      return existing._id;
+    }
+
+    // Assign next display order
+    const all = await ctx.db.query("featuredVideos").collect();
+    const maxOrder = all.reduce((m, r) => Math.max(m, r.displayOrder ?? 0), 0);
+
+    return ctx.db.insert("featuredVideos", {
+      sourceUrl,
+      handle,
+      title,
+      isFeatured: isFeatured ?? false,
+      isActive: true,
+      displayOrder: maxOrder + 1,
+      status: "pending",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+// ─── Admin mutation: delete a video record ────────────────────────────────────
+
+export const removeVideo = mutation({
+  args: { id: v.id("featuredVideos") },
+  handler: async (ctx, { id }) => {
+    await ctx.db.delete(id);
+  },
+});
+
+// ─── Admin mutation: update metadata (isFeatured, isActive, displayOrder, handle) ─
+
+export const updateVideo = mutation({
+  args: {
+    id: v.id("featuredVideos"),
+    handle: v.optional(v.string()),
+    title: v.optional(v.string()),
+    isFeatured: v.optional(v.boolean()),
+    isActive: v.optional(v.boolean()),
+    displayOrder: v.optional(v.number()),
+    status: v.optional(v.union(
+      v.literal("pending"),
+      v.literal("processing"),
+      v.literal("done"),
+      v.literal("error"),
+    )),
+  },
+  handler: async (ctx, { id, ...fields }) => {
+    await ctx.db.patch(id, { ...fields, updatedAt: Date.now() });
+  },
+});
+
 // ─── Self-hosted cobalt instance ──────────────────────────────────────────────
 
 const COBALT_URL = "https://cobalt-orwell.onrender.com";
@@ -74,7 +153,6 @@ async function getCobaltDownloadUrl(sourceUrl: string): Promise<string> {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ url: sourceUrl }),
-    // Free tier may have cold-start delay — allow up to 90 seconds
     signal: AbortSignal.timeout(90000),
   });
 
@@ -86,13 +164,11 @@ async function getCobaltDownloadUrl(sourceUrl: string): Promise<string> {
     throw new Error(`cobalt_error: ${data.error?.code ?? JSON.stringify(data.error)}`);
   }
 
-  // status: "redirect" or "tunnel" — both have a direct url field
   if (data.status === "redirect" || data.status === "tunnel") {
     if (!data.url) throw new Error("cobalt_no_url");
     return data.url;
   }
 
-  // status: "picker" (e.g. carousel) — grab the first video item
   if (data.status === "picker" && data.picker?.length > 0) {
     const video = data.picker.find((p: { type: string }) => p.type === "video") ?? data.picker[0];
     if (video?.url) return video.url;
@@ -103,9 +179,9 @@ async function getCobaltDownloadUrl(sourceUrl: string): Promise<string> {
 
 // ─── Platform detector ────────────────────────────────────────────────────────
 
-function detectPlatform(url: string): "tiktok" | "twitter" | "instagram" | "youtube" | "unknown" {
+function detectPlatform(url: string): "tiktok" | "x" | "instagram" | "youtube" | "unknown" {
   if (url.includes("tiktok.com")) return "tiktok";
-  if (url.includes("x.com") || url.includes("twitter.com")) return "twitter";
+  if (url.includes("x.com") || url.includes("twitter.com")) return "x";
   if (url.includes("instagram.com")) return "instagram";
   if (url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
   return "unknown";
@@ -156,9 +232,14 @@ async function getInstagramOgImage(sourceUrl: string): Promise<string | undefine
   }
 }
 
-// ─── TikTok downloader via tikwm.com (free, no auth) ─────────────────────────
+// ─── TikTok downloader via tikwm.com ─────────────────────────────────────────
 
-async function getTikTokInfo(sourceUrl: string): Promise<{ downloadUrl: string; thumbnailUrl?: string }> {
+async function getTikTokInfo(sourceUrl: string): Promise<{
+  downloadUrl: string;
+  thumbnailUrl?: string;
+  avatarUrl?: string;
+  handle?: string;
+}> {
   const res = await fetch(
     `https://www.tikwm.com/api/?url=${encodeURIComponent(sourceUrl)}&hd=1`,
     {
@@ -179,13 +260,24 @@ async function getTikTokInfo(sourceUrl: string): Promise<{ downloadUrl: string; 
   const downloadUrl = data.data?.play ?? data.data?.hdplay;
   if (!downloadUrl) throw new Error("tikwm_no_url");
 
-  return { downloadUrl, thumbnailUrl: data.data?.cover ?? data.data?.origin_cover };
+  return {
+    downloadUrl,
+    thumbnailUrl: data.data?.cover ?? data.data?.origin_cover,
+    avatarUrl: data.data?.author?.avatar ?? data.data?.author?.avatarMedium,
+    handle: data.data?.author?.unique_id
+      ? `@${data.data.author.unique_id}`
+      : undefined,
+  };
 }
 
-// ─── X/Twitter downloader via vxtwitter.com (free, no auth) ──────────────────
+// ─── X/Twitter downloader via vxtwitter.com ──────────────────────────────────
 
-async function getTwitterDownloadUrl(sourceUrl: string): Promise<{ videoUrl: string; posterUrl?: string }> {
-  // Extract tweet ID from URL
+async function getTwitterDownloadUrl(sourceUrl: string): Promise<{
+  videoUrl: string;
+  posterUrl?: string;
+  avatarUrl?: string;
+  handle?: string;
+}> {
   const tweetId =
     sourceUrl.match(/\/status\/(\d+)/)?.[1] ??
     sourceUrl.match(/\/i\/status\/(\d+)/)?.[1];
@@ -204,7 +296,6 @@ async function getTwitterDownloadUrl(sourceUrl: string): Promise<{ videoUrl: str
 
   const data = await res.json();
 
-  // Pick the highest-quality video
   const media = data.media_extended?.find(
     (m: { type: string }) => m.type === "video",
   );
@@ -212,7 +303,11 @@ async function getTwitterDownloadUrl(sourceUrl: string): Promise<{ videoUrl: str
   const videoUrl = media?.url ?? data.mediaURLs?.[0];
   if (!videoUrl) throw new Error("vxtwitter_no_url");
 
-  return { videoUrl, posterUrl: media?.thumbnail_url };
+  // vxtwitter returns user_screen_name and user_profile_image_url
+  const handle = data.user_screen_name ? `@${data.user_screen_name}` : undefined;
+  const avatarUrl = data.user_profile_image_url ?? undefined;
+
+  return { videoUrl, posterUrl: media?.thumbnail_url, avatarUrl, handle };
 }
 
 // ─── Internal action: download one video → Convex storage ─────────────────────
@@ -225,7 +320,7 @@ export const downloadOne = internalAction({
   handler: async (ctx, { sourceUrl, handle }) => {
     const platform = detectPlatform(sourceUrl);
 
-    // YouTube: mark as done without mp4Url — embed works great, no download needed
+    // YouTube: mark as done without mp4Url — embed works great
     if (platform === "youtube") {
       await ctx.runMutation(internal.featuredVideos.upsert, {
         sourceUrl,
@@ -236,7 +331,7 @@ export const downloadOne = internalAction({
       return { success: true, platform, note: "embed_only" };
     }
 
-    // Mark as processing immediately so parallel calls skip this URL
+    // Mark as processing so parallel calls skip this URL
     await ctx.runMutation(internal.featuredVideos.upsert, {
       sourceUrl,
       handle,
@@ -247,27 +342,40 @@ export const downloadOne = internalAction({
     try {
       let downloadUrl: string;
       let posterUrl: string | undefined;
+      let avatarUrl: string | undefined;
+      let resolvedHandle: string | undefined = handle;
 
-      // ── Step 1: get the direct download URL + thumbnail via platform API ──
+      // ── Step 1: get the direct download URL + thumbnail + avatar ──────────
       if (platform === "tiktok") {
         const info = await getTikTokInfo(sourceUrl);
         downloadUrl = info.downloadUrl;
-        // TikTok CDN thumbnails are publicly accessible — store permanently in Convex
+        resolvedHandle = handle ?? info.handle;
+        // Store thumbnail in Convex (TikTok CDN is publicly accessible)
         if (info.thumbnailUrl) {
           posterUrl = await storeImage(ctx, info.thumbnailUrl, "https://www.tiktok.com/");
+        }
+        // Store avatar in Convex
+        if (info.avatarUrl) {
+          avatarUrl = await storeImage(ctx, info.avatarUrl, "https://www.tiktok.com/");
         }
       } else if (platform === "twitter") {
         const result = await getTwitterDownloadUrl(sourceUrl);
         downloadUrl = result.videoUrl;
         posterUrl = result.posterUrl; // pbs.twimg.com — works directly in browser
+        resolvedHandle = handle ?? result.handle;
+        // Store Twitter avatar in Convex (pbs.twimg URLs are stable)
+        if (result.avatarUrl) {
+          avatarUrl = await storeImage(ctx, result.avatarUrl, "https://x.com/");
+        }
       } else if (platform === "instagram") {
-        // Self-hosted cobalt — no auth, no Turnstile
         downloadUrl = await getCobaltDownloadUrl(sourceUrl);
-        // Fetch og:image server-side then store in Convex (bypasses hotlink protection)
+        // og:image from Instagram page (server-side fetch → store in Convex)
         const ogImageUrl = await getInstagramOgImage(sourceUrl);
         if (ogImageUrl) {
           posterUrl = await storeImage(ctx, ogImageUrl, "https://www.instagram.com/");
         }
+        // Avatar: Instagram blocks unauthenticated profile image fetches — use gradient fallback
+        avatarUrl = undefined;
       } else {
         throw new Error(`unsupported_platform: ${platform}`);
       }
@@ -275,8 +383,7 @@ export const downloadOne = internalAction({
       // ── Step 2: download the raw video bytes ──────────────────────────────
       const videoRes = await fetch(downloadUrl, {
         headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
           "Referer":
             platform === "tiktok"
               ? "https://www.tiktok.com/"
@@ -284,12 +391,10 @@ export const downloadOne = internalAction({
                 ? "https://www.instagram.com/"
                 : "https://x.com/",
         },
-        signal: AbortSignal.timeout(120000), // 2 minutes for video download
+        signal: AbortSignal.timeout(120000),
       });
 
-      if (!videoRes.ok) {
-        throw new Error(`download_failed_${videoRes.status}`);
-      }
+      if (!videoRes.ok) throw new Error(`download_failed_${videoRes.status}`);
 
       const blob = await videoRes.blob();
 
@@ -299,12 +404,14 @@ export const downloadOne = internalAction({
 
       await ctx.runMutation(internal.featuredVideos.upsert, {
         sourceUrl,
-        handle,
+        handle: resolvedHandle,
         platform,
+        avatarUrl,
         storageId,
         mp4Url: mp4Url ?? "",
         posterUrl,
         status: "done",
+        errorMsg: undefined, // clear any previous error message
       });
 
       return { success: true, mp4Url };
@@ -314,16 +421,13 @@ export const downloadOne = internalAction({
         status: "error",
         errorMsg: String(err),
       });
-      // Don't rethrow — a single failed video shouldn't crash the whole batch
       console.error(`[featuredVideos] failed to download ${sourceUrl}:`, err);
       return { success: false, error: String(err) };
     }
   },
 });
 
-// ─── Public action: schedule downloads for all pending videos ─────────────────
-// Called from VideoSection on page load. Returns immediately — downloads run
-// in the background. Existing "done" or "processing" records are skipped.
+// ─── Public action: trigger download pipeline for pending URLs ─────────────────
 
 export const processAll = action({
   args: {
@@ -335,7 +439,6 @@ export const processAll = action({
     ),
   },
   handler: async (ctx, { videos }) => {
-    // Fetch current DB state to skip already-processed/in-flight videos
     const existing: Array<{ sourceUrl: string; status: string }> =
       await ctx.runQuery(api.featuredVideos.list);
 
@@ -343,8 +446,6 @@ export const processAll = action({
 
     for (const video of videos) {
       const record = existing.find((r) => r.sourceUrl === video.url);
-
-      // Only queue if not already done or actively downloading
       if (record?.status === "done" || record?.status === "processing") continue;
 
       await ctx.scheduler.runAfter(0, internal.featuredVideos.downloadOne, {
@@ -358,28 +459,36 @@ export const processAll = action({
   },
 });
 
-// ─── Admin action: reset "done but no mp4" records back to pending ─────────────
-// Used when a platform that was previously embed-only now has download support
+// ─── Admin action: trigger download for a single URL ─────────────────────────
+
+export const processOne = action({
+  args: {
+    sourceUrl: v.string(),
+    handle: v.optional(v.string()),
+  },
+  handler: async (ctx, { sourceUrl, handle }) => {
+    await ctx.scheduler.runAfter(0, internal.featuredVideos.downloadOne, {
+      sourceUrl,
+      handle,
+    });
+    return { scheduled: 1 };
+  },
+});
+
+// ─── Admin actions: reset / refresh helpers ───────────────────────────────────
 
 export const resetEmbedOnly = action({
   args: {},
   handler: async (ctx) => {
     const all: Array<{ _id: string; sourceUrl: string; status: string; mp4Url?: string }> =
       await ctx.runQuery(api.featuredVideos.list);
-
     const embedOnly = all.filter((r) => r.status === "done" && !r.mp4Url);
     for (const r of embedOnly) {
-      await ctx.runMutation(internal.featuredVideos.upsert, {
-        sourceUrl: r.sourceUrl,
-        status: "pending",
-      });
+      await ctx.runMutation(internal.featuredVideos.upsert, { sourceUrl: r.sourceUrl, status: "pending" });
     }
     return { reset: embedOnly.length };
   },
 });
-
-// ─── Admin action: fetch + store thumbnails for records that are missing them ──
-// Run this after upgrading the pipeline to add thumbnail support for existing videos.
 
 export const refreshThumbnails = action({
   args: {},
@@ -406,9 +515,7 @@ export const refreshThumbnails = action({
           if (ogUrl) posterUrl = await storeImage(ctx, ogUrl, "https://www.instagram.com/");
         } else if (platform === "tiktok") {
           const info = await getTikTokInfo(r.sourceUrl);
-          if (info.thumbnailUrl) {
-            posterUrl = await storeImage(ctx, info.thumbnailUrl, "https://www.tiktok.com/");
-          }
+          if (info.thumbnailUrl) posterUrl = await storeImage(ctx, info.thumbnailUrl, "https://www.tiktok.com/");
         } else if (platform === "twitter") {
           const result = await getTwitterDownloadUrl(r.sourceUrl);
           posterUrl = result.posterUrl;
@@ -419,11 +526,7 @@ export const refreshThumbnails = action({
       }
 
       if (posterUrl) {
-        await ctx.runMutation(internal.featuredVideos.upsert, {
-          sourceUrl: r.sourceUrl,
-          status: "done",
-          posterUrl,
-        });
+        await ctx.runMutation(internal.featuredVideos.upsert, { sourceUrl: r.sourceUrl, status: "done", posterUrl });
         updated++;
       }
     }
@@ -432,21 +535,14 @@ export const refreshThumbnails = action({
   },
 });
 
-// ─── Admin action: reset errored videos so they retry on next page load ────────
-
 export const resetErrors = action({
   args: {},
   handler: async (ctx) => {
     const all: Array<{ _id: string; sourceUrl: string; status: string }> =
       await ctx.runQuery(api.featuredVideos.list);
-
     const errored = all.filter((r) => r.status === "error");
     for (const r of errored) {
-      await ctx.runMutation(internal.featuredVideos.upsert, {
-        sourceUrl: r.sourceUrl,
-        status: "pending",
-        errorMsg: undefined,
-      });
+      await ctx.runMutation(internal.featuredVideos.upsert, { sourceUrl: r.sourceUrl, status: "pending", errorMsg: undefined });
     }
     return { reset: errored.length };
   },

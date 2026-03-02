@@ -144,10 +144,15 @@ export default defineSchema({
   featuredVideos: defineTable({
     sourceUrl: v.string(),           // original social media share URL
     platform: v.optional(v.string()),
-    handle: v.optional(v.string()),  // @username
+    handle: v.optional(v.string()),  // @username shown on card
+    avatarUrl: v.optional(v.string()), // profile picture URL
     storageId: v.optional(v.id("_storage")),
     mp4Url: v.optional(v.string()),  // permanent Convex serving URL
     posterUrl: v.optional(v.string()),
+    title: v.optional(v.string()),   // optional caption/title for admin display
+    isFeatured: v.optional(v.boolean()), // show in carousel hero section
+    displayOrder: v.optional(v.number()), // ordering within each section
+    isActive: v.optional(v.boolean()),   // hide without deleting
     status: v.union(
       v.literal("pending"),
       v.literal("processing"),

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Play } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import { useQuery, useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
@@ -10,11 +10,12 @@ import { api } from "../../../convex/_generated/api";
 type Platform = "instagram" | "youtube" | "tiktok" | "facebook" | "x";
 
 export interface VideoEntry {
-  url: string;     // original share URL (always required)
-  mp4?: string;    // self-hosted file → clean native <video>
-  poster?: string; // thumbnail override
-  handle?: string; // @username shown on card
-  avatar?: string; // profile picture URL
+  url: string;
+  mp4?: string;
+  poster?: string;
+  handle?: string;
+  avatar?: string;   // profile picture (Convex-stored)
+  platform?: Platform;
 }
 
 // ─── URL resolver ─────────────────────────────────────────────────────────────
@@ -25,7 +26,6 @@ function resolvePlatform(url: string): {
   thumbnail?: string;
   embedSrc?: string;
 } {
-  // YouTube
   const yt = url.match(
     /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/,
   );
@@ -37,7 +37,6 @@ function resolvePlatform(url: string): {
       embedSrc: `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`,
     };
 
-  // Instagram
   if (url.includes("instagram.com")) {
     const shortcode =
       url.match(/\/reel\/([A-Za-z0-9_-]+)/)?.[1] ??
@@ -51,7 +50,6 @@ function resolvePlatform(url: string): {
     };
   }
 
-  // TikTok
   if (url.includes("tiktok.com")) {
     const acct = url.match(/tiktok\.com\/@([^/?]+)/)?.[1];
     const vid = url.match(/\/video\/(\d+)/)?.[1];
@@ -62,7 +60,6 @@ function resolvePlatform(url: string): {
     };
   }
 
-  // Facebook
   if (url.includes("facebook.com"))
     return {
       platform: "facebook",
@@ -70,7 +67,6 @@ function resolvePlatform(url: string): {
       embedSrc: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&autoplay=true`,
     };
 
-  // X / Twitter
   if (url.includes("x.com") || url.includes("twitter.com")) {
     const id = url.match(/\/status\/(\d+)/)?.[1];
     return {
@@ -85,7 +81,7 @@ function resolvePlatform(url: string): {
   return { platform: "instagram", handle: "" };
 }
 
-// ─── Platform gradient map ────────────────────────────────────────────────────
+// ─── Platform gradients ────────────────────────────────────────────────────────
 
 const GRADIENT: Record<Platform, string> = {
   instagram: "from-purple-600 via-pink-500 to-orange-400",
@@ -94,6 +90,29 @@ const GRADIENT: Record<Platform, string> = {
   facebook: "from-blue-700 to-blue-500",
   x: "from-zinc-900 to-zinc-700",
 };
+
+// ─── Platform logo icon ────────────────────────────────────────────────────────
+// Uses the SVG icons already in /public/icons/platforms/
+
+function PlatformIcon({ platform, className = "" }: { platform: Platform | string; className?: string }) {
+  // Normalize legacy "twitter" value stored in Convex to "x"
+  const key = platform === "twitter" ? "x" : platform as Platform;
+  const src: Record<Platform, string> = {
+    instagram: "/icons/platforms/instagram.svg",
+    youtube: "/icons/platforms/youtube.svg",
+    tiktok: "/icons/platforms/tiktok.svg",
+    facebook: "/icons/platforms/facebook.svg",
+    x: "/icons/platforms/x-twitter.svg",
+  };
+  return (
+    <img
+      src={src[key] ?? src.instagram}
+      alt={platform}
+      className={`object-contain ${className}`}
+      style={{ filter: "brightness(0) invert(1)" }}
+    />
+  );
+}
 
 // ─── Lazy thumbnail hook ──────────────────────────────────────────────────────
 
@@ -104,18 +123,15 @@ function useThumbnail(url: string, preloaded?: string): string | null {
     if (preloaded) return;
     fetch(`/api/thumbnail?url=${encodeURIComponent(url)}`)
       .then((r) => r.json())
-      .then((d) => {
-        if (d.thumbnail) setThumb(d.thumbnail);
-      })
+      .then((d) => { if (d.thumbnail) setThumb(d.thumbnail); })
       .catch(() => {});
   }, [url, preloaded]);
 
   return thumb;
 }
 
-// ─── Video data ───────────────────────────────────────────────────────────────
-// Add mp4 field for self-hosted videos → clean native player.
-// Without mp4 → plays embed in on-site modal (no navigation away).
+// ─── Video data (source of truth for which URLs to show) ──────────────────────
+// The platform will auto-download these. Add/remove URLs here to control the grid.
 
 const VIDEOS: VideoEntry[] = [
   { url: "https://www.instagram.com/reel/DVHF_WXj9SH/", handle: "@mayermm" },
@@ -124,38 +140,45 @@ const VIDEOS: VideoEntry[] = [
   { url: "https://www.instagram.com/reel/DSA7Z4qkXk8/" },
   { url: "https://www.instagram.com/reel/DVJpQHLCkdF/" },
   { url: "https://www.tiktok.com/@walkiriachd/video/7610960640768740615" },
-  // Up to 12 total:
-  // { url: "https://...", mp4: "https://cdn.example.com/clip.mp4", handle: "@user" },
 ];
 
 // ─── Single video card ────────────────────────────────────────────────────────
 
 function VideoCard({ entry }: { entry: VideoEntry }) {
   const [playing, setPlaying] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const resolved = resolvePlatform(entry.url);
-  const platform = resolved.platform;
+  // Normalize "twitter" (legacy Convex value) → "x"
+  const rawPlatform = (entry.platform as string | undefined) ?? resolved.platform;
+  const platform: Platform = rawPlatform === "twitter" ? "x" : rawPlatform as Platform;
   const handle = entry.handle ?? resolved.handle;
   const thumbnail = useThumbnail(entry.url, entry.poster ?? resolved.thumbnail);
-  const gradient = GRADIENT[platform];
+  const gradient = GRADIENT[platform] ?? GRADIENT.x;
   const embedSrc = resolved.embedSrc;
 
-  // ── Playing state: video/iframe fills the card inline ──────────────────────
+  // Show overlay (handle / platform logo) when not playing, or when paused
+  const showOverlay = !playing || paused;
+
+  // ── Playing state ──────────────────────────────────────────────────────────
   if (playing) {
     return (
-      <div className="relative aspect-[9/16] w-full overflow-hidden rounded-xl bg-black">
+      <div className="group relative aspect-[9/16] w-full overflow-hidden rounded-xl bg-black">
         {entry.mp4 ? (
-          // Self-hosted: native video, full controls, plays with sound
           <video
+            ref={videoRef}
             src={entry.mp4}
             poster={entry.poster ?? resolved.thumbnail}
             controls
             autoPlay
             playsInline
             className="absolute inset-0 h-full w-full object-cover"
+            onPause={() => setPaused(true)}
+            onPlay={() => setPaused(false)}
           />
         ) : embedSrc ? (
-          // Platform embed: fills card inline — YouTube autoplays with sound
           <iframe
             src={embedSrc}
             title={handle}
@@ -164,6 +187,25 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
             allowFullScreen
           />
         ) : null}
+
+        {/* Overlay — only shown when paused (native video only) */}
+        {entry.mp4 && showOverlay && (
+          <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-3">
+            {/* Platform icon — top left */}
+            <div className="flex justify-start">
+              <div className="rounded-full bg-black/40 p-1.5 backdrop-blur-sm">
+                <PlatformIcon platform={platform} className="h-4 w-4" />
+              </div>
+            </div>
+            {/* Avatar + handle — bottom */}
+            <div className="flex items-center gap-2 rounded-lg bg-black/40 px-2.5 py-2 backdrop-blur-sm">
+              <AvatarBadge avatar={entry.avatar} handle={handle} gradient={gradient} />
+              <span className="truncate text-[11px] font-semibold text-white drop-shadow">
+                {handle.startsWith("@") ? handle : `@${handle}`}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -171,18 +213,13 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
   // ── Thumbnail / facade state ────────────────────────────────────────────────
   return (
     <div
-      onClick={() => setPlaying(true)}
+      onClick={() => { setPlaying(true); setPaused(false); }}
       className="group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-xl bg-black"
     >
-      {/* Gradient base — always visible, covers loading / failed thumbnails */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-75`}
-      />
+      {/* Gradient base */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-75`} />
 
-      {/* Thumbnail hierarchy:
-          1. If mp4 is available and no working thumbnail → use video's own first frame
-          2. If thumbnail URL is available (and hasn't failed) → show img
-          3. imgFailed safety net: if img 403s/errors, fall back to video frame */}
+      {/* Thumbnail / video first-frame */}
       {entry.mp4 && (!thumbnail || imgFailed) ? (
         <video
           src={entry.mp4}
@@ -195,7 +232,6 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
           }}
         />
       ) : thumbnail ? (
-        /* External thumbnail URL (YouTube CDN, twimg, Convex-stored TikTok, etc.) */
         <img
           src={thumbnail}
           alt={handle}
@@ -204,7 +240,7 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
         />
       ) : null}
 
-      {/* Scrim */}
+      {/* Dark scrim */}
       <div className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10" />
 
       {/* Play button */}
@@ -214,22 +250,15 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
         </div>
       </div>
 
-      {/* Bottom: avatar + handle */}
+      {/* Platform icon — top left */}
+      <div className="absolute left-2.5 top-2.5 rounded-full bg-black/40 p-1.5 backdrop-blur-sm">
+        <PlatformIcon platform={platform} className="h-4 w-4" />
+      </div>
+
+      {/* Avatar + handle — bottom */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-3 pt-6">
         <div className="flex items-center gap-2">
-          {entry.avatar ? (
-            <img
-              src={entry.avatar}
-              alt={handle}
-              className="h-6 w-6 rounded-full object-cover ring-1 ring-white/40"
-            />
-          ) : (
-            <div
-              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${gradient} text-[9px] font-bold uppercase text-white`}
-            >
-              {handle.replace("@", "").charAt(0)}
-            </div>
-          )}
+          <AvatarBadge avatar={entry.avatar} handle={handle} gradient={gradient} />
           <span className="truncate text-[11px] font-semibold text-white drop-shadow">
             {handle.startsWith("@") ? handle : `@${handle}`}
           </span>
@@ -239,15 +268,39 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
   );
 }
 
+// ─── Avatar badge helper ──────────────────────────────────────────────────────
+
+function AvatarBadge({ avatar, handle, gradient }: {
+  avatar?: string;
+  handle: string;
+  gradient: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (avatar && !failed) {
+    return (
+      <img
+        src={avatar}
+        alt={handle}
+        className="h-6 w-6 shrink-0 rounded-full object-cover ring-1 ring-white/40"
+        onError={() => setFailed(true)}
+      />
+    );
+  }
+  return (
+    <div
+      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${gradient} text-[9px] font-bold uppercase text-white`}
+    >
+      {handle.replace("@", "").charAt(0)}
+    </div>
+  );
+}
+
 // ─── Main export ──────────────────────────────────────────────────────────────
 
 export function VideoSection() {
-  // ── Convex reactive query — updates automatically when downloads finish ──
   const storedVideos = useQuery(api.featuredVideos.list);
   const processAll = useAction(api.featuredVideos.processAll);
 
-  // Auto-trigger download pipeline on first load for any unprocessed videos.
-  // Uses a ref so we only fire once per component mount, not on every re-render.
   const triggered = useRef(false);
   useEffect(() => {
     if (storedVideos === undefined || triggered.current) return;
@@ -261,14 +314,16 @@ export function VideoSection() {
     }
   }, [storedVideos, processAll]);
 
-  // Merge static metadata with dynamic mp4 URLs + poster thumbnails from Convex storage
+  // Merge static metadata with dynamic data from Convex
   const videos = VIDEOS.map((entry) => {
     const stored = storedVideos?.find((r) => r.sourceUrl === entry.url);
     return {
       ...entry,
+      platform: (stored?.platform ?? undefined) as Platform | undefined,
       mp4: stored?.status === "done" && stored.mp4Url ? stored.mp4Url : undefined,
-      // posterUrl from Convex is served from convex.cloud — no hotlink issues
       poster: stored?.posterUrl ?? entry.poster,
+      avatar: stored?.avatarUrl ?? entry.avatar,
+      handle: stored?.handle ?? entry.handle,
     };
   });
 
@@ -281,12 +336,8 @@ export function VideoSection() {
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
           Videos
         </h2>
-        <span className="text-[10px] text-[var(--muted-foreground)]">
-          {VIDEOS.length} / 12
-        </span>
       </div>
 
-      {/* One row of up to 6; expands to 12 on larger screens */}
       <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
         {videos.slice(0, 12).map((entry, i) => (
           <VideoCard key={i} entry={entry} />

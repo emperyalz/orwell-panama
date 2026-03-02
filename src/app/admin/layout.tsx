@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { LayoutDashboard, Users, Flag, Newspaper, LogOut, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, Users, Flag, Newspaper, LogOut, ArrowLeft, PlaySquare } from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/politicians", label: "Politicians", icon: Users },
   { href: "/admin/parties", label: "Parties", icon: Flag },
   { href: "/admin/media", label: "Media", icon: Newspaper },
+  { href: "/admin/featured-videos", label: "Videos", icon: PlaySquare },
 ];
 
 export default function AdminLayout({

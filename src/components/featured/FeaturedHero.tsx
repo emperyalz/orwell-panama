@@ -1,241 +1,299 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Play } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-interface FeaturedItem {
-  id: number;
-  category: string;
-  tag?: string;
-  title: string;
-  excerpt?: string;
-  image: string;
-  href: string;
-}
+type Platform = "instagram" | "youtube" | "tiktok" | "facebook" | "x";
 
-// ─── Placeholder data (swap for Convex query when articles table exists) ─────
-
-const FEATURED: FeaturedItem[] = [
-  {
-    id: 1,
-    category: "ANÁLISIS",
-    tag: "Destacado",
-    title: "La nueva composición de la Asamblea Nacional tras las elecciones de 2024",
-    excerpt:
-      "Con 71 diputados repartidos entre ocho partidos y movimientos independientes, la nueva Asamblea presenta el escenario más fragmentado de la historia democrática panameña.",
-    image: "/images/headshots/PRES-001.jpg",
-    href: "#",
-  },
-  {
-    id: 2,
-    category: "PERFIL",
-    tag: "Opinión",
-    title: "Tres versiones de la misma reunión: ¿a quién le creemos?",
-    excerpt:
-      "La divergencia entre los relatos del Ejecutivo, la oposición y la prensa revela una crisis de credibilidad institucional.",
-    image: "/images/headshots/GOV-001.jpg",
-    href: "#",
-  },
-  {
-    id: 3,
-    category: "NOTICIAS",
-    tag: "Política",
-    title: "Panamá conmemora el hecho patriótico del 9 de enero de 1964",
-    excerpt:
-      "Una solemne ceremonia reunió a funcionarios, diplomáticos y ciudadanos para honrar a quienes cayeron exigiendo soberanía sobre el Canal.",
-    image: "/images/headshots/GOV-002.jpg",
-    href: "#",
-  },
-];
-
-// ─── Article cards ────────────────────────────────────────────────────────────
-
-function LargeCard({ item }: { item: FeaturedItem }) {
-  return (
-    <Link
-      href={item.href}
-      className="group relative flex h-full min-h-[420px] overflow-hidden rounded-xl"
-    >
-      <img
-        src={item.image}
-        alt={item.title}
-        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-      <div className="relative mt-auto p-5">
-        <span className="inline-block rounded-sm bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white">
-          {item.category}
-        </span>
-        <h2 className="mt-2 text-xl font-bold leading-snug text-white drop-shadow-md sm:text-2xl">
-          {item.title}
-        </h2>
-        {item.excerpt && (
-          <p className="mt-2 line-clamp-2 text-xs text-neutral-300 sm:text-sm">
-            {item.excerpt}
-          </p>
-        )}
-      </div>
-    </Link>
-  );
-}
-
-function SmallCard({ item }: { item: FeaturedItem }) {
-  return (
-    <Link
-      href={item.href}
-      className="group relative flex h-full min-h-[180px] overflow-hidden rounded-xl"
-    >
-      <img
-        src={item.image}
-        alt={item.title}
-        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10" />
-      <div className="relative mt-auto p-4">
-        <span className="inline-block rounded-sm bg-red-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white">
-          {item.category}
-        </span>
-        <h3 className="mt-1.5 text-sm font-bold leading-snug text-white drop-shadow-md sm:text-base">
-          {item.title}
-        </h3>
-      </div>
-    </Link>
-  );
-}
-
-// ─── Hero video card — thumbnail → click → plays inline ──────────────────────
-
-function HeroVideoCard({
-  embedSrc,
-  mp4,
-  thumbnail,
-  originalUrl,
-  handle,
-  className = "",
-}: {
-  embedSrc: string;
-  mp4?: string;       // if set, use clean native <video> instead of iframe
-  thumbnail?: string;
-  originalUrl?: string;
+interface CarouselVideo {
+  url: string;
+  mp4?: string;
+  poster?: string;
   handle: string;
-  className?: string;
-}) {
-  const [playing, setPlaying] = useState(false);
-  const [imgFailed, setImgFailed] = useState(false);
+  avatar?: string;
+  platform: Platform;
+  embedSrc?: string;
+}
 
-  // Lazy-fetch og:image for cards without a built-in thumbnail (e.g. IG reels)
-  const [fetchedThumb, setFetchedThumb] = useState<string | null>(null);
-  useEffect(() => {
-    if (thumbnail || !originalUrl) return;
-    fetch(`/api/thumbnail?url=${encodeURIComponent(originalUrl)}`)
-      .then((r) => r.json())
-      .then((d) => { if (d.thumbnail) setFetchedThumb(d.thumbnail); })
-      .catch(() => {});
-  }, [originalUrl, thumbnail]);
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-  const displayThumb = thumbnail ?? fetchedThumb;
+function detectPlatform(url: string): Platform {
+  if (url.includes("tiktok.com")) return "tiktok";
+  if (url.includes("x.com") || url.includes("twitter.com")) return "x";
+  if (url.includes("instagram.com")) return "instagram";
+  if (url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
+  if (url.includes("facebook.com")) return "facebook";
+  return "instagram";
+}
 
-  // ── Playing: fills the card exactly where it sat ───────────────────────────
-  if (playing) {
+function buildEmbedSrc(url: string, platform: Platform): string | undefined {
+  if (platform === "youtube") {
+    const id = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/)?.[1];
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` : undefined;
+  }
+  if (platform === "instagram") {
+    const shortcode = url.match(/\/reel\/([A-Za-z0-9_-]+)/)?.[1] ?? url.match(/\/p\/([A-Za-z0-9_-]+)/)?.[1];
+    return shortcode ? `https://www.instagram.com/reel/${shortcode}/embed/` : undefined;
+  }
+  if (platform === "tiktok") {
+    const vid = url.match(/\/video\/(\d+)/)?.[1];
+    return vid ? `https://www.tiktok.com/embed/v2/${vid}` : undefined;
+  }
+  if (platform === "x") {
+    const id = url.match(/\/status\/(\d+)/)?.[1];
+    return id ? `https://platform.twitter.com/embed/Tweet.html?id=${id}&theme=dark&dnt=true` : undefined;
+  }
+  return undefined;
+}
+
+const GRADIENT: Record<Platform, string> = {
+  instagram: "from-purple-600 via-pink-500 to-orange-400",
+  youtube: "from-red-700 to-red-500",
+  tiktok: "from-gray-900 to-gray-700",
+  facebook: "from-blue-700 to-blue-500",
+  x: "from-zinc-900 to-zinc-700",
+};
+
+function PlatformIcon({ platform, className = "" }: { platform: Platform | string; className?: string }) {
+  // Normalize legacy "twitter" value stored in Convex to "x"
+  const key = (platform === "twitter" ? "x" : platform) as Platform;
+  const src: Record<Platform, string> = {
+    instagram: "/icons/platforms/instagram.svg",
+    youtube: "/icons/platforms/youtube.svg",
+    tiktok: "/icons/platforms/tiktok.svg",
+    facebook: "/icons/platforms/facebook.svg",
+    x: "/icons/platforms/x-twitter.svg",
+  };
+  return (
+    <img
+      src={src[key] ?? src.instagram}
+      alt={platform}
+      className={`object-contain ${className}`}
+      style={{ filter: "brightness(0) invert(1)" }}
+    />
+  );
+}
+
+function AvatarBadge({ avatar, handle, gradient }: { avatar?: string; handle: string; gradient: string }) {
+  const [failed, setFailed] = useState(false);
+  if (avatar && !failed) {
     return (
-      <div className={`relative overflow-hidden rounded-xl bg-black ${className}`}>
-        {mp4 ? (
-          // Self-hosted: pure native video, no platform UI
-          <video
-            src={mp4}
-            poster={displayThumb ?? undefined}
-            controls
-            autoPlay
-            playsInline
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        ) : (
-          // Platform embed fallback
-          <iframe
-            src={embedSrc}
-            title={handle}
-            className="absolute inset-0 h-full w-full border-0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        )}
-      </div>
+      <img
+        src={avatar}
+        alt={handle}
+        className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-white/40"
+        onError={() => setFailed(true)}
+      />
     );
   }
-
-  // ── Thumbnail / facade ──────────────────────────────────────────────────────
   return (
-    <div
-      onClick={() => setPlaying(true)}
-      className={`group relative cursor-pointer overflow-hidden rounded-xl bg-black ${className}`}
-    >
-      {/* Gradient base */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 opacity-70" />
-
-      {/* Thumbnail hierarchy — same logic as VideoSection:
-          1. mp4 available + no working thumbnail → video first-frame
-          2. displayThumb available (and not failed) → img
-          3. imgFailed safety net covers 403s from Instagram CDN etc. */}
-      {mp4 && (!displayThumb || imgFailed) ? (
-        <video
-          src={mp4}
-          preload="metadata"
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onLoadedMetadata={(e) => {
-            (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
-          }}
-        />
-      ) : displayThumb ? (
-        <img
-          src={displayThumb}
-          alt={handle}
-          onError={() => setImgFailed(true)}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      ) : null}
-      <div className="absolute inset-0 bg-black/30 transition-colors group-hover:bg-black/20" />
-
-      {/* Play button */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-2xl transition-transform duration-200 group-hover:scale-110">
-          <Play className="ml-1 h-7 w-7 fill-black text-black" />
-        </div>
-      </div>
-
-      {/* Handle badge */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-        <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-[10px] font-bold uppercase text-white ring-1 ring-white/20">
-            {handle.replace("@", "").charAt(0)}
-          </div>
-          <span className="text-sm font-medium text-white drop-shadow">
-            {handle.startsWith("@") ? handle : `@${handle}`}
-          </span>
-        </div>
-      </div>
+    <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${gradient} text-xs font-bold uppercase text-white`}>
+      {handle.replace("@", "").charAt(0)}
     </div>
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+// ─── Source videos (same list the VideoSection grid uses) ─────────────────────
+// The carousel shows ALL active videos in order. Managed via admin panel.
 
-const IG_REEL_URL = "https://www.instagram.com/reel/DVHF_WXj9SH/";
+const STATIC_VIDEOS = [
+  { url: "https://www.instagram.com/reel/DVHF_WXj9SH/", handle: "@mayermm" },
+  { url: "https://www.instagram.com/reel/DVMneM-AgUN/" },
+  { url: "https://x.com/i/status/2026297531055878397" },
+  { url: "https://www.instagram.com/reel/DSA7Z4qkXk8/" },
+  { url: "https://www.instagram.com/reel/DVJpQHLCkdF/" },
+  { url: "https://www.tiktok.com/@walkiriachd/video/7610960640768740615" },
+];
+
+// ─── Carousel slide ───────────────────────────────────────────────────────────
+
+function CarouselSlide({
+  video,
+  active,
+  onEnded,
+  playing,
+  setPlaying,
+}: {
+  video: CarouselVideo;
+  active: boolean;
+  onEnded: () => void;
+  playing: boolean;
+  setPlaying: (v: boolean) => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [imgFailed, setImgFailed] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const gradient = GRADIENT[video.platform];
+
+  // When becoming active and already in play mode — start the video
+  useEffect(() => {
+    if (!active || !playing) return;
+    const el = videoRef.current;
+    if (el) { el.currentTime = 0; el.play().catch(() => {}); }
+  }, [active, playing]);
+
+  // When deactivated — pause + reset
+  useEffect(() => {
+    if (active) return;
+    const el = videoRef.current;
+    if (el) { el.pause(); el.currentTime = 0; }
+    setPaused(false);
+  }, [active]);
+
+  const handlePlayPause = () => {
+    const el = videoRef.current;
+    if (!playing) {
+      setPlaying(true);
+      setPaused(false);
+      if (el) { el.currentTime = 0; el.play().catch(() => {}); }
+    } else if (paused) {
+      setPaused(false);
+      el?.play().catch(() => {});
+    } else {
+      setPaused(true);
+      el?.pause();
+    }
+  };
+
+  const showOverlay = !playing || paused;
+
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-black">
+      {/* Gradient base */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-60`} />
+
+      {/* Video / first-frame preview */}
+      {video.mp4 ? (
+        <video
+          ref={videoRef}
+          src={video.mp4}
+          poster={video.poster}
+          playsInline
+          loop={false}
+          muted={false}
+          className="absolute inset-0 h-full w-full object-cover"
+          onEnded={onEnded}
+          onPause={() => setPaused(true)}
+          onPlay={() => setPaused(false)}
+          onLoadedMetadata={(e) => {
+            // Show first frame as thumbnail when not yet playing
+            if (!playing) (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
+          }}
+        />
+      ) : video.poster && !imgFailed ? (
+        <img
+          src={video.poster}
+          alt={video.handle}
+          onError={() => setImgFailed(true)}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+
+      {/* Embed iframe fallback (YouTube, etc.) — only shown when playing */}
+      {playing && !video.mp4 && video.embedSrc && (
+        <iframe
+          src={video.embedSrc}
+          title={video.handle}
+          className="absolute inset-0 h-full w-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      )}
+
+      {/* Dark scrim when paused/not playing */}
+      <div className={`absolute inset-0 bg-black transition-opacity duration-300 ${playing && !paused ? "opacity-0" : "opacity-30"}`} />
+
+      {/* Centre play/pause button */}
+      <button
+        onClick={handlePlayPause}
+        className="absolute inset-0 flex items-center justify-center focus:outline-none"
+        aria-label={playing && !paused ? "Pause" : "Play"}
+      >
+        <div className={`flex h-20 w-20 items-center justify-center rounded-full bg-white/90 shadow-2xl transition-all duration-300 ${playing && !paused ? "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100" : "scale-100 opacity-100"}`}>
+          {playing && !paused
+            ? <Pause className="h-8 w-8 fill-black text-black" />
+            : <Play className="ml-1.5 h-8 w-8 fill-black text-black" />
+          }
+        </div>
+      </button>
+
+      {/* Show play button on hover when playing */}
+      {playing && !paused && (
+        <div className="group absolute inset-0 flex items-center justify-center">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 shadow-2xl opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <Pause className="h-8 w-8 fill-black text-black" />
+          </div>
+        </div>
+      )}
+
+      {/* Overlay: platform icon + avatar + handle (shown when not playing / paused) */}
+      {showOverlay && (
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-5">
+          {/* Platform icon — top right */}
+          <div className="flex justify-end">
+            <div className="rounded-full bg-black/40 p-2 backdrop-blur-sm">
+              <PlatformIcon platform={video.platform} className="h-5 w-5" />
+            </div>
+          </div>
+
+          {/* Avatar + handle — bottom left */}
+          <div className="flex items-center gap-3">
+            <AvatarBadge avatar={video.avatar} handle={video.handle} gradient={gradient} />
+            <div>
+              <p className="text-sm font-bold text-white drop-shadow">
+                {video.handle.startsWith("@") ? video.handle : `@${video.handle}`}
+              </p>
+              <p className="text-[11px] capitalize text-white/70">{video.platform}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Main carousel component ──────────────────────────────────────────────────
 
 export function FeaturedHero() {
-  const [, , bottom] = FEATURED;
-
-  // Check if the IG reel has been downloaded and stored in Convex
   const storedVideos = useQuery(api.featuredVideos.list);
-  const igStored = storedVideos?.find(
-    (r) => r.sourceUrl === IG_REEL_URL && r.status === "done" && r.mp4Url,
-  );
+  const [current, setCurrent] = useState(0);
+  const [playing, setPlaying] = useState(false);
+
+  // Build the carousel items from Convex data merged with static list
+  const items: CarouselVideo[] = STATIC_VIDEOS.map((entry) => {
+    const stored = storedVideos?.find((r) => r.sourceUrl === entry.url);
+    const platform = (stored?.platform as Platform | undefined) ?? detectPlatform(entry.url);
+    return {
+      url: entry.url,
+      mp4: stored?.status === "done" && stored.mp4Url ? stored.mp4Url : undefined,
+      poster: stored?.posterUrl ?? undefined,
+      handle: stored?.handle ?? entry.handle ?? platform,
+      avatar: stored?.avatarUrl ?? undefined,
+      platform,
+      embedSrc: buildEmbedSrc(entry.url, platform),
+    };
+  });
+
+  const total = items.length;
+
+  const goTo = useCallback((idx: number) => {
+    setCurrent(((idx % total) + total) % total);
+  }, [total]);
+
+  const prev = () => { goTo(current - 1); };
+  const next = useCallback(() => { goTo(current + 1); }, [current, goTo]);
+
+  // Auto-advance to next video when current one ends
+  const handleEnded = useCallback(() => {
+    next();
+    // Keep playing — the new slide's useEffect will auto-start it
+  }, [next]);
+
+  if (total === 0) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -247,33 +305,92 @@ export function FeaturedHero() {
         </h2>
       </div>
 
-      {/* Hero grid: IG reel left | YouTube top-right | article card bottom-right */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:grid-rows-2 lg:h-[480px]">
+      {/* Carousel container */}
+      <div className="group relative overflow-hidden rounded-2xl" style={{ aspectRatio: "16/7", minHeight: 320 }}>
 
-        {/* Instagram reel — large left (uses stored mp4 once downloaded, else iframe) */}
-        <div className="lg:col-span-3 lg:row-span-2 min-h-[420px]">
-          <HeroVideoCard
-            embedSrc="https://www.instagram.com/reel/DVHF_WXj9SH/embed/"
-            mp4={igStored?.mp4Url ?? undefined}
-            originalUrl={IG_REEL_URL}
-            handle="@mayermm"
-            className="h-full"
-          />
+        {/* Slides — only the current one is visible */}
+        {items.map((video, i) => (
+          <div
+            key={video.url}
+            className={`absolute inset-0 transition-opacity duration-500 ${i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+          >
+            <CarouselSlide
+              video={video}
+              active={i === current}
+              onEnded={handleEnded}
+              playing={playing}
+              setPlaying={setPlaying}
+            />
+          </div>
+        ))}
+
+        {/* Prev / Next arrows */}
+        <button
+          onClick={prev}
+          className="absolute left-3 top-1/2 z-20 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
+          aria-label="Previous video"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-3 top-1/2 z-20 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
+          aria-label="Next video"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+
+        {/* Dot navigation */}
+        <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
+                i === current
+                  ? "w-6 bg-white"
+                  : "w-2 bg-white/50 hover:bg-white/80"
+              }`}
+              aria-label={`Go to video ${i + 1}`}
+            />
+          ))}
         </div>
 
-        {/* YouTube — top right (thumbnail auto-loaded from YouTube CDN) */}
-        <div className="lg:col-span-2 lg:row-span-1 min-h-[180px]">
-          <HeroVideoCard
-            embedSrc="https://www.youtube.com/embed/0evoN0fImGY?autoplay=1"
-            thumbnail="https://img.youtube.com/vi/0evoN0fImGY/hqdefault.jpg"
-            handle="@Conferencia de Prensa"
-            className="h-full"
-          />
-        </div>
-
-        {/* Article card — bottom right */}
-        <div className="lg:col-span-2 lg:row-span-1">
-          <SmallCard item={bottom} />
+        {/* Thumbnail strip */}
+        <div className="absolute bottom-12 left-0 right-0 z-20 hidden justify-center gap-2 px-8 sm:flex">
+          {items.map((video, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-md transition-all duration-300 focus:outline-none ${
+                i === current
+                  ? "ring-2 ring-white scale-110"
+                  : "opacity-60 hover:opacity-100 hover:scale-105"
+              }`}
+              aria-label={`${video.handle} — video ${i + 1}`}
+            >
+              {video.mp4 ? (
+                <video
+                  src={video.mp4}
+                  preload="metadata"
+                  muted
+                  playsInline
+                  className="absolute inset-0 h-full w-full object-cover"
+                  onLoadedMetadata={(e) => {
+                    (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
+                  }}
+                />
+              ) : video.poster ? (
+                <img src={video.poster} alt={video.handle} className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
+              )}
+              {/* Platform icon chip */}
+              <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
+                <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
+              </div>
+            </button>
+          ))}
         </div>
       </div>
     </section>
