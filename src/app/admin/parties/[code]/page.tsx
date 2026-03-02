@@ -7,6 +7,7 @@ import type { Id } from "../../../../../convex/_generated/dataModel";
 import Link from "next/link";
 import { ArrowLeft, Save, Check, Plus, Trash2, ExternalLink } from "lucide-react";
 import { ImageUpload } from "@/components/admin/ImageUpload";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 
 type PageProps = { params: Promise<{ code: string }> };
 
@@ -306,19 +307,17 @@ export default function EditPartyPage({ params }: PageProps) {
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                   Language
                 </label>
-                <select
+                <CustomSelect
                   value={newWiki.language}
-                  onChange={(e) =>
-                    setNewWiki({ ...newWiki, language: e.target.value })
+                  onChange={(v) =>
+                    setNewWiki({ ...newWiki, language: v })
                   }
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                >
-                  {WIKIPEDIA_LANGUAGES.map((l) => (
-                    <option key={l.value} value={l.value}>
-                      {l.label} ({l.value})
-                    </option>
-                  ))}
-                </select>
+                  options={WIKIPEDIA_LANGUAGES.map((l) => ({
+                    value: l.value,
+                    label: `${l.label} (${l.value})`,
+                  }))}
+                  size="sm"
+                />
               </div>
               <div>
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
@@ -421,19 +420,14 @@ export default function EditPartyPage({ params }: PageProps) {
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                   Platform
                 </label>
-                <select
+                <CustomSelect
                   value={newSocial.platform}
-                  onChange={(e) =>
-                    setNewSocial({ ...newSocial, platform: e.target.value })
+                  onChange={(v) =>
+                    setNewSocial({ ...newSocial, platform: v })
                   }
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                >
-                  {SOCIAL_PLATFORMS.map((p) => (
-                    <option key={p.value} value={p.value}>
-                      {p.label}
-                    </option>
-                  ))}
-                </select>
+                  options={SOCIAL_PLATFORMS.map((p) => ({ value: p.value, label: p.label }))}
+                  size="sm"
+                />
               </div>
               <div>
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">

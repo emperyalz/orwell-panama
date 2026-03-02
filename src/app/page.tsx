@@ -57,9 +57,8 @@ export default async function HomePage() {
           <h1 className="text-3xl font-bold tracking-tight text-white">
             Directorio de Políticos de Panamá
           </h1>
-          <p className="mt-2 text-neutral-400">
-            {politicians.length} políticos · {totalAccounts} cuentas de
-            redes sociales verificadas
+          <p className="mt-2 text-xs text-neutral-400">
+            Inteligencia basada en datos, impulsada por el repositorio más completo de política panameña
           </p>
         </div>
       </div>

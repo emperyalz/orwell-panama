@@ -6,6 +6,7 @@ import { api } from "../../../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Save } from "lucide-react";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 
 const ROLE_CATEGORIES = ["Deputy", "Mayor", "Governor", "President"] as const;
 
@@ -164,17 +165,12 @@ export default function NewPoliticianPage() {
             <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">
               Role Category
             </label>
-            <select
+            <CustomSelect
               value={form.roleCategory}
-              onChange={(e) => setField("roleCategory", e.target.value)}
-              className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
-            >
-              {ROLE_CATEGORIES.map((rc) => (
-                <option key={rc} value={rc}>
-                  {rc}
-                </option>
-              ))}
-            </select>
+              onChange={(v) => setField("roleCategory", v)}
+              options={ROLE_CATEGORIES.map((rc) => ({ value: rc, label: rc }))}
+              size="default"
+            />
           </div>
           <div>
             <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">

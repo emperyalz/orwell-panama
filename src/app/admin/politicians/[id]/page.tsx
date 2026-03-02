@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { ImageUpload } from "@/components/admin/ImageUpload";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 
 type PageProps = { params: Promise<{ id: string }> };
 
@@ -281,17 +282,12 @@ export default function EditPoliticianPage({ params }: PageProps) {
             <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">
               Role Category
             </label>
-            <select
+            <CustomSelect
               value={getFieldValue("roleCategory")}
-              onChange={(e) => setField("roleCategory", e.target.value)}
-              className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
-            >
-              {ROLE_CATEGORIES.map((rc) => (
-                <option key={rc} value={rc}>
-                  {rc}
-                </option>
-              ))}
-            </select>
+              onChange={(v) => setField("roleCategory", v)}
+              options={ROLE_CATEGORIES.map((rc) => ({ value: rc, label: rc }))}
+              size="default"
+            />
           </div>
           <div>
             <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">
@@ -387,19 +383,14 @@ export default function EditPoliticianPage({ params }: PageProps) {
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                   Platform
                 </label>
-                <select
+                <CustomSelect
                   value={newAccount.platform}
-                  onChange={(e) =>
-                    setNewAccount({ ...newAccount, platform: e.target.value })
+                  onChange={(v) =>
+                    setNewAccount({ ...newAccount, platform: v })
                   }
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                >
-                  {PLATFORMS.map((p) => (
-                    <option key={p.value} value={p.value}>
-                      {p.label}
-                    </option>
-                  ))}
-                </select>
+                  options={PLATFORMS.map((p) => ({ value: p.value, label: p.label }))}
+                  size="sm"
+                />
               </div>
               <div>
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
@@ -431,19 +422,14 @@ export default function EditPoliticianPage({ params }: PageProps) {
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                   Verdict
                 </label>
-                <select
+                <CustomSelect
                   value={newAccount.verdict}
-                  onChange={(e) =>
-                    setNewAccount({ ...newAccount, verdict: e.target.value })
+                  onChange={(v) =>
+                    setNewAccount({ ...newAccount, verdict: v })
                   }
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                >
-                  {VERDICTS.map((v) => (
-                    <option key={v} value={v}>
-                      {v}
-                    </option>
-                  ))}
-                </select>
+                  options={VERDICTS.map((v) => ({ value: v, label: v }))}
+                  size="sm"
+                />
               </div>
               <div>
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
@@ -464,22 +450,14 @@ export default function EditPoliticianPage({ params }: PageProps) {
                 <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                   Polling Tier
                 </label>
-                <select
+                <CustomSelect
                   value={newAccount.pollingTier}
-                  onChange={(e) =>
-                    setNewAccount({
-                      ...newAccount,
-                      pollingTier: e.target.value,
-                    })
+                  onChange={(v) =>
+                    setNewAccount({ ...newAccount, pollingTier: v })
                   }
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                >
-                  {TIERS.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
+                  options={TIERS.map((t) => ({ value: t, label: t }))}
+                  size="sm"
+                />
               </div>
             </div>
             <div className="flex gap-2 pt-1">
@@ -537,19 +515,14 @@ export default function EditPoliticianPage({ params }: PageProps) {
                     <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                       Verdict
                     </label>
-                    <select
+                    <CustomSelect
                       value={editAccountForm.verdict || "PROBABLE"}
-                      onChange={(e) =>
-                        setEditAccountForm({ ...editAccountForm, verdict: e.target.value })
+                      onChange={(v) =>
+                        setEditAccountForm({ ...editAccountForm, verdict: v })
                       }
-                      className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                    >
-                      {VERDICTS.map((v) => (
-                        <option key={v} value={v}>
-                          {v}
-                        </option>
-                      ))}
-                    </select>
+                      options={VERDICTS.map((v) => ({ value: v, label: v }))}
+                      size="sm"
+                    />
                   </div>
                   <div className="sm:col-span-2">
                     <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
@@ -582,19 +555,14 @@ export default function EditPoliticianPage({ params }: PageProps) {
                     <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
                       Polling Tier
                     </label>
-                    <select
+                    <CustomSelect
                       value={editAccountForm.pollingTier || "warm"}
-                      onChange={(e) =>
-                        setEditAccountForm({ ...editAccountForm, pollingTier: e.target.value })
+                      onChange={(v) =>
+                        setEditAccountForm({ ...editAccountForm, pollingTier: v })
                       }
-                      className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                    >
-                      {TIERS.map((t) => (
-                        <option key={t} value={t}>
-                          {t}
-                        </option>
-                      ))}
-                    </select>
+                      options={TIERS.map((t) => ({ value: t, label: t }))}
+                      size="sm"
+                    />
                   </div>
                 </div>
                 <div className="flex gap-2 pt-1">

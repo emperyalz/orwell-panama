@@ -13,9 +13,20 @@ import {
   Youtube,
   ChevronDown,
   ChevronUp,
-  BookOpen,
-  Link2,
+  AlertTriangle,
 } from "lucide-react";
+
+const WikipediaIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 98.05 98.05" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M98.023,17.465l-19.584-0.056c-0.004,0.711-0.006,1.563-0.017,2.121c1.664,0.039,5.922,0.822,7.257,4.327L66.92,67.155c-0.919-2.149-9.643-21.528-10.639-24.02l9.072-18.818c1.873-2.863,5.455-4.709,8.918-4.843l-0.01-1.968L55.42,17.489c-0.045,0.499,0.001,1.548-0.068,2.069c5.315,0.144,7.215,1.334,5.941,4.508c-2.102,4.776-6.51,13.824-7.372,15.475c-2.696-5.635-4.41-9.972-7.345-16.064c-1.266-2.823,1.529-3.922,4.485-4.004v-1.981l-21.82-0.067c0.016,0.93-0.021,1.451-0.021,2.131c3.041,0.046,6.988,0.371,8.562,3.019c2.087,4.063,9.044,20.194,11.149,24.514c-2.685,5.153-9.207,17.341-11.544,21.913c-3.348-7.43-15.732-36.689-19.232-44.241c-1.304-3.218,3.732-5.077,6.646-5.213l0.019-2.148L0,17.398c0.005,0.646,0.027,1.71,0.029,2.187c4.025-0.037,9.908,6.573,11.588,10.683c7.244,16.811,14.719,33.524,21.928,50.349c0.002,0.029,2.256,0.059,2.281,0.008c4.717-9.653,10.229-19.797,15.206-29.56L63.588,80.64c0.005,0.004,2.082,0.016,2.093,0.007c7.962-18.196,19.892-46.118,23.794-54.933c1.588-3.767,4.245-6.064,8.543-6.194l0.032-1.956L98.023,17.465z"/>
+  </svg>
+);
+
+const WwwIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 89 88" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="nonzero" d="M88.34375,40.9998 C87.73828,32.3436 84.54685,24.0698 79.18755,17.2498 C77.86335,15.5193 76.39845,13.8982 74.81255,12.406 C68.10945,6.031 59.55055,1.949 50.37455,0.75 C49.49564,0.61719 48.60895,0.53516 47.71835,0.5 C47.6871,0.46875 47.6871,0.46875 47.65585,0.5 C46.6871,0.40625 45.71835,0.375 44.71835,0.375 C43.71835,0.375 42.71835,0.40625 41.71835,0.5 C41.61288,0.484375 41.51132,0.484375 41.40585,0.5 C40.6246,0.5625 39.84335,0.625 39.06205,0.75 C29.87065,1.9453 21.30005,6.0391 14.59305,12.438 C13.00715,13.9302 11.54225,15.5513 10.21805,17.2818 C4.86645,24.0943 1.68685,32.3598 1.09305,41.0008 C0.9993,42.032 0.96805,43.0633 0.96805,44.1258 C0.96805,45.1883 0.9993,46.2196 1.09305,47.2508 C1.69852,55.907 4.88995,64.1808 10.24925,71.0008 C11.57345,72.7313 13.03835,74.3524 14.62425,75.8446 C21.32735,82.2196 29.88625,86.3016 39.06225,87.5006 C39.94116,87.63341 40.82785,87.71544 41.71845,87.7506 C41.7497,87.78185 41.7497,87.78185 41.78095,87.7506 C42.7497,87.84435 43.71845,87.8756 44.71845,87.8756 C45.71845,87.8756 46.71845,87.84435 47.71845,87.7506 C47.84345,87.8756 47.9372,88.0006 48.03095,88.09435 L48.03095,87.7506 C48.8122,87.6881 49.59345,87.6256 50.37475,87.5006 C59.56615,86.3053 68.13675,82.2115 74.84375,75.8126 C76.42965,74.3204 77.89455,72.6993 79.21875,70.9688 C84.57035,64.1563 87.74995,55.8908 88.34375,47.2498 C88.4375,46.2186 88.46875,45.1873 88.46875,44.1248 C88.46875,43.0623 88.4375,42.031 88.34375,40.9998 Z M82.09375,40.9998 L66.53175,40.9998 C66.25441,34.91 65.10595,28.8908 63.12555,23.1248 C66.58645,22.27714 69.98105,21.1795 73.28155,19.8436 C78.37135,25.7928 81.45345,33.1956 82.09405,40.9998 L82.09375,40.9998 Z M56.93775,63.9688 C53.96115,63.45318 50.95725,63.11724 47.93775,62.9688 L47.844,47.2498 L60.25,47.2498 C59.97266,52.9568 58.8555,58.5898 56.9375,63.9688 L56.93775,63.9688 Z M48.00025,80.4998 L47.969,69.2188 C49.7502,69.31255 51.969,69.50005 54.469,69.87505 C52.6526,73.61335 50.4846,77.16805 48.0002,80.50005 L48.00025,80.4998 Z M29.18825,47.2498 L41.59425,47.2498 L41.688,62.9378 C38.5982,63.05108 35.52,63.36358 32.4692,63.8753 C30.5747,58.5237 29.4692,52.9223 29.188,47.2503 L29.18825,47.2498 Z M32.50075,24.2808 C35.47735,24.79642 38.48125,25.13236 41.50075,25.2808 L41.5945,40.9998 L29.1885,40.9998 C29.46584,35.2928 30.583,29.6598 32.501,24.2808 L32.50075,24.2808 Z M41.43825,7.7498 L41.4695,19.0308 C39.6883,18.93705 37.4695,18.74955 34.9695,18.37455 C36.7859,14.63625 38.9539,11.08155 41.4383,7.74955 L41.43825,7.7498 Z M47.68825,7.34355 C50.32885,10.80445 52.61015,14.51935 54.50075,18.43755 C52.25075,18.76177 49.98905,18.9688 47.71955,19.06255 L47.68825,7.34355 Z M41.71945,69.18755 L41.7507,80.90655 C39.1101,77.44565 36.8288,73.73075 34.9382,69.81255 C37.1882,69.48833 39.4499,69.2813 41.7194,69.18755 L41.71945,69.18755 Z M47.84445,40.99955 L47.7507,25.31155 C50.8405,25.19827 53.9187,24.88577 56.9695,24.37405 C58.864,29.72565 59.9695,35.32705 60.2507,40.99905 L47.84445,40.99955 Z M68.37545,15.03055 C65.89885,15.94071 63.35985,16.68285 60.78165,17.24935 C59.40665,14.16345 57.79725,11.18685 55.96915,8.34315 C60.49255,9.76115 64.70355,12.03455 68.37515,15.03065 L68.37545,15.03055 Z M33.46945,8.34305 C31.64525,11.15945 30.04755,14.11645 28.68825,17.18685 C26.12965,16.5931 23.60625,15.86265 21.12575,14.99935 C24.77025,11.99935 28.96165,9.74155 33.46975,8.34315 L33.46945,8.34305 Z M16.15745,19.84305 C19.47775,21.13215 22.88405,22.19465 26.34545,23.03055 C24.35325,28.82745 23.19705,34.87855 22.90795,40.99955 L7.34595,40.99955 C7.98657,33.19485 11.06865,25.79255 16.15845,19.84355 L16.15745,19.84305 Z M7.34495,47.24905 L22.90695,47.24905 C23.18429,53.33885 24.33275,59.35805 26.31315,65.12405 C22.85225,65.97171 19.45765,67.06935 16.15715,68.40525 C11.06735,62.45605 7.98525,55.05325 7.34465,47.24905 L7.34495,47.24905 Z M21.06395,73.21805 C23.54055,72.30789 26.07955,71.56575 28.65775,70.99925 C30.03275,74.08515 31.64215,77.06175 33.47025,79.90545 C28.94685,78.48745 24.73585,76.21405 21.06425,73.21795 L21.06395,73.21805 Z M55.96995,79.90555 C57.79415,77.08915 59.39185,74.13215 60.75115,71.06175 C63.30975,71.6555 65.83315,72.38595 68.31365,73.24925 C64.66915,76.24925 60.47775,78.50705 55.96965,79.90545 L55.96995,79.90555 Z M73.28195,68.40555 C69.96165,67.11645 66.55535,66.05395 63.09395,65.21805 C65.08615,59.42115 66.24235,53.37005 66.53145,47.24905 L82.09345,47.24905 C81.45283,55.05375 78.37075,62.45605 73.28095,68.40505 L73.28195,68.40555 Z"/>
+  </svg>
+);
 import { ExpandableList } from "@/components/admin/ExpandableList";
 import { PARTY_LABELS } from "@/lib/constants";
 
@@ -86,7 +97,7 @@ export default function AdminDashboard() {
   // Conditional queries — only fetch when expanded
   const allPoliticians = useQuery(
     api.politicians.list,
-    expanded === "politicians" || expanded?.startsWith("party:") || expanded?.startsWith("role:")
+    expanded === "politicians" || expanded === "wikipedia" || expanded === "website" || expanded?.startsWith("party:") || expanded?.startsWith("role:")
       ? (() => {
           if (expanded!.startsWith("party:")) return { party: expanded!.replace("party:", "") };
           if (expanded!.startsWith("role:")) return { roleCategory: expanded!.replace("role:", "") };
@@ -154,6 +165,30 @@ export default function AdminDashboard() {
       icon: platformIcons[a.platform] || <Globe className="h-3.5 w-3.5" />,
       tags: [a.platform],
     }));
+  }
+
+  function getWikipediaItems(data: typeof allPoliticians) {
+    if (!data) return [];
+    return data
+      .filter((p) => p.wikipediaUrl)
+      .map((p) => ({
+        id: p._id,
+        label: p.name,
+        sublabel: `${p.party} · ${p.role} · ${p.province}`,
+        tags: [p.roleCategory, p.party],
+      }));
+  }
+
+  function getWebsiteItems(data: typeof allPoliticians) {
+    if (!data) return [];
+    return data
+      .filter((p) => p.personalWebsite)
+      .map((p) => ({
+        id: p._id,
+        label: p.name,
+        sublabel: `${p.party} · ${p.role} · ${p.province}`,
+        tags: [p.roleCategory, p.party],
+      }));
   }
 
   function getMissingHeadshotItems(data: typeof missingHeadshots) {
@@ -263,15 +298,14 @@ export default function AdminDashboard() {
                 )}
               </span>
             </div>
-            <p
-              className={`mt-2 text-2xl font-bold ${
-                stats.missingHeadshots > 0
-                  ? "text-amber-500"
-                  : "text-[var(--foreground)]"
-              }`}
-            >
-              {stats.missingHeadshots}
-            </p>
+            <div className="mt-2 flex items-center gap-1.5">
+              {stats.missingHeadshots > 0 && (
+                <AlertTriangle className="h-5 w-5 text-red-500" />
+              )}
+              <p className={`text-2xl font-bold ${stats.missingHeadshots > 0 ? "text-red-500" : "text-[var(--foreground)]"}`}>
+                {stats.missingHeadshots}
+              </p>
+            </div>
           </button>
           {expanded === "headshots" && (
             <ExpandableList
@@ -376,34 +410,66 @@ export default function AdminDashboard() {
               );
             })}
 
-          {/* Wikipedia (non-expandable info card) */}
-          <div className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3">
-            <span className="text-[var(--muted-foreground)]">
-              <BookOpen className="h-4 w-4" />
-            </span>
-            <div className="flex-1 text-left">
-              <p className="text-sm font-medium text-[var(--foreground)]">
-                Wikipedia
-              </p>
-              <p className="text-xs text-[var(--muted-foreground)]">
-                {stats.wikipediaCount ?? 0} politicians
-              </p>
-            </div>
+          {/* Wikipedia (expandable) */}
+          <div>
+            <button
+              onClick={() => toggle("wikipedia")}
+              className="w-full flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3 hover:bg-[var(--muted)]/30 transition-colors"
+            >
+              <span className="text-[var(--muted-foreground)]">
+                <WikipediaIcon className="h-4 w-4" />
+              </span>
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-[var(--foreground)]">Wikipedia</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  {stats.wikipediaCount ?? 0} politicians
+                </p>
+              </div>
+              {expanded === "wikipedia" ? (
+                <ChevronUp className="h-3.5 w-3.5 text-[var(--muted-foreground)]" />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5 text-[var(--muted-foreground)]" />
+              )}
+            </button>
+            {expanded === "wikipedia" && (
+              <ExpandableList
+                items={getWikipediaItems(allPoliticians)}
+                onClose={() => setExpanded(null)}
+                filterOptions={roleFilterOptions}
+                filterLabel="Roles"
+              />
+            )}
           </div>
 
-          {/* Personal Website (non-expandable info card) */}
-          <div className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3">
-            <span className="text-[var(--muted-foreground)]">
-              <Link2 className="h-4 w-4" />
-            </span>
-            <div className="flex-1 text-left">
-              <p className="text-sm font-medium text-[var(--foreground)]">
-                Personal Website
-              </p>
-              <p className="text-xs text-[var(--muted-foreground)]">
-                {stats.personalWebsiteCount ?? 0} politicians
-              </p>
-            </div>
+          {/* Personal Website (expandable) */}
+          <div>
+            <button
+              onClick={() => toggle("website")}
+              className="w-full flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3 hover:bg-[var(--muted)]/30 transition-colors"
+            >
+              <span className="text-[var(--muted-foreground)]">
+                <WwwIcon className="h-4 w-4" />
+              </span>
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-[var(--foreground)]">Personal Website</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  {stats.personalWebsiteCount ?? 0} politicians
+                </p>
+              </div>
+              {expanded === "website" ? (
+                <ChevronUp className="h-3.5 w-3.5 text-[var(--muted-foreground)]" />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5 text-[var(--muted-foreground)]" />
+              )}
+            </button>
+            {expanded === "website" && (
+              <ExpandableList
+                items={getWebsiteItems(allPoliticians)}
+                onClose={() => setExpanded(null)}
+                filterOptions={roleFilterOptions}
+                filterLabel="Roles"
+              />
+            )}
           </div>
         </div>
       </div>

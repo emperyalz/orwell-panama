@@ -28,24 +28,27 @@ export function PoliticianGrid({
     <div>
       {/* ─── Black strip — full-width search + filters ─── */}
       <div className="bg-[#111] border-b border-[#222]">
-        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 space-y-4">
-          <SearchBar
-            value={filters.search}
-            onChange={(v) => setFilter("search", v)}
-            variant="dark"
-          />
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <FilterBar
-              filters={filters}
-              onFilterChange={setFilter}
-              onReset={resetFilters}
-              hasActiveFilters={hasActiveFilters}
-              parties={parties}
-              provinces={provinces}
-              variant="dark"
-            />
-            {/* View mode toggle — in the strip */}
-            <div className="flex items-center rounded-lg border border-[#333] bg-[#1a1a1a] p-0.5">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-3">
+            {/* Left group: search stacked above filters, width = filter bar width */}
+            <div className="flex flex-col gap-3">
+              <SearchBar
+                value={filters.search}
+                onChange={(v) => setFilter("search", v)}
+                variant="dark"
+              />
+              <FilterBar
+                filters={filters}
+                onFilterChange={setFilter}
+                onReset={resetFilters}
+                hasActiveFilters={hasActiveFilters}
+                parties={parties}
+                provinces={provinces}
+                variant="dark"
+              />
+            </div>
+            {/* View mode toggle — right-aligned */}
+            <div className="flex flex-shrink-0 items-center rounded-lg border border-[#333] bg-[#1a1a1a] p-0.5">
               <button
                 onClick={() => setViewMode("gallery")}
                 className={`rounded-md p-1.5 transition-colors ${

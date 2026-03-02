@@ -30,9 +30,23 @@ export interface Politician {
 export type Platform = PoliticianAccount["platform"];
 export type RoleCategory = Politician["roleCategory"];
 
+export type SortOption =
+  | "rank"
+  | "firstName_asc"
+  | "firstName_desc"
+  | "lastName_asc"
+  | "lastName_desc"
+  | "role_asc"
+  | "role_desc"
+  | "province_asc"
+  | "province_desc"
+  | "party_asc"
+  | "party_desc";
+
 export interface FilterState {
   search: string;
   role: RoleCategory | "";
   province: string;
   party: string;
+  sort: SortOption | "";
 }

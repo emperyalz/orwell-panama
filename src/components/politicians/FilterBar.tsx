@@ -2,8 +2,9 @@
 
 import { RotateCcw } from "lucide-react";
 import { Select } from "@/components/ui/Select";
+import { SortDropdown } from "./SortDropdown";
 import { ROLE_CATEGORIES } from "@/lib/constants";
-import type { FilterState, RoleCategory } from "@/lib/types";
+import type { FilterState, RoleCategory, SortOption } from "@/lib/types";
 
 interface FilterBarProps {
   filters: FilterState;
@@ -34,6 +35,7 @@ export function FilterBar({
         placeholder="Cargo"
         options={ROLE_CATEGORIES.map((r) => ({ value: r.value, label: r.label }))}
         variant={variant}
+        fullWidth={false}
       />
       <Select
         value={filters.province}
@@ -41,12 +43,19 @@ export function FilterBar({
         placeholder="Provincia"
         options={provinces.map((p) => ({ value: p, label: p }))}
         variant={variant}
+        fullWidth={false}
       />
       <Select
         value={filters.party}
         onChange={(v) => onFilterChange("party", v)}
         placeholder="Partido"
         options={parties.map((p) => ({ value: p, label: p }))}
+        variant={variant}
+        fullWidth={false}
+      />
+      <SortDropdown
+        value={filters.sort}
+        onChange={(v) => onFilterChange("sort", v as SortOption | "")}
         variant={variant}
       />
       {hasActiveFilters && (

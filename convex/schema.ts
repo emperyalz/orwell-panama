@@ -140,6 +140,25 @@ export default defineSchema({
     .index("by_category", ["category"])
     .index("by_active", ["isActive"]),
 
+  // Featured video clips — downloaded via cobalt and stored in Convex file storage
+  featuredVideos: defineTable({
+    sourceUrl: v.string(),           // original social media share URL
+    platform: v.optional(v.string()),
+    handle: v.optional(v.string()),  // @username
+    storageId: v.optional(v.id("_storage")),
+    mp4Url: v.optional(v.string()),  // permanent Convex serving URL
+    posterUrl: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("processing"),
+      v.literal("done"),
+      v.literal("error"),
+    ),
+    errorMsg: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_sourceUrl", ["sourceUrl"]),
+
   // Admin users
   users: defineTable({
     name: v.string(),
