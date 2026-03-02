@@ -70,6 +70,7 @@ export default function FeaturedVideosAdminPage() {
   const updateVideo = useMutation(api.featuredVideos.updateVideo);
   const processOne = useAction(api.featuredVideos.processOne);
   const resetErrors = useAction(api.featuredVideos.resetErrors);
+  const refreshAvatarsAndHandles = useAction(api.featuredVideos.refreshAvatarsAndHandles);
 
   const [newUrl, setNewUrl] = useState("");
   const [newHandle, setNewHandle] = useState("");
@@ -77,6 +78,8 @@ export default function FeaturedVideosAdminPage() {
   const [adding, setAdding] = useState(false);
   const [addError, setAddError] = useState("");
   const [resetting, setResetting] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshMsg, setRefreshMsg] = useState("");
   const [requeuing, setRequeuing] = useState<string | null>(null);
 
   const handleAdd = async () => {
@@ -120,6 +123,19 @@ export default function FeaturedVideosAdminPage() {
     try { await resetErrors({}); } finally { setResetting(false); }
   };
 
+  const handleRefreshAvatars = async () => {
+    setRefreshing(true);
+    setRefreshMsg("");
+    try {
+      const result = await refreshAvatarsAndHandles({});
+      setRefreshMsg(`Updated ${result.updated} of ${result.checked} records.`);
+    } catch (e) {
+      setRefreshMsg(String(e));
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   const errorCount = videos?.filter((v) => v.status === "error").length ?? 0;
 
   return (
@@ -132,16 +148,30 @@ export default function FeaturedVideosAdminPage() {
             Manage video links. Adding a URL triggers the download pipeline automatically.
           </p>
         </div>
-        {errorCount > 0 && (
+        <div className="flex items-center gap-2 flex-wrap justify-end">
           <button
-            onClick={handleResetErrors}
-            disabled={resetting}
-            className="flex items-center gap-2 rounded-lg border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-100 disabled:opacity-50 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/30"
+            onClick={handleRefreshAvatars}
+            disabled={refreshing}
+            title="Re-fetch real @handles and profile pictures from TikTok and X/Twitter"
+            className="flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-sm font-medium text-[var(--foreground)] hover:bg-[var(--muted)] disabled:opacity-50"
           >
-            <RefreshCw className={`h-4 w-4 ${resetting ? "animate-spin" : ""}`} />
-            Re-queue {errorCount} error{errorCount !== 1 ? "s" : ""}
+            <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
+            {refreshing ? "Refreshing…" : "Refresh Avatars & Handles"}
           </button>
-        )}
+          {refreshMsg && (
+            <span className="text-xs text-[var(--muted-foreground)]">{refreshMsg}</span>
+          )}
+          {errorCount > 0 && (
+            <button
+              onClick={handleResetErrors}
+              disabled={resetting}
+              className="flex items-center gap-2 rounded-lg border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-100 disabled:opacity-50 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/30"
+            >
+              <RefreshCw className={`h-4 w-4 ${resetting ? "animate-spin" : ""}`} />
+              Re-queue {errorCount} error{errorCount !== 1 ? "s" : ""}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Add new video form */}

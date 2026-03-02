@@ -358,7 +358,7 @@ export const downloadOne = internalAction({
         if (info.avatarUrl) {
           avatarUrl = await storeImage(ctx, info.avatarUrl, "https://www.tiktok.com/");
         }
-      } else if (platform === "twitter") {
+      } else if (platform === "x") {
         const result = await getTwitterDownloadUrl(sourceUrl);
         downloadUrl = result.videoUrl;
         posterUrl = result.posterUrl; // pbs.twimg.com — works directly in browser
@@ -545,5 +545,74 @@ export const resetErrors = action({
       await ctx.runMutation(internal.featuredVideos.upsert, { sourceUrl: r.sourceUrl, status: "pending", errorMsg: undefined });
     }
     return { reset: errored.length };
+  },
+});
+
+// ─── Admin action: backfill handles + avatars for existing records ─────────────
+// Fetches real @handles and profile pictures from TikTok (tikwm) and X (vxtwitter).
+// Instagram avatar fetching is blocked without auth — those stay as gradient initials.
+
+export const refreshAvatarsAndHandles = action({
+  args: {},
+  handler: async (ctx) => {
+    const all: Array<{
+      _id: string;
+      sourceUrl: string;
+      status: string;
+      platform?: string;
+      handle?: string;
+      avatarUrl?: string;
+    }> = await ctx.runQuery(api.featuredVideos.list);
+
+    const GENERIC_HANDLES = ["@X", "@TikTok", "@Instagram", "@YouTube", "@Facebook", "@x", "@tiktok"];
+    let updated = 0;
+
+    for (const r of all) {
+      if (r.status !== "done") continue;
+
+      const platform = r.platform ?? detectPlatform(r.sourceUrl);
+      const hasRealHandle = r.handle && !GENERIC_HANDLES.includes(r.handle) && r.handle !== platform;
+      const hasAvatar = !!r.avatarUrl;
+
+      // Skip if already has both real handle and avatar
+      if (hasRealHandle && hasAvatar) continue;
+
+      try {
+        if (platform === "tiktok") {
+          const info = await getTikTokInfo(r.sourceUrl);
+          const newHandle = (hasRealHandle ? r.handle : info.handle) ?? r.handle;
+          let newAvatarUrl = r.avatarUrl;
+          if (!hasAvatar && info.avatarUrl) {
+            newAvatarUrl = await storeImage(ctx, info.avatarUrl, "https://www.tiktok.com/");
+          }
+          await ctx.runMutation(internal.featuredVideos.upsert, {
+            sourceUrl: r.sourceUrl,
+            status: "done",
+            handle: newHandle,
+            avatarUrl: newAvatarUrl,
+          });
+          updated++;
+        } else if (platform === "x") {
+          const result = await getTwitterDownloadUrl(r.sourceUrl);
+          const newHandle = (hasRealHandle ? r.handle : result.handle) ?? r.handle;
+          let newAvatarUrl = r.avatarUrl;
+          if (!hasAvatar && result.avatarUrl) {
+            newAvatarUrl = await storeImage(ctx, result.avatarUrl, "https://x.com/");
+          }
+          await ctx.runMutation(internal.featuredVideos.upsert, {
+            sourceUrl: r.sourceUrl,
+            status: "done",
+            handle: newHandle,
+            avatarUrl: newAvatarUrl,
+          });
+          updated++;
+        }
+        // Instagram: avatars blocked without auth — skip
+      } catch (e) {
+        console.warn(`[refreshAvatarsAndHandles] failed for ${r.sourceUrl}:`, e);
+      }
+    }
+
+    return { updated, checked: all.filter((r) => r.status === "done").length };
   },
 });

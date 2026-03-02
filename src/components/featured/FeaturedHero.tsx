@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import Link from "next/link";
 import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -19,7 +20,32 @@ interface CarouselVideo {
   embedSrc?: string;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+interface FeaturedArticle {
+  category: string;
+  title: string;
+  image: string;
+  href: string;
+}
+
+// ─── Static right-column content (unchanged from original design) ─────────────
+
+const YOUTUBE_EMBED = "https://www.youtube.com/embed/0evoN0fImGY?autoplay=1&rel=0";
+const YOUTUBE_THUMB = "https://img.youtube.com/vi/0evoN0fImGY/hqdefault.jpg";
+
+const BOTTOM_ARTICLE: FeaturedArticle = {
+  category: "NOTICIAS",
+  title: "Panamá conmemora el hecho patriótico del 9 de enero de 1964",
+  image: "/images/headshots/GOV-002.jpg",
+  href: "#",
+};
+
+// ─── Platform helpers ─────────────────────────────────────────────────────────
+
+function normalizePlatform(raw: string | undefined): Platform {
+  if (!raw) return "instagram";
+  if (raw === "twitter") return "x";
+  return raw as Platform;
+}
 
 function detectPlatform(url: string): Platform {
   if (url.includes("tiktok.com")) return "tiktok";
@@ -36,8 +62,8 @@ function buildEmbedSrc(url: string, platform: Platform): string | undefined {
     return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` : undefined;
   }
   if (platform === "instagram") {
-    const shortcode = url.match(/\/reel\/([A-Za-z0-9_-]+)/)?.[1] ?? url.match(/\/p\/([A-Za-z0-9_-]+)/)?.[1];
-    return shortcode ? `https://www.instagram.com/reel/${shortcode}/embed/` : undefined;
+    const sc = url.match(/\/reel\/([A-Za-z0-9_-]+)/)?.[1] ?? url.match(/\/p\/([A-Za-z0-9_-]+)/)?.[1];
+    return sc ? `https://www.instagram.com/reel/${sc}/embed/` : undefined;
   }
   if (platform === "tiktok") {
     const vid = url.match(/\/video\/(\d+)/)?.[1];
@@ -58,9 +84,10 @@ const GRADIENT: Record<Platform, string> = {
   x: "from-zinc-900 to-zinc-700",
 };
 
+// ─── Platform icon — renders brand SVG in natural color (no filter needed) ────
+
 function PlatformIcon({ platform, className = "" }: { platform: Platform | string; className?: string }) {
-  // Normalize legacy "twitter" value stored in Convex to "x"
-  const key = (platform === "twitter" ? "x" : platform) as Platform;
+  const key = normalizePlatform(platform as string);
   const src: Record<Platform, string> = {
     instagram: "/icons/platforms/instagram.svg",
     youtube: "/icons/platforms/youtube.svg",
@@ -71,43 +98,113 @@ function PlatformIcon({ platform, className = "" }: { platform: Platform | strin
   return (
     <img
       src={src[key] ?? src.instagram}
-      alt={platform}
+      alt={platform as string}
       className={`object-contain ${className}`}
-      style={{ filter: "brightness(0) invert(1)" }}
     />
   );
 }
 
-function AvatarBadge({ avatar, handle, gradient }: { avatar?: string; handle: string; gradient: string }) {
+// ─── Avatar badge ─────────────────────────────────────────────────────────────
+
+function AvatarBadge({ avatar, handle, gradient, size = "md" }: {
+  avatar?: string;
+  handle: string;
+  gradient: string;
+  size?: "sm" | "md";
+}) {
   const [failed, setFailed] = useState(false);
+  const dim = size === "sm" ? "h-6 w-6 text-[9px]" : "h-8 w-8 text-xs";
+  const ring = size === "sm" ? "ring-1" : "ring-2";
   if (avatar && !failed) {
     return (
       <img
         src={avatar}
         alt={handle}
-        className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-white/40"
+        className={`${dim} shrink-0 rounded-full object-cover ${ring} ring-white/40`}
         onError={() => setFailed(true)}
       />
     );
   }
   return (
-    <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${gradient} text-xs font-bold uppercase text-white`}>
+    <div className={`flex ${dim} shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${gradient} font-bold uppercase text-white`}>
       {handle.replace("@", "").charAt(0)}
     </div>
   );
 }
 
-// ─── Source videos (same list the VideoSection grid uses) ─────────────────────
-// The carousel shows ALL active videos in order. Managed via admin panel.
+// ─── Right-column: YouTube video card ─────────────────────────────────────────
 
-const STATIC_VIDEOS = [
-  { url: "https://www.instagram.com/reel/DVHF_WXj9SH/", handle: "@mayermm" },
-  { url: "https://www.instagram.com/reel/DVMneM-AgUN/" },
-  { url: "https://x.com/i/status/2026297531055878397" },
-  { url: "https://www.instagram.com/reel/DSA7Z4qkXk8/" },
-  { url: "https://www.instagram.com/reel/DVJpQHLCkdF/" },
-  { url: "https://www.tiktok.com/@walkiriachd/video/7610960640768740615" },
-];
+function YoutubeCard() {
+  const [playing, setPlaying] = useState(false);
+
+  if (playing) {
+    return (
+      <div className="relative h-full overflow-hidden rounded-xl bg-black">
+        <iframe
+          src={YOUTUBE_EMBED}
+          title="Conferencia de Prensa"
+          className="absolute inset-0 h-full w-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      onClick={() => setPlaying(true)}
+      className="group relative h-full cursor-pointer overflow-hidden rounded-xl bg-black"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-red-700 to-red-500 opacity-70" />
+      <img
+        src={YOUTUBE_THUMB}
+        alt="YouTube video"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/15" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-2xl transition-transform duration-200 group-hover:scale-110">
+          <Play className="ml-0.5 h-5 w-5 fill-black text-black" />
+        </div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-3 pt-6">
+        <div className="flex items-center gap-1.5">
+          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-600">
+            <PlatformIcon platform="youtube" className="h-3 w-3" />
+          </div>
+          <span className="text-[11px] font-medium text-white drop-shadow">Conferencia de Prensa</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Right-column: Article card ───────────────────────────────────────────────
+
+function ArticleCard({ item }: { item: FeaturedArticle }) {
+  return (
+    <Link
+      href={item.href}
+      className="group relative flex h-full min-h-[150px] overflow-hidden rounded-xl"
+    >
+      <img
+        src={item.image}
+        alt={item.title}
+        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10" />
+      <div className="relative mt-auto p-4">
+        <span className="inline-block rounded-sm bg-red-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white">
+          {item.category}
+        </span>
+        <h3 className="mt-1.5 text-sm font-bold leading-snug text-white drop-shadow-md">
+          {item.title}
+        </h3>
+      </div>
+    </Link>
+  );
+}
 
 // ─── Carousel slide ───────────────────────────────────────────────────────────
 
@@ -129,14 +226,14 @@ function CarouselSlide({
   const [paused, setPaused] = useState(false);
   const gradient = GRADIENT[video.platform];
 
-  // When becoming active and already in play mode — start the video
+  // Auto-play when becoming active while in play mode
   useEffect(() => {
     if (!active || !playing) return;
     const el = videoRef.current;
     if (el) { el.currentTime = 0; el.play().catch(() => {}); }
   }, [active, playing]);
 
-  // When deactivated — pause + reset
+  // Pause and reset when deactivated
   useEffect(() => {
     if (active) return;
     const el = videoRef.current;
@@ -166,7 +263,7 @@ function CarouselSlide({
       {/* Gradient base */}
       <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-60`} />
 
-      {/* Video / first-frame preview */}
+      {/* Video or poster image */}
       {video.mp4 ? (
         <video
           ref={videoRef}
@@ -180,7 +277,6 @@ function CarouselSlide({
           onPause={() => setPaused(true)}
           onPlay={() => setPaused(false)}
           onLoadedMetadata={(e) => {
-            // Show first frame as thumbnail when not yet playing
             if (!playing) (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
           }}
         />
@@ -193,7 +289,7 @@ function CarouselSlide({
         />
       ) : null}
 
-      {/* Embed iframe fallback (YouTube, etc.) — only shown when playing */}
+      {/* Embed iframe when playing without mp4 */}
       {playing && !video.mp4 && video.embedSrc && (
         <iframe
           src={video.embedSrc}
@@ -204,45 +300,38 @@ function CarouselSlide({
         />
       )}
 
-      {/* Dark scrim when paused/not playing */}
+      {/* Dark scrim */}
       <div className={`absolute inset-0 bg-black transition-opacity duration-300 ${playing && !paused ? "opacity-0" : "opacity-30"}`} />
 
-      {/* Centre play/pause button */}
+      {/* Play/pause button — covers full slide; shows circle when paused/stopped,
+          hides when playing (group-hover makes it reappear for pause). */}
       <button
         onClick={handlePlayPause}
-        className="absolute inset-0 flex items-center justify-center focus:outline-none"
+        className="group absolute inset-0 z-10 flex items-center justify-center focus:outline-none"
         aria-label={playing && !paused ? "Pause" : "Play"}
       >
-        <div className={`flex h-20 w-20 items-center justify-center rounded-full bg-white/90 shadow-2xl transition-all duration-300 ${playing && !paused ? "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100" : "scale-100 opacity-100"}`}>
+        <div className={`flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-2xl transition-all duration-300 ${
+          playing && !paused
+            ? "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
+            : "scale-100 opacity-100"
+        }`}>
           {playing && !paused
-            ? <Pause className="h-8 w-8 fill-black text-black" />
-            : <Play className="ml-1.5 h-8 w-8 fill-black text-black" />
+            ? <Pause className="h-7 w-7 fill-black text-black" />
+            : <Play className="ml-1 h-7 w-7 fill-black text-black" />
           }
         </div>
       </button>
 
-      {/* Show play button on hover when playing */}
-      {playing && !paused && (
-        <div className="group absolute inset-0 flex items-center justify-center">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 shadow-2xl opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-            <Pause className="h-8 w-8 fill-black text-black" />
-          </div>
-        </div>
-      )}
-
-      {/* Overlay: platform icon + avatar + handle (shown when not playing / paused) */}
+      {/* Info overlay — platform icon (top-right), avatar + handle (bottom-left) */}
       {showOverlay && (
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-5">
-          {/* Platform icon — top right */}
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-4">
           <div className="flex justify-end">
-            <div className="rounded-full bg-black/40 p-2 backdrop-blur-sm">
-              <PlatformIcon platform={video.platform} className="h-5 w-5" />
+            <div className="rounded-full bg-black/50 p-1.5 backdrop-blur-sm">
+              <PlatformIcon platform={video.platform} className="h-4 w-4" />
             </div>
           </div>
-
-          {/* Avatar + handle — bottom left */}
-          <div className="flex items-center gap-3">
-            <AvatarBadge avatar={video.avatar} handle={video.handle} gradient={gradient} />
+          <div className="flex items-center gap-2">
+            <AvatarBadge avatar={video.avatar} handle={video.handle} gradient={gradient} size="md" />
             <div>
               <p className="text-sm font-bold text-white drop-shadow">
                 {video.handle.startsWith("@") ? video.handle : `@${video.handle}`}
@@ -256,44 +345,46 @@ function CarouselSlide({
   );
 }
 
-// ─── Main carousel component ──────────────────────────────────────────────────
+// ─── Main exported component ──────────────────────────────────────────────────
 
 export function FeaturedHero() {
   const storedVideos = useQuery(api.featuredVideos.list);
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  // Build the carousel items from Convex data merged with static list
-  const items: CarouselVideo[] = STATIC_VIDEOS.map((entry) => {
-    const stored = storedVideos?.find((r) => r.sourceUrl === entry.url);
-    const platform = (stored?.platform as Platform | undefined) ?? detectPlatform(entry.url);
+  // Build carousel from Convex: prefer isFeatured videos, fall back to all active+done
+  const allReady = (storedVideos ?? []).filter(
+    (r) => r.isActive !== false && r.status === "done",
+  );
+  const featured = allReady.filter((r) => r.isFeatured);
+  const sourceRecords = featured.length > 0 ? featured : allReady;
+
+  const items: CarouselVideo[] = sourceRecords.map((r) => {
+    const platform = normalizePlatform(r.platform);
     return {
-      url: entry.url,
-      mp4: stored?.status === "done" && stored.mp4Url ? stored.mp4Url : undefined,
-      poster: stored?.posterUrl ?? undefined,
-      handle: stored?.handle ?? entry.handle ?? platform,
-      avatar: stored?.avatarUrl ?? undefined,
+      url: r.sourceUrl,
+      mp4: r.mp4Url ?? undefined,
+      poster: r.posterUrl ?? undefined,
+      handle: r.handle ?? platform,
+      avatar: r.avatarUrl ?? undefined,
       platform,
-      embedSrc: buildEmbedSrc(entry.url, platform),
+      embedSrc: buildEmbedSrc(r.sourceUrl, platform),
     };
   });
 
   const total = items.length;
 
-  const goTo = useCallback((idx: number) => {
-    setCurrent(((idx % total) + total) % total);
-  }, [total]);
+  const goTo = useCallback(
+    (idx: number) => {
+      if (total === 0) return;
+      setCurrent(((idx % total) + total) % total);
+    },
+    [total],
+  );
 
-  const prev = () => { goTo(current - 1); };
-  const next = useCallback(() => { goTo(current + 1); }, [current, goTo]);
-
-  // Auto-advance to next video when current one ends
-  const handleEnded = useCallback(() => {
-    next();
-    // Keep playing — the new slide's useEffect will auto-start it
-  }, [next]);
-
-  if (total === 0) return null;
+  const prev = useCallback(() => goTo(current - 1), [current, goTo]);
+  const next = useCallback(() => goTo(current + 1), [current, goTo]);
+  const handleEnded = useCallback(() => { next(); }, [next]);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -305,92 +396,122 @@ export function FeaturedHero() {
         </h2>
       </div>
 
-      {/* Carousel container */}
-      <div className="group relative overflow-hidden rounded-2xl" style={{ aspectRatio: "16/7", minHeight: 320 }}>
+      {/* 3-card hero grid: carousel left (3/5) | YouTube top-right | article bottom-right */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:grid-rows-2 lg:h-[480px]">
 
-        {/* Slides — only the current one is visible */}
-        {items.map((video, i) => (
-          <div
-            key={video.url}
-            className={`absolute inset-0 transition-opacity duration-500 ${i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
-          >
-            <CarouselSlide
-              video={video}
-              active={i === current}
-              onEnded={handleEnded}
-              playing={playing}
-              setPlaying={setPlaying}
-            />
-          </div>
-        ))}
+        {/* ── Left: Video carousel (3/5 columns, full height) ── */}
+        <div className="group relative lg:col-span-3 lg:row-span-2 min-h-[320px] overflow-hidden rounded-2xl bg-black">
+          {total === 0 ? (
+            /* Loading or empty state */
+            <div className="flex h-full min-h-[320px] items-center justify-center bg-[var(--muted)]">
+              <Play className="h-12 w-12 opacity-20 text-[var(--foreground)]" />
+            </div>
+          ) : (
+            <>
+              {/* Slides */}
+              {items.map((video, i) => (
+                <div
+                  key={video.url}
+                  className={`absolute inset-0 transition-opacity duration-500 ${
+                    i === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <CarouselSlide
+                    video={video}
+                    active={i === current}
+                    onEnded={handleEnded}
+                    playing={playing}
+                    setPlaying={setPlaying}
+                  />
+                </div>
+              ))}
 
-        {/* Prev / Next arrows */}
-        <button
-          onClick={prev}
-          className="absolute left-3 top-1/2 z-20 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
-          aria-label="Previous video"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-3 top-1/2 z-20 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
-          aria-label="Next video"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
+              {/* Thumbnail strip — top-right corner overlay */}
+              {total > 1 && (
+                <div className="absolute top-3 right-3 z-20 flex gap-1.5">
+                  {items.map((video, i) => (
+                    <button
+                      key={i}
+                      onClick={() => { goTo(i); }}
+                      className={`relative h-11 w-8 shrink-0 overflow-hidden rounded-md transition-all duration-300 focus:outline-none ${
+                        i === current
+                          ? "ring-2 ring-white scale-110"
+                          : "opacity-55 hover:opacity-90 hover:scale-105"
+                      }`}
+                      aria-label={`${video.handle} — video ${i + 1}`}
+                    >
+                      {video.mp4 ? (
+                        <video
+                          src={video.mp4}
+                          preload="metadata"
+                          muted
+                          playsInline
+                          className="absolute inset-0 h-full w-full object-cover"
+                          onLoadedMetadata={(e) => {
+                            (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
+                          }}
+                        />
+                      ) : video.poster ? (
+                        <img
+                          src={video.poster}
+                          alt={video.handle}
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
+                      )}
+                      {/* Platform chip */}
+                      <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
+                        <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
 
-        {/* Dot navigation */}
-        <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
-          {items.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
-                i === current
-                  ? "w-6 bg-white"
-                  : "w-2 bg-white/50 hover:bg-white/80"
-              }`}
-              aria-label={`Go to video ${i + 1}`}
-            />
-          ))}
+              {/* Prev / Next arrows */}
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
+                aria-label="Previous video"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 z-20 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
+                aria-label="Next video"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+
+              {/* Dot navigation */}
+              {total > 1 && (
+                <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-1.5">
+                  {items.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => goTo(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 focus:outline-none ${
+                        i === current ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
+                      }`}
+                      aria-label={`Go to video ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
 
-        {/* Thumbnail strip */}
-        <div className="absolute bottom-12 left-0 right-0 z-20 hidden justify-center gap-2 px-8 sm:flex">
-          {items.map((video, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-md transition-all duration-300 focus:outline-none ${
-                i === current
-                  ? "ring-2 ring-white scale-110"
-                  : "opacity-60 hover:opacity-100 hover:scale-105"
-              }`}
-              aria-label={`${video.handle} — video ${i + 1}`}
-            >
-              {video.mp4 ? (
-                <video
-                  src={video.mp4}
-                  preload="metadata"
-                  muted
-                  playsInline
-                  className="absolute inset-0 h-full w-full object-cover"
-                  onLoadedMetadata={(e) => {
-                    (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
-                  }}
-                />
-              ) : video.poster ? (
-                <img src={video.poster} alt={video.handle} className="absolute inset-0 h-full w-full object-cover" />
-              ) : (
-                <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
-              )}
-              {/* Platform icon chip */}
-              <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
-                <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
-              </div>
-            </button>
-          ))}
+        {/* ── Top-right: YouTube video ── */}
+        <div className="lg:col-span-2 lg:row-span-1 min-h-[150px]">
+          <YoutubeCard />
+        </div>
+
+        {/* ── Bottom-right: Article card ── */}
+        <div className="lg:col-span-2 lg:row-span-1">
+          <ArticleCard item={BOTTOM_ARTICLE} />
         </div>
       </div>
     </section>
