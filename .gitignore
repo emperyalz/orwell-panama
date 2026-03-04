@@ -42,3 +42,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large data files (too big for GitHub)
+data/voting-records/asamblea_data/votes.csv
+data/voting-records/asamblea_panama.db
+data/voting-records/asamblea_data/raw_json/
