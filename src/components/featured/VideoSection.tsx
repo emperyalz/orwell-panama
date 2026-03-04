@@ -142,13 +142,11 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
           />
         ) : null}
 
-        {/* Overlay when paused (native video only) */}
-        {entry.mp4 && showOverlay && (
+        {/* Overlay — always visible: platform icon top-left, avatar + handle bottom */}
+        {entry.mp4 && (
           <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-2.5">
             <div className="flex justify-start">
-              <div className="rounded-full bg-black/40 p-1 backdrop-blur-sm">
-                <PlatformIcon platform={entry.platform} className="h-3.5 w-3.5" />
-              </div>
+              <PlatformIcon platform={entry.platform} className="h-3.5 w-3.5" />
             </div>
             <div className="flex items-center gap-1.5 rounded-lg bg-black/40 px-2 py-1.5 backdrop-blur-sm">
               <AvatarBadge avatar={entry.avatar} handle={handle} gradient={gradient} />
@@ -203,7 +201,7 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
       </div>
 
       {/* Platform icon — top left */}
-      <div className="absolute left-2.5 top-2.5 rounded-full bg-black/40 p-1.5 backdrop-blur-sm">
+      <div className="absolute left-2.5 top-2.5">
         <PlatformIcon platform={entry.platform} className="h-3.5 w-3.5" />
       </div>
 
@@ -225,10 +223,10 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
 export function VideoSection() {
   const storedVideos = useQuery(api.featuredVideos.list);
 
-  // Show all active, downloaded videos from the database (admin-controlled)
+  // Show only videos explicitly marked showInVideos (admin-controlled), max 18 (3 rows × 6 cols)
   const videos: VideoEntry[] = (storedVideos ?? [])
-    .filter((r) => r.isActive !== false && r.status === "done")
-    .slice(0, 12)
+    .filter((r) => r.showInVideos === true && r.status === "done")
+    .slice(0, 18)
     .map((r) => {
       const platform = normalizePlatform(r.platform, r.sourceUrl);
       return {

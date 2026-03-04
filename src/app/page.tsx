@@ -1,10 +1,9 @@
 import { Suspense } from "react";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../convex/_generated/api";
-import { PoliticianGrid } from "@/components/politicians/PoliticianGrid";
+import { HomeClient } from "@/components/politicians/HomeClient";
 import type { Politician } from "@/lib/types";
 
-/** Map Convex document to Politician view type */
 function toViewPolitician(doc: any): Politician {
   return {
     id: doc.externalId,
@@ -34,62 +33,83 @@ function toViewPolitician(doc: any): Politician {
   };
 }
 
+function computeBreakdown(
+  politicians: any[],
+  roleCategory: string,
+  partyColors: Record<string, string>
+) {
+  const counts: Record<string, number> = {};
+  for (const p of politicians) {
+    if (p.roleCategory === roleCategory) {
+      counts[p.party] = (counts[p.party] ?? 0) + 1;
+    }
+  }
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([code, count]) => ({ code, count, color: partyColors[code] ?? "#555" }));
+}
+
 export default async function HomePage() {
-  const [rawPoliticians, rawParties, rawProvinces] = await Promise.all([
+  const [rawPoliticians, rawPartyList, rawUniqueParties, rawProvinces] = await Promise.all([
     fetchQuery(api.politicians.list, {}),
+    fetchQuery(api.parties.list, {}),
     fetchQuery(api.politicians.getUniqueParties, {}),
     fetchQuery(api.politicians.getUniqueProvinces, {}),
   ]);
 
   const politicians: Politician[] = rawPoliticians.map(toViewPolitician);
-  const parties = rawParties.map((p: any) => p.code);
+  const parties = rawUniqueParties.map((p: any) => p.code);
   const provinces = rawProvinces;
-  const totalAccounts = politicians.reduce(
-    (sum, p) => sum + p.accounts.length,
-    0
-  );
+
+  const partyColors: Record<string, string> = {};
+  for (const p of rawPartyList as any[]) {
+    partyColors[p.code] = p.color;
+  }
+
+  const govTiers = [
+    {
+      label: "Presidente",
+      sublabel: "Presidente de la República",
+      total: rawPoliticians.filter((p: any) => p.roleCategory === "President").length,
+      slices: computeBreakdown(rawPoliticians, "President", partyColors),
+    },
+    {
+      label: "Gobernadores",
+      sublabel: "Gobernadores Provinciales",
+      total: rawPoliticians.filter((p: any) => p.roleCategory === "Governor").length,
+      slices: computeBreakdown(rawPoliticians, "Governor", partyColors),
+    },
+    {
+      label: "Alcaldes",
+      sublabel: "Alcaldes Municipales",
+      total: rawPoliticians.filter((p: any) => p.roleCategory === "Mayor").length,
+      slices: computeBreakdown(rawPoliticians, "Mayor", partyColors),
+    },
+    {
+      label: "Asamblea Nacional",
+      sublabel: "Diputados",
+      total: rawPoliticians.filter((p: any) => p.roleCategory === "Deputy").length,
+      slices: computeBreakdown(rawPoliticians, "Deputy", partyColors),
+    },
+  ];
 
   return (
-    <>
-      {/* Hero — full-width black */}
-      <div className="bg-[#111]">
-        <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-white">
-            Directorio de Políticos de Panamá
-          </h1>
-          <p className="mt-2 text-xs text-neutral-400">
-            Inteligencia basada en datos, impulsada por el repositorio más completo de política panameña
-          </p>
-        </div>
-      </div>
-
-      {/* Grid with filters — handles its own full-width strip + constrained content */}
-      <Suspense
-        fallback={
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="animate-pulse rounded-xl border border-[var(--border)] bg-[var(--muted)]"
-                >
-                  <div className="aspect-square bg-[var(--border)]" />
-                  <div className="space-y-2 p-3">
-                    <div className="h-4 rounded bg-[var(--border)]" />
-                    <div className="h-3 w-2/3 rounded bg-[var(--border)]" />
-                  </div>
-                </div>
-              ))}
-            </div>
+    <Suspense
+      fallback={
+        <div className="bg-[#111] border-b border-[#222]">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <div className="h-8 w-80 animate-pulse rounded bg-[#222]" />
+            <div className="mt-3 h-3 w-64 animate-pulse rounded bg-[#1a1a1a]" />
           </div>
-        }
-      >
-        <PoliticianGrid
-          politicians={politicians}
-          parties={parties}
-          provinces={provinces}
-        />
-      </Suspense>
-    </>
+        </div>
+      }
+    >
+      <HomeClient
+        politicians={politicians}
+        parties={parties}
+        provinces={provinces}
+        govTiers={govTiers}
+      />
+    </Suspense>
   );
 }

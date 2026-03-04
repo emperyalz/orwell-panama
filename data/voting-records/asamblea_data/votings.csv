@@ -1,0 +1,936 @@
+voting_id,report_id,session_id,session_date,session_type,voting_title,voting_description,is_secret,voting_status,voting_start,voting_end,point_id
+136,106,61,2021-04-05,4,Segundo debate proyecto de Ley 200,Nata capital de la cultura y de la historia,False,3,2021-04-06T18:42:02.000Z,2021-04-06T18:53:31.000Z,5749
+139,106,61,2021-04-05,4,Segundo Debate proyecto de Ley 102,Beneficios economicos a menores,False,3,2021-04-06T19:09:48.000Z,2021-04-06T19:14:46.000Z,5752
+142,106,61,2021-04-05,4,Segundo debate proyecto de ley 464,Movilidad Ciclismo,False,3,2021-04-06T19:28:01.000Z,2021-04-06T19:31:31.000Z,5755
+145,109,67,2021-04-07,Ordinaria,Tercer debate proyecto de ley 200,Nata ciudad histórica,False,3,2021-04-07T20:25:07.000Z,2021-04-07T20:28:17.000Z,6430
+148,109,67,2021-04-07,Ordinaria,Tercer Debate proyecto de Ley 102,Beneficios económicos a los infantes de 0 a 3 años,False,3,2021-04-07T20:41:22.000Z,2021-04-07T20:43:29.000Z,6433
+151,109,67,2021-04-07,Ordinaria,Tercer debate proyecto de Ley 464,Movilidad de ciclismo,False,3,2021-04-07T21:04:04.000Z,2021-04-07T21:07:33.000Z,6436
+154,109,67,2021-04-07,Ordinaria,Segundo debate proyecto del Ley 94,"Que modifica la Ley 56 de 2008, General de Puertos de Panamá",False,3,2021-04-07T21:29:05.000Z,2021-04-07T21:33:08.000Z,6637
+157,109,67,2021-04-07,Ordinaria,Elección del Defensor del pueblo,,False,3,2021-04-07T22:21:59.000Z,2021-04-07T22:24:52.000Z,6772
+163,112,70,2021-04-08,Ordinaria,Segundo debate Proyecto de ley No. 460 (Objetado),Que concede una amnistía para el pago total de las cuotas,False,3,2021-04-08T18:39:34.000Z,2021-04-08T18:46:39.000Z,7138
+160,112,70,2021-04-08,Ordinaria,Segundo Debate Proyecto de ley 440 (objetado),Que dicta medidas para el abordaje integral de la endometriosis y normas de protección laboral.,False,3,2021-04-08T19:07:52.000Z,2021-04-08T19:14:08.000Z,7141
+175,118,73,2021-04-12,4,Citación Ministro de Turismo,,False,3,2021-04-12T22:13:55.000Z,2021-04-12T22:16:14.000Z,7162
+169,118,73,2021-04-12,4,Tercer debate del proyecto de Ley 440,Endometriosis,False,3,2021-04-12T22:36:53.000Z,2021-04-12T22:38:35.000Z,7165
+172,118,73,2021-04-12,4,Tercer debate proyecto de Ley 94,Adiciona artículos a ley 56 de 2008,False,3,2021-04-12T22:56:31.000Z,2021-04-12T22:57:44.000Z,7168
+178,118,73,2021-04-12,4,Segundo debate proyecto de ley 51,Registro de ofensores sexuales,False,3,2021-04-13T19:20:16.000Z,2021-04-13T19:27:03.000Z,7171
+181,118,73,2021-04-12,4,Segundo de debate Proyecto de Ley 491,Instituto de Meteorología,False,3,2021-04-14T20:11:41.000Z,2021-04-14T20:38:43.000Z,7174
+184,118,73,2021-04-12,4,Proyecto de ley 537,Que establece incentivos ambientales.,False,3,2021-04-14T21:09:08.000Z,2021-04-14T21:20:35.000Z,7177
+187,118,73,2021-04-12,4,Segundo debate proyecto 378,Escuela Silvia Godoy,False,3,2021-04-14T21:26:59.000Z,2021-04-14T21:31:16.000Z,7183
+190,118,73,2021-04-12,4,Segundo debate Proyecto Ley 160,Cirugías de niños en el extranjero,False,3,2021-04-14T21:36:52.000Z,2021-04-14T21:40:42.000Z,7186
+193,121,85,2021-04-15,4,Nombramiento del  Director IPACOOP,IPACOOP,False,3,2021-04-15T18:24:23.000Z,2021-04-15T18:33:23.000Z,8950
+196,121,85,2021-04-15,4,Tercer debate Proyecto Ley 51,ofensores sexuales,False,3,2021-04-15T18:35:19.000Z,2021-04-15T18:41:14.000Z,8620
+199,121,85,2021-04-15,4,Proyecto de Ley 491,Meteorología e Hidrología,False,3,2021-04-15T19:04:14.000Z,2021-04-15T19:07:30.000Z,8623
+202,121,85,2021-04-15,4,Tercer debate proyecto de ley 537,incentivos ambientales,False,3,2021-04-15T19:22:48.000Z,2021-04-15T19:29:53.000Z,8626
+205,121,85,2021-04-15,4,Segundo debate proyecto de ley 594,Academias de Beisbol,False,3,2021-04-15T21:35:50.000Z,2021-04-15T21:41:41.000Z,8935
+211,127,88,2021-04-19,4,Tercer debate proyecto de ley 378,Centro Educativo Silvia Esther Godoy a la Escuela de Trinchera.,False,3,2021-04-19T20:08:03.000Z,2021-04-19T20:11:30.000Z,9001
+208,127,88,2021-04-19,4,Tercer debate Proyecto de ley 594,Promueve el desarrollo para las categorías menores de béisbol,False,3,2021-04-19T21:34:06.000Z,2021-04-19T21:51:26.000Z,9010
+214,127,88,2021-04-19,4,Segundo debate Proyecto de ley 524,Prima de antigüedad,False,3,2021-04-19T22:30:36.000Z,2021-04-19T22:38:31.000Z,9007
+220,127,88,2021-04-19,4,Segundo debate Proyecto de ley no 416,carrerra menores infractores,False,3,2021-04-19T23:24:26.000Z,2021-04-19T23:44:37.000Z,9013
+223,127,88,2021-04-19,4,Segundo debate Proyecto de Ley 541,Sistema Protección civil,False,3,2021-04-20T19:16:58.000Z,2021-04-20T19:23:01.000Z,9016
+226,127,88,2021-04-19,4,Segundo debate proyecto de Ley 275,"Prevención, Tratamiento y Rehabilitación de Jóvenes con problemas de adicciones",False,3,2021-04-20T19:50:55.000Z,2021-04-20T19:54:08.000Z,9019
+229,127,88,2021-04-19,4,Segundo debate proyecto de Ley 369,Por el cual se regula actividad de Agroturismo en Panamá,False,3,2021-04-20T20:50:32.000Z,2021-04-20T20:58:20.000Z,9022
+232,127,88,2021-04-19,4,Segundo debate proyecto de Ley 372,Que regula las normas de diseño y edificación.,False,3,2021-04-20T21:14:39.000Z,2021-04-20T21:18:26.000Z,9025
+235,127,88,2021-04-19,4,Segundo debate Proyecto ley 576,Normas de Bioseguridad,False,3,2021-04-20T21:27:53.000Z,2021-04-20T21:31:48.000Z,9028
+238,127,88,2021-04-19,4,Segundo debate Proyecto de Ley 581,"Que integra, implementa y promociona la Responsabilidad Social en los Contratos...",False,3,2021-04-20T21:45:16.000Z,2021-04-20T21:47:47.000Z,9031
+241,133,94,2021-04-21,4,Segundo debate Proyecto de Ley No. 250,Alerta Amber,False,3,2021-04-21T18:07:37.000Z,2021-04-21T18:24:09.000Z,10090
+244,133,94,2021-04-21,4,Tercer debate Proyecto de Ley No.524,Reconocimiento de prima,False,3,2021-04-21T18:31:10.000Z,2021-04-21T18:35:29.000Z,9751
+247,133,94,2021-04-21,4,Tercer debate Proyecto de Ley No.541,,False,3,2021-04-21T18:43:38.000Z,2021-04-21T18:45:49.000Z,9757
+250,133,94,2021-04-21,4,Tercer debate Proyecto de Ley 275,"Programa Nacional para la Prevención, Tratamiento y Rehabilitación de Jóvenes",False,3,2021-04-21T18:51:11.000Z,2021-04-21T18:55:07.000Z,9760
+253,133,94,2021-04-21,4,Tercer debate proyecto de Ley 369,Agroturismo,False,3,2021-04-21T19:10:46.000Z,2021-04-21T19:12:30.000Z,9763
+256,133,94,2021-04-21,4,Tercer debate al Proyecto de Ley No.372,Que regula las normas de diseño y edificación,False,3,2021-04-21T19:16:54.000Z,2021-04-21T19:19:30.000Z,9766
+259,133,94,2021-04-21,4,Tercer Debate al Proyecto de Ley No.576,Bioseguridad,False,3,2021-04-21T19:23:34.000Z,2021-04-21T19:25:53.000Z,9769
+262,133,94,2021-04-21,4,Tercer Debate del Proyecto de Ley No. 581,"Que integra, implementa y promociona la responsabilidad social",False,3,2021-04-21T19:33:18.000Z,2021-04-21T19:34:14.000Z,9772
+265,133,94,2021-04-21,4,Segundo debate Proyecto de Ley 533,,False,3,2021-04-22T16:41:43.000Z,2021-04-22T17:27:45.000Z,10024
+268,133,94,2021-04-21,4,Segundo debate Proyecto de Ley 242,,False,3,2021-04-22T17:41:32.000Z,2021-04-22T17:58:29.000Z,9868
+271,133,94,2021-04-21,4,Segundo debate Proyecto 546,,False,3,2021-04-26T20:36:45.000Z,2021-04-26T20:50:58.000Z,10081
+274,133,94,2021-04-21,4,Está usted a favor de  la ley No. 530,Que garantiza la conectividad y el acceso al internet a sectores económicos del país.,False,3,2021-04-26T21:08:41.000Z,2021-04-26T21:17:02.000Z,9964
+277,133,94,2021-04-21,4,Está usted a favor de la ley 289,Que declara el día 12 de marzo de cada año como día del Electricista.,False,3,2021-04-26T21:21:31.000Z,2021-04-26T21:26:05.000Z,9958
+286,136,100,2021-04-26,4,Tercer debate proyecto de Ley 250,Alerta Amber,False,3,2021-04-26T22:32:15.000Z,2021-04-26T22:36:17.000Z,10468
+289,136,100,2021-04-26,4,Tercer debate Proyecto de ley 242,Agroturismo,False,3,2021-04-26T22:44:22.000Z,2021-04-26T22:47:11.000Z,10501
+292,136,100,2021-04-26,4,Segundo Debate al Proyecto de Ley No.416,Licenciado y Técnico en Inadaptados Sociales e Infractores,False,3,2021-04-26T22:57:30.000Z,2021-04-26T23:03:48.000Z,10477
+295,136,100,2021-04-26,4,Segundo debate proyecto de ley 533,Medidas de reactivación COVID,False,3,2021-04-26T23:08:19.000Z,2021-04-26T23:12:51.000Z,11542
+307,139,103,2021-04-27,4,Tercer debate  al Proyecto de Ley No. 546,Fiscalía Electoral,False,3,2021-04-27T20:32:21.000Z,2021-04-27T20:38:32.000Z,11893
+310,139,103,2021-04-27,4,Tercer Debate al Proyecto de Ley No.530,,False,3,2021-04-27T20:44:43.000Z,2021-04-27T20:47:23.000Z,11899
+313,139,103,2021-04-27,4,Tercer Debate al Proyecto de Ley No. 289,,False,3,2021-04-27T20:52:16.000Z,2021-04-27T20:57:24.000Z,11902
+319,139,103,2021-04-27,4,Tercer Debate al Proyecto de Ley No.416,,False,3,2021-04-27T21:05:17.000Z,2021-04-27T21:06:22.000Z,11911
+322,139,103,2021-04-27,4,Tercer Debate al Proyecto de Ley No. 533;,,False,3,2021-04-27T21:11:53.000Z,2021-04-27T21:14:51.000Z,11866
+325,139,103,2021-04-27,4,Segundo debate proyecto de ley 330,Trabajadores del Banano,False,3,2021-04-27T21:46:10.000Z,2021-04-27T21:51:10.000Z,11833
+328,139,103,2021-04-27,4,Segundo debate Proyecto de Ley 171,,False,3,2021-04-27T22:15:55.000Z,2021-04-27T22:18:17.000Z,11776
+331,139,103,2021-04-27,4,Segundo Debate al Proyecto de Ley No. 277,,False,3,2021-04-27T22:46:10.000Z,2021-04-27T22:48:43.000Z,11731
+334,139,103,2021-04-27,4,Segundo debate Proyecto de Ley 579,Incentivos para el deporte,False,3,2021-04-27T23:06:01.000Z,2021-04-27T23:08:24.000Z,11800
+337,139,103,2021-04-27,4,Segundo debate proyecto de ley 210,,False,3,2021-04-28T18:01:22.000Z,2021-04-28T18:34:54.000Z,11857
+340,139,103,2021-04-27,4,Segundo debate proyecto de Ley 479,Red nacional contra el cancer,False,3,2021-04-28T19:48:23.000Z,2021-04-28T19:53:29.000Z,11851
+343,139,103,2021-04-27,4,Segundo Debate Proyecto de Ley 436,Condecoración Arturo Melo,False,3,2021-04-28T20:37:52.000Z,2021-04-28T20:51:28.000Z,11587
+346,139,103,2021-04-27,4,Segundo debate proyecto de Ley 548,Fuero,False,3,2021-04-28T21:29:12.000Z,2021-04-28T21:35:06.000Z,11596
+349,139,103,2021-04-27,4,Segundo debate proyecto de ley 556,,False,3,2021-04-28T21:45:49.000Z,2021-04-28T21:53:46.000Z,11596
+355,176,109,2021-04-29,4,Segundo debate  Proyecto de ley 63,,False,3,,,13402
+358,176,109,2021-04-29,4,Tercer Debate al Proyecto de Ley No. 330,Cultivo del Banano,False,3,2021-04-29T19:32:57.000Z,2021-04-29T19:34:38.000Z,13408
+361,176,109,2021-04-29,4,Tercer Debate al Proyecto de Ley No. 171,Río Santamaria,False,3,2021-04-29T20:00:05.000Z,2021-04-29T20:00:56.000Z,13411
+364,176,109,2021-04-29,4,Tercer Debate al Proyecto de Ley No. 277,,False,3,2021-04-29T20:38:26.000Z,2021-04-29T20:40:13.000Z,13414
+367,176,109,2021-04-29,4,Tercer Debate al Proyecto de Ley No.579,Incentivos al Deporte,False,3,2021-04-29T20:49:24.000Z,2021-04-29T20:53:27.000Z,13417
+370,176,109,2021-04-29,4,Tercer Debate al Proyecto No. 210;,,False,3,2021-04-29T20:58:26.000Z,2021-04-29T21:05:17.000Z,13744
+373,176,109,2021-04-29,4,Tercer Debate al Proyecto de Ley No. 479,,False,3,2021-04-29T21:28:52.000Z,2021-04-29T21:31:15.000Z,13747
+376,176,109,2021-04-29,4,Tercer debate proyecto de ley 436,Condecoración Ing Arturo Melo,False,3,2021-04-29T21:39:27.000Z,2021-04-29T21:43:19.000Z,13750
+379,176,109,2021-04-29,4,Tercer debate Proyecto de Ley 548,,False,3,2021-04-29T21:49:54.000Z,2021-04-29T21:57:41.000Z,13753
+382,176,109,2021-04-29,4,Tercer Debate al Proyecto de Ley No. 556,,False,3,2021-04-29T22:03:01.000Z,2021-04-29T22:13:17.000Z,13756
+416,179,137,2021-07-07,Ordinaria,Proyecto de Ley No.178,,False,3,2021-07-07T22:30:25.000Z,2021-07-07T22:49:21.000Z,15422
+422,182,140,2021-07-08,Ordinaria,Quiere la asamblea que el proyecto de ley No.178 sea ley ley de la republica,,False,3,2021-07-08T15:40:40.000Z,2021-07-08T15:49:55.000Z,15776
+431,191,146,2021-07-13,Ordinaria,Proyecto de Ley 63,Segundo debate,False,3,2021-07-13T22:22:30.000Z,2021-07-13T22:30:32.000Z,16493
+437,194,149,2021-07-14,Ordinaria,Tercer debate proyecto de ley n 63,,False,3,2021-07-14T21:22:47.000Z,2021-07-14T21:25:27.000Z,16844
+440,194,149,2021-07-14,Ordinaria,Segundo debate proyecto ley 504,,False,3,2021-07-14T22:15:40.000Z,2021-07-14T22:18:48.000Z,16850
+446,197,152,2021-07-15,Ordinaria,Segundo debate proyecto de ley 504,,False,3,2021-07-15T15:38:47.000Z,2021-07-15T15:42:11.000Z,17534
+449,197,152,2021-07-15,Ordinaria,Segundo debate Proyecto de ley 532,,False,3,2021-07-15T15:52:11.000Z,2021-07-15T16:00:42.000Z,17204
+461,200,155,2021-07-19,Ordinaria,Resolución,,False,3,2021-07-19T21:57:44.000Z,2021-07-19T22:00:10.000Z,17549
+455,200,155,2021-07-19,Ordinaria,Tercer Debate proyecto de ley 504,,False,3,2021-07-19T22:26:07.000Z,2021-07-19T22:27:10.000Z,17552
+458,200,155,2021-07-19,Ordinaria,Tercer debate proyecto de ley No. 532,,False,3,2021-07-19T22:46:31.000Z,2021-07-19T22:47:45.000Z,17558
+470,203,161,2021-07-20,Ordinaria,Segundo debate Proyecto de ley N. 582.,,False,3,2021-07-20T22:03:11.000Z,2021-07-20T22:09:48.000Z,17930
+479,215,170,2021-07-26,Ordinaria,Segundo debate proyecto de ley No.541,,False,3,2021-07-26T21:54:47.000Z,2021-07-26T21:56:31.000Z,19277
+485,215,170,2021-07-26,Ordinaria,Segundo debate Proyecto de Ley 330,,False,3,2021-07-26T22:06:46.000Z,2021-07-26T22:08:27.000Z,19280
+488,215,170,2021-07-26,Ordinaria,Tercer debate proyecto de Ley 582,,False,3,2021-07-26T22:22:41.000Z,2021-07-26T22:27:47.000Z,19274
+491,218,173,2021-07-27,Ordinaria,Tercer debate proyecto 541,,False,3,2021-07-27T21:42:43.000Z,2021-07-27T21:46:00.000Z,19298
+497,218,173,2021-07-27,Ordinaria,Segundo debate proyecto de ley 330,,False,3,2021-07-27T22:25:25.000Z,2021-07-27T22:28:33.000Z,19634
+500,221,176,2021-07-28,Ordinaria,Tercer Debate proyecto de Ley 330,,False,3,2021-07-28T21:27:08.000Z,2021-07-28T21:29:46.000Z,19649
+503,221,176,2021-07-28,Ordinaria,Segundo debate proyecto de ley 576,,False,3,2021-07-28T21:53:02.000Z,2021-07-28T21:58:00.000Z,19658
+509,221,176,2021-07-28,Ordinaria,Segundo debate proyecto de ley 583.,,False,3,2021-07-28T22:52:41.000Z,2021-07-28T22:55:15.000Z,19664
+518,224,182,2021-08-02,Ordinaria,Segundo Debate al Proyecto de Ley No. 51,,False,3,2021-08-02T22:07:12.000Z,2021-08-02T22:10:13.000Z,20696
+521,224,182,2021-08-02,Ordinaria,Segundo debate Proyecto de ley 185,,False,3,2021-08-02T23:38:59.000Z,2021-08-02T23:43:33.000Z,20678
+524,230,188,2021-08-04,Ordinaria,Tercer debate proyecto de Ley 51,,False,3,2021-08-04T21:36:29.000Z,2021-08-04T21:38:32.000Z,21065
+527,230,188,2021-08-04,Ordinaria,Segundo debate proyecto de ley 548,,False,3,2021-08-04T22:10:23.000Z,2021-08-04T22:13:30.000Z,21404
+530,230,188,2021-08-04,Ordinaria,Tercer debate proyecto de ley 185,,False,3,2021-08-04T22:25:16.000Z,2021-08-04T22:29:47.000Z,21074
+539,233,191,2021-08-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 548,,False,3,2021-08-05T15:45:44.000Z,2021-08-05T15:50:38.000Z,21419
+542,233,191,2021-08-05,Ordinaria,Segundo Debate al Proyecto de Ley No.558,,False,3,2021-08-05T17:29:27.000Z,2021-08-05T17:34:15.000Z,21425
+551,236,194,2021-08-09,Ordinaria,Tercer Debate al Proyecto de Ley No.558,,False,3,2021-08-09T22:54:50.000Z,2021-08-09T22:56:37.000Z,22028
+560,239,197,2021-08-10,Ordinaria,Segundo debate Proyecto de Ley 628,,False,3,2021-08-10T22:57:12.000Z,2021-08-10T22:59:03.000Z,22601
+563,242,200,2021-08-11,Ordinaria,Tercer Debate al Proyecto de Ley No.628,,False,3,2021-08-11T21:57:01.000Z,2021-08-11T22:00:09.000Z,22625
+566,242,200,2021-08-11,Ordinaria,Segundo Debate al Proyecto de Ley No. 303,,False,3,2021-08-11T22:41:46.000Z,2021-08-11T22:45:32.000Z,22628
+569,245,203,2021-08-12,Ordinaria,Tercer Debate al Proyecto de Ley No. 303,,False,3,2021-08-12T16:06:54.000Z,2021-08-12T16:10:30.000Z,22934
+575,257,206,2021-08-16,Ordinaria,Segundo debate Proyecto de Ley 485,,False,3,2021-08-16T21:42:12.000Z,2021-08-16T21:46:50.000Z,23231
+578,257,206,2021-08-16,Ordinaria,Segundo debate proyecto de Ley 484,,False,3,2021-08-16T22:19:11.000Z,2021-08-16T22:21:58.000Z,23429
+581,281,209,2021-08-17,Ordinaria,Tercer debate proyecto de Ley 485,,False,3,2021-08-17T21:24:36.000Z,2021-08-17T21:28:07.000Z,23528
+584,281,209,2021-08-17,Ordinaria,Tercer debate proyecto de ley 484,,False,3,2021-08-17T21:40:33.000Z,2021-08-17T21:41:55.000Z,23531
+587,281,209,2021-08-17,Ordinaria,Segundo debate proyecto Ley N 293,,False,3,,,23534
+590,281,209,2021-08-17,Ordinaria,Segundo debate Proyecto de ley 257,,False,3,,,23537
+593,284,212,2021-08-18,Ordinaria,Segundo Debate proyecto de ley 293,,False,3,2021-08-18T21:38:20.000Z,2021-08-18T21:48:01.000Z,23825
+596,284,212,2021-08-18,Ordinaria,Segundo debate  Proyecto de ley 257,,False,3,2021-08-18T22:09:16.000Z,2021-08-19T14:10:35.000Z,23828
+599,287,215,2021-08-19,Ordinaria,Tercer debate proyecto de ley 293,,False,3,2021-08-19T16:20:33.000Z,2021-08-19T17:48:59.000Z,24110
+605,290,218,2021-08-23,Ordinaria,Segundo Debate al Proyecto de Ley No.581,,False,3,2021-08-23T21:34:48.000Z,2021-08-23T21:37:03.000Z,24671
+608,290,218,2021-08-23,Ordinaria,Segundo Debate al Proyecto de Ley No.369,,False,3,2021-08-23T22:12:15.000Z,2021-08-23T22:14:36.000Z,24674
+611,290,218,2021-08-23,Ordinaria,Tercer debate Proyecto de ley 257,,False,3,2021-08-23T22:19:00.000Z,2021-08-23T22:22:34.000Z,24395
+614,293,221,2021-08-24,Ordinaria,Tercer Debate al Proyecto de Ley No.581,,False,3,2021-08-24T21:26:32.000Z,2021-08-24T21:30:18.000Z,24692
+617,293,221,2021-08-24,Ordinaria,Tercer debate proyecto de ley 369,,False,3,2021-08-24T22:15:59.000Z,2021-08-24T22:16:56.000Z,24695
+620,293,221,2021-08-24,Ordinaria,Segundo debate Proyecto de Ley 153,,False,3,2021-08-26T16:59:46.000Z,2021-08-26T17:04:16.000Z,24707
+623,296,227,2021-08-30,Ordinaria,Ratificación SENADIS,,False,3,2021-08-30T22:17:41.000Z,2021-08-30T22:19:27.000Z,25571
+629,296,227,2021-08-30,Ordinaria,Tercer debate proyecto de ley 171,,False,3,2021-08-30T22:41:48.000Z,2021-08-30T22:42:48.000Z,25568
+626,296,227,2021-08-30,Ordinaria,Tercer Debate del Proyecto No. 94;,,False,3,2021-08-30T23:05:25.000Z,2021-08-30T23:06:31.000Z,25565
+632,296,227,2021-08-30,Ordinaria,Tercer Debate al Proyecto de Ley No.153;,,False,3,2021-08-30T23:35:16.000Z,2021-08-30T23:54:04.000Z,25286
+641,311,233,2021-09-01,Ordinaria,Segundo debate 524,,False,3,2021-09-01T19:44:03.000Z,2021-09-01T19:55:34.000Z,25898
+647,314,236,2021-09-02,Ordinaria,Tercer Debate al Proyecto de Ley No.524,,False,3,2021-09-02T16:10:41.000Z,2021-09-06T19:25:37.000Z,26192
+653,317,239,2021-09-06,Ordinaria,Segundo debate proyecto de Ley No. 17,,False,3,2021-09-06T22:57:51.000Z,2021-09-06T23:07:35.000Z,26492
+656,320,242,2021-09-07,Ordinaria,Segundo debate Proyecto de ley 456,,False,3,2021-09-07T23:02:29.000Z,2021-09-07T23:06:07.000Z,26792
+659,323,245,2021-09-08,Ordinaria,Tercer Debate al Proyecto de Ley No.17,,False,3,2021-09-08T19:27:55.000Z,2021-09-08T19:30:24.000Z,27086
+662,323,245,2021-09-08,Ordinaria,Tercer debate proyecto de ley 456,,False,3,2021-09-08T19:40:04.000Z,2021-09-08T19:45:02.000Z,27089
+674,332,254,2021-09-14,Ordinaria,Segundo debate proyecto de ley 348,,False,3,2021-09-14T19:00:37.000Z,2021-09-14T19:11:39.000Z,27977
+677,332,254,2021-09-14,Ordinaria,Segundo debate proyecto del 607,,False,3,2021-09-14T19:16:38.000Z,2021-09-15T20:14:21.000Z,27980
+680,356,257,2021-09-15,Ordinaria,Tercer Debate al Proyecto de Ley No.348,,False,3,2021-09-15T22:02:30.000Z,2021-09-15T22:05:00.000Z,28271
+683,356,257,2021-09-15,Ordinaria,Tercer Debate al Proyecto de Ley No. 607,,False,3,2021-09-15T22:32:09.000Z,2021-09-15T22:43:45.000Z,28274
+689,359,260,2021-09-16,Ordinaria,Segundo debate proyecto de ley 333,,False,3,2021-09-16T16:24:48.000Z,2021-09-16T16:41:43.000Z,28574
+692,362,263,2021-09-20,Ordinaria,Tercer Debate al Proyecto de Ley No.333,,False,3,2021-09-20T21:39:00.000Z,2021-09-20T21:41:02.000Z,28868
+695,362,263,2021-09-20,Ordinaria,Segundo debate proyecto de ley 655,,False,3,2021-09-20T23:04:27.000Z,2021-09-20T23:07:24.000Z,29138
+698,362,263,2021-09-20,Ordinaria,Segundo debate Proyecto de ley 654,,False,3,2021-09-20T23:26:49.000Z,2021-09-20T23:28:36.000Z,28865
+701,368,266,2021-09-21,Ordinaria,Nombramientos que ha de efectuar la Asamblea Nacional,Junta Directiva del Metro y Tribunal Administrativo Tributario,False,3,2021-09-21T21:23:10.000Z,2021-09-21T21:28:33.000Z,29756
+704,368,266,2021-09-21,Ordinaria,Tercer Debate al Proyecto de Ley No.655,,False,3,2021-09-21T21:39:40.000Z,2021-09-21T21:41:48.000Z,29168
+707,368,266,2021-09-21,Ordinaria,Tercer debate proyecto de ley 654,,False,3,2021-09-21T22:32:38.000Z,2021-09-21T22:39:10.000Z,29171
+713,374,272,2021-09-23,Ordinaria,Está usted a favor del Proyecto de Ley No. 669,"Por el cual se aprueba el ACUERDO DE TRANSPORTE AÉREO ENTRE EL GOBIERNO DE LA REPÚBLICA DE PANAMÁ Y EL GOBIERNO FEDERAL DE AUSTRIA, firmado en Viena, Austria, el 6 de julio de 2021.",False,3,2021-09-23T16:04:34.000Z,2021-09-23T16:11:23.000Z,30080
+716,377,275,2021-09-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 669,,False,3,2021-09-27T21:46:43.000Z,2021-09-27T21:49:48.000Z,30374
+719,377,275,2021-09-27,Ordinaria,Segundo debate proyecto de Ley  No. 667,,False,3,2021-09-27T22:28:01.000Z,2021-09-27T22:32:56.000Z,30644
+725,380,278,2021-09-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 667,,False,3,2021-09-28T21:21:56.000Z,2021-09-28T21:25:28.000Z,30680
+728,380,278,2021-09-28,Ordinaria,Segundo debate proyecto de ley 660,,False,3,2021-09-29T00:00:21.000Z,2021-09-29T00:07:07.000Z,30959
+737,392,284,2021-09-30,Ordinaria,Segundo debate proyecto de ley 142,,False,3,2021-09-30T15:49:27.000Z,2021-09-30T15:51:32.000Z,31283
+740,392,284,2021-09-30,Ordinaria,Segundo debate proyecto de ley 675,,False,3,2021-09-30T16:29:38.000Z,2021-09-30T16:31:41.000Z,31286
+743,395,287,2021-10-04,Ordinaria,Tercer Debate al Proyecto de Ley No.142,,False,3,2021-10-04T21:49:27.000Z,2021-10-04T21:51:18.000Z,31589
+746,395,287,2021-10-04,Ordinaria,Tercer Debate al Proyecto de Ley No. 675,,False,3,2021-10-04T21:59:05.000Z,2021-10-04T22:01:44.000Z,31592
+749,395,287,2021-10-04,Ordinaria,Segundo debate del proyecto de Ley 459,,False,3,2021-10-05T20:54:01.000Z,2021-10-05T20:59:39.000Z,31595
+752,398,290,2021-10-05,Ordinaria,Segundo Debate Proyecto de ley 478,,False,3,2021-10-05T22:19:58.000Z,2021-10-05T22:22:22.000Z,32573
+755,398,290,2021-10-05,Ordinaria,Segundo debate del proyecto de Ley 212,,False,3,2021-10-05T22:50:17.000Z,2021-10-05T22:53:27.000Z,32576
+764,401,293,2021-10-06,Ordinaria,Tercer debate proyecto de ley 478,,False,3,2021-10-06T21:24:26.000Z,2021-10-06T21:29:52.000Z,32885
+767,401,293,2021-10-06,Ordinaria,Tercer debate Proyecto de Ley 212,,False,3,2021-10-06T21:39:10.000Z,2021-10-06T21:41:12.000Z,32888
+761,401,293,2021-10-06,Ordinaria,Segundo debate al proyecto de ley 668,,False,3,2021-10-06T21:51:03.000Z,2021-10-06T21:53:14.000Z,32891
+770,401,293,2021-10-06,Ordinaria,Segundo debate proyecto de Ley 670,,False,3,2021-10-06T22:18:22.000Z,2021-10-06T22:22:31.000Z,32894
+773,401,293,2021-10-06,Ordinaria,Segundo Debate al Proyecto de Ley No. 671,,False,3,2021-10-06T22:32:14.000Z,2021-10-06T22:34:11.000Z,32897
+776,401,293,2021-10-06,Ordinaria,Segundo Debate al Proyecto de Ley No.563,,False,3,2021-10-06T22:45:36.000Z,2021-10-06T22:47:16.000Z,32900
+782,482,296,2021-10-07,Ordinaria,Está usted a favor del Proyecto de ley No. 668,"Por la cual se aprueba el Acuerdo entre el Gobierno de la República de Panamá y el Gobierno Del Gran Ducado de Luxemburgo sobre los Servicios Aéreos, firmado en Luxemburgo el 1 de julio de 2021.",False,3,2021-10-07T15:54:04.000Z,2021-10-07T15:57:09.000Z,33233
+785,482,296,2021-10-07,Ordinaria,Está usted a favor del Proyecto de Ley No. 670,"Por la cual se aprueba el Convenio sobre la Inspección del Trabajo (Agricultura), 1969, (núm.129), adoptado por la Conferencia General de la Organización Internacional del Trabajo, en Ginebra, el 25 de junio de 1969.",False,3,2021-10-07T16:05:03.000Z,2021-10-07T16:06:52.000Z,33236
+788,482,296,2021-10-07,Ordinaria,Está usted a favor del Proyecto de Ley No. 671,"Por la cual se aprueba el Convenio sobre la Protección de la Maternidad, 2000, (núm.183), adoptado por la Conferencia General de la Organización Internacional del Trabajo, en Ginebra, el 15 de junio de 2000.",False,3,2021-10-07T16:11:31.000Z,2021-10-07T16:13:19.000Z,33239
+791,482,296,2021-10-07,Ordinaria,Está usted a favor del Proyecto de Ley No.563,"Que adiciona artículos a la Ley 24 de 1999, que regula los servicios públicos de radio y televisión",False,3,2021-10-07T16:19:42.000Z,2021-10-07T16:21:38.000Z,33242
+797,485,299,2021-10-11,Ordinaria,Segundo debate proyecto de ley 549.,,False,3,2021-10-11T22:45:26.000Z,2021-10-11T22:47:28.000Z,33863
+809,491,311,2021-10-15,Ordinaria,Tercer debate proyecto de ley 544,,False,3,2021-10-15T22:30:30.000Z,2021-10-15T22:33:43.000Z,34889
+812,497,314,2021-10-18,Ordinaria,Segundo debate proyecto de ley 486.,,False,3,2021-10-18T23:43:17.000Z,2021-10-18T23:46:43.000Z,35240
+821,500,317,2021-10-19,Ordinaria,Tercer Debate al Proyecto de Ley No.486,,False,3,2021-10-19T21:28:18.000Z,2021-10-19T21:30:18.000Z,35579
+818,500,317,2021-10-19,Ordinaria,Segundo debate proyecto de ley 598,,False,3,2021-10-19T23:27:29.000Z,2021-10-19T23:31:13.000Z,35582
+824,500,317,2021-10-19,Ordinaria,Ratificaciones de funcionarios,,False,3,2021-10-19T23:48:35.000Z,2021-10-20T00:00:36.000Z,36251
+830,503,308,2021-10-20,Ordinaria,Segundo debate proyecto de ley 544,,False,3,2021-10-20T22:49:30.000Z,2021-10-20T22:52:02.000Z,36599
+827,503,308,2021-10-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 598,,False,3,2021-10-20T23:05:18.000Z,2021-10-20T23:06:17.000Z,35924
+833,503,308,2021-10-20,Ordinaria,Segundo debate proyecto de ley 626,,False,3,2021-10-20T23:20:03.000Z,2021-10-20T23:22:57.000Z,36179
+836,506,320,2021-10-21,Ordinaria,Está usted a favor del Proyecto de Ley No. 544,Que reforma el Código Electoral de la República de Panamá.,False,3,2021-10-21T15:50:00.000Z,2021-10-21T16:00:03.000Z,36611
+839,506,320,2021-10-21,Ordinaria,Está usted a favor del Proyecto de Ley No.626;,"Que adiciona una disposición al Decreto Ley 1 de 2008, que crea la Autoridad Nacional de Aduanas.",False,3,2021-10-21T16:07:30.000Z,2021-10-21T16:11:02.000Z,36620
+842,506,320,2021-10-21,Ordinaria,Está usted a favor del Proyecto de Ley No. 471,"Por medio del cual se reconocen los Derechos de la Naturaleza, las obligaciones del Estado relacionadas a estos Derechos, y se dictan otras disposiciones.",False,3,2021-10-21T16:29:05.000Z,2021-10-21T16:35:45.000Z,36629
+845,506,320,2021-10-21,Ordinaria,Segundo debate Proyecto de Ley No. 695,,False,3,2021-10-21T17:06:27.000Z,2021-10-21T17:09:44.000Z,36917
+863,512,329,2021-10-26,Ordinaria,Está usted a favor del Proyecto de Ley No. 637,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2022,False,3,2021-10-26T18:14:42.000Z,2021-10-26T18:16:30.000Z,37730
+866,512,329,2021-10-26,Ordinaria,Está usted a favor del Proyecto de Ley No. 624,,False,3,2021-10-26T18:48:14.000Z,2021-10-26T18:51:58.000Z,37733
+869,512,329,2021-10-26,Ordinaria,Está usted a favor del Proyecto de Ley No.721,,False,3,2021-10-26T19:06:23.000Z,2021-10-26T19:08:51.000Z,38072
+872,512,329,2021-10-26,Ordinaria,Segundo debate del  Proyecto de Ley No. 695,,False,3,2021-10-26T19:22:23.000Z,2021-10-26T19:24:45.000Z,37724
+878,512,329,2021-10-26,Ordinaria,Segundo debate del Proyecto de ley N°17,,False,3,2021-10-26T20:30:02.000Z,2021-10-26T20:32:57.000Z,38075
+875,512,329,2021-10-26,Ordinaria,Segundo debate al Proyecto de Ley No. 482,Que Regula el Funcionamiento y Articulación de Los Centros de Enseñanza Superior o Institutos Superiores.,False,3,2021-10-26T21:18:09.000Z,2021-10-26T21:20:14.000Z,37739
+881,512,329,2021-10-26,Ordinaria,Segundo debate al Proyecto de Ley No.162,Que Incentiva la Movilidad Eléctrica en el Transporte Terrestre.,False,3,2021-10-26T21:36:30.000Z,2021-10-26T21:41:35.000Z,37964
+884,515,332,2021-10-27,Ordinaria,Está usted a favor del Proyecto de Ley No. 17,Que regula la gestión integral de residuos sólidos en la República de Panamá.,False,3,2021-10-27T16:59:57.000Z,2021-10-27T17:04:04.000Z,38102
+887,515,332,2021-10-27,Ordinaria,Está usted a favor del Proyecto de Ley No.721,"Que modifica artículos a la Ley 76 de 1976, Por la cual se modifican algunos artículos del Código Fiscal y se adoptan otras medidas tributarias.",False,3,2021-10-27T17:11:43.000Z,2021-10-27T17:13:47.000Z,38096
+890,515,332,2021-10-27,Ordinaria,Está usted a favor del Proyecto de Ley No. 695,"Que modifica la Ley 99 de 2019, relativa a la amnistía tributaria para el pago de tributos al Código de Procedimientos Tributario y dicta otras disposiciones.",False,3,2021-10-27T17:23:33.000Z,2021-10-27T17:26:28.000Z,38099
+893,515,332,2021-10-27,Ordinaria,Está usted a favor del Proyecto de Ley No. 482,Que regula el funcionamiento de los centros de educación posmedia y de los institutos técnicos superiores o centros de enseñanza superior.,False,3,2021-10-27T17:38:34.000Z,2021-10-27T17:40:08.000Z,38105
+896,515,332,2021-10-27,Ordinaria,Está usted a favor del Proyecto de Ley No.162,Que Incentiva la Movilidad Eléctrica en el Transporte Terrestre.,False,3,2021-10-27T18:03:08.000Z,2021-10-27T18:09:47.000Z,38108
+902,515,332,2021-10-27,Ordinaria,Segundo Debate al Proyecto de Ley 666,"Por el cual se aprueba la Convención sobre la Conservación y Ordenamiento de los Recursos Pesqueros en Alta Mar en el Océano Pacifico Sur, hecha en Auckland, el 14 de noviembre de 2009.",False,3,2021-10-27T18:20:04.000Z,2021-10-27T18:24:42.000Z,38387
+905,515,332,2021-10-27,Ordinaria,Segundo Debate al Proyecto de Ley 674,Por el cual se aprueba el Acuerdo Marco para el Establecimiento del Centro Regional del Convenio de Basilea para Capacitación y Transferencia de Tecnología para la subregión de Centroamérica y México.,False,3,2021-10-27T18:29:30.000Z,2021-10-27T18:33:27.000Z,38390
+908,515,332,2021-10-27,Ordinaria,Segundo Debate al Proyecto de Ley 676,"Por el cual se aprueba la Convención Relativa a la Organización Internacional de Ayudas a la Navegación Marítima, hecha en París, el 27 de enero de 2021.",False,3,2021-10-27T18:38:14.000Z,2021-10-27T18:42:26.000Z,38393
+920,518,335,2021-10-28,4,Ratificación de Magistrados de la Corte Suprema de Justicia,Ratificación de Rosalinda Ross Serrano como magistrada suplente de la Sala Tercera de lo Contencioso Administrativo y Laboral,False,3,2021-10-28T16:12:33.000Z,2021-10-28T16:14:39.000Z,38816
+911,518,335,2021-10-28,4,Está usted a favor del Proyecto de Ley No.666,"Por la cual se aprueba la Convención sobre la Conservación y Ordenamiento de los Recursos Pesqueros en Alta Mar en el Océano Pacifico Sur, hecha en Auckland, el 14 de noviembre de 2009",False,3,2021-10-28T16:21:07.000Z,2021-10-28T16:22:25.000Z,38474
+914,518,335,2021-10-28,4,Está usted a favor del Proyecto de Ley No.674,Por la cual se aprueba el Acuerdo Marco para el Establecimiento del Centro Regional del Convenio de Basilea para Capacitación y Transferencia de Tecnología para la subregión de Centroamérica y México.,False,3,2021-10-28T16:26:57.000Z,2021-10-28T16:28:05.000Z,38477
+917,518,335,2021-10-28,4,Está usted a favor del Proyecto de Ley No. 676,"Por la cual se aprueba la Convención Relativa a la Organización Internacional de Ayudas a la Navegación Marítima, hecha en París, el 27 de enero de 2021.",False,3,2021-10-28T16:32:54.000Z,2021-10-28T16:34:00.000Z,38813
+923,518,335,2021-10-28,4,Segundo Debate al Proyecto de Ley No. 459,Que regula el ejercicio de la profesión de contador público autorizado.,False,3,2021-10-28T16:46:28.000Z,2021-10-28T16:50:18.000Z,38489
+929,518,335,2021-10-28,4,Segundo Debate al Proyecto de Ley No. 733,"Por el cual se restablece la vigencia del literal “b”, numeral 2 del artículo 86 del Código Judicial.",False,3,2021-10-28T17:30:55.000Z,2021-10-28T17:34:23.000Z,38810
+932,518,335,2021-10-28,4,Segundo Debate al Proyecto de Ley No. 352,"Que modifica la Ley 70 de 1975, que crea el Instituto de Mercadeo Agropecuario.",False,3,2021-10-28T18:49:20.000Z,2021-10-28T18:51:14.000Z,38804
+926,518,335,2021-10-28,4,Segundo Debate al Proyecto de Ley No. 718,"Que modifica la Ley 105 de 21 de noviembre de 2013, que crea el programa para la promoción y modernización agropecuaria y agroindustrial.",False,3,2021-10-28T18:56:34.000Z,2021-10-28T19:00:56.000Z,38807
+941,521,338,2021-10-29,Ordinaria,Está usted a favor del Tercer Debate al Proyecto de Ley No. 733,Que restablece la vigencia de una disposición del Código Judicial.,False,3,2021-10-29T16:17:51.000Z,2021-10-29T16:22:49.000Z,38846
+944,521,338,2021-10-29,Ordinaria,Está usted a favor del Tercer Debate al Proyecto de Ley No. 352,"Que modifica la Ley 70 de 1975, que crea el Instituto de Mercadeo Agropecuario.",False,3,2021-10-29T17:05:26.000Z,2021-10-29T17:07:25.000Z,38849
+938,521,338,2021-10-29,Ordinaria,Está usted a favor del Proyecto de Ley No. 459,Que regula el ejercicio de la profesión de contador público autorizado.,False,3,2021-10-29T17:12:18.000Z,2021-10-29T17:13:57.000Z,38843
+953,521,338,2021-10-29,Ordinaria,consideraciones de ratificaciones,,False,3,2021-10-29T17:21:57.000Z,2021-10-29T17:23:31.000Z,39548
+947,521,338,2021-10-29,Ordinaria,Está usted a favor del Tercer Debate al Proyecto de Ley No. 718,"Que modifica la Ley 105 de 2013, Que crea el Programa para la Promoción y Modernización Agropecuaria y Agroindustrial",False,3,2021-10-29T17:40:28.000Z,2021-10-29T17:41:54.000Z,38852
+950,521,338,2021-10-29,Ordinaria,Está usted a favor del Tercer Debate del Proyecto de Ley No. 559,Sobre el Instituto de Educación Permanente para el Educador Panameño y dicta otra disposición.,False,3,2021-10-29T17:47:53.000Z,2021-10-29T17:49:18.000Z,38855
+1001,527,356,2022-01-04,Ordinaria,Segundo debate proyecto de ley 567,,False,3,2022-01-05T21:50:45.000Z,2022-01-05T22:02:00.000Z,40448
+1013,533,398,2022-01-31,Ordinaria,Nombramientos a efectuar,,False,3,2022-01-31T23:03:44.000Z,2022-01-31T23:07:21.000Z,46559
+1016,533,398,2022-01-31,Ordinaria,Tercer debate al Proyecto de Ley No. 500,,False,3,2022-01-31T23:11:33.000Z,2022-02-01T14:42:53.000Z,46421
+1022,536,401,2022-02-01,Ordinaria,Segundo Debate al Proyecto de Ley No. 455,,False,3,2022-02-01T22:39:23.000Z,2022-02-01T22:42:40.000Z,46586
+1025,536,401,2022-02-01,Ordinaria,Segundo debate Proyecto ley 150,,False,3,2022-02-01T22:59:12.000Z,2022-02-01T23:03:43.000Z,46607
+1028,540,404,2022-02-02,Ordinaria,Tercer debate proyecto del ley 455,,False,3,2022-02-02T21:44:29.000Z,2022-02-02T21:46:50.000Z,46916
+1031,540,404,2022-02-02,Ordinaria,Tercer Debate al Proyecto de Ley No.150,,False,3,2022-02-02T21:52:44.000Z,2022-02-02T22:00:41.000Z,46919
+1037,540,404,2022-02-02,Ordinaria,Segundo debate proyecto 421,,False,3,2022-02-02T22:28:53.000Z,2022-02-02T22:34:31.000Z,46922
+1043,543,407,2022-02-03,Ordinaria,Tercer Debate del Proyecto de Ley No. 421,Que crea las empresas de beneficio e interés colectivo.,False,3,2022-02-03T17:01:13.000Z,2022-02-03T17:04:43.000Z,47255
+1046,546,410,2022-02-07,Ordinaria,Tercer debate del Proyecto de Ley No. 421,Que crea las empresas de beneficio e interés colectivo.,False,3,2022-02-07T22:33:20.000Z,2022-02-07T22:36:00.000Z,47585
+1052,546,410,2022-02-07,Ordinaria,Segundo debate proyecto de ley 752,,False,3,2022-02-07T22:38:30.000Z,2022-02-07T22:46:39.000Z,47588
+1058,549,413,2022-02-08,Ordinaria,Segundo Debate del Proyecto de Ley No. 718,"Que modifica la Ley 105 de 2013, Que crea el Programa para la Promoción y Modernización Agropecuaria y Agroindustrial.",False,3,2022-02-08T22:08:02.000Z,2022-02-08T22:09:30.000Z,48239
+1055,549,413,2022-02-08,Ordinaria,Está usted a favor del Proyecto de Ley No. 752,"Que autoriza la importación, comercialización, distribución y uso de pruebas autoaplicadas para la detección del SARS-CoV-2.",False,3,2022-02-08T22:13:24.000Z,2022-02-08T22:15:32.000Z,47927
+1061,552,416,2022-02-09,Ordinaria,Nombramiento que ha de efectuar la Asamblea Nacional,,False,3,2022-02-09T21:30:50.000Z,2022-02-09T21:33:59.000Z,48251
+1067,552,416,2022-02-09,Ordinaria,Tercer Debate del Proyecto de Ley No. 718,"Que modifica la Ley 105 de 2013, Que crea el Programa para la Promoción y Modernización Agropecuaria y Agroindustrial.",False,3,2022-02-09T21:41:13.000Z,2022-02-09T21:42:39.000Z,48254
+1073,555,419,2022-02-10,Ordinaria,Tercer Debate al Proyecto de Ley No. 698,Que adopta medidas para llamadas de atención al Cliente.,False,3,2022-02-10T16:11:43.000Z,2022-02-10T16:17:58.000Z,48596
+1076,558,422,2022-02-14,Ordinaria,Segundo debate proyecto de ley 536,,False,3,2022-02-14T22:14:44.000Z,2022-02-14T22:17:20.000Z,49148
+1079,558,422,2022-02-14,Ordinaria,Segundo debate proyecto de ley 157,,False,3,2022-02-15T00:06:09.000Z,2022-02-15T00:08:10.000Z,49229
+1082,561,425,2022-02-15,Ordinaria,Tercer Debate al Proyecto de Ley No. 536,,False,3,2022-02-15T21:48:36.000Z,2022-02-15T21:51:08.000Z,49277
+1085,561,425,2022-02-15,Ordinaria,Tercer Debate al Proyecto de Ley No. 157,,False,3,2022-02-15T22:52:34.000Z,2022-02-15T22:54:40.000Z,49280
+1088,561,425,2022-02-15,Ordinaria,Segundo debate proyecto de ley 734,,False,3,2022-02-15T23:39:21.000Z,2022-02-15T23:40:47.000Z,49283
+1091,564,428,2022-02-16,Ordinaria,Tercer Debate al Proyecto de Ley No. 734,,False,3,2022-02-16T21:21:02.000Z,2022-02-16T21:24:46.000Z,49616
+1094,564,428,2022-02-16,Ordinaria,Segundo debate proyecto de ley 529,,False,3,2022-02-16T21:40:07.000Z,2022-02-16T21:43:14.000Z,49619
+1097,564,428,2022-02-16,Ordinaria,Segundo debate proyecto de ley 638,,False,3,2022-02-16T21:58:39.000Z,2022-02-16T22:05:08.000Z,49622
+1100,567,431,2022-02-17,Ordinaria,Tercer Debate al Proyecto de Ley No.529;,Que crea el Plan de Seguridad y Movilidad Vial.,False,3,2022-02-17T15:44:15.000Z,2022-02-17T15:54:03.000Z,49961
+1103,567,431,2022-02-17,Ordinaria,Tercer Debate al Proyecto de Ley No. 638,Que regula el ejercicio de la profesión de historiador.,False,3,2022-02-17T16:03:13.000Z,2022-02-17T16:11:07.000Z,49964
+1106,567,431,2022-02-17,Ordinaria,Segundo debate del proyecto e ley N° 595,Que Crea la Red de Helipuertos de la República de Panamá.,False,3,2022-02-17T16:38:26.000Z,2022-02-17T16:44:14.000Z,49967
+1110,570,434,2022-02-21,Ordinaria,Segundo debate proyecto de ley 317,,False,3,2022-02-21T22:17:54.000Z,2022-02-21T22:20:12.000Z,50973
+1113,570,434,2022-02-21,Ordinaria,Tercer Debate al Proyecto de Ley No. 595,,False,3,2022-02-21T22:32:57.000Z,2022-02-21T22:36:12.000Z,50306
+1116,570,434,2022-02-21,Ordinaria,Segundo debate proyecto de ley 729,,False,3,2022-02-21T23:45:00.000Z,2022-02-21T23:48:43.000Z,50309
+1119,573,438,2022-02-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 317,,False,3,2022-02-22T21:12:03.000Z,2022-02-22T21:13:52.000Z,51348
+1122,573,438,2022-02-22,Ordinaria,Segundo debate proyecto de ley 162,,False,3,2022-02-22T21:25:15.000Z,2022-02-22T21:27:25.000Z,51687
+1125,573,438,2022-02-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 729,,False,3,2022-02-22T21:32:05.000Z,2022-02-22T21:33:40.000Z,51357
+1128,573,438,2022-02-22,Ordinaria,Segundo debate proyecto de ley 756,,False,3,2022-02-23T00:57:35.000Z,2022-02-23T01:05:04.000Z,51654
+1131,576,441,2022-02-23,Ordinaria,Tercer Debate al Proyecto de Ley No. 162,,False,3,,,51702
+1134,576,441,2022-02-23,Ordinaria,Tercer debate al Proyecto de Ley No. 756,,False,3,,,51714
+1137,579,444,2022-02-24,Ordinaria,Tercer Debate al Proyecto de Ley No. 162;,,False,3,2022-02-24T14:55:24.000Z,2022-02-24T14:57:55.000Z,52005
+1140,579,444,2022-02-24,Ordinaria,Tercer debate al Proyecto de Ley No. 756;,"Que modifica la Ley 4 de 2006, que reorganiza la Universidad Autónoma de Chiriquí.",False,3,2022-02-24T15:03:06.000Z,2022-02-24T15:17:53.000Z,52014
+1143,579,444,2022-02-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 764,Que crea la Universidad Autónoma de los Pueblos Indígenas,False,3,2022-02-24T17:11:31.000Z,2022-02-24T17:12:49.000Z,52017
+1152,594,450,2022-03-07,Ordinaria,Segundo Debate al Proyecto de Ley No. 206,,False,3,2022-03-07T22:02:32.000Z,2022-03-08T16:37:48.000Z,52911
+1155,594,450,2022-03-07,Ordinaria,Suspensión de la sesión plenaria,,False,3,2022-03-08T16:37:57.000Z,2022-03-08T20:37:51.000Z,52911
+1161,597,453,2022-03-08,Ordinaria,Segundo debate proyecto de ley 316,,False,3,2022-03-08T22:19:00.000Z,2022-03-08T22:22:10.000Z,53217
+1158,597,453,2022-03-08,Ordinaria,Segundo debate proyecto de ley 475,,False,3,2022-03-08T22:31:40.000Z,2022-03-08T22:34:01.000Z,53220
+1164,597,453,2022-03-08,Ordinaria,Segundo debate Proyecto de ley 550,,False,3,2022-03-08T23:03:44.000Z,2022-03-08T23:07:14.000Z,53223
+1167,600,456,2022-03-09,Ordinaria,Tercer debate proyecto de ley 316,,False,3,2022-03-09T22:12:58.000Z,2022-03-09T22:19:46.000Z,53508
+1170,600,456,2022-03-09,Ordinaria,Tercer Debate al Proyecto de Ley No. 475,,False,3,2022-03-09T22:27:09.000Z,2022-03-09T22:29:41.000Z,53511
+1173,600,456,2022-03-09,Ordinaria,Tercer Debate al Proyecto de Ley No.550,,False,3,2022-03-09T22:34:17.000Z,2022-03-09T22:58:13.000Z,53514
+1176,606,462,2022-03-14,Ordinaria,Segundo debate Proyecto de ley 673,,False,3,2022-03-14T22:33:02.000Z,2022-03-14T22:35:07.000Z,54093
+1179,609,465,2022-03-15,Ordinaria,Tercer Debate del Proyecto de Ley No. 673,,False,3,2022-03-15T22:53:15.000Z,2022-03-15T22:55:03.000Z,54387
+1185,609,465,2022-03-15,Ordinaria,Segundo debate proyecto de ley 547,,False,3,2022-03-15T23:29:03.000Z,2022-03-15T23:31:23.000Z,54384
+1188,612,468,2022-03-16,Ordinaria,Tercer Debate al Proyecto de Ley No.547,,False,3,2022-03-16T21:34:02.000Z,2022-03-16T21:35:01.000Z,54672
+1191,612,468,2022-03-16,Ordinaria,Segundo debate proyecto de ley 545,,False,3,2022-03-16T22:36:22.000Z,2022-03-16T22:41:02.000Z,54939
+1194,612,468,2022-03-16,Ordinaria,Segundo debate proyecto de ley 776,,False,3,2022-03-17T02:58:02.000Z,2022-03-17T03:00:48.000Z,54942
+1197,612,468,2022-03-16,Ordinaria,Informe de Minoría,,False,3,2022-03-16T23:19:31.000Z,2022-03-16T23:21:00.000Z,54942
+1206,615,471,2022-03-17,Ordinaria,Nombramientos que ha de efectuar la Asamblea Nacional,,False,3,2022-03-17T17:36:24.000Z,2022-03-17T17:42:40.000Z,55242
+1200,615,471,2022-03-17,Ordinaria,Tercer Debate al Proyecto de Ley No.545,Que configura los circuitos electorales para la elección de diputados.,False,3,2022-03-17T17:45:50.000Z,2022-03-17T17:47:48.000Z,54969
+1203,615,471,2022-03-17,Ordinaria,Tercer Debate al Proyecto de Ley No. 776,Que modifica y adiciona artículos al Código Electoral de la República de Panamá.,False,3,2022-03-17T18:15:59.000Z,2022-03-17T18:19:43.000Z,54972
+1209,618,474,2022-03-21,Ordinaria,Proyecto de ley 456,,False,3,2022-03-21T21:51:54.000Z,2022-03-21T21:55:57.000Z,55551
+1212,618,474,2022-03-21,Ordinaria,Segundo debate proyecto 763,,False,3,2022-03-21T22:21:06.000Z,2022-03-21T22:23:16.000Z,55272
+1215,621,477,2022-03-22,Ordinaria,Tercer Debate del Proyecto de Ley No. 456,,False,3,2022-03-22T21:39:19.000Z,2022-03-22T21:42:55.000Z,55572
+1218,621,477,2022-03-22,Ordinaria,Tercer Debate del Proyecto de Ley No. 763,,False,3,2022-03-22T21:47:55.000Z,2022-03-22T21:49:59.000Z,55575
+1221,621,477,2022-03-22,Ordinaria,Segundo debate proyecto de ley 684,,False,3,2022-03-22T22:26:24.000Z,2022-03-22T22:28:09.000Z,55578
+1224,621,477,2022-03-22,Ordinaria,Segundo debate proyecto de ley 291,,False,3,2022-03-22T22:40:32.000Z,2022-03-22T22:44:10.000Z,55581
+1230,624,480,2022-03-23,Ordinaria,Tercer Debate del Proyecto de Ley No. 684,,False,3,2022-03-23T21:49:49.000Z,2022-03-23T21:52:23.000Z,55875
+1233,624,480,2022-03-23,Ordinaria,Tercer Debate al Proyecto de Ley No. 291,,False,3,2022-03-23T22:07:25.000Z,2022-03-23T22:09:24.000Z,55878
+1236,624,480,2022-03-23,Ordinaria,Segundo debate proyecto de ley 679,,False,3,2022-03-23T22:13:13.000Z,2022-03-23T22:14:39.000Z,55881
+1242,630,486,2022-03-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 679;,Que modifica una disposición Código Fiscal.,False,3,2022-03-28T21:40:03.000Z,2022-03-28T21:42:30.000Z,56469
+1245,633,489,2022-03-29,Ordinaria,Nombramiento que ha de efectuar la Asamblea Nacional.,,False,3,2022-03-29T21:12:24.000Z,2022-03-29T21:15:49.000Z,57048
+1248,633,489,2022-03-29,Ordinaria,Segundo Debate al Proyecto de Ley No.709,Que adiciona un numeral en el literal a del Parágrafo 8 del artículo 1057-V del Código Fiscal.,False,3,2022-03-29T21:27:16.000Z,2022-03-29T21:30:56.000Z,56976
+1251,639,498,2022-03-31,Ordinaria,Tercer Debate al Proyecto de Ley No.709,Que adiciona una disposición a un parágrafo del Código Fiscal.,False,3,2022-03-31T16:13:43.000Z,2022-03-31T16:18:36.000Z,57651
+1260,642,501,2022-04-04,Ordinaria,Segundo Debate al Proyecto de Ley No. 794;,Del Plan Colmena,False,3,2022-04-04T22:39:21.000Z,2022-04-04T22:42:38.000Z,58551
+1254,642,501,2022-04-04,Ordinaria,Segundo Debate del Proyecto de Ley No. 657,"Que establece Programa de Formación para la protección de los niños, niñas y Adolescentes.",False,3,2022-04-04T23:15:11.000Z,2022-04-04T23:17:47.000Z,58224
+1266,645,504,2022-04-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 794;,Del Plan Colmena,False,3,2022-04-05T21:29:03.000Z,2022-04-05T21:34:02.000Z,58548
+1263,645,504,2022-04-05,Ordinaria,Tercer Debate del Proyecto de Ley No. 657;,Que establece el Programa de Formación en Materia de Educación en Sexualidad y Afectividad.,False,3,2022-04-05T22:00:35.000Z,2022-04-05T22:02:31.000Z,58257
+1269,645,504,2022-04-05,Ordinaria,Segundo Debate al Proyecto de Ley No.258;,Que implementa la utilización de energía renovable en el sector público en la República de Panamá.,False,3,2022-04-05T22:44:18.000Z,2022-04-05T22:46:48.000Z,58260
+1275,648,507,2022-04-06,Ordinaria,Tercer Debate al Proyecto de Ley No.258;,Que implementa la utilización de energía renovable en el sector público en la República de Panamá.,False,3,2022-04-06T21:33:46.000Z,2022-04-06T21:44:39.000Z,58590
+1272,648,507,2022-04-06,Ordinaria,Segundo Debate del Proyecto de Ley No. 777;,"Que crea el corregimiento de Vacamonte en el distrito de Arraiján, provincia de Panamá Oeste.",False,3,2022-04-06T22:28:28.000Z,2022-04-06T22:31:06.000Z,58848
+1278,648,507,2022-04-06,Ordinaria,Segundo Debate al Proyecto de Ley No.196;,"Que establece la Protección Integral de los Sistemas de Arrecifes Coralinos, Ecosistemas y Especies Asociadas en Panamá.",False,3,2022-04-06T22:49:13.000Z,2022-04-06T22:53:28.000Z,58593
+1281,651,510,2022-04-07,Ordinaria,Tercer Debate del Proyecto de Ley No. 777;,"Que crea el corregimiento Vacamonte, segregado del corregimiento Vista Alegre, distrito de Arraiján, provincia de Panamá Oeste.",False,3,2022-04-07T16:20:29.000Z,2022-04-07T16:23:16.000Z,58908
+1284,651,510,2022-04-07,Ordinaria,Tercer Debate al Proyecto de Ley No.196;,"Que establece la protección integral de los sistemas de arrecifes coralinos, ecosistemas y especies asociados en Panamá.",False,3,2022-04-07T16:28:27.000Z,2022-04-07T16:32:53.000Z,58911
+1290,663,516,2022-04-12,Ordinaria,Segundo Debate al Proyecto de Ley No. 650;,"Que modifica el capítulo VII de la Ley 106 de 1973, sobre Régimen Municipal y se establece el procedimiento para las contrataciones menores en los Municipios, Juntas Comunales, Concejos Provinciales y Comarcales, y dicta otras disposiciones.",False,3,2022-04-12T22:42:25.000Z,2022-04-12T22:45:12.000Z,59550
+1293,666,519,2022-04-13,Ordinaria,Tercer Debate al Proyecto de Ley No. 650,"Que reforma la Ley 106 de 1973, Sobre Régimen Municipal, y dicta otras disposiciones, respecto a las contrataciones menores en los municipios, juntas comunales y consejos provinciales y comarcales.",False,3,2022-04-13T16:27:31.000Z,2022-04-13T16:32:19.000Z,59865
+1296,666,519,2022-04-13,Ordinaria,Segundo Debate al Proyecto de Ley No. 188,"Por medio del cual se crea el escalafón para los profesionales de la Bibliotecología y se establecen las nomenclaturas de cargos, normas, ascensos, y reconocimiento por los años de servicios",False,3,2022-04-13T16:39:46.000Z,2022-04-13T16:44:35.000Z,59871
+1314,672,525,2022-04-19,Ordinaria,Segundo Debate al Proyecto de Ley No. 789,Que modifica la Ley 80 de 2012 que dicta normas de incentivos para el fomento de la actividad turística y dicta otras disposiciones.,False,3,2022-04-19T23:38:08.000Z,2022-04-19T23:41:34.000Z,61404
+1311,672,525,2022-04-19,Ordinaria,Segundo Debate del Proyecto de Ley No. 774,"Por el cual se modifica la ley 16 de 22 de febrero de 2018, Que crea el Fondo de Desarrollo Ganadero.",False,3,2022-04-20T00:09:16.000Z,2022-04-20T00:11:50.000Z,61407
+1326,675,528,2022-04-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 789,"Que modifica la Ley 80 de 2012, que dicta normas de incentivos para el fomento de la actividad turística, y dicta otras disposiciones.",False,3,2022-04-20T16:33:14.000Z,2022-04-20T16:37:39.000Z,61446
+1329,675,528,2022-04-20,Ordinaria,Tercer Debate del Proyecto de Ley No. 774,"Que modifica la Ley 16 de 2018, Que crea el Fondo de Desarrollo Ganadero.",False,3,2022-04-20T16:58:40.000Z,2022-04-20T17:05:04.000Z,61449
+1332,675,528,2022-04-20,Ordinaria,Segundo Debate del Proyecto de Ley No. 796,"Que crea el distrito especial de Bastimento, segregado del distrito de Bocas del Toro; y los corregimientos Bahía Honda, Quebrada de Sal y Solarte, segregados del corregimiento de Bastimentos, en la provincia de Bocas del Toro, y dicta otras disposiciones.",False,3,2022-04-20T18:31:11.000Z,2022-04-20T18:45:41.000Z,61707
+1335,678,531,2022-04-21,4,Tercer Debate del Proyecto de Ley No. 796,"Que crea el distrito especial ecoturístico de Bastimento, segregado del distrito de Bocas del Toro; y los corregimientos Bahía Honda, Quebrada de Sal y Solarte, segregados del corregimiento de Bastimentos, en la provincia de Bocas del Toro, y dicta otras disposiciones.",False,3,2022-04-21T17:13:08.000Z,2022-04-21T17:28:00.000Z,61764
+1341,681,534,2022-04-25,4,Segundo Debate al Proyecto de Ley No. 188,"Que establece el escalafón para los profesionales de la Bibliotecología y las nomenclaturas de cargos, normas, ascensos y reconocimiento por los años de servicio.",False,3,2022-04-26T00:14:39.000Z,2022-04-26T00:17:29.000Z,62085
+1344,681,534,2022-04-25,4,Segundo Debate al Proyecto de Ley No.329,Que regula el conflicto de intereses en el servicio público.,False,3,2022-04-26T00:51:12.000Z,2022-04-26T00:55:55.000Z,62088
+1353,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No.550,"Que establece el marco regulatorio general para patronatos, consejos de gestión pública, comisiones, programa y otras entidades similares creados por el Estado.",False,3,2022-04-26T21:24:54.000Z,2022-04-26T21:27:14.000Z,62409
+1362,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 482;,Que regula el funcionamiento de los centros de educación posmedia y de los institutos técnicos superiores o centros de enseñanza superior.,False,3,2022-04-26T22:04:29.000Z,2022-04-26T22:07:58.000Z,62418
+1356,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 486,Que crea el Área Económica Especial de Aguadulce y la Terminal Portuaria Multipropósito.,False,3,2022-04-26T22:31:13.000Z,2022-04-26T22:33:30.000Z,62421
+1347,684,537,2022-04-26,4,Tercer Debate al Proyecto de Ley No.188,"Que establece el escalafón para los profesionales de la Bibliotecología y las nomenclaturas de cargos, normas, ascensos y reconocimiento por los años de servicio.",False,3,2022-04-26T22:36:13.000Z,2022-04-26T22:37:25.000Z,62424
+1350,684,537,2022-04-26,4,Tercer Debate al Proyecto de Ley No.329,Que regula situaciones de conflicto de intereses en la función pública.,False,3,2022-04-26T22:42:57.000Z,2022-04-26T22:44:27.000Z,62427
+1371,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 726,Por el cual se crea el Certificado Negociable para Pago de Prima de Antigüedad de los Servidores Públicos (CEPPAN).,False,3,2022-04-26T23:00:59.000Z,2022-04-26T23:02:25.000Z,62430
+1365,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 757,Que crea el Programa de Asistencia Social Educativa Universal y dicta otra disposición.,False,3,2022-04-26T23:07:45.000Z,2022-04-26T23:09:29.000Z,62433
+1368,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 784,,False,3,2022-04-26T23:15:55.000Z,2022-04-26T23:18:40.000Z,62679
+1377,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 808,Que establece una suspensión transitoria en el cobro y recaudación del impuesto al consumo de combustibles y derivados del petróleo.,False,3,2022-04-27T00:32:37.000Z,2022-04-27T00:35:35.000Z,62724
+1383,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 791,"Que modifica la Ley 37 de 2009, Que descentraliza la Administración Pública y dicta otras disposiciones.",False,3,2022-04-27T00:43:09.000Z,2022-04-27T00:48:41.000Z,62667
+1386,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 727,Que ordena el pago de los intereses por mora como derecho derivado de la retención segunda partida del Décimo Tercer Mes de los años 1972 a 1983 a los servidores públicos y trabajadores del sector privado que laboraron durante este período.,False,3,,,62733
+1374,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 364,,False,3,,,62691
+1380,684,537,2022-04-26,4,Segundo Debate al Proyecto de Ley No. 809,Por el cual se regula el ejercicio de la Abogacía en Panamá.,False,3,,,62712
+1389,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No.550,"Que establece el marco regulatorio general para patronatos, consejos de gestión pública, comisiones, programas y otras entidades similares creados por el Estado.",False,3,2022-04-27T20:57:06.000Z,2022-04-27T21:02:32.000Z,62763
+1392,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No. 482,Que regula el funcionamiento de los centros de educación posmedia y de los institutos técnicos superiores o centros de enseñanza superior.,False,3,2022-04-27T21:09:21.000Z,2022-04-27T21:13:22.000Z,62766
+1395,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No. 486,Que crea el Área Económica Especial de Aguadulce y la Terminal Portuaria Multipropósito.,False,3,2022-04-27T21:19:54.000Z,2022-04-27T21:21:38.000Z,62769
+1398,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No. 726,Que crea el Certificado Negociable para Pago de Prima de Antigüedad de los Servidores Públicos.,False,3,2022-04-27T21:27:53.000Z,2022-04-27T21:29:42.000Z,62778
+1401,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No. 757,"Que modifica la Ley 148 de 2020, que crea el Programa de Asistencia Social Educativa Universal.",False,3,2022-04-27T21:34:23.000Z,2022-04-27T21:35:52.000Z,62781
+1404,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No. 784,Que declara el mes de junio de cada año Mes de la Familia.,False,3,2022-04-27T21:40:34.000Z,2022-04-27T21:42:00.000Z,62784
+1410,687,540,2022-04-27,4,Tercer Debate al Proyecto de Ley No. 791,"Que modifica la Ley 37 de 2009, Que descentraliza la Administración Pública, y dicta otra disposición.",False,3,2022-04-27T21:48:17.000Z,2022-04-27T21:51:16.000Z,63036
+1407,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 808,Que establece una suspensión transitoria en el cobro y recaudación del impuesto al consumo de combustibles y derivados del petróleo.,False,3,2022-04-27T22:55:56.000Z,2022-04-27T22:57:43.000Z,62793
+1413,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 697,"Por el cual se regula la comercialización y uso de criptoactivos, la emisión de valor digital, la tokenización de metales preciosos y otros bienes, los sistemas de pagos y se dictan otras disposiciones.",False,3,2022-04-27T23:31:14.000Z,2022-04-27T23:34:33.000Z,63078
+1425,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 822,Que establece medidas tributarias para los procesos concursales de insolvencia y reorganización conciliada.,False,3,2022-04-27T23:43:30.000Z,2022-04-27T23:47:09.000Z,63096
+1428,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 241,"Que modifica y adiciona artículos a la Ley 24 de 12 de enero de 1996, que crea la Comarca Kuna de Madungandí, se crean nuevos corregimientos y se dictan otras disposiciones.",False,3,2022-04-28T00:25:27.000Z,2022-04-28T00:29:46.000Z,63018
+1416,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No.75,"Que crea el Distrito de Meredra segregado del distrito de Muna, y once (11) corregimientos; cuatro (4) corregimientos segregados del distrito Meredra, cuatro (4) corregimientos segregados del distrito de Ñurum y se dictan otras disposiciones.",False,3,2022-04-28T00:41:36.000Z,2022-04-28T00:46:28.000Z,62835
+1431,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 761,"Que crea la Comisión Nacional para el Desarrollo, Promoción, Divulgación y Fortalecimiento de los Valores Familiares, Cívicos, Éticos y Morales.",False,3,2022-04-28T01:01:27.000Z,2022-04-28T01:02:49.000Z,63042
+1434,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 603,"Que declara de interés nacional la atención médica, investigación y capacitación profesional en la detección temprana, diagnóstico y tratamiento integral de la psoriasis.",False,3,2022-04-28T01:10:12.000Z,2022-04-28T01:11:19.000Z,63006
+1422,687,540,2022-04-27,4,Segundo Debate al Proyecto de Ley No. 364,"Que modifica la Ley 37 de 2009, Que Descentraliza la Administración Pública y dicta otras disposiciones.",False,3,,,62787
+1437,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 808,Que establece una suspensión transitoria en el cobro y recaudación del impuesto al consumo de combustibles y derivados del petróleo.,False,3,2022-04-28T15:59:21.000Z,2022-04-28T16:04:08.000Z,63495
+1440,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 697,"Que regula la comercialización y uso de criptoactivos, la emisión de valor digital, la tokenización de metales preciosos y otros bienes, los sistemas de pagos y se dicta otras disposiciones.",False,3,2022-04-28T16:13:12.000Z,2022-04-28T16:15:38.000Z,63498
+1443,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 822,Que establece medidas tributarias para los procesos concursales de insolvencia y reorganización conciliada y dicta otra disposiciones.,False,3,2022-04-28T16:20:19.000Z,2022-04-28T16:24:41.000Z,63501
+1446,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 241,"Que modifica y adiciona artículos a la Ley 24 de 1996, que crea la Comarca kuna de Madungandí, crea nuevos corregimientos y dicta otras disposiciones.",False,3,2022-04-28T16:32:02.000Z,2022-04-28T16:37:44.000Z,63504
+1449,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No.75,"Que crea el distrito de Mreda, segregado del distrito de Müna, y el distrito de Ngingú, segregado del distrito de Ñürüm, y once corregimientos, y dicta otras disposiciones.",False,3,2022-04-28T16:43:37.000Z,2022-04-28T16:48:56.000Z,63507
+1452,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 761,"Que crea la Comisión Nacional para el Desarrollo, Promoción, Divulgación y Fortalecimiento de los Valores Familiares, Cívicos, Éticos y Morales.",False,3,2022-04-28T16:55:19.000Z,2022-04-28T16:58:43.000Z,63513
+1455,690,543,2022-04-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 603,"Que declara de interés nacional la atención médica, investigación y capacitación profesional en la detección temprana, diagnóstico y tratamiento integral de la psoriasis.",False,3,2022-04-28T17:03:35.000Z,2022-04-28T17:06:30.000Z,63516
+1538,707,572,2022-07-06,Ordinaria,Segundo debate proyecto de ley 203,,False,3,2022-07-06T20:25:30.000Z,2022-07-06T20:36:37.000Z,65927
+1535,707,572,2022-07-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 242,,False,3,2022-07-06T20:20:06.000Z,2022-07-06T20:23:43.000Z,65612
+1541,710,575,2022-07-07,Ordinaria,Tercer Debate al Proyecto de Ley No. 203; (Objetado),,False,3,2022-07-07T16:09:25.000Z,2022-07-11T20:36:37.000Z,65942
+1544,713,578,2022-07-11,Ordinaria,Segundo debate 772,,False,3,2022-07-11T22:23:34.000Z,2022-07-11T22:27:11.000Z,66581
+1550,716,581,2022-07-12,Ordinaria,Tercer debate proyecto de ley  772,,False,3,2022-07-12T21:35:22.000Z,2022-07-12T21:36:55.000Z,66959
+1553,728,593,2022-07-19,Ordinaria,Segundo debate Proyecto de ley 722,,False,3,2022-07-19T21:31:47.000Z,2022-07-19T21:33:06.000Z,68489
+1556,731,596,2022-07-20,Ordinaria,Tercer Debate proyecto de ley 722,,False,3,,,68606
+1559,734,599,2022-07-21,Ordinaria,Tercer Debate al Proyecto de Ley No. 722,,False,3,2022-07-21T15:55:11.000Z,2022-07-21T15:57:02.000Z,68927
+1562,734,599,2022-07-21,Ordinaria,Segundo debate proyecto de ley 672,,False,3,2022-07-21T17:30:53.000Z,2022-07-21T17:32:32.000Z,69236
+1565,740,602,2022-07-25,Ordinaria,Tercer Debate al Proyecto de Ley No.672,,False,3,2022-07-25T21:41:31.000Z,2022-07-25T21:42:34.000Z,69257
+1568,740,602,2022-07-25,Ordinaria,Segundo debate proyecto de ley 644,,False,3,2022-07-25T22:03:49.000Z,2022-07-25T22:05:17.000Z,69260
+1571,743,605,2022-07-26,Ordinaria,Tercer debate al Proyecto de Ley No. 644,,False,3,2022-07-26T21:40:44.000Z,2022-07-26T21:44:42.000Z,69590
+1574,743,605,2022-07-26,Ordinaria,Segundo debate proyecto de ley 743,,False,3,2022-07-26T22:29:52.000Z,2022-07-26T22:32:22.000Z,69596
+1577,746,608,2022-07-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 743,,False,3,2022-07-27T21:58:43.000Z,2022-07-27T22:01:50.000Z,69917
+1580,749,611,2022-07-28,Ordinaria,Segundo debate proyecto de ley 166,,False,3,,,70235
+1583,752,614,2022-08-01,Ordinaria,Segundo debate proyecto de ley 329,,False,3,2022-08-01T23:00:24.000Z,2022-08-01T23:04:07.000Z,70853
+1586,752,614,2022-08-01,Ordinaria,Segundo debate proyecto de ley 166,,False,3,,,70550
+1589,755,617,2022-08-02,Ordinaria,Tercer Debate al Proyecto de Ley No. 329,,False,3,2022-08-02T22:02:20.000Z,2022-08-02T22:04:08.000Z,70880
+1592,758,620,2022-08-03,Ordinaria,Segundo debate proyecto de ley 166,,False,3,2022-08-03T21:49:35.000Z,2022-08-03T21:54:33.000Z,71201
+1595,758,620,2022-08-03,Ordinaria,Suspensión de la sesión plenaria,,False,3,2022-08-04T14:32:06.000Z,2022-08-04T14:32:22.000Z,71201
+1598,761,623,2022-08-04,Ordinaria,Tercer Debate al Proyecto de Ley No.166,,False,3,2022-08-04T15:48:18.000Z,2022-08-04T15:51:59.000Z,71516
+1601,764,626,2022-08-08,Ordinaria,Segundo debate proyecto 684,,False,3,2022-08-08T22:00:32.000Z,2022-08-08T22:02:19.000Z,72134
+1604,764,626,2022-08-08,Ordinaria,Segundo debate proyecto de ley 734,,False,3,2022-08-08T22:18:43.000Z,2022-08-08T22:21:56.000Z,72137
+1610,767,629,2022-08-09,Ordinaria,Tercer Debate al Proyecto de Ley No. 684,,False,3,2022-08-09T22:06:51.000Z,2022-08-09T22:08:32.000Z,72164
+1613,767,629,2022-08-09,Ordinaria,Tercer Debate al Proyecto de Ley No. 734,,False,3,2022-08-09T22:12:46.000Z,2022-08-09T22:14:02.000Z,72167
+1616,767,629,2022-08-09,Ordinaria,Segundo debate proyecto de ley 727,,False,3,2022-08-09T23:09:52.000Z,2022-08-09T23:11:24.000Z,72170
+1622,770,632,2022-08-10,Ordinaria,Segundo Debate al Proyecto de Ley No. 729,,False,3,2022-08-10T21:35:42.000Z,2022-08-10T21:36:48.000Z,72788
+1619,770,632,2022-08-10,Ordinaria,Tercer Debate al Proyecto de Ley No. 727,,False,3,2022-08-10T22:20:57.000Z,2022-08-10T22:22:08.000Z,72491
+1625,770,632,2022-08-10,Ordinaria,Segundo Debate al Proyecto de Ley No.457,,False,3,2022-08-10T22:40:19.000Z,2022-08-10T22:41:04.000Z,72575
+1628,770,632,2022-08-10,Ordinaria,Segundo debate proyecto de ley 174,,False,3,2022-08-10T23:13:46.000Z,2022-08-10T23:15:50.000Z,72764
+1622,773,632,2022-08-10,Ordinaria,Segundo Debate al Proyecto de Ley No. 729,,False,3,2022-08-10T21:35:42.000Z,2022-08-10T21:36:48.000Z,72788
+1619,773,632,2022-08-10,Ordinaria,Tercer Debate al Proyecto de Ley No. 727,,False,3,2022-08-10T22:20:57.000Z,2022-08-10T22:22:08.000Z,72491
+1625,773,632,2022-08-10,Ordinaria,Segundo Debate al Proyecto de Ley No.457,,False,3,2022-08-10T22:40:19.000Z,2022-08-10T22:41:04.000Z,72575
+1628,773,632,2022-08-10,Ordinaria,Segundo debate proyecto de ley 174,,False,3,2022-08-10T23:13:46.000Z,2022-08-10T23:15:50.000Z,72764
+1631,776,635,2022-08-11,Ordinaria,Tercer Debate al Proyecto de Ley No. 729,,False,3,2022-08-11T15:32:46.000Z,2022-08-11T15:34:32.000Z,72806
+1634,776,635,2022-08-11,Ordinaria,Tercer Debate al Proyecto de Ley No.457,,False,3,2022-08-11T15:48:09.000Z,2022-08-11T15:49:59.000Z,72812
+1637,776,635,2022-08-11,Ordinaria,Tercer Debate al Proyecto de Ley No. 174,,False,3,2022-08-11T16:15:09.000Z,2022-08-11T16:17:31.000Z,72815
+1640,830,644,2022-08-17,Ordinaria,Segundo Debate al Proyecto de Ley No. 739,,False,3,2022-08-17T22:04:20.000Z,2022-08-17T22:13:32.000Z,74024
+1649,836,650,2022-08-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 739,,False,3,2022-08-22T23:01:14.000Z,2022-08-22T23:02:35.000Z,74390
+1652,839,653,2022-08-23,Ordinaria,Segundo debate proyecto de ley 705,,False,3,2022-08-23T23:28:43.000Z,2022-08-23T23:30:29.000Z,74711
+1655,842,656,2022-08-24,Ordinaria,Tercer Debate al Proyecto de Ley No. 705,,False,3,2022-08-24T21:29:10.000Z,2022-08-24T21:32:38.000Z,75020
+1658,842,656,2022-08-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 767,,False,3,2022-08-24T21:50:34.000Z,2022-08-24T21:52:28.000Z,75251
+1661,845,659,2022-08-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 767,,False,3,2022-08-25T16:47:36.000Z,2022-08-25T16:51:41.000Z,75332
+1664,845,659,2022-08-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 702,,False,3,2022-08-25T17:03:05.000Z,2022-08-25T17:04:51.000Z,75581
+1667,848,662,2022-08-29,Ordinaria,Tercer Debate al Proyecto de Ley No. 702,,False,3,2022-08-29T22:04:19.000Z,2022-08-29T22:05:59.000Z,75887
+1670,848,662,2022-08-29,Ordinaria,Segundo debate proyecto de ley 755,,False,3,2022-08-29T23:04:56.000Z,2022-08-29T23:07:21.000Z,75641
+1673,848,662,2022-08-29,Ordinaria,Segundo Debate al Proyecto de Ley No. 693,,False,3,2022-08-29T23:27:53.000Z,2022-08-29T23:29:50.000Z,75893
+1676,848,662,2022-08-29,Ordinaria,Tercer debate Proyecto de ley 726,,False,3,2022-08-30T00:09:42.000Z,2022-08-30T00:11:46.000Z,76250
+1679,851,665,2022-08-30,Ordinaria,Tercer Debate al Proyecto de Ley No.755,,False,3,2022-08-30T21:56:37.000Z,2022-08-30T21:57:29.000Z,75953
+1682,851,665,2022-08-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 693,,False,3,2022-08-30T22:14:00.000Z,2022-08-30T22:14:50.000Z,76202
+1685,851,665,2022-08-30,Ordinaria,Segundo debate proyecto de ley 859,,False,3,2022-08-30T23:30:49.000Z,2022-08-30T23:33:33.000Z,76241
+1688,854,668,2022-08-31,Ordinaria,Tercer Debate al Proyecto de Ley No. 859;,,False,3,2022-08-31T21:07:42.000Z,2022-08-31T21:12:42.000Z,76274
+1691,854,668,2022-08-31,Ordinaria,Segundo Debate al Proyecto de Ley No. 714,,False,3,2022-08-31T22:32:43.000Z,2022-08-31T22:38:38.000Z,76277
+1700,857,671,2022-09-01,Ordinaria,Quiere la Asamblea Nacional que el Proyecto de Ley No. 714 sea Ley de la Republica.,"Que modifica y adiciona artículos a la Ley 12 de 1998, que desarrolla la Carrera del Servicio Legislativo, y dicta otras disposiciones.",False,3,2022-09-01T17:12:32.000Z,2022-09-01T17:13:45.000Z,76583
+1712,863,674,2022-09-05,Ordinaria,Segundo Debate al Proyecto de Ley No.595,Que crea la red de helipuertos de la República de Panamá.,False,3,2022-09-05T22:57:06.000Z,2022-09-05T22:59:29.000Z,77489
+1715,866,680,2022-09-06,Ordinaria,Tercer Debate al Proyecto de Ley No.595,,False,3,2022-09-06T21:54:41.000Z,2022-09-06T21:56:52.000Z,77825
+1718,866,680,2022-09-06,Ordinaria,Segundo Debate al Proyecto de Ley No. 342,,False,3,2022-09-06T22:22:18.000Z,2022-09-06T22:27:54.000Z,77828
+1724,869,683,2022-09-07,Ordinaria,Tercer Debate al Proyecto de Ley No. 342,,False,3,2022-09-07T22:35:04.000Z,2022-09-07T22:43:20.000Z,78134
+1721,869,683,2022-09-07,Ordinaria,Segundo Debate al Proyecto de Ley No. 713,,False,3,2022-09-07T22:54:57.000Z,2022-09-07T22:57:53.000Z,78392
+1727,872,686,2022-09-08,Ordinaria,Tercer Debate al Proyecto de Ley No. 713,,False,3,2022-09-08T16:35:05.000Z,2022-09-08T16:38:04.000Z,78440
+1739,875,689,2022-09-12,Ordinaria,Segundo debate proyecto de ley 809,,False,3,2022-09-12T23:17:34.000Z,2022-09-12T23:26:38.000Z,78731
+1742,878,695,2022-09-13,Ordinaria,Tercer Debate al Proyecto de Ley No. 809,,False,3,2022-09-13T22:14:08.000Z,2022-09-13T22:15:41.000Z,79049
+1745,878,695,2022-09-13,Ordinaria,Segundo Debate al Proyecto de Ley No. 738,,False,3,2022-09-13T22:27:15.000Z,2022-09-13T22:30:17.000Z,79250
+1748,878,695,2022-09-13,Ordinaria,Segundo Debate al Proyecto de Ley No. 288,,False,3,2022-09-13T22:36:35.000Z,2022-09-13T22:41:13.000Z,79166
+1751,881,698,2022-09-14,Ordinaria,Tercer Debate al Proyecto de Ley No. 738,,False,3,2022-09-14T21:59:40.000Z,2022-09-14T22:05:06.000Z,79349
+1754,881,698,2022-09-14,Ordinaria,Tercer Debate al Proyecto de Ley No. 288,,False,3,2022-09-14T22:35:09.000Z,2022-09-14T22:56:53.000Z,79352
+1790,884,704,2022-09-19,Ordinaria,Segundo Debate al Proyecto de Ley No.462,,False,3,2022-09-19T22:51:38.000Z,2022-09-19T23:02:37.000Z,79949
+1793,887,710,2022-09-20,Ordinaria,Tercer Debate al Proyecto de Ley No.462,,False,3,2022-09-20T21:41:13.000Z,2022-09-20T21:42:29.000Z,80579
+1796,887,710,2022-09-20,Ordinaria,Segundo Debate al Proyecto de Ley No.706,,False,3,2022-09-20T22:23:16.000Z,2022-09-20T22:25:13.000Z,80582
+1799,893,713,2022-09-21,Ordinaria,"Nicolás Ardito Barletta Preston, como miembro de la Junta Directiva del BNP",,False,3,2022-09-21T22:10:08.000Z,2022-09-21T22:12:58.000Z,81158
+1802,893,713,2022-09-21,Ordinaria,Tercer Debate al Proyecto de Ley No.706,,False,3,2022-09-21T22:19:31.000Z,2022-09-21T22:22:42.000Z,80879
+1805,893,713,2022-09-21,Ordinaria,Segundo Debate al Proyecto de Ley No. 868,,False,3,2022-09-21T23:48:08.000Z,2022-09-21T23:51:01.000Z,81149
+1808,896,716,2022-09-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 868,,False,3,2022-09-22T16:00:57.000Z,2022-09-22T16:04:28.000Z,81182
+1811,896,716,2022-09-22,Ordinaria,Segundo Debate al Proyecto de Ley No. 214,,False,3,2022-09-22T16:14:32.000Z,2022-09-22T16:17:48.000Z,81185
+1814,896,716,2022-09-22,Ordinaria,Segundo Debate al Proyecto de Ley No. 686,,False,3,2022-09-22T16:25:04.000Z,2022-09-22T16:26:59.000Z,81188
+1817,899,719,2022-09-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 214,,False,3,2022-09-26T22:01:51.000Z,2022-09-26T22:04:56.000Z,81479
+1820,899,719,2022-09-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 686,,False,3,2022-09-26T22:14:22.000Z,2022-09-26T22:16:36.000Z,81482
+1823,899,719,2022-09-26,Ordinaria,Segundo Debate al Proyecto de Ley No. 880,,False,3,2022-09-27T00:48:44.000Z,2022-09-27T00:53:22.000Z,81764
+1826,902,722,2022-09-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 880,,False,3,2022-09-27T21:43:39.000Z,2022-09-27T21:58:58.000Z,82094
+1829,905,725,2022-09-28,Ordinaria,Segundo Debate al Proyecto de Ley No.890,,False,3,2022-09-28T21:13:07.000Z,2022-09-28T21:22:44.000Z,82970
+1832,905,725,2022-09-28,Ordinaria,Segundo Debate del Proyecto de Ley No. 379,,False,3,2022-09-28T21:33:55.000Z,2022-09-28T21:54:06.000Z,82703
+1835,908,728,2022-09-29,Ordinaria,Tercer Debate al Proyecto de Ley No.890,,False,3,2022-09-29T16:18:55.000Z,2022-09-29T16:22:43.000Z,82997
+1838,908,728,2022-09-29,Ordinaria,Tercer Debate del Proyecto de Ley No. 379,,False,3,2022-09-29T16:31:36.000Z,2022-09-29T16:35:51.000Z,83000
+1841,920,731,2022-10-03,Ordinaria,Segundo debate proyecto de ley 728,,False,3,2022-10-03T22:22:38.000Z,2022-10-03T22:26:19.000Z,83315
+1844,920,731,2022-10-03,Ordinaria,Segundo Debate al Proyecto de Ley No.855,,False,3,2022-10-04T22:46:55.000Z,2022-10-04T22:49:52.000Z,83582
+1850,923,734,2022-10-04,Ordinaria,Tercer Debate al Proyecto de Ley No. 728.,,False,3,,,83621
+1853,923,734,2022-10-04,Ordinaria,Segundo Debate al Proyecto de Ley No.811,,False,3,2022-10-05T01:25:14.000Z,2022-10-05T01:34:08.000Z,83906
+1856,926,737,2022-10-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 855,,False,3,2022-10-05T22:41:57.000Z,2022-10-05T22:47:32.000Z,83936
+1859,926,737,2022-10-05,Ordinaria,Tercer Debate al Proyecto de Ley No.811,,False,3,2022-10-06T00:06:45.000Z,2022-10-06T00:07:45.000Z,83939
+1862,926,737,2022-10-05,Ordinaria,Proyecto de ley 888,,False,3,2022-10-06T02:02:49.000Z,2022-10-06T02:36:48.000Z,84200
+1865,929,740,2022-10-06,Ordinaria,Tercer Debate al Proyecto de Ley No.888,,False,3,2022-10-06T17:06:11.000Z,2022-10-06T17:12:02.000Z,84260
+1868,929,740,2022-10-06,Ordinaria,Segundo Debate al Proyecto de Ley No.846,,False,3,2022-10-06T17:19:18.000Z,2022-10-06T17:21:56.000Z,84263
+1871,932,743,2022-10-10,Ordinaria,Tercer Debate al Proyecto de Ley No.846,,False,3,2022-10-10T21:58:07.000Z,2022-10-10T22:09:08.000Z,84569
+1874,932,743,2022-10-10,Ordinaria,Segundo Debate al Proyecto de Ley No.678,,False,3,2022-10-10T22:38:37.000Z,2022-10-10T22:40:25.000Z,84572
+1877,935,746,2022-10-11,Ordinaria,Tercer Debate al Proyecto de Ley No.678,,False,3,2022-10-11T21:36:15.000Z,2022-10-11T21:50:29.000Z,84893
+1880,935,746,2022-10-11,Ordinaria,Segundo Debate al Proyecto de Ley No.882,,False,3,2022-10-11T22:06:19.000Z,2022-10-11T22:09:29.000Z,85166
+1883,938,749,2022-10-12,Ordinaria,Tercer Debate al Proyecto de Ley No.882,,False,3,2022-10-12T21:40:31.000Z,2022-10-12T21:44:35.000Z,85208
+1886,938,749,2022-10-12,Ordinaria,Segundo Debate al Proyecto de Ley No. 863,,False,3,2022-10-12T22:03:08.000Z,2022-10-12T22:09:30.000Z,85454
+1889,938,749,2022-10-12,Ordinaria,Segundo Debate al Proyecto de Ley No.215,,False,3,2022-10-12T22:20:26.000Z,2022-10-12T22:22:19.000Z,85481
+1892,941,752,2022-10-13,Ordinaria,Segundo Debate Proyecto de ley 859,,False,3,2022-10-13T16:30:24.000Z,2022-10-13T16:32:59.000Z,85814
+1895,941,752,2022-10-13,Ordinaria,Tercer Debate al Proyecto de Ley No. 863,,False,3,2022-10-13T16:35:53.000Z,2022-10-13T16:37:46.000Z,85520
+1898,941,752,2022-10-13,Ordinaria,Tercer Debate al Proyecto de Ley No.215,,False,3,2022-10-13T16:46:39.000Z,2022-10-13T16:47:59.000Z,85523
+1901,944,755,2022-10-17,Ordinaria,Tercer Debate Proyecto de ley 859,,False,3,2022-10-17T21:49:09.000Z,2022-10-17T21:54:18.000Z,85832
+1904,944,755,2022-10-17,Ordinaria,Segundo Debate al Proyecto de Ley No. 712,,False,3,2022-10-17T22:07:39.000Z,2022-10-17T22:35:39.000Z,86057
+1910,947,758,2022-10-18,Ordinaria,Segundo Debate al Proyecto de Ley No. 738,,False,3,2022-10-18T22:14:54.000Z,2022-10-18T22:17:03.000Z,86450
+1907,947,758,2022-10-18,Ordinaria,Tercer Debate al Proyecto de Ley No. 712,,False,3,2022-10-18T22:32:11.000Z,2022-10-18T22:36:29.000Z,86156
+1916,947,758,2022-10-18,Ordinaria,Segundo Debate al Proyecto de Ley No.898,,False,3,2022-10-18T23:11:01.000Z,2022-10-18T23:15:56.000Z,86426
+1919,950,761,2022-10-19,Ordinaria,Tercer Debate al Proyecto de Ley No. 738,,False,3,2022-10-19T21:09:16.000Z,2022-10-19T21:11:44.000Z,86468
+1922,950,761,2022-10-19,Ordinaria,Tercer Debate al Proyecto de Ley No.898,,False,3,2022-10-19T21:16:43.000Z,2022-10-19T21:19:00.000Z,86477
+1925,950,761,2022-10-19,Ordinaria,Segundo Debate al Proyecto de Ley No. 364,,False,3,2022-10-19T22:41:13.000Z,2022-10-19T22:44:04.000Z,86474
+1928,950,761,2022-10-19,Ordinaria,Segundo Debate al Proyecto de Ley No. 814,,False,3,2022-10-19T23:21:19.000Z,2022-10-19T23:22:54.000Z,86699
+1931,950,761,2022-10-19,Ordinaria,Segundo Debate al Proyecto de Ley No.871,,False,3,2022-10-19T23:34:16.000Z,2022-10-19T23:35:21.000Z,86744
+1934,950,761,2022-10-19,Ordinaria,Segundo Debate al Proyecto de Ley No.820,,False,3,2022-10-19T23:42:39.000Z,2022-10-19T23:43:47.000Z,86720
+1946,953,764,2022-10-20,Ordinaria,Segundo Debate al Proyecto de Ley No. 722.,Que establece una base de datos unificada sobre prestaciones adeudadas y reconocidas por el Estado y programas de apoyo económico.,False,3,2022-10-20T15:46:23.000Z,2022-10-20T15:50:16.000Z,87074
+1937,953,764,2022-10-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 364,"Que reforma la Ley 37 de 2009, Que Descentraliza la Administración Pública, y dicta otras disposiciones.",False,3,2022-10-20T15:55:11.000Z,2022-10-20T16:01:27.000Z,86786
+1940,953,764,2022-10-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 814,"Que modifica y adiciona artículos a la Ley 47 de 2012, que declara el Día del Canto de la Décima Panameña, del Poeta, del Trovador y de los Artistas relacionados con esta, y reconoce la mejoranera como instrumento tradicional en las manifestaciones folclóricas panameñas.",False,3,2022-10-20T16:12:01.000Z,2022-10-20T16:18:32.000Z,86789
+1943,953,764,2022-10-20,Ordinaria,Tercer Debate al Proyecto de Ley No.871.,"Que modifica y adiciona artículos a la Ley 13 de 2005, que establece el Corredor Marino de Panamá, para prohibir la captura de mamíferos marinos con fines recreativos o educativos.",False,3,2022-10-20T16:21:42.000Z,2022-10-20T16:22:51.000Z,86792
+1949,953,764,2022-10-20,Ordinaria,Tercer Debate al Proyecto de Ley No.820.,"Que declara fiesta folclórica nacional el Festival Folclórico La Mesa entre Saloma, Canto y Tradición y crea su Patronato.",False,3,2022-10-20T16:26:47.000Z,2022-10-20T16:29:50.000Z,86798
+1952,953,764,2022-10-20,Ordinaria,Segundo Debate al Proyecto de Ley No.912;,"Que aprueba la Adenda No.1 al Contrato A-2019-12 de 21 de mayo de 2013, suscrito entre El Estado y la sociedad United Crown Construction, Inc., aprobado mediante Ley No.42 de 18 de junio de 2013.",False,3,2022-10-20T17:22:55.000Z,2022-10-20T17:24:28.000Z,87089
+1955,953,764,2022-10-20,Ordinaria,Segundo Debate al Proyecto de Ley No.913,"Que aprueba la Adenda No.1 al Contrato No. A-2017-12 de 17 de mayo de 2013, suscrito entre El Estado y la sociedad Panamá Canal Colón Port, Inc., (hoy Panamá Colón Container Port, Inc.), aprobado mediante Ley No.43 de 18 de junio de 2013.",False,3,2022-10-20T17:29:53.000Z,2022-10-20T17:32:30.000Z,87092
+1958,956,767,2022-10-24,Ordinaria,Tercer Debate al Proyecto de Ley No. 722.,Que establece una base de datos unificada sobre prestaciones adeudadas y reconocidas por el Estado y programas de apoyo económico.,False,3,2022-10-24T22:12:48.000Z,2022-10-24T22:18:08.000Z,87125
+1961,956,767,2022-10-24,Ordinaria,Tercer Debate al Proyecto de Ley No.912.,"Que aprueba la Adenda No.1 al Contrato A-2019-12 de 21 de mayo de 2013, suscrito entre EL ESTADO y la sociedad UNITED CROWN CONSTRUCTION, INC., aprobado mediante Ley No.42 de 18 de junio de 2013.",False,3,2022-10-24T22:27:11.000Z,2022-10-24T22:32:23.000Z,87140
+1964,956,767,2022-10-24,Ordinaria,Tercer Debate al Proyecto de Ley No.913.,"Que aprueba la Adenda No.1 al Contrato No. A-2017-12 de 17 de mayo de 2013, suscrito entre EL ESTADO y la sociedad PANAMÀ CANAL COLON PORT, INC., (hoy PANAMÁ COLÓN CONTAINER PORT INC.), aprobado mediante Ley No.43 de 18 de junio de 2013.",False,3,2022-10-24T22:37:16.000Z,2022-10-24T22:40:53.000Z,87143
+1967,956,767,2022-10-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 907.,"""Que modifica y adiciona artículos a la ley 32 de 8 de noviembre de 1984, Orgánica de la Contraloría General de la República y modifica la ley 67 de 14 de noviembre de 2008, Que desarrolla la Jurisdicción de Cuentas. """,False,3,2022-10-24T23:42:51.000Z,2022-10-24T23:56:52.000Z,87455
+1973,959,770,2022-10-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 650,,False,3,2022-10-25T22:40:00.000Z,2022-10-25T22:41:32.000Z,87485
+1970,959,770,2022-10-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 907,,False,3,2022-10-25T23:30:15.000Z,2022-10-26T01:13:58.000Z,87494
+1979,959,770,2022-10-25,Ordinaria,Segundo Debate al Proyecto de Ley No.417,,False,3,2022-10-26T01:08:17.000Z,2022-10-26T01:12:56.000Z,87497
+1982,959,770,2022-10-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 851,,False,3,2022-10-26T01:24:15.000Z,2022-10-26T01:27:25.000Z,87809
+1985,959,770,2022-10-25,Ordinaria,Segundo Debate al Proyecto de Ley No.749,,False,3,2022-10-26T01:57:38.000Z,2022-10-26T02:03:30.000Z,87503
+1988,959,770,2022-10-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 843,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2023.,False,3,2022-10-26T23:56:50.000Z,2022-10-27T00:01:36.000Z,88163
+1991,962,773,2022-10-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 650.,"Que reforma la Ley 106 de 1973, Sobre Régimen Municipal, y dicta otras disposiciones, respecto a las contrataciones menores en los municipios, juntas comunales y consejos provinciales y comarcales.",False,3,2022-10-27T00:10:24.000Z,2022-10-27T00:17:59.000Z,87827
+1997,962,773,2022-10-26,Ordinaria,Tercer debate al Proyecto de Ley No. 727;,Que ordena el pago de los intereses por mora como derecho derivado de la retención de la segunda partida del Décimo Tercer Mes de los años 1972 a 1983 a los servidores públicos y trabajadores del sector privado que laboraron durante este periodo.,False,3,2022-10-27T00:46:50.000Z,2022-10-27T00:49:43.000Z,88169
+2000,962,773,2022-10-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 920.,"Que modifica un artículo de la Ley 47 de 1946, Orgánica de Educación.",False,3,2022-10-27T00:55:02.000Z,2022-10-27T01:03:58.000Z,87833
+2009,962,773,2022-10-26,Ordinaria,Tercer Debate al Proyecto de Ley No.417.,Que regula la profesión de técnicos y licenciados en urgencias médicas prehospitalarias en la República de Panamá.,False,3,2022-10-27T01:12:47.000Z,2022-10-27T01:13:52.000Z,87836
+2003,962,773,2022-10-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 851;,Que crea el Programa de Voluntariado Empresarial para el Mejoramiento de la Formación Estudiantil y Apoyo a la Infraestructura Educativa a nivel nacional.,False,3,2022-10-27T01:19:16.000Z,2022-10-27T01:20:29.000Z,87839
+2006,962,773,2022-10-26,Ordinaria,Tercer Debate al Proyecto de Ley No.749;,Que regula la Profesión de protocolo y ceremonial.,False,3,2022-10-27T01:25:58.000Z,2022-10-27T01:30:48.000Z,87842
+2012,962,773,2022-10-26,Ordinaria,Segundo Debate al proyecto de Ley No. 908.,"Que crea los acuerdos de pago extraordinarios en actos dictados por la Dirección General de Ingresos como medida temporal para dinamizar la recaudación, modifica artículos de la Ley 76 del 13 de febrero de 2019 y dicta otras disposiciones.",False,3,2022-10-27T01:42:53.000Z,2022-10-27T01:44:39.000Z,88160
+2015,962,773,2022-10-26,Ordinaria,Segundo Debate al Proyecto de Ley No.647.,"Que modifica la Ley 42 de 2011, que establece lineamientos para la política nacional sobre biocombustibles y energía eléctrica a partir de biomasa en el territorio nacional.",False,3,2022-10-27T02:03:02.000Z,2022-10-27T02:06:08.000Z,88103
+2018,962,773,2022-10-26,Ordinaria,Segundo Debate al Proyecto de Ley No.747.,"Que modifica la Ley 73 de 2019, Que establece el acceso público a la desfibrilación.",False,3,2022-10-27T02:23:46.000Z,2022-10-27T02:24:52.000Z,88121
+2021,962,773,2022-10-26,Ordinaria,Segundo Debate al Proyecto de Ley No.877.,"Que declara de interés nacional las enfermedades, trastornos y condiciones adquiridas y heredadas de la piel y sus anexos.",False,3,2022-10-27T02:31:15.000Z,2022-10-27T02:32:11.000Z,87845
+2024,962,773,2022-10-26,Ordinaria,Segundo Debate al Proyecto de Ley No. 397.,"Que reconoce el ejercicio de la profesión Nutricionista-Dietista, le da estabilidad y establece su escalafón en la República de Panamá.",False,3,2022-10-27T02:37:40.000Z,2022-10-27T02:39:14.000Z,87992
+2027,965,776,2022-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 843.,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2023.,False,3,2022-10-27T21:51:38.000Z,2022-10-27T22:01:48.000Z,88553
+2030,965,776,2022-10-27,Ordinaria,Tercer Debate al proyecto de Ley No. 908.,"Que crea los Acuerdos de Pago Extraordinarios en actos dictados por la Dirección General de Ingresos como medida temporal para dinamizar la recaudación, modifica artículos de la Ley 76 de 2019, que aprueba el Código de Procedimiento Tributario, y dicta otras disposiciones.",False,3,2022-10-27T23:31:25.000Z,2022-10-27T23:32:10.000Z,88220
+2033,965,776,2022-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No.647.,"Que modifica la Ley 42 de 2011, que establece lineamientos para la política nacional sobre biocombustibles y energía eléctrica a partir de biomasa en el territorio nacional.",False,3,2022-10-27T23:36:24.000Z,2022-10-27T23:37:28.000Z,88223
+2036,965,776,2022-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No.747.,"Que modifica la Ley 73 de 2019, Que establece el acceso público a la desfibrilación.",False,3,2022-10-27T23:57:39.000Z,2022-10-27T23:58:41.000Z,88226
+2039,965,776,2022-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No.877.,"Que declara de interés nacional las enfermedades, trastornos y condiciones adquiridas y heredadas de la piel y sus anexos.",False,3,2022-10-28T00:08:55.000Z,2022-10-28T00:10:18.000Z,88229
+2042,965,776,2022-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 397.,Que reconoce el ejercicio de la profesión nutricionista-dietista y establece la estabilidad y su escalafón en la República de Panamá.,False,3,2022-10-28T00:21:22.000Z,2022-10-28T00:23:15.000Z,88232
+2048,965,776,2022-10-27,Ordinaria,Segundo Debate al Proyecto de Ley No. 809.,Que regula el ejercicio de la abogacía en Panamá.,False,3,2022-10-28T00:46:54.000Z,2022-10-28T00:49:53.000Z,88937
+2051,965,776,2022-10-27,Ordinaria,Segundo Debate al Proyecto de Ley No. 697.,"Que regula la comercialización y uso de criptoactivos, la emisión de valor digital, la tokenización de metales preciosos y otros bienes, los sistemas de pagos, y dicta otras disposiciones.",False,3,2022-10-28T02:48:14.000Z,2022-10-28T02:54:40.000Z,88940
+2045,965,776,2022-10-27,Ordinaria,Segundo Debate al Proyecto de Ley No.925,"Que modifica la Ley No.148 de 21 de abril de 2020, Que crea el Programa de Asistencia Social Educativa Universal y dicta otra disposición.",False,3,2022-10-28T02:58:52.000Z,2022-10-28T03:01:00.000Z,88562
+2063,968,779,2022-10-28,Ordinaria,Nombramientos que ha de efectuar la Asamblea Nacional,,False,3,2022-10-28T19:38:33.000Z,2022-10-28T19:41:41.000Z,89318
+2057,968,779,2022-10-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 697.,"Que regula la comercialización y uso de activos virtuales y los proveedores de servicios de activos virtuales, y dicta otras disposiciones.",False,3,2022-10-28T20:00:00.000Z,2022-10-28T20:03:36.000Z,88982
+2054,968,779,2022-10-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 809.,Que regula el ejercicio de la abogacía en Panamá.,False,3,2022-10-28T20:16:58.000Z,2022-10-28T20:21:55.000Z,88979
+2060,968,779,2022-10-28,Ordinaria,Tercer Debate al Proyecto de Ley No.925.,"Que modifica la Ley No.148 de 2020, que crea el Programa de Asistencia Social Educativa Universal.",False,3,2022-10-28T20:29:59.000Z,2022-10-28T20:31:30.000Z,88985
+2078,971,785,2023-01-04,Ordinaria,Segundo debate proyecto 469,,False,3,2023-01-04T22:32:41.000Z,2023-01-04T22:34:27.000Z,89945
+2081,971,785,2023-01-04,Ordinaria,Segundo debate proyecto del ley 380,,False,3,2023-01-04T22:48:00.000Z,2023-01-04T23:06:59.000Z,89963
+2084,974,794,2023-01-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 469,,False,3,2023-01-05T16:18:29.000Z,2023-01-05T16:21:15.000Z,90806
+2087,974,794,2023-01-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 380,,False,3,2023-01-05T16:26:17.000Z,2023-01-05T16:28:42.000Z,90809
+2090,977,797,2023-01-10,Ordinaria,Segundo debate proyecto de ley 635,,False,3,2023-01-10T22:21:14.000Z,2023-01-10T22:24:52.000Z,91157
+2093,977,797,2023-01-10,Ordinaria,Segundo debate proyecto de ley 616,,False,3,2023-01-10T22:31:12.000Z,2023-01-10T22:32:44.000Z,91160
+2096,980,800,2023-01-11,Ordinaria,Tercer Debate al Proyecto de Ley No. 635,,False,3,2023-01-11T22:01:26.000Z,2023-01-11T22:03:22.000Z,91502
+2099,980,800,2023-01-11,Ordinaria,Segundo debate proyecto de ley 616,,False,3,2023-01-11T23:04:42.000Z,2023-01-11T23:06:48.000Z,91505
+2102,983,803,2023-01-12,Ordinaria,Tercer Debate al proyecto de Ley No. 616,,False,3,2023-01-12T16:16:53.000Z,2023-01-12T16:24:05.000Z,91844
+2105,983,803,2023-01-12,Ordinaria,Segundo Debate al Proyecto de Ley No.614,,False,3,,,91847
+2108,986,806,2023-01-16,Ordinaria,Segundo debate proyecto ley 614,,False,3,2023-01-16T22:02:54.000Z,2023-01-16T22:05:18.000Z,92183
+2111,986,806,2023-01-16,Ordinaria,Segundo debate proyecto de ley 480,,False,3,2023-01-16T22:58:45.000Z,2023-01-16T23:00:40.000Z,92186
+2114,989,809,2023-01-17,Ordinaria,Tercer Debate al Proyecto de Ley No.614,,False,3,2023-01-17T21:43:16.000Z,2023-01-17T21:45:20.000Z,92522
+2117,989,809,2023-01-17,Ordinaria,Tercer Debate al Proyecto de Ley No.480,,False,3,2023-01-17T21:58:50.000Z,2023-01-17T22:06:26.000Z,92525
+2120,989,809,2023-01-17,Ordinaria,Segundo debate proyecto de ley 910,,False,3,2023-01-17T22:18:25.000Z,2023-01-17T22:20:37.000Z,92528
+2123,1019,812,2023-01-18,Ordinaria,Segundo Debate al Proyecto de Ley No. 747,,False,3,2023-01-18T21:58:18.000Z,2023-01-18T22:04:53.000Z,93173
+2126,1019,812,2023-01-18,Ordinaria,Tercer Debate al Proyecto de Ley No. 910,,False,3,2023-01-18T22:06:37.000Z,2023-01-18T22:09:14.000Z,92861
+2132,1025,818,2023-01-23,Ordinaria,Tercer Debate al Proyecto de Ley No. 747,,False,3,2023-01-23T21:56:57.000Z,2023-01-23T22:00:00.000Z,93521
+2138,1031,824,2023-01-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 776,,False,3,2023-01-25T22:58:50.000Z,2023-01-25T23:15:17.000Z,94496
+2141,1040,833,2023-01-31,Ordinaria,Segundo Debate al Proyecto de Ley No. 827,,False,3,2023-01-31T22:04:54.000Z,2023-01-31T22:09:52.000Z,95717
+2144,1040,833,2023-01-31,Ordinaria,Segundo debate proyecto de ley 862,,False,3,2023-01-31T22:24:33.000Z,2023-01-31T22:33:32.000Z,95744
+2147,1043,836,2023-02-01,Ordinaria,Tercer Debate al Proyecto de Ley No. 827,,False,3,2023-02-01T21:45:48.000Z,2023-02-01T21:51:55.000Z,95801
+2150,1043,836,2023-02-01,Ordinaria,Tercer debate al Proyecto de Ley No. 862,,False,3,2023-02-01T21:54:50.000Z,2023-02-01T22:32:49.000Z,95804
+2156,1049,842,2023-02-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 888,,False,3,2023-02-06T22:46:33.000Z,2023-02-07T17:24:02.000Z,96749
+2168,1100,848,2023-02-08,Ordinaria,Segundo debate Proyecto de ley 890,,False,3,2023-02-08T22:45:11.000Z,2023-02-08T22:54:39.000Z,97397
+2171,1103,851,2023-02-09,Ordinaria,Tercer Debate Proyecto de Ley No. 890,,False,3,2023-02-09T16:15:38.000Z,2023-02-09T16:37:40.000Z,97409
+2177,1151,881,2023-03-06,Ordinaria,Segundo Debate al Proyecto de Ley No.749,,False,3,2023-03-06T23:09:49.000Z,2023-03-06T23:40:39.000Z,100946
+2180,1157,884,2023-03-07,Ordinaria,Tercer Debate al Proyecto de Ley No.749,,False,3,2023-03-07T21:53:01.000Z,2023-03-07T22:00:49.000Z,100961
+2183,1160,887,2023-03-08,Ordinaria,Caja de ahorros junta directiva,,False,3,2023-03-08T22:05:39.000Z,2023-03-08T22:17:09.000Z,101636
+2186,1160,887,2023-03-08,Ordinaria,Segundo Debate al Proyecto de Ley No.864,,False,3,,,101318
+2189,1163,890,2023-03-09,Ordinaria,Segundo Debate al Proyecto de Ley No.864,,False,3,2023-03-09T16:27:31.000Z,2023-03-09T16:35:12.000Z,101663
+2192,1169,896,2023-03-14,Ordinaria,Tercer Debate al Proyecto de Ley No.864,,False,3,2023-03-14T21:56:54.000Z,2023-03-14T22:09:15.000Z,102377
+2195,1169,896,2023-03-14,Ordinaria,Segundo Debate al Proyecto de Ley No.841,,False,3,2023-03-14T22:56:11.000Z,2023-03-14T23:16:29.000Z,102386
+2198,1169,896,2023-03-14,Ordinaria,Segundo Debate al Proyecto de Ley No.916,,False,3,,,102701
+2207,1178,905,2023-03-20,Ordinaria,Segundo Debate al Proyecto de Ley No. 215,,False,3,2023-03-20T22:09:15.000Z,2023-03-20T22:16:58.000Z,103442
+2210,1178,905,2023-03-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 841,,False,3,2023-03-20T22:20:30.000Z,2023-03-20T22:26:37.000Z,103784
+2216,1181,908,2023-03-21,Ordinaria,Tercer Debate al Proyecto de Ley No. 215,,False,3,2023-03-21T22:01:13.000Z,2023-03-21T22:06:57.000Z,103802
+2219,1181,908,2023-03-21,Ordinaria,Segundo Debate al Proyecto de Ley No.916,,False,3,2023-03-21T22:08:52.000Z,2023-03-21T22:14:53.000Z,103814
+2222,1184,911,2023-03-22,Ordinaria,Segundo Debate al Proyecto de Ley No. 616,,False,3,2023-03-22T21:50:18.000Z,2023-03-22T21:57:10.000Z,104510
+2225,1184,911,2023-03-22,Ordinaria,Tercer Debate al Proyecto de Ley No.916,,False,3,2023-03-22T22:02:21.000Z,2023-03-22T22:18:41.000Z,104168
+2234,1190,917,2023-03-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 616,,False,3,2023-03-27T22:31:17.000Z,2023-03-27T22:37:02.000Z,104888
+2237,1190,917,2023-03-27,Ordinaria,Segundo Debate al Proyecto de Ley No.571,,False,3,2023-03-27T22:53:13.000Z,2023-03-27T23:03:19.000Z,104903
+2240,1190,917,2023-03-27,Ordinaria,Segundo Debate al Proyecto de Ley No. 719,,False,3,,,104906
+2249,1193,923,2023-03-29,Ordinaria,Tercer Debate al Proyecto de Ley No. 719,,False,3,2023-03-29T22:53:18.000Z,2023-03-29T23:11:45.000Z,105644
+2255,1223,932,2023-04-04,Ordinaria,Nombramientos que ha de efectuar la Asamblea Nacional:,,False,3,2023-04-04T22:02:07.000Z,2023-04-04T22:09:48.000Z,107120
+2258,1223,932,2023-04-04,Ordinaria,Segundo Debate al Proyecto de Ley No. 941,,False,3,2023-04-04T22:26:02.000Z,2023-04-04T22:41:38.000Z,106769
+2264,1223,932,2023-04-04,Ordinaria,Segundo Debate al Proyecto de Ley No 569,,False,3,2023-04-04T23:26:22.000Z,2023-04-04T23:28:45.000Z,106772
+2267,1226,935,2023-04-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 941,,False,3,2023-04-05T16:29:26.000Z,2023-04-05T16:38:10.000Z,107147
+2273,1229,938,2023-04-10,Ordinaria,Tercer Debate al Proyecto de Ley No.569,,False,3,2023-04-10T22:06:19.000Z,2023-04-10T22:10:33.000Z,107525
+2279,1229,938,2023-04-10,Ordinaria,Segundo Debate al Proyecto de Ley No.292,,False,3,2023-04-10T22:30:15.000Z,2023-04-10T22:33:26.000Z,107534
+2282,1235,944,2023-04-12,Ordinaria,Tercer Debate al Proyecto de Ley No.292,,False,3,2023-04-12T22:07:22.000Z,2023-04-12T22:10:24.000Z,108311
+2288,1241,950,2023-04-17,Ordinaria,Tercer Debate al Proyecto de Ley No.925,,False,3,2023-04-17T22:34:54.000Z,2023-04-17T22:44:10.000Z,109472
+2294,1241,950,2023-04-17,Ordinaria,Segundo Debate al Proyecto de Ley No. 934,,False,3,2023-04-17T22:57:10.000Z,2023-04-17T23:03:31.000Z,109394
+2291,1241,950,2023-04-17,Ordinaria,Segundo Debate al Proyecto de Ley No.708,,False,3,2023-04-17T23:05:34.000Z,2023-04-17T23:08:41.000Z,109097
+2297,1241,950,2023-04-17,Ordinaria,Segundo Debate al Proyecto de Ley No.807,,False,3,2023-04-17T23:14:11.000Z,2023-04-17T23:22:05.000Z,109100
+2300,1244,953,2023-04-18,Ordinaria,Tercer Debate al Proyecto de Ley No. 934,,False,3,2023-04-18T21:52:29.000Z,2023-04-18T21:57:17.000Z,109502
+2303,1244,953,2023-04-18,Ordinaria,Tercer Debate al Proyecto de Ley No.708,,False,3,2023-04-18T22:02:36.000Z,2023-04-18T22:06:17.000Z,109505
+2309,1244,953,2023-04-18,Ordinaria,Segundo Debate al Proyecto de Ley No.959,,False,3,2023-04-18T22:22:45.000Z,2023-04-18T22:40:26.000Z,109862
+2306,1244,953,2023-04-18,Ordinaria,Segundo Debate al Proyecto de Ley No.807,,False,3,2023-04-18T22:12:34.000Z,2023-04-18T22:18:05.000Z,109508
+2321,1253,962,2023-04-24,Ordinaria,Tercer Debate al Proyecto de Ley No.807,,False,3,2023-04-24T22:20:14.000Z,2023-04-24T22:28:16.000Z,111470
+2327,1253,962,2023-04-24,Ordinaria,Tercer Debate al Proyecto de Ley No.959,,False,3,2023-04-24T22:28:57.000Z,2023-04-24T22:35:11.000Z,111473
+2324,1253,962,2023-04-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 815,,False,3,2023-04-24T22:48:48.000Z,2023-04-24T22:53:12.000Z,111491
+2333,1253,962,2023-04-24,Ordinaria,Segundo Debate al Proyecto de Ley No.958,,False,3,2023-04-24T22:57:06.000Z,2023-04-24T23:02:52.000Z,111476
+2339,1256,965,2023-04-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 1009,"Que modifica la Ley 3 de 1985, que establece un régimen de intereses preferenciales en ciertos préstamos hipotecarios, y dicta otras disposiciones.",False,3,2023-04-25T21:54:05.000Z,2023-04-25T22:03:06.000Z,111893
+2342,1256,965,2023-04-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 815;,"Que establece lineamientos para la transformación, el perfeccionamiento y bienestar del educador y dicta otras disposiciones.",False,3,2023-04-25T22:05:35.000Z,2023-04-25T22:10:00.000Z,111896
+2345,1256,965,2023-04-25,Ordinaria,Tercer Debate al Proyecto de Ley No.958;,"Por la cual se aprueba el Convenio sobre la Protección y Utilización de los Cursos de Agua Transfronterizos y de los Lagos Internacionales en su forma enmendada, adoptado en Helsinki, el 17 de marzo de 1992.",False,3,2023-04-25T22:12:50.000Z,2023-04-25T22:19:59.000Z,111899
+2351,1256,965,2023-04-25,Ordinaria,Segundo Debate al Proyecto de Ley No.720,Que promueve el Deporte Seguro a nivel nacional.,False,3,2023-04-25T22:30:55.000Z,2023-04-25T23:16:57.000Z,111902
+2357,1259,968,2023-04-26,4,Segundo Debate al Proyecto de Ley No. 970,,False,3,2023-04-26T21:36:47.000Z,2023-04-26T21:40:29.000Z,112307
+2360,1259,968,2023-04-26,4,Segundo Debate al Proyecto de Ley No.620,,False,3,2023-04-26T22:15:20.000Z,2023-04-26T22:23:07.000Z,112322
+2363,1259,968,2023-04-26,4,Segundo Debate al Proyecto de Ley No.720,,False,3,2023-04-26T22:27:28.000Z,2023-04-26T22:34:31.000Z,112304
+2369,1259,968,2023-04-26,4,Segundo Debate al Proyecto de Ley No. 625.,"Que adiciona el Titulo XX al Código Administrativo, Que crea la Jurisdicción Patrimonial de Extinción de Dominio.",False,3,2023-04-27T19:05:10.000Z,2023-04-27T23:06:08.000Z,112685
+2390,1385,989,2023-07-04,Ordinaria,Tercer debate proyecto de ley 970,,False,3,2023-07-04T21:45:09.000Z,2023-07-04T22:10:21.000Z,114503
+2393,1391,992,2023-07-05,Ordinaria,Segundo Debate al Proyecto de Ley No. 1023,,False,3,2023-07-05T21:49:40.000Z,2023-07-05T22:05:07.000Z,114938
+2396,1394,995,2023-07-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 1023,,False,3,2023-07-06T16:20:38.000Z,2023-07-06T18:52:04.000Z,115361
+2399,1397,1013,2023-07-18,Ordinaria,Tercer Debate al Proyecto de Ley No. 720,,False,3,2023-07-18T21:48:29.000Z,2023-07-18T22:04:04.000Z,117896
+2408,1400,1019,2023-07-20,Ordinaria,Segundo Debate al Proyecto de Ley No. 620,,False,3,,,119150
+2411,1403,1022,2023-07-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 957,,False,3,2023-07-24T21:53:16.000Z,2023-07-24T22:00:04.000Z,119567
+2414,1403,1022,2023-07-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 1008,,False,3,2023-07-24T22:04:04.000Z,2023-07-25T16:53:41.000Z,119927
+2417,1406,1025,2023-07-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 957,,False,3,2023-07-25T21:39:16.000Z,2023-07-25T21:46:20.000Z,119984
+2420,1406,1025,2023-07-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 1008,,False,3,2023-07-25T21:49:32.000Z,2023-07-25T22:06:10.000Z,119987
+2423,1412,1040,2023-08-01,Ordinaria,Segundo Debate al Proyecto de Ley No. 935,,False,3,2023-08-01T22:56:23.000Z,2023-08-01T23:09:50.000Z,122042
+2426,1415,1043,2023-08-02,Ordinaria,Segundo Debate al Proyecto de Ley No. 945,,False,3,,,122456
+2435,1418,1046,2023-08-07,Ordinaria,Nombramiento que ha de efectuar la Asamblea Nacional,,False,3,2023-08-07T22:08:47.000Z,2023-08-07T22:13:19.000Z,124064
+2438,1418,1046,2023-08-07,Ordinaria,Segundo Debate al Proyecto de Ley No. 935,,False,3,2023-08-07T22:30:01.000Z,2023-08-07T22:39:33.000Z,124481
+2441,1421,1055,2023-08-08,Ordinaria,Tercer Debate al Proyecto de Ley No. 935,,False,3,2023-08-08T21:41:59.000Z,2023-08-08T21:45:40.000Z,124088
+2444,1421,1055,2023-08-08,Ordinaria,Segundo Debate al Proyecto de Ley No. 945,,False,3,2023-08-08T22:50:43.000Z,2023-08-08T22:52:38.000Z,124091
+2447,1424,1058,2023-08-09,Ordinaria,Tercer Debate al Proyecto de Ley No. 945,,False,3,2023-08-09T22:44:26.000Z,2023-08-09T22:47:39.000Z,124502
+2450,1427,1061,2023-08-10,Ordinaria,Segundo Debate al Proyecto de Ley No. 918,,False,3,2023-08-10T16:06:27.000Z,2023-08-10T16:12:09.000Z,124913
+2453,1430,1064,2023-08-14,Ordinaria,Tercer Debate al Proyecto de Ley No. 918,,False,3,2023-08-14T21:50:00.000Z,2023-08-14T21:54:20.000Z,125315
+2456,1433,1067,2023-08-16,Ordinaria,Segundo Debate al Proyecto de Ley No. 1039,,False,3,,,126122
+2462,1439,1073,2023-08-21,Ordinaria,Segundo Debate al Proyecto de Ley No. 1039,,False,3,2023-08-21T22:54:22.000Z,2023-08-21T23:01:49.000Z,126998
+2465,1439,1073,2023-08-21,Ordinaria,Segundo Debate al Proyecto de Ley No. 1047,,False,3,2023-08-21T23:34:02.000Z,2023-08-21T23:37:20.000Z,127412
+2468,1439,1073,2023-08-21,Ordinaria,Segundo Debate al Proyecto de Ley No. 1052;,,False,3,2023-08-21T23:43:18.000Z,2023-08-21T23:52:19.000Z,127388
+2471,1439,1073,2023-08-21,Ordinaria,Segundo debate al Proyecto de Ley No. 883,,False,3,,,127397
+2474,1442,1076,2023-08-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 1039,,False,3,2023-08-22T22:01:03.000Z,2023-08-22T22:03:41.000Z,127433
+2477,1442,1076,2023-08-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 1047,,False,3,2023-08-22T22:26:32.000Z,2023-08-22T22:34:52.000Z,127436
+2480,1442,1076,2023-08-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 1052,,False,3,2023-08-22T22:38:27.000Z,2023-08-22T22:41:33.000Z,127439
+2483,1442,1076,2023-08-22,Ordinaria,Segundo debate al Proyecto de Ley No. 883,,False,3,,,127442
+2486,1445,1079,2023-08-23,Ordinaria,Segundo debate al Proyecto de Ley No. 883,,False,3,2023-08-23T21:55:47.000Z,2023-08-23T21:59:56.000Z,127871
+2489,1445,1079,2023-08-23,Ordinaria,Segundo debate al Proyecto de Ley No. 884,,False,3,2023-08-23T22:07:35.000Z,2023-08-23T22:11:51.000Z,128261
+2492,1445,1079,2023-08-23,Ordinaria,Segundo Debate al Proyecto de Ley No. 885,,False,3,2023-08-23T22:19:14.000Z,2023-08-23T22:21:48.000Z,128264
+2495,1448,1082,2023-08-24,Ordinaria,Tercer Debate al Proyecto de Ley No. 883,,False,3,2023-08-24T16:09:03.000Z,2023-08-24T16:15:18.000Z,128291
+2498,1448,1082,2023-08-24,Ordinaria,Tercer Debate al Proyecto de Ley No. 884,,False,3,2023-08-24T16:16:23.000Z,2023-08-24T16:23:08.000Z,128294
+2501,1448,1082,2023-08-24,Ordinaria,Tercer Debate al Proyecto de Ley No. 885,,False,3,2023-08-24T16:25:10.000Z,2023-08-24T16:29:23.000Z,128297
+2513,1451,1088,2023-08-29,Ordinaria,Tercer Debate al Proyecto de Ley No. 949,,False,3,2023-08-29T21:43:16.000Z,2023-08-29T21:48:28.000Z,129146
+2516,1451,1088,2023-08-29,Ordinaria,Segundo Debate al Proyecto de Ley No. 1017,,False,3,2023-08-29T22:00:27.000Z,2023-08-29T22:02:50.000Z,129149
+2519,1451,1088,2023-08-29,Ordinaria,Segundo Debate al Proyecto de Ley No. 830,,False,3,2023-08-29T22:10:02.000Z,2023-08-29T22:14:28.000Z,129152
+2522,1454,1091,2023-08-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 1017,,False,3,2023-08-30T21:49:39.000Z,2023-08-30T22:04:36.000Z,129563
+2525,1454,1091,2023-08-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 830,,False,3,2023-08-30T22:09:56.000Z,2023-08-30T22:21:04.000Z,129566
+2528,1454,1091,2023-08-30,Ordinaria,Segundo Debate al Proyecto de Ley No. 1046,,False,3,2023-08-30T22:37:06.000Z,2023-08-30T22:41:34.000Z,129959
+2531,1457,1094,2023-08-31,Ordinaria,Tercer Debate al Proyecto de Ley No. 1046,,False,3,2023-08-31T16:17:38.000Z,2023-08-31T16:29:00.000Z,129995
+2534,1460,1097,2023-09-04,Ordinaria,Segundo Debate al Proyecto de Ley No. 758,,False,3,2023-09-04T22:17:11.000Z,2023-09-04T22:23:26.000Z,130643
+2537,1460,1097,2023-09-04,Ordinaria,Segundo Debate al Proyecto de Ley No. 897,,False,3,2023-09-04T22:41:49.000Z,2023-09-04T22:45:00.000Z,130670
+2540,1463,1103,2023-09-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 758,,False,3,2023-09-06T21:45:12.000Z,2023-09-06T21:52:56.000Z,131273
+2543,1463,1103,2023-09-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 897,,False,3,,,131276
+2558,1469,1115,2023-09-11,Ordinaria,Segundo Debate al Proyecto de Ley No. 897,,False,3,2023-09-11T21:21:29.000Z,2023-09-11T21:41:24.000Z,133457
+2561,1469,1115,2023-09-11,Ordinaria,Segundo Debate al Proyecto de Ley No. 620,,False,3,2023-09-11T21:59:48.000Z,2023-09-11T22:02:40.000Z,133460
+2564,1472,1118,2023-09-12,Ordinaria,Tercer Debate al Proyecto de Ley No. 897,,False,3,2023-09-12T22:18:56.000Z,2023-09-12T22:22:41.000Z,133886
+2567,1472,1118,2023-09-12,Ordinaria,Tercer Debate al Proyecto de Ley No. 620,,False,3,2023-09-12T22:29:54.000Z,2023-09-12T22:39:13.000Z,133889
+2570,1475,1121,2023-09-13,Ordinaria,Segundo Debate al Proyecto de Ley No. 840,,False,3,2023-09-13T21:58:23.000Z,2023-09-13T22:13:40.000Z,134315
+2576,1481,1127,2023-09-18,Ordinaria,Tercer Debate al Proyecto de Ley No. 840,,False,3,2023-09-18T22:12:54.000Z,2023-09-18T22:15:47.000Z,135155
+2579,1484,1133,2023-09-19,Ordinaria,Segundo Debate al Proyecto No.569,,False,3,2023-09-19T22:02:28.000Z,2023-09-19T22:05:28.000Z,136001
+2582,1484,1133,2023-09-19,Ordinaria,Segundo Debate al Proyecto de Ley No. 1084,,False,3,,,135989
+2585,1487,1136,2023-09-20,Ordinaria,Tercer Debate al Proyecto No.569,,False,3,2023-09-20T21:11:21.000Z,2023-09-20T21:16:44.000Z,136019
+2588,1487,1136,2023-09-20,Ordinaria,Segundo Debate al Proyecto de Ley No. 1084,,False,3,,,136022
+2591,1490,1139,2023-09-21,Ordinaria,Segundo Debate al Proyecto de Ley No. 1084,,False,3,2023-09-21T16:15:28.000Z,2023-09-21T16:32:27.000Z,136454
+2594,1493,1142,2023-09-25,Ordinaria,Tercer Debate al Proyecto de Ley No. 1084,,False,3,2023-09-25T22:07:22.000Z,2023-09-25T22:13:40.000Z,136883
+2597,1493,1142,2023-09-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 751,,False,3,2023-09-25T22:32:29.000Z,2023-09-25T22:43:46.000Z,136886
+2600,1493,1142,2023-09-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 799,,False,3,2023-09-25T22:52:39.000Z,2023-09-25T23:07:27.000Z,136892
+2603,1493,1142,2023-09-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 1083usted a favor de,,False,3,2023-09-25T23:39:43.000Z,2023-09-25T23:42:37.000Z,136889
+2606,1496,1151,2023-09-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 751,,False,3,2023-09-26T22:33:43.000Z,2023-09-26T22:39:01.000Z,137807
+2609,1496,1151,2023-09-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 799,,False,3,2023-09-26T22:54:04.000Z,2023-09-26T22:55:47.000Z,137810
+2612,1496,1151,2023-09-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 1083,,False,3,2023-09-26T23:23:30.000Z,2023-09-26T23:25:19.000Z,137813
+2615,1496,1151,2023-09-26,Ordinaria,Segundo Debate al Proyecto de Ley No. 1076,,False,3,2023-09-27T00:09:08.000Z,2023-09-27T00:11:02.000Z,138230
+2618,1499,1154,2023-09-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 1076;,Que dicta el Presupuesto de la Autoridad del Canal de Panamá para la vigencia fiscal del 1 de octubre de 2023 al 30 de septiembre de 2024.,False,3,2023-09-27T21:59:42.000Z,2023-09-27T22:01:30.000Z,138263
+2621,1502,1157,2023-09-28,Ordinaria,Nombramiento que ha de efectuar la Asamblea Nacional,,False,3,2023-09-28T15:57:41.000Z,2023-09-28T17:34:53.000Z,139115
+2624,1505,1160,2023-10-02,Ordinaria,Segundo Debate al Proyecto de Ley No. 820,,False,3,2023-10-02T21:49:19.000Z,2023-10-02T21:56:21.000Z,139559
+2627,1505,1160,2023-10-02,Ordinaria,Segundo Debate al Proyecto de Ley No. 981,,False,3,2023-10-02T22:03:30.000Z,2023-10-02T22:10:00.000Z,139145
+2630,1505,1160,2023-10-02,Ordinaria,Segundo Debate al Proyecto de Ley No. 979,,False,3,2023-10-02T22:15:17.000Z,2023-10-02T22:20:59.000Z,139154
+2633,1508,1163,2023-10-03,Ordinaria,Tercer Debate al Proyecto de Ley No. 820; (Objetado),,False,3,2023-10-03T21:33:40.000Z,2023-10-03T21:40:28.000Z,139580
+2636,1508,1163,2023-10-03,Ordinaria,Tercer Debate al Proyecto de Ley No. 981,,False,3,2023-10-03T21:44:07.000Z,2023-10-03T21:46:47.000Z,139583
+2639,1508,1163,2023-10-03,Ordinaria,Tercer Debate al Proyecto de Ley No. 979;,,False,3,2023-10-03T21:56:20.000Z,2023-10-03T22:00:18.000Z,139586
+2642,1508,1163,2023-10-03,Ordinaria,Segundo Debate al Proyecto de Ley No. 786,,False,3,2023-10-03T22:58:06.000Z,2023-10-03T23:01:11.000Z,139589
+2645,1511,1166,2023-10-04,Ordinaria,Tercer Debate al Proyecto de Ley No. 786,,False,3,2023-10-04T21:48:47.000Z,2023-10-04T21:55:05.000Z,140033
+2648,1511,1166,2023-10-04,Ordinaria,Segundo Debate al Proyecto de Ley No. 806,,False,3,2023-10-04T22:07:43.000Z,2023-10-04T22:11:30.000Z,140036
+2651,1514,1169,2023-10-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 806,,False,3,2023-10-05T16:06:21.000Z,2023-10-05T16:13:54.000Z,140477
+2657,1517,1172,2023-10-09,Ordinaria,Segundo Debate al Proyecto de Ley No. 635,,False,3,,,141368
+2660,1517,1172,2023-10-09,Ordinaria,Segundo Debate al Proyecto de Ley No. 1092,,False,3,2023-10-09T23:34:18.000Z,2023-10-09T23:39:58.000Z,141374
+2663,1520,1175,2023-10-10,Ordinaria,Segundo Debate al Proyecto de Ley No. 635,,False,3,2023-10-10T22:21:25.000Z,2023-10-10T22:23:27.000Z,141821
+2666,1520,1175,2023-10-10,Ordinaria,Segundo Debate al Proyecto de Ley No. 1092,,False,3,2023-10-10T22:26:56.000Z,2023-10-10T22:31:12.000Z,142700
+2672,1523,1178,2023-10-11,Ordinaria,Tercer Debate al Proyecto de Ley No. 635,,False,3,2023-10-11T21:46:41.000Z,2023-10-11T21:56:23.000Z,142268
+2669,1523,1178,2023-10-11,Ordinaria,Tercer Debate al Proyecto de Ley No. 1092,,False,3,2023-10-11T22:07:14.000Z,2023-10-11T22:19:22.000Z,142271
+2675,1523,1178,2023-10-11,Ordinaria,Segundo Debate al Proyecto de Ley No. 1080,,False,3,2023-10-11T22:49:26.000Z,2023-10-11T22:55:50.000Z,143150
+2681,1529,1184,2023-10-16,Ordinaria,Tercer Debate al Proyecto de Ley No. 1080,,False,3,2023-10-16T21:38:45.000Z,2023-10-16T21:53:16.000Z,143171
+2684,1529,1184,2023-10-16,Ordinaria,Segundo Debate al Proyecto de Ley No. 218,,False,3,2023-10-16T22:11:34.000Z,2023-10-16T22:18:15.000Z,143177
+2687,1529,1184,2023-10-16,Ordinaria,Segundo Debate al Proyecto de Ley No. 1054,,False,3,2023-10-16T22:35:31.000Z,2023-10-16T22:40:28.000Z,143180
+2690,1529,1184,2023-10-16,Ordinaria,Segundo Debate al Proyecto de Ley No. 926,,False,3,2023-10-16T22:45:14.000Z,2023-10-16T22:48:28.000Z,143183
+2693,1529,1184,2023-10-16,Ordinaria,Segundo Debate al Proyecto de Ley No. 858,,False,3,,,143186
+2696,1532,1187,2023-10-17,Ordinaria,Tercer Debate al Proyecto de Ley No. 218,,False,3,2023-10-17T21:42:48.000Z,2023-10-17T21:49:29.000Z,143627
+2699,1532,1187,2023-10-17,Ordinaria,Tercer Debate al Proyecto de Ley No. 1054,,False,3,2023-10-17T21:50:41.000Z,2023-10-17T21:52:39.000Z,143630
+2702,1532,1187,2023-10-17,Ordinaria,Tercer Debate al Proyecto de Ley No. 926,,False,3,2023-10-17T21:57:12.000Z,2023-10-17T22:03:45.000Z,143633
+2705,1532,1187,2023-10-17,Ordinaria,Segundo Debate al Proyecto de Ley No. 1064,,False,3,2023-10-17T23:04:11.000Z,2023-10-17T23:09:01.000Z,143624
+2708,1532,1187,2023-10-17,Ordinaria,Segundo Debate al Proyecto de Ley No. 1064.,,False,3,2023-10-17T23:10:01.000Z,2023-10-17T23:30:29.000Z,143624
+2735,1538,1193,2023-10-19,Ordinaria,Tercer Debate al Proyecto de Ley No. 985,Que declara el 2 de junio de cada año Día del Ingeniero Forestal en la República de Panamá,False,3,2023-10-19T16:13:50.000Z,2023-10-19T16:25:32.000Z,144539
+2738,1538,1193,2023-10-19,Ordinaria,Tercer Debate al Proyecto de Ley No. 1040,Quiere la asamblea nacional que el Proyecto de Ley No. 1040 sea ley de la republica.,False,3,2023-10-19T16:32:38.000Z,2023-10-19T17:02:09.000Z,144545
+2741,1538,1193,2023-10-19,Ordinaria,Informe de minoría Proyecto de Ley No. 1100,,False,3,2023-10-19T19:30:07.000Z,2023-10-20T00:59:38.000Z,146249
+2744,1538,1193,2023-10-19,Ordinaria,Segundo Debate al Proyecto de Ley No. 1100,,False,3,2023-10-20T01:12:13.000Z,2023-10-20T01:27:21.000Z,146249
+2747,1541,1196,2023-10-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 1100,"QUE APRUEBA EL CONTRATO DE CONCESION MINERA CELEBRADO ENTRE EL ESTADO Y LA SOCIEDAD MINERA PANAMA, S.A.",False,3,2023-10-20T15:59:08.000Z,2023-10-20T16:51:54.000Z,146252
+2768,1670,1208,2023-10-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 1008,,False,3,,,147710
+2777,1686,1217,2023-11-01,Extraordinaria,Segundo Debate al Proyecto de Ley No. 1110,"Que prohíbe el otorgamiento de nuevas concesiones para la exploración, extracción, transporte y beneficio de la explotación de la minería metálica en todo el territorio nacional y deroga la Ley 406 de 2023.",False,3,2023-11-01T23:31:14.000Z,2023-11-01T23:40:14.000Z,149579
+2783,1689,1220,2023-11-02,Extraordinaria,Segundo Debate al Proyecto de Ley No. 1110,"Que prohíbe el otorgamiento de nuevas concesiones para la exploración, extracción, transporte y beneficio de la explotación de la minería metálica en todo el territorio nacional, y deroga la Ley 406 de 2023 sobre el Contrato de Concesión Minera celebrado entre EL ESTADO y la sociedad MINERA PANAMÁ, S.A.",False,3,2023-11-02T21:20:51.000Z,2023-11-02T21:26:24.000Z,149594
+2789,1692,1226,2023-11-03,Extraordinaria,Tercer  Debate al Proyecto de Ley No. 1110,"Que prohíbe el otorgamiento de concesiones para la exploración, extracción, transporte y beneficio de la explotación de la minería metálica en todo el territorio nacional.",False,3,2023-11-03T15:08:58.000Z,2023-11-03T15:34:22.000Z,149633
+2792,1695,1235,2023-12-28,Extraordinaria,INFORME DE MINORIA PRESENTADO POR LA BANCADA DEL PARTIDO PANAMEÑISTA,,False,3,2023-12-28T16:11:51.000Z,2023-12-28T16:17:34.000Z,150152
+2798,1695,1235,2023-12-28,Extraordinaria,Segundo Debate al Proyecto 1041,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2024,False,3,2023-12-29T02:30:54.000Z,2023-12-29T02:35:45.000Z,150152
+2804,1698,1238,2023-12-29,Extraordinaria,Tercer Debate al Proyecto de Ley No. 1041,,False,3,2023-12-29T16:02:12.000Z,2023-12-30T15:48:12.000Z,150164
+2810,1710,1247,2024-01-10,Ordinaria,Ratificación Nombramientos,,False,3,2024-01-10T21:38:18.000Z,2024-01-10T21:53:26.000Z,151601
+2813,1710,1247,2024-01-10,Ordinaria,Tercer Debate al Proyecto de Ley No. 1008,,False,3,2024-01-10T21:54:34.000Z,2024-01-10T22:06:20.000Z,151148
+2819,1710,1247,2024-01-10,Ordinaria,Segundo Debate al proyecto de Ley No. 945,,False,3,2024-01-10T22:22:14.000Z,2024-01-10T22:24:58.000Z,151160
+2816,1710,1247,2024-01-10,Ordinaria,Tercer Debate al Proyecto de Ley No. 1066; (Suspendido),,False,3,2024-01-10T22:26:10.000Z,2024-01-10T22:33:14.000Z,151163
+2822,1713,1250,2024-01-11,Ordinaria,Tercer Debate al proyecto de Ley No. 945,,False,3,2024-01-11T16:10:34.000Z,2024-01-11T17:11:32.000Z,151628
+2828,1719,1256,2024-01-16,Ordinaria,Segundo Debate al Proyecto de Ley No. 1007,,False,3,2024-01-16T23:58:18.000Z,2024-01-17T00:04:11.000Z,152549
+2831,1722,1259,2024-01-17,Ordinaria,Tercer Debate al Proyecto de Ley No. 1007,,False,3,2024-01-17T22:50:04.000Z,2024-01-17T23:04:31.000Z,153002
+2834,1725,1262,2024-01-18,Ordinaria,Segundo Debate al Proyecto de Ley No. 1046,,False,3,2024-01-18T16:29:02.000Z,2024-01-18T16:36:47.000Z,154355
+2837,1725,1262,2024-01-18,Ordinaria,Segundo Debate al Proyecto de Ley No. 1017,,False,3,2024-01-18T16:43:26.000Z,2024-01-18T16:48:12.000Z,154358
+2840,1728,1265,2024-01-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 1046,,False,3,2024-01-22T22:09:35.000Z,2024-01-22T22:15:34.000Z,154382
+2843,1728,1265,2024-01-22,Ordinaria,Tercer Debate al Proyecto de Ley No. 1017; (Objetado),,False,3,2024-01-22T22:19:09.000Z,2024-01-22T22:28:25.000Z,154385
+2846,1728,1265,2024-01-22,Ordinaria,Segundo Debate al Proyecto de Ley No. 467,,False,3,,,154388
+2849,1731,1268,2024-01-23,Ordinaria,Segundo Debate al Proyecto de Ley No. 467,,False,3,2024-01-23T21:52:41.000Z,2024-01-23T22:00:22.000Z,154856
+2852,1731,1268,2024-01-23,Ordinaria,Segundo Debate al Proyecto de Ley No. 1091,,False,3,,,155273
+2855,1731,1268,2024-01-23,Ordinaria,Segundo Debate al Proyecto de Ley No. 938,,False,3,,,155144
+2883,1809,1277,2024-01-29,Ordinaria,Tercer Debate al Proyecto de Ley No. 467,,False,3,2024-01-29T22:19:32.000Z,2024-01-29T22:42:01.000Z,156224
+2886,1809,1277,2024-01-29,Ordinaria,Segundo Debate al Proyecto de Ley No. 1091,,False,3,2024-01-29T22:42:15.000Z,2024-01-29T22:45:16.000Z,156227
+2889,1809,1277,2024-01-29,Ordinaria,Segundo Debate al Proyecto de Ley No. 938,,False,3,2024-01-29T23:01:21.000Z,2024-01-29T23:05:15.000Z,156230
+2892,1812,1278,2024-01-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 1091,,False,3,2024-01-30T22:07:15.000Z,2024-01-30T22:11:10.000Z,156687
+2895,1812,1278,2024-01-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 938,,False,3,2024-01-30T22:13:27.000Z,2024-01-30T22:35:21.000Z,156690
+2907,1821,1287,2024-02-05,Ordinaria,Ratificación,,False,3,2024-02-05T23:07:17.000Z,2024-02-05T23:15:48.000Z,158556
+2919,1839,1305,2024-02-21,Ordinaria,Segundo Debate al Proyecto de Ley No.806,,False,3,2024-02-21T16:44:46.000Z,2024-02-21T16:50:53.000Z,161916
+2925,1842,1308,2024-02-22,Ordinaria,Tercer Debate al Proyecto de Ley No.806;,,False,3,2024-02-22T16:48:14.000Z,2024-02-22T17:14:13.000Z,162393
+2931,1848,1314,2024-02-27,Ordinaria,Segundo Debate al Proyecto de Ley No. 1080;,,False,3,2024-02-27T16:17:51.000Z,2024-02-27T16:26:42.000Z,163812
+2937,1851,1317,2024-02-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 1080,,False,3,2024-02-28T17:14:04.000Z,2024-02-28T17:50:18.000Z,163833
+2940,1857,1326,2024-03-05,Ordinaria,Segundo Debate al Proyecto de Ley No. 924,,False,3,2024-03-05T16:50:08.000Z,2024-03-05T17:40:48.000Z,165294
+2943,1860,1329,2024-03-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 924,,False,3,2024-03-06T17:02:48.000Z,2024-03-06T17:15:45.000Z,165792
+2952,1863,1335,2024-03-11,Ordinaria,Segundo Debate al Proyecto de Ley No.174,,False,3,2024-03-11T22:34:36.000Z,2024-03-11T22:43:44.000Z,167268
+2955,1863,1335,2024-03-11,Ordinaria,Segundo Debate al Proyecto de Ley No.1105,,False,3,2024-03-11T22:44:23.000Z,2024-03-11T23:08:06.000Z,166788
+2961,1869,1341,2024-03-13,Ordinaria,Nombramientos que ha efectuar la Asamblea Nacional,,False,3,2024-03-13T16:48:49.000Z,2024-03-13T17:16:04.000Z,167784
+2970,1881,1353,2024-03-20,Ordinaria,Nombramientos que ha efectuar la Asamblea Nacional,,False,3,2024-03-20T16:34:22.000Z,2024-03-20T17:19:09.000Z,169854
+2973,1881,1353,2024-03-20,Ordinaria,Tercer Debate al Proyecto de Ley No.1105,Que establece el Programa Nacional de Enseñanza en Debate.,False,3,2024-03-20T17:35:40.000Z,2024-03-20T17:51:41.000Z,169869
+2976,1887,1359,2024-03-25,Ordinaria,Segundo Debate al Proyecto de Ley No. 1038,,False,3,2024-03-25T23:05:40.000Z,2024-03-25T23:13:59.000Z,170913
+2979,1890,1362,2024-03-26,Ordinaria,Tercer Debate al Proyecto de Ley No. 1038,,False,3,2024-03-26T16:47:02.000Z,2024-03-26T16:56:40.000Z,171432
+2982,1893,1365,2024-04-01,Ordinaria,Segundo Debate al Proyecto de Ley No. 1059,,False,3,2024-04-01T21:36:03.000Z,2024-04-01T21:43:17.000Z,171954
+2985,1893,1365,2024-04-01,Ordinaria,Segundo Debate al Proyecto de Ley No. 1134,,False,3,2024-04-01T21:47:48.000Z,2024-04-01T21:55:44.000Z,171957
+3003,1902,1371,2024-04-03,Ordinaria,Tercer Debate al Proyecto de Ley No. 1059,,False,3,2024-04-03T17:01:54.000Z,2024-04-03T18:04:45.000Z,172992
+3012,1908,1377,2024-04-08,Ordinaria,Tercer Debate al Proyecto de Ley No. 1134,,False,3,2024-04-08T22:08:52.000Z,2024-04-08T22:12:19.000Z,174018
+3018,1908,1377,2024-04-08,Ordinaria,Segundo Debate al Proyecto de Ley No.801.,,False,3,2024-04-08T22:41:44.000Z,2024-04-08T23:16:45.000Z,174021
+3021,1911,1380,2024-04-09,Ordinaria,Tercer Debate al Proyecto de Ley No.801,,False,3,2024-04-09T16:48:49.000Z,2024-04-09T17:02:22.000Z,175056
+3024,1914,1383,2024-04-10,Ordinaria,Segundo Debate al Proyecto de Ley No. 781,,False,3,2024-04-10T16:41:16.000Z,2024-04-10T17:05:47.000Z,175560
+3027,1920,1389,2024-04-15,Ordinaria,Tercer Debate al Proyecto de Ley No. 781,,False,3,2024-04-15T22:07:40.000Z,2024-04-15T22:13:30.000Z,176559
+3045,1978,1404,2024-04-23,Ordinaria,Segundo Debate al Proyecto de Ley No.964,,False,3,2024-04-23T19:17:07.000Z,2024-04-23T19:29:48.000Z,179673
+3048,1993,1407,2024-04-24,Ordinaria,Tercer Debate al Proyecto de Ley No.964,,False,3,2024-04-24T17:47:56.000Z,2024-04-24T19:00:49.000Z,180159
+3100,2011,1450,2024-07-03,Ordinaria,Resolución,,False,3,2024-07-03T23:32:32.000Z,2024-07-03T23:41:23.000Z,182422
+3109,2023,1489,2024-07-24,Ordinaria,Nombramientos,,False,3,2024-07-25T01:18:13.000Z,2024-07-25T01:30:38.000Z,182737
+3112,2026,1495,2024-07-29,Ordinaria,Nombramientos,,False,3,2024-07-29T23:35:53.000Z,2024-07-30T00:18:37.000Z,182782
+3115,2029,1498,2024-07-30,Ordinaria,Nombramientos,,False,3,2024-07-30T22:23:31.000Z,2024-07-30T22:43:14.000Z,182833
+3121,2326,1513,2024-08-07,Ordinaria,Nombramientos,,False,3,2024-08-07T22:18:16.000Z,2024-08-07T22:39:58.000Z,182938
+3127,2329,1516,2024-08-08,Ordinaria,Nombramiento,Miembro de la Junta Directiva del Canal de Panamá por el Organo Legislativo.,False,3,2024-08-08T16:51:01.000Z,2024-08-08T17:15:54.000Z,182974
+3133,2332,1543,2024-08-26,4,Que dicta el presupuesto de la autoridad del Canal de Panamá para la vigencia fiscal del 01 de octubre de 2024 al 30 de septiembre de 2025.,,False,3,2024-08-27T01:09:47.000Z,2024-08-27T01:16:19.000Z,183190
+3136,2335,1546,2024-08-27,4,Ratificación de Nombramientos,,False,3,2024-08-27T21:54:46.000Z,2024-08-27T22:24:19.000Z,183217
+3139,2335,1546,2024-08-27,4,Tercer debate del Proyecto de Ley Nº8,Que dicta el Presupuesto de la Autoridad del Canal de Panamá para la vigencia fiscal del 1 de octubre de 2024 al 30 de septiembre de 2025.,False,3,2024-08-27T22:28:20.000Z,2024-08-27T22:55:24.000Z,183208
+3142,2338,1549,2024-08-28,4,"Que modifica artículos de la Ley 418 de 29 de diciembre de 2023, por la cual se dicta el Presupuesto General del Estado para la vigencia fiscal 2024.",Proyecto de Ley Nº9,False,3,2024-08-29T21:15:05.000Z,2024-08-29T21:52:55.000Z,183241
+3145,2341,1555,2024-09-02,4,Tercer Debate del proyecto de Ley Nº9,"Que modifica artículos de la Ley 418 de 2023, Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2024.",False,3,2024-09-03T03:04:57.000Z,2024-09-03T03:10:54.000Z,183298
+3151,2344,1558,2024-09-03,4,Ratificaciones de los siguiente nombramientos:,,False,3,2024-09-04T21:55:27.000Z,2024-09-04T22:13:34.000Z,183340
+3160,2347,1570,2024-09-10,Ordinaria,Proyecto de Ley Nº36,"Que modifica y adiciona artículos a la Ley 75 de 2017, Que establece medidas para promover la alimentación adecuada y estilo de vida saludable en los centros educativos.",False,3,2024-09-11T00:51:25.000Z,2024-09-11T01:01:05.000Z,183475
+3166,2350,1573,2024-09-11,4,Tercer Debate al Proyecto de Ley No. 36.,"Que modifica y adiciona artículos a la Ley 75 de 2017, que promueve la alimentación adecuada y estilo de vida saludable, relativos a la enseñanza obligatoria de la Nutrición y Alimentación Saludable como eje transversal.",False,3,2024-09-11T21:56:00.000Z,2024-09-11T22:02:17.000Z,183508
+3172,2353,1576,2024-09-12,Ordinaria,PROYECTO DE LEY Nº 37,"Que declara el día 10 de diciembre de cada año, como Día de los Derechos Humanos, en la República de Panamá.",False,3,2024-09-12T17:36:57.000Z,2024-09-12T17:46:14.000Z,183541
+3175,2356,1582,2024-09-17,4,Nombramientos que ha de efectuar la Asamblea Nacional,,False,3,2024-09-18T00:13:10.000Z,2024-09-18T00:23:04.000Z,183628
+3178,2356,1582,2024-09-17,4,Tercer  Debate al Proyecto de Ley No. 37,Que declara el día 10 de diciembre de cada año Día de los Derechos Humanos en la República de Panamá.,False,3,2024-09-18T01:13:46.000Z,2024-09-18T01:16:44.000Z,183604
+3187,2368,1585,2024-09-18,Ordinaria,Segundo Debate al Proyecto de Ley No. 76,"Que modifica la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes.",False,3,2024-09-18T23:35:24.000Z,2024-09-18T23:37:39.000Z,183652
+3190,2368,1585,2024-09-18,Ordinaria,Segundo debate al Proyecto de Ley No. 24,Que modifica artículos de la Ley 186 de 2020 sobre Sociedades de Emprendimiento y fortalece el apoyo a los microemprendedores.,False,3,2024-09-19T00:13:04.000Z,2024-09-19T00:14:36.000Z,183655
+3194,2378,1591,2024-09-23,Ordinaria,Proyecto de ley Nº76,,False,3,2024-09-23T22:22:08.000Z,2024-09-23T22:26:09.000Z,183721
+3197,2378,1591,2024-09-23,Ordinaria,PROYECTO DE LEY Nº24,,False,3,2024-09-23T22:53:00.000Z,2024-09-23T23:01:32.000Z,183724
+3191,2378,1591,2024-09-23,Ordinaria,PROYECTO DE LEY Nº23,Que excluye de las convenciones colectivas a personal integrante de Empresas Estatales.,False,3,2024-09-24T00:30:34.000Z,2024-09-24T00:33:13.000Z,183727
+3200,2381,1592,2024-09-24,Ordinaria,PROYECTO DE LEY Nº23,Que adiciona disposiciones a leyes orgánicas que regulan empresas estatales.,False,3,2024-09-24T21:51:30.000Z,2024-09-24T21:56:24.000Z,183767
+3203,2381,1592,2024-09-24,Ordinaria,PROYECTO DE LEY Nº66,"Por la cual se aprueba el Convenio sobre Asistencia Legal Recíproca en Materia Penal entre el Gobierno de la República de Panamá y el Gobierno de la República Francesa, hecho en
+Panamá el 11 de julio de 2023.",False,3,2024-09-24T23:22:50.000Z,2024-09-24T23:27:51.000Z,183773
+3206,2381,1592,2024-09-24,Ordinaria,PROYECTO DE LEY Nº64,"Por la cual se aprueba el Acuerdo en el Marco de la Convención de las Naciones Unidas sobre el Derecho del Mar Relativo a la Conservación y el Uso Sostenible de la Diversidad Biológica Marina de las Zonas Situadas Fuera de la Jurisdicción Nacional, adoptado en Nueva York, el 19 de junio de 2023.",False,3,2024-09-24T23:53:40.000Z,2024-09-24T23:55:31.000Z,183776
+3209,2381,1592,2024-09-24,Ordinaria,PROYECTO DE LEY Nº65,"Por la cual se aprueba el Tratado de Asistencia Legal Mutua en Materia Penal entre la República de Panamá y la Confederación Suiza, hecho en Panamá el día 3 de marzo de 2023.",False,3,2024-09-25T00:03:09.000Z,2024-09-25T00:05:23.000Z,183779
+3212,2384,1595,2024-09-25,Ordinaria,Proyecto de Ley Nº66,"Por la cual se aprueba el Convenio sobre Asistencia Legal Recíproca en Materia Penal entre el Gobierno de la República de Panamá y el Gobierno de la República Francesa, hecho en Panamá el 11 de julio de 2023.",False,3,2024-09-25T22:19:37.000Z,2024-09-25T22:23:19.000Z,183803
+3215,2384,1595,2024-09-25,Ordinaria,Proyecto de Ley Nº64,"Por la cual se aprueba el Acuerdo en el Marco de la Convención de las Naciones Unidas sobre el Derecho del Mar Relativo a la Conservación y el Uso Sostenible de la Diversidad Biológica Marina de las Zonas Situadas Fuera de la Jurisdicción Nacional, adoptado en Nueva York, el 19 de junio de 2023.",False,3,2024-09-25T22:42:51.000Z,2024-09-25T22:48:23.000Z,183806
+3218,2384,1595,2024-09-25,Ordinaria,Proyecto de Ley Nº65,"Por la cual se aprueba el Tratado de Asistencia Legal Mutua en Materia Penal entre la República de Panamá y la Confederación Suiza, hecho en Panamá el día 3 de marzo de 2023.",False,3,2024-09-25T22:54:24.000Z,2024-09-25T22:57:06.000Z,183809
+3221,2387,1598,2024-09-26,Ordinaria,PROYECTO DE LEY Nº72,"Que declara el 1 de noviembre de cada año, como el Día del Niño y la Niña en la República de Panamá.",False,3,2024-09-26T16:36:28.000Z,2024-09-26T16:43:02.000Z,183848
+3224,2390,1601,2024-09-30,Ordinaria,Tercer Debate al proyecto de Ley Nº72,Que declara el 1 de noviembre de cada año Día del Niño y la Niña en la República de Panamá.,False,3,2024-09-30T22:16:52.000Z,2024-09-30T22:19:33.000Z,183866
+3227,2390,1601,2024-09-30,Ordinaria,Ratificación de nombramientos que la Asamblea ha de efectuar,MIEMBROS DE LA JUNTA DIRECTIVA DE LA CAJA DE SEGURO SOCIAL,False,3,2024-09-30T22:42:23.000Z,2024-09-30T22:57:41.000Z,183947
+3236,2393,1607,2024-10-01,Ordinaria,PROYECTO DE LEY Nº15,"""Que garantiza él acceso al agua potable, establece medidas para su conservación e incentiva su protección y la del ambiente.""",False,3,2024-10-01T22:54:38.000Z,2024-10-01T22:59:43.000Z,183929
+3239,2393,1607,2024-10-01,Ordinaria,PROYECTO DE LEY Nº68,,False,3,2024-10-01T23:38:39.000Z,2024-10-01T23:41:33.000Z,183932
+3242,2393,1607,2024-10-01,Ordinaria,PROYECTO DE LEY Nº69,,False,3,2024-10-01T23:50:30.000Z,2024-10-01T23:54:26.000Z,183935
+3245,2393,1607,2024-10-01,Ordinaria,PROYECTO DE LEY Nº70,,False,3,2024-10-02T00:21:44.000Z,2024-10-02T00:25:05.000Z,183938
+3263,2396,1610,2024-10-02,Ordinaria,Rafitifaciones,Nombramiento que ha de efectuar la Asamblea Nacional:,False,3,2024-10-02T23:10:35.000Z,2024-10-02T23:15:07.000Z,183989
+3251,2396,1610,2024-10-02,Ordinaria,Tercer  Debate al Proyecto de Ley No. 15,"Que establece el marco jurídico para el derecho de acceso al agua potable, dicta medidas para su conservación e incentiva su protección y la del ambiente de acuerdo con los estándares internacionales.",False,3,2024-10-02T23:38:06.000Z,2024-10-02T23:40:25.000Z,183962
+3254,2396,1610,2024-10-02,Ordinaria,Tercer Debate al Proyecto de Ley No. 68,"Por la cual se aprueba el Protocolo Relativo a una Enmienda del Artículo 50 a) del Convenio sobre Aviación Civil Internacional, hecho en Montreal el 6 de octubre de 2016.",False,3,2024-10-02T23:45:39.000Z,2024-10-02T23:47:56.000Z,183965
+3257,2396,1610,2024-10-02,Ordinaria,Tercer  Debate al Proyecto de Ley No. 69,"Por la cual se aprueba el Protocolo Relativo a una Enmienda del Artículo 56 del Convenio sobre Aviación Civil Internacional, hecho en Montreal el 6 de octubre de 2016.",False,3,2024-10-02T23:51:50.000Z,2024-10-02T23:54:09.000Z,183968
+3260,2396,1610,2024-10-02,Ordinaria,Tercer  Debate al Proyecto de Ley No. 70,"Por la cual se aprueba el Acuerdo de Servicios Aéreos entre el Gobierno de la República de Panamá y el Gobierno de Barbados, suscrito en Panamá el 4 de abril de 2024.",False,3,2024-10-02T23:56:52.000Z,2024-10-02T23:58:11.000Z,183971
+3269,2399,1613,2024-10-03,Ordinaria,Proyecto de Ley Nº. 67,,False,3,2024-10-03T16:25:32.000Z,2024-10-03T16:29:52.000Z,184019
+3272,2399,1613,2024-10-03,Ordinaria,Proyecto de Ley Nº. 71,,False,3,2024-10-03T17:30:42.000Z,2024-10-03T17:35:32.000Z,184022
+3293,2408,1619,2024-10-08,Ordinaria,Nombramientos,Ratificaciones de los nombramientos que ha de efectuar la Asamblea Nacional en los cargos siguientes.,False,3,2024-10-08T22:34:36.000Z,2024-10-08T22:36:43.000Z,184148
+3287,2408,1619,2024-10-08,Ordinaria,Tercer Debate al Proyecto de Ley No.67,"Por la cual se aprueba el convenio de extradición entre el gobierno de la República de Panamá y el gobierno de la República Francesa, hecho en Panamá el 11 de julio de 2023.",False,3,2024-10-08T22:44:12.000Z,2024-10-08T22:45:52.000Z,184106
+3290,2408,1619,2024-10-08,Ordinaria,Tercer  Debate al Proyecto de Ley No. 71,"Por la cual se aprueba el acuerdo marco de cooperación entre la República de Panamá y la república Dominicana, firmado en Santo Domingo el 8 de noviembre de 2022.",False,3,2024-10-08T22:49:22.000Z,2024-10-08T22:50:47.000Z,184109
+3296,2408,1619,2024-10-08,Ordinaria,Proyecto de Ley N° 61,Por el cual se adoptan medidas contra la Ciberdelincuencia y se dictan otras disposiciones.,False,3,2024-10-09T00:02:59.000Z,2024-10-09T00:05:54.000Z,184115
+3299,2435,1622,2024-10-09,4,Tercer Debate al Proyecto de Ley Nº. 61,"Que modifica y adiciona artículos al Código Penal, al Código Procesal Penal y a la Ley 11 de 2015, sobre asistencia jurídica internacional en materia penal, y dicta otra disposición, respecto a medidas contra la ciberdelincuencia.",False,3,2024-10-09T22:19:42.000Z,2024-10-09T22:24:37.000Z,184175
+3305,2435,1622,2024-10-09,4,Segundo Debate al Proyecto de Ley N° 60.,"Que modifica artículos de la Ley 79 de 2011, Sobre trata de personas y actividades conexas, modifica y deroga artículos del Código Penal y dicta otras disposiciones.",False,3,2024-10-10T18:15:53.000Z,2024-10-10T18:26:08.000Z,184184
+3308,2435,1622,2024-10-09,4,Segundo Debate al Proyecto de Ley N° 79.,"Que modifica un artículo de la Ley 175 de 3 de noviembre de 2020 General de Cultura, y dicta otras disposiciones.",False,3,2024-10-10T19:14:41.000Z,2024-10-10T19:19:02.000Z,184187
+3326,2438,1631,2024-10-15,Ordinaria,Segundo Debate al Proyecto de Ley Nº 29.,"Que ordena la elaboración de textos únicos, su publicación en formato de datos abiertos y reforma la Ley 53 de 2005.",False,3,2024-10-15T23:30:22.000Z,2024-10-15T23:32:34.000Z,184349
+3335,2441,1634,2024-10-16,Ordinaria,Tercer Debate al Proyecto de Ley Nº 29.,"""Que modifica y adiciona artículos a la Ley 53 de 2005, qué dicta normas para la modernización de la Gaceta Oficial sobre publicación de textos únicos"".",False,3,2024-10-16T22:48:04.000Z,2024-10-16T22:52:30.000Z,184403
+3353,2444,1643,2024-10-22,Ordinaria,Ratificaciones,,False,3,2024-10-22T23:14:12.000Z,2024-10-22T23:20:02.000Z,184592
+3350,2444,1643,2024-10-22,Ordinaria,Segundo Debate al Proyecto de Ley Nº 20.,"Que establece la protección, inclusión y abordaje integral de las personas con Trastorno del Espectro Autista (TEA).",False,3,2024-10-23T01:10:30.000Z,2024-10-23T01:15:50.000Z,184574
+3365,2447,1646,2024-10-23,Ordinaria,Tercer Debate al Proyecto de Ley 20,"Que establece la protección, inclusión y abordaje integral de las personas con Trastorno del Espectro Autista (TEA).",False,3,2024-10-23T22:19:04.000Z,2024-10-23T22:23:02.000Z,184682
+3368,2447,1646,2024-10-23,Ordinaria,Segundo Debate al proyecto de Ley Nº 18,"Que crea el marco normativo que regula el uso, aplicación y comercialización de sustancias modelantes y/o de relleno permitidas y no permitidas en tratamientos médico-estéticos y establece otras disposiciones.",False,3,2024-10-24T00:40:23.000Z,2024-10-24T00:43:34.000Z,184712
+3401,2450,1649,2024-10-24,4,Nombramientos que la Asamblea a de efectuar,Ratificaciones,False,3,2024-10-24T16:26:00.000Z,2024-10-24T16:30:51.000Z,184889
+3392,2450,1649,2024-10-24,4,Tercer Debate al Proyecto de Ley Nº18.,"""Que establece el marco normativo que regula el uso, aplicación y comercialización de sustancias modelantes y/o de relleno permitidas y no permitidas en tratamientos médico-estéticos""",False,3,2024-10-24T17:17:11.000Z,2024-10-24T17:19:16.000Z,184832
+3395,2450,1649,2024-10-24,4,Segundo Debate al Proyecto de Ley Nº 138,"Que modifica, adiciona y deroga artículos a la Ley 34 de 2008, de Responsabilidad Social Fiscal, y se modifica artículos a la Ley 38 de 2012.",False,3,2024-10-24T20:07:01.000Z,2024-10-24T20:12:53.000Z,184835
+3398,2450,1649,2024-10-24,4,Segundo Debate al Proyecto de Ley Nº 139,Que concede una moratoria tributaria para el pago de tributos nacionales y dicta otras disposiciones.,False,3,2024-10-24T21:12:22.000Z,2024-10-24T21:20:52.000Z,184838
+3413,2456,1652,2024-10-28,4,Tercer Debate al Proyecto de Ley Nº 138,"""Que modifica, adiciona y deroga artículos a la Ley 34 de 2008, de Responsabilidad Social Fiscal, y se modifica artículos a la Ley 38 de 2012""",False,3,2024-10-28T17:12:20.000Z,2024-10-28T17:16:36.000Z,184907
+3416,2456,1652,2024-10-28,4,Tercer Debate al Proyecto de Ley Nº 139,"""Que concede una moratoria tributaria para el pago de tributos nacionales y dicta otras disposiciones""",False,3,2024-10-28T17:35:39.000Z,2024-10-28T17:41:00.000Z,184910
+3419,2456,1652,2024-10-28,4,Segundo Debate al Proyecto de Ley Nº84.,"Por la cual se declara Patrimonio Cultural Panameño, la Ruta Colonial Transístmica de Panamá que incluye los vestigios arqueológicos del Camino Real, el Camino de Cruces y las Ruinas de la Capilla de la Palangana.",False,3,2024-10-28T19:23:02.000Z,2024-10-28T19:31:43.000Z,184913
+3422,2456,1652,2024-10-28,4,Segundo debate al Proyecto de Ley N° 127,"""Que modifica los artículos 214 y 219 del Código Penal.""",False,3,2024-10-28T20:08:21.000Z,2024-10-28T20:18:41.000Z,184919
+3461,2465,1658,2024-10-30,Ordinaria,segundo Debate al proyecto de Ley N° 127.,Que modifica artículos al Código Penal,False,3,2024-10-30T21:52:58.000Z,2024-10-30T21:58:43.000Z,185060
+3470,2471,1661,2024-10-31,4,Tercer Debate al proyecto de Ley Nª 143,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2025.,False,3,2024-10-31T21:45:23.000Z,2024-10-31T22:01:54.000Z,185162
+3467,2471,1661,2024-10-31,4,Tercer Debate al proyecto de Ley N° 127.,Que modifica artículos al Código Penal,False,3,2024-10-31T22:27:14.000Z,2024-10-31T22:30:09.000Z,185114
+3479,2489,1682,2025-01-08,Ordinaria,Segundo Debate al Proyecto de Ley No.30,Que declara el 27 de octubre de cada año Día del Desfile del Vestido Tradicional del Pueblo Ngäbe – Buglé.,False,3,2025-01-08T22:59:31.000Z,2025-01-08T23:03:09.000Z,185429
+3482,2492,1685,2025-01-13,Ordinaria,Tercer debate Proyecto de Ley N° 30,Que declara el 27 de octubre de cada año Dia del Desfile del Vestido Tradicional del Pueblo Ngäbe-Buglé y Campesino.,False,3,2025-01-13T23:02:50.000Z,2025-01-13T23:08:29.000Z,185483
+3494,2495,1694,2025-01-16,Ordinaria,Segundo Debate al Proyecto de Ley Noº 77.,"Que subroga la Ley 198 de 2021, que establece el procedimiento para el traspaso a la nación de la servidumbre pública de las urbanizaciones, lotificaciones y parcelaciones, y dicta otra disposición.",False,3,2025-01-16T16:03:47.000Z,2025-01-16T16:09:50.000Z,185705
+3500,2498,1697,2025-01-20,Ordinaria,Tercer Debate al Proyecto de Ley Nº 77.,"Que subroga la Ley 198 de 2021, que establece el procedimiento para el traspaso a la nación de la servidumbre pública de las urbanizaciones, lotificaciones y parcelaciones, y dicta otra disposición.",False,3,2025-01-20T23:22:22.000Z,2025-01-20T23:28:08.000Z,185816
+3509,2528,1703,2025-01-22,Ordinaria,Votación de informe de minoría al Proyecto de Ley N° 13,"Que modifica la Ley 37 de 2013, que establece el régimen de incentivos para el fomento de la construcción, operación y mantenimiento de centrales y / o instalaciones solares y dicta otras disposiciones.",False,3,2025-01-22T22:17:05.000Z,2025-01-22T22:25:13.000Z,185957
+3527,2534,1709,2025-01-27,Ordinaria,Segundo debate al proyecto de Ley Nº 26,"Que regula la producción, comercialización y exportación del cáñamo de la República de Panamá.",False,3,2025-01-28T00:20:02.000Z,2025-01-28T00:24:37.000Z,186035
+3524,2534,1709,2025-01-27,Ordinaria,Segundo Debate al Proyecto de Ley Nº 130:,Que elimina los términos peyorativos usados en la legislación civil vigente para denominar a las personas con discapacidad y adopta otras disposiciones.,False,3,2025-01-28T01:01:10.000Z,2025-01-28T01:03:45.000Z,186041
+3542,2537,1712,2025-01-28,Ordinaria,Tercer debate al proyecto de Ley Nº 26,"""Que regula la producción, comercialización y exportación del cáñamo en la República de Panamá"".",False,3,2025-01-28T22:55:54.000Z,2025-01-28T22:58:34.000Z,186068
+3545,2537,1712,2025-01-28,Ordinaria,Tercer debate al proyecto de Ley Nº 130.,"“Que modifica el Código Civil, para eliminar términos peyorativos”.",False,3,2025-01-28T23:08:03.000Z,2025-01-28T23:12:50.000Z,186071
+3563,2540,1721,2025-02-03,Ordinaria,Segundo Debate al Proyecto de Ley Nº 150:,Que establece el marco legal para Fomento de la Agricultura Urbana y Comunitaria en Panamá.,False,3,2025-02-03T23:55:22.000Z,2025-02-04T00:05:12.000Z,186179
+3575,2543,1724,2025-02-04,Ordinaria,Tercer Debate al Proyecto de Ley Nº 150.,Que establece el marco legal para fomento de la agricultura urbana y comunitaria en Panamá.,False,3,2025-02-04T21:59:24.000Z,2025-02-04T22:14:47.000Z,186236
+3599,2546,1727,2025-02-05,Ordinaria,Nombramientos,Ratificaciones,False,3,2025-02-05T22:46:11.000Z,2025-02-05T23:02:39.000Z,186329
+3593,2546,1727,2025-02-05,Ordinaria,Segundo Debate al Proyecto de Ley No.23 (Objetado).,Qué adiciona disposiciones a leyes orgánicas que regulan empresas estatales.,False,3,2025-02-05T23:30:20.000Z,2025-02-05T23:36:48.000Z,186323
+3620,2549,1733,2025-02-10,Ordinaria,Segundo Debate al Proyecto de Ley Nº 90.,Que establece el régimen de cámaras corporales utilizadas por la policía y dicta otras disposiciones.,False,3,2025-02-10T22:37:13.000Z,2025-02-10T22:52:32.000Z,186392
+3632,2552,1736,2025-02-11,4,Tercer Debate al Proyecto de Ley N° 90,Que establece el régimen de cámaras corporales utilizadas por la Policía Nacional.,False,3,2025-02-11T17:52:18.000Z,2025-02-11T17:56:25.000Z,186443
+3635,2552,1736,2025-02-11,4,Segundo debate  al Proyecto de Ley N° 186,"Que ordena la transferencia de fondos extraordinarios a la Caja de Seguro Social para reforzar parcialmente los costos del programa de invalidez, vejez y muerte correspondiente al mes de febrero de 2025 y dicta otras disposiciones.",False,3,2025-02-12T00:43:10.000Z,2025-02-12T00:50:59.000Z,186479
+3647,2555,1739,2025-02-12,Ordinaria,tercer debate al proyecto de Ley N° 186,"Que autoriza la transferencia de fondos extraordinarios a la Caja de Seguro Social para reforzar parcialmente los costos del Programa de Invalidez, Vejez y Muerte correspondientes al mes de febrero de 2025 y dicta otras disposiciones.",False,3,2025-02-12T19:20:27.000Z,2025-02-12T19:31:42.000Z,186497
+3692,2606,1751,2025-03-13,4,Tercer Debate al Proyecto de Ley Nº 163.,"Que modifica, adiciona y deroga artículos de la Ley 51 de 2005, que reforma la Ley Orgánica de la Caja de Seguro Social, y dicta otras disposiciones.",False,3,2025-03-14T00:04:13.000Z,2025-03-14T00:12:17.000Z,186692
+3743,2624,1775,2025-03-26,Ordinaria,Tercer Debate al proyecto de Ley N° 52,"Que establece el uso obligatorio de sillas de retención infantil en vehículos particulares y dicta otras disposiciones.""",False,3,2025-03-26T22:38:32.000Z,2025-03-26T22:45:23.000Z,187160
+3719,2627,1769,2025-03-24,Ordinaria,Segundo debate al Proyecto de Ley 165,Que modifica el Código Penal en materia relacionada al Delito de Hurto a motores fuera de borda.,False,3,2025-03-24T23:24:40.000Z,2025-03-24T23:28:33.000Z,187043
+3725,2630,1772,2025-03-25,Ordinaria,Proyecto de Ley N° 165,"""Que modifica un artículo del Código Penal, en materia relacionada al delito de hurto"".",False,3,2025-03-25T22:40:24.000Z,2025-03-25T22:44:40.000Z,187091
+3728,2630,1772,2025-03-25,Ordinaria,Segundo Debate al proyecto de Ley N° 52,Que establece el uso obligatorio de sillas de retención infantil en vehículos particulares y dicta otras disposiciones.,False,3,2025-03-26T00:00:59.000Z,2025-03-26T00:04:04.000Z,187097
+3701,2633,1757,2025-03-18,Ordinaria,Segundo Debate al proyecto de Ley N° 136,"Que establece la obligatoriedad de legislar con base en evidencia en la creación de tributos, mejora la transparencia y gobernanza en los incentivos fiscales, reforma la Ley 76 de 2019.",False,3,2025-03-18T21:59:13.000Z,2025-03-18T22:09:57.000Z,186797
+3710,2636,1760,2025-03-19,Ordinaria,Nombramientos que ha de efectuar la Asamblea Nacional:,Ratificaciones,False,3,2025-03-19T23:36:20.000Z,2025-03-19T23:47:35.000Z,186848
+3707,2636,1760,2025-03-19,Ordinaria,Tercer Debate al proyecto de Ley N° 136,"Título: ""Que Modifica un artículo del código de Procedimiento Tributario, referente a la evaluación de proyectos que afecten la recaudación y dicta otra disposición.",False,3,2025-03-19T23:56:07.000Z,2025-03-19T23:58:54.000Z,186845
+3758,2639,1781,2025-03-31,Ordinaria,Segundo Debate al proyecto de Ley N° 158,Que adiciona artículos al Texto Único de la Ley 22 de 27 de junio de 2006.,False,3,2025-03-31T22:20:25.000Z,2025-03-31T22:32:02.000Z,187289
+3776,2642,1784,2025-04-01,Ordinaria,Tercer Debate al proyecto de Ley N° 158,"Que adiciona artículos a la Ley 22 de 2006, que regula la contratación pública.",False,3,2025-04-01T22:46:32.000Z,2025-04-01T23:10:19.000Z,187433
+3797,2648,1793,2025-04-07,Ordinaria,Segundo Debate al proyecto de Ley N° 81,"Que modifica y adiciona artículos a la Ley 106 de 1973, Sobre Régimen Municipal.",False,3,2025-04-07T23:40:35.000Z,2025-04-07T23:55:08.000Z,187706
+3851,2666,1805,2025-04-21,4,Tercer Debate al Proyecto de Ley Noº 164.,"Que subroga la Ley 7 de 1997, por la cual se crea la Defensoría del Pueblo, y modifica la Ley 6 de 2017, que crea el Mecanismo Nacional para la Prevención de la Tortura.",False,3,2025-04-21T21:34:46.000Z,2025-04-21T21:40:03.000Z,188120
+3854,2666,1805,2025-04-21,4,Tercer Debate al Proyecto de Ley Nº 207.,Qué subroga la Ley Nº 3 de 1985 que establece un régimen de intereses preferenciales en ciertos préstamos hipotecarios y dicta otras disposiciones.,False,3,2025-04-21T22:54:35.000Z,2025-04-21T22:59:32.000Z,188123
+3863,2666,1805,2025-04-21,4,Tercer Debate al proyecto de Ley N° 121,"Que subroga la Ley 16 de 2016, que instituye la Justicia Comunitaria de Paz, y se dicta otras disposiciones.",False,3,2025-04-21T23:31:15.000Z,2025-04-21T23:39:04.000Z,188126
+3866,2666,1805,2025-04-21,4,Segundo Debate al proyecto de Ley  N° 16,Ley Marco para la implementación de la Economía Circular como estrategia Ambiental y Dicta otras disposiciones.,False,3,2025-04-22T00:36:07.000Z,2025-04-22T00:38:18.000Z,188132
+3869,2666,1805,2025-04-21,4,Segundo Debate al proyecto de Ley N° 208,"Que adopta el Protocolo de Enmienda del Acuerdo de Marrakech, por el cual se establece la Organización Mundial del Comercio y el Anexo a dicho Protocolo referente al Acuerdo sobre Subvenciones a la Pesca.",False,3,2025-04-22T01:10:48.000Z,2025-04-22T01:15:19.000Z,188186
+3941,2669,1820,2025-04-29,4,Tercer Debate al Proyecto de Ley Nº 16.,Que establece el marco legal para la implementación de la Economía Circular como estrategia ambiental y dicta otra disposición.,False,3,2025-04-29T22:28:23.000Z,2025-04-29T22:31:23.000Z,188723
+3944,2669,1820,2025-04-29,4,Tercer Debate al Proyecto de Ley Nº 208.,"Que adopta el Protocolo de Enmienda del Acuerdo de Marrakech, por el cual se establece la Organización Mundial del Comercio y el Anexo a dicho Protocolo referente al Acuerdo sobre Subvenciones a la Pesca.",False,3,2025-04-29T22:36:52.000Z,2025-04-29T22:40:18.000Z,188726
+3950,2669,1820,2025-04-29,4,Segundo Debate al Proyecto de Ley N° 215,"Que subroga la Ley 230 de 2021, que crea el Sistema de Alerta AMBER, para la ubicación rápida y expedita ante la desaparición o sustracción de personas menores de edad.",False,3,2025-04-30T00:06:57.000Z,2025-04-30T00:19:43.000Z,188759
+3953,2669,1820,2025-04-29,4,Segundo Debate al proyecto de Ley N° 49,Que modifica y adiciona artículos al Código Penal y al Código Procesal Penal.,False,3,2025-04-30T00:38:57.000Z,2025-04-30T00:49:07.000Z,188822
+3956,2669,1820,2025-04-29,4,Segundo Debate al proyecto de Ley N° 48,Que modifica el Código Penal y el Código Procesal Penal en materia al Delito de Hurto Pecuario.,False,3,2025-04-30T01:03:41.000Z,2025-04-30T01:14:47.000Z,188732
+3947,2669,1820,2025-04-29,4,Segundo Debate al proyecto de Ley N° 112,"Que modifica un artículo de Ley 99 de 23 de diciembre de 1989, Que denomina Comarca Kuna Yala a la Comarca de San Blas y dicta otras disposiciones.",False,3,2025-04-30T01:26:32.000Z,2025-04-30T05:05:27.000Z,188756
+3959,2669,1820,2025-04-29,4,Segundo Debate al proyecto de Ley N° 182,"Que modifica la Ley 182, Que Faculta a la Secretaria Nacional de Ciencia, Tecnología e Innovación a Transparentar, Regular y Administrar sus Programas de Becas.",False,3,2025-04-30T01:59:03.000Z,2025-04-30T02:02:18.000Z,188735
+3971,2669,1820,2025-04-29,4,Segundo Debate al proyecto de Ley N° 200.,"Que establece el Programa de Alto Rendimiento Deportivo, y adiciona dos capítulos nuevos al Texto Único de la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes.",False,3,2025-04-30T02:26:39.000Z,2025-04-30T02:31:43.000Z,188786
+4013,2672,1823,2025-04-30,Ordinaria,Tercer Debate al Proyecto de Ley N° 215,"Que subroga la Ley 230 de 2021, que crea el Sistema de Alerta AMBER, para la ubicación rápida y expedita ante la desaparición o sustracción de personas menores de edad.",False,3,2025-04-30T17:39:58.000Z,2025-04-30T17:46:38.000Z,188855
+4016,2672,1823,2025-04-30,Ordinaria,Tercer Debate al Proyecto de Ley N° 49,Que modifica y adiciona artículos al Código Penal y al Código Procesal Penal.,False,3,2025-04-30T17:55:41.000Z,2025-04-30T18:00:03.000Z,188858
+4019,2672,1823,2025-04-30,Ordinaria,Tercer Debate al proyecto de Ley N° 48,"Que modifica el Código Penal y el Código Procesal Penal, en materia relacionada con el delito de hurto pecuario.",False,3,2025-04-30T18:14:40.000Z,2025-04-30T18:20:43.000Z,188861
+4022,2672,1823,2025-04-30,Ordinaria,Tercer Debate al proyecto de Ley N° 112,"Que modifica un artículo de la Ley 99 de 1998, para denominar Gunayala a la Comarca Kuna Yala.",False,3,2025-04-30T18:26:52.000Z,2025-04-30T19:45:23.000Z,188864
+4025,2672,1823,2025-04-30,Ordinaria,Tercer Debate al proyecto de Ley N°  182,"Que Faculta a la Secretaria Nacional de Ciencia, Tecnología e Innovación a Transparentar, Regular y Administrar sus Programas de Becas.",False,3,2025-04-30T18:35:21.000Z,2025-04-30T18:42:29.000Z,188867
+4028,2672,1823,2025-04-30,Ordinaria,Tercer Debate al proyecto de Ley N°  185,"Que modifica la Ley 45 de 2007, que dicta normas sobre protección al consumidor y defensa de la competencia.",False,3,2025-04-30T18:47:18.000Z,2025-04-30T18:57:49.000Z,188870
+4031,2672,1823,2025-04-30,Ordinaria,Tercer Debate al proyecto de Ley N° 200,"Que adiciona capítulos a la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes, relativos al Programa de Alto Rendimiento Deportivo y de Medicina Deportiva.",False,3,2025-04-30T19:22:54.000Z,2025-04-30T19:25:38.000Z,188873
+4073,2678,1847,2025-05-20,Ordinaria,Nombramientos que ha de efectuar la Asamblea Nacional,,False,3,2025-05-20T22:19:00.000Z,2025-05-20T22:49:49.000Z,189425
+4091,2693,1856,2025-05-27,Extraordinaria,Ratificaciones que ha de efectuar la Asamblea Nacional:,,False,3,2025-05-27T21:35:29.000Z,2025-05-27T21:43:03.000Z,189485
+4094,2693,1856,2025-05-27,Extraordinaria,Ratificación que ha de efectuar la Asamblea Nacional,,False,3,2025-05-27T23:20:17.000Z,2025-05-27T23:33:24.000Z,189491
+4082,2696,1853,2025-05-26,Extraordinaria,Ratificaciones que ha de efectuar la Asamblea,,False,3,2025-05-26T21:20:36.000Z,2025-05-26T21:33:31.000Z,189461
+4109,2729,1874,2025-06-11,Extraordinaria,Está usted a favor de,Ratificación que ha de efectuar la Asamblea.,False,3,2025-06-11T21:58:20.000Z,2025-06-12T00:28:27.000Z,189575
+4115,2729,1874,2025-06-11,Extraordinaria,Ratificaciones que ha de efectuar la Asamblea Nacional,,False,3,2025-06-11T23:23:24.000Z,2025-06-11T23:32:06.000Z,189584
+4112,2729,1874,2025-06-11,Extraordinaria,Tercer debate al Proyecto de Ley N° 289,"Titulo ""Que suspende los efectos de la Ley 468 de 2025, restablece la vigencia de la Ley 3 de 1985 que establece un régimen de intereses preferenciales en ciertos préstamos hipotecarios y dicta otras disposiciones"".",False,3,2025-06-12T00:13:26.000Z,2025-06-12T00:27:17.000Z,189578
+4106,2732,1871,2025-06-10,Extraordinaria,Proyecto de Ley N° 289,"""Que suspende los efectos de la Ley 468 de 2025, restablece la vigencia de la Ley 3 de 1985 que establece un régimen de intereses preferenciales en ciertos préstamos hipotecarios y dicta otras disposiciones"".",False,3,2025-06-11T00:01:20.000Z,2025-06-11T00:08:29.000Z,189566
+4175,2762,1898,2025-07-09,Ordinaria,Segundo Debate al proyecto de Ley N° 61 (objetado),"Que modifica y adiciona artículos al Código Penal, al Código Procesal Penal y a la Ley 11 de 20015, sobre asistencia jurídica internacional en materia penal y dicta otra disposición, respecto a medidas contra la ciberdelincuencia.",False,3,2025-07-09T22:06:52.000Z,2025-07-09T22:15:52.000Z,190145
+4184,2762,1898,2025-07-09,Ordinaria,Segundo Debate al Proyecto de Ley Nº 205,"Por la cual se aprueba el Convenio Iberoamericano de Cooperación sobre Investigación, Aseguramiento y Obtención de Prueba en Materia de Ciberdelincuencia, hecho en Madrid, el día 28 de mayo del 2014.",False,3,2025-07-09T22:39:23.000Z,2025-07-09T22:47:49.000Z,190148
+4400,2765,1952,2025-07-29,Ordinaria,Tercer Debate al proyecto  de Ley N° 168,"Que modifica y deroga artículos de la Ley 350 de 2022, Que regula el ejercicio de la abogacía en Panamá.",False,3,2025-07-29T22:31:08.000Z,2025-07-29T22:35:25.000Z,192275
+4442,2771,1967,2025-08-05,Ordinaria,Segundo Debate al proyecto de Ley Nª 203,"Por la cual se aprueba el Tratado Relativo a la Transmisión Electrónica de Solicitudes de Cooperación Jurídica Internacional entre Autoridades Centrales, hecho en Medellín, a 24 y 25 de julio de 2019.",False,3,2025-08-05T22:27:12.000Z,2025-08-05T22:30:27.000Z,192719
+4466,2774,1979,2025-08-07,Ordinaria,Tercer Debate al proyecto de Ley N° 203,"Por la cual se aprueba el Tratado Relativo a la Transmisión Electrónica de Solicitudes de Cooperación Jurídica Internacional entre Autoridades Centrales, hecho en Medellín, a 24 y 25 de julio de 2019.",False,3,2025-08-07T16:57:26.000Z,2025-08-07T17:03:08.000Z,193043
+4505,2777,1994,2025-08-11,Ordinaria,Segundo Debate al proyecto de Ley Nª 204,"Por la cual se aprueba el Convenio de Cooperación entre los Estados Miembros de la Conferencia de Ministros de Justicia de los Países Iberoamericanos en Materia de Equipos Conjuntos de Investigación, firmado en Viña del Mar, Chile, el día 5 de abril de 2013.",False,3,2025-08-11T22:45:41.000Z,2025-08-11T22:49:16.000Z,193364
+4517,2780,1997,2025-08-12,Ordinaria,Tercer Debate al Proyecto de Ley N° 204,"Por la cual se aprueba el Convenio de Cooperación entre los Estados Miembros de la Conferencia de Ministros de Justicia de los Países Iberoamericanos en Materia de Equipos Conjuntos de Investigación, firmado en Viña del Mar, Chile, el día 5 de abril de 2013.",False,3,2025-08-12T22:00:17.000Z,2025-08-12T22:04:02.000Z,193472
+4550,2783,2006,2025-08-18,Ordinaria,Segundo Debate al Proyecto de Ley Nº 209.,"Que aprueba el Protocolo de Adhesión de la República de Guatemala al Tratado de Libre Comercio entre los Estados AELC y los Estados Centroamericanos, suscrito en Schaan, Liechtenstein, el 22 de junio de 2015.",False,3,2025-08-18T22:33:03.000Z,2025-08-18T22:37:52.000Z,193775
+4559,2783,2006,2025-08-18,Ordinaria,Segundo Debate al proyecto de Ley N° 206,"Que aprueba el Protocolo para enmendar el Convenio internacional para la Conservación del Atún Atlántico, hecho en Palma de Mallorca, España, el 18 de noviembre de 2019.",False,3,2025-08-18T22:53:10.000Z,2025-08-18T22:56:48.000Z,193802
+4580,2789,2009,2025-08-19,Ordinaria,Tercer Debate al Proyecto de Ley N° 209.,"Que aprueba el Protocolo de Adhesión de la República de Guatemala al Tratado de Libre
+Comercio entre los Estados AELC y los Estados Centroamericanos, suscrito en Schaan,
+Liechtenstein, el 22 de junio de 2015.",False,3,2025-08-19T22:12:24.000Z,2025-08-19T22:17:35.000Z,193988
+4583,2789,2009,2025-08-19,Ordinaria,Tercer Debate al proyecto de Ley N° 206,"Que aprueba el Protocolo para enmendar el Convenio internacional para la Conservación del Atún Atlántico, hecho en Palma de Mallorca, España, el 18 de noviembre de 2019.",False,3,2025-08-19T22:23:01.000Z,2025-08-19T22:26:25.000Z,193991
+4586,2789,2009,2025-08-19,Ordinaria,Segundo Debate al proyecto de Ley N° 241,"Que aprueba el Convenio Marco de Cooperación entre la República de Panamá y la República de Guatemala, hecho en la Ciudad de Guatemala, a los dieciocho (18) días del mes de diciembre de dos mil veinticuatro (2024).",False,3,2025-08-19T22:50:14.000Z,2025-08-19T22:54:10.000Z,193994
+4679,2795,2033,2025-08-27,Ordinaria,Tercer Debate al proyecto de Ley N.° 11.,"Que adiciona un Capítulo a la Ley 105 de 1973, Que organiza las Juntas Comunales, y un Título a la Ley 106 de 1973, sobre Régimen Municipal, y dicta otra disposición.",False,3,2025-08-27T22:19:40.000Z,2025-08-27T22:23:43.000Z,194720
+4760,2804,2048,2025-09-04,Ordinaria,Tercer Debate al Proyecto de Ley N.° 200.,"Que adiciona capítulos a la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes, relativos al Programa de Alto Rendimiento Deportivo y de Medicina Deportiva.",False,3,2025-09-04T16:25:52.000Z,2025-09-04T16:34:31.000Z,195254
+4763,2804,2048,2025-09-04,Ordinaria,Tercer Debate al proyecto de Ley N.° 100.,"Que adiciona un capítulo a la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes, y dicta otra disposición.",False,3,2025-09-04T16:50:43.000Z,2025-09-04T16:57:38.000Z,195257
+4775,2804,2048,2025-09-04,Ordinaria,Segundo Debate al Proyecto de Ley N°. 341.,"Que modifica artículos de la Ley 468 de 2025, que subroga la Ley 3 de 1985, que establece un régimen de intereses preferenciales en ciertos préstamos hipotecarios y dicta otras disposiciones.",False,3,2025-09-04T19:29:02.000Z,2025-09-04T19:32:10.000Z,195356
+4796,2807,2051,2025-09-08,Ordinaria,Tercer Debate al Proyecto de Ley No. 341,"Que modifica artículos de la Ley 468 de 2025, que subroga la Ley 3 de 1985, que establece un régimen de intereses preferenciales en ciertos préstamos hipotecarios y dicta otras disposiciones.",False,3,2025-09-08T22:03:34.000Z,2025-09-08T22:13:53.000Z,195383
+4874,2813,2066,2025-09-16,Ordinaria,Tercer Debate al proyecto de Ley N° 53,"Que modifica dos artículos de la Ley No. 68 de 2016, Que regula el Seguro Obligatorio Básico de Accidentes de Tránsito y Adiciona un numeral al Artículo 241 de la Ley 12 de 2012.",False,3,2025-09-16T23:23:52.000Z,2025-09-16T23:28:10.000Z,196091
+4886,2813,2066,2025-09-16,Ordinaria,Segundo Debate al Proyecto de Ley N° 165; (Objetado),"Que modifica un artículo del Código Penal, relacionado con el delito de hurto.",False,3,2025-09-16T22:18:20.000Z,2025-09-16T22:22:26.000Z,196220
+4859,2816,2063,2025-09-15,Ordinaria,Segundo Debate al proyecto de Ley N° 53,"Que modifica dos artículos de la Ley No. 68 de 2016, Que regula el Seguro Obligatorio Básico de Accidentes de Tránsito y Adiciona un numeral al Artículo 241 de la Ley 12 de 2012.",False,3,2025-09-15T23:35:43.000Z,2025-09-15T23:40:54.000Z,195938
+4898,2843,2069,2025-09-17,Ordinaria,Segundo Debate al Proyecto de Ley. N° 131.,Que establece protección integral a las personas naturales que presentan denuncia y son testigos en faltas administrativas y en materia de corrupción.,False,3,2025-09-17T23:20:59.000Z,2025-09-17T23:31:54.000Z,196256
+4889,2843,2069,2025-09-17,Ordinaria,Tercer Debate al proyecto de Ley  N° 165,"Que modifica un artículo del Código Penal, relacionado con el delito de hurto.",False,3,2025-09-17T22:49:08.000Z,2025-09-17T22:53:17.000Z,196247
+4931,2855,2075,2025-09-22,4,Segundo Debate al Proyecto de Ley No. 130; (Objetado),"Que modifica el Código Civil, para eliminar términos peyorativos.",False,3,2025-09-22T22:49:41.000Z,2025-09-22T22:54:44.000Z,196703
+4922,2855,2075,2025-09-22,4,Segundo Debate al Proyecto de Ley N.° 78.,"Que establece la utilización de productos reciclados de Neumáticos Fuera de Uso (NFU) en las mezclas asfálticas para la superficie de rodadura, y los Reciclados de Pavimentos Asfálticos (RAP) en las mezclas asfálticas y bases estabilizadas en la red vial de la República de Panamá.",False,3,2025-09-22T23:00:24.000Z,2025-09-22T23:08:56.000Z,196562
+4934,2855,2075,2025-09-22,4,Segundo debate al Proyecto de Ley N° 299.,"Que modifica la Ley 32 de 2013, Que crea la Autoridad de Pasaportes de Panamá.",False,3,2025-09-23T22:45:16.000Z,2025-09-23T22:49:06.000Z,196568
+4937,2855,2075,2025-09-22,4,Segundo debate al Proyecto de Ley N° 240.,"Que Aprueba la Convención de las Naciones Unidas sobre los efectos Internacionales de las Ventas Judiciales de Buques, Adoptado en New York por la Asamblea General de Las Naciones Unidas el 7 de diciembre de 2022. Firmada por Panamá el 4 de marzo de 2025.",False,3,2025-09-23T23:31:32.000Z,2025-09-23T23:34:07.000Z,196571
+4940,2855,2075,2025-09-22,4,Segundo debate al Proyecto de Ley N° 174.,Que modifica un artículo del Código Penal de la República de Panamá.,False,3,2025-09-24T22:09:14.000Z,2025-09-24T22:13:36.000Z,196574
+4946,2855,2075,2025-09-22,4,Segundo debate al Proyecto de Ley N° 309.,Que dicta el Presupuesto de la Autoridad del Canal de Panamá para la vigencia fiscal dle 1 de octubre de 2025 al 30 de septiembre de 2026.,False,3,2025-09-25T02:26:23.000Z,2025-09-25T02:28:30.000Z,196709
+5039,2858,2084,2025-09-29,Ordinaria,Tercer Debate al Proyecto de Ley N.° 130; (Objetado),"Que modifica el Código Civil, para eliminar términos peyorativos.",False,3,2025-09-29T22:44:49.000Z,2025-09-29T22:48:57.000Z,197063
+5114,2861,2093,2025-10-02,Ordinaria,Tercer Debate al proyecro de Ley N° 176,"Que modifica la Ley 244 de 2021, que crea el Sistema Nacional de Registro Oficial de ofensores sexuales.",False,3,2025-10-02T16:14:11.000Z,2025-10-02T16:20:05.000Z,197543
+5117,2861,2093,2025-10-02,Ordinaria,Tercer Debate al Proyecto de Ley N° 231.,Que reconoce el pago de los aportes realizados por los educadores jubilados de las promociones de 1972 Y 1973 certificados mediante resolución expedida por la Caja De Seguro Social.,False,3,2025-10-02T16:57:55.000Z,2025-10-02T17:06:17.000Z,197546
+5135,2864,2099,2025-10-06,Ordinaria,Segundo Debate al Proyecto de Ley N° 135.,QUE ESTABLECE EL APROVECHAMIENTO Y UTILIZACIÓN DEL AGUA PLUVIAL.,False,3,2025-10-06T23:32:27.000Z,2025-10-06T23:37:43.000Z,197693
+5153,2864,2099,2025-10-06,Ordinaria,Segundo Debate al Proyecto de Ley N° 153.,Por la cual se crea el Programa de incentivos y oportunidades de empleos a resocializados.,False,3,2025-10-07T00:06:48.000Z,2025-10-07T00:12:00.000Z,197714
+5177,2870,2102,2025-10-07,4,Segundo Debate al Proyecto de Ley N° 201,"Que aprueba el Acuerdo de Complementación Económica N° 76 entre los Estados Partes del Mercado Común del Sur (MERCOSUR) signatarios del Tratado de Asunción y la República de Panamá, suscrito en la ciudad de Montevideo, el 6 de diciembre de 2024.",False,3,2025-10-09T00:25:14.000Z,2025-10-09T00:28:53.000Z,197867
+5240,2873,2120,2025-10-14,Ordinaria,Segundo Debate al Proyecto de Ley N°. 267.,Que crea el Patronato de la Ciudad de las Artes.,False,3,2025-10-14T21:07:19.000Z,2025-10-14T21:09:52.000Z,198638
+5276,2876,2126,2025-10-15,Ordinaria,Ratificaciones que ha de efectuar la Asamblea Nacional:,,False,3,2025-10-15T23:21:18.000Z,2025-10-15T23:25:52.000Z,198977
+5258,2876,2126,2025-10-15,Ordinaria,Tercer Debate del proyecto de Ley N° 267,Que crea el Patronato de la Ciudad de las Artes.,False,3,2025-10-15T23:40:11.000Z,2025-10-15T23:43:39.000Z,198812
+5330,2879,2147,2025-10-20,Ordinaria,Ratificación que ha de efectuar la Asamblea Nacional.,,False,3,2025-10-20T21:37:46.000Z,2025-10-20T21:47:29.000Z,199379
+5354,2885,2150,2025-10-21,Ordinaria,Tercer Debate al proyecto de Ley N° 168,"Que modifica y deroga artículos de la Ley 350 de 2022, Que regula el ejercicio de la abogacía en Panamá.",False,3,2025-10-21T22:53:38.000Z,2025-10-21T22:58:38.000Z,199745
+5351,2885,2150,2025-10-21,Ordinaria,Segundo Debate al proyecto de Ley N° 77,"Que subroga la Ley 198 de 2021, que establece el procedimiento para el traspaso a la nación de la servidumbre pública de las urbanizaciones, lotificaciones y parcelaciones, y dicta otra disposición.",False,3,2025-10-21T23:36:33.000Z,2025-10-21T23:40:43.000Z,199748
+5357,2885,2150,2025-10-21,Ordinaria,Segundo Debate al proyecto de Ley N° 16,Que dicta normas para la implementación de la economía circular como estrategia ambiental.,False,3,2025-10-21T23:59:37.000Z,2025-10-22T00:02:52.000Z,199751
+5372,2894,2156,2025-10-22,4,Segundo Debate al proyecto de Ley N° 164,"Que subroga la Ley 7de 1997, que crea la Defensoría del Pueblo, y modifica la Ley 6 de 2017, Que crea el Mecanismo Nacional para la Prevención de la Tortura y otros Tratos o Penas Crueles, Inhumanas o Degradantes.",False,3,2025-10-22T16:17:49.000Z,2025-10-22T16:34:10.000Z,199778
+5378,2894,2156,2025-10-22,4,Segundo Debate al proyecto de Ley N° 111,"Que crea y regula el Programa de Acogimiento como medida de protección de carácter temporal para los niños, niñas y adolescentes privados del cuidado parental.",False,3,2025-10-22T17:17:55.000Z,2025-10-22T17:26:36.000Z,199784
+5393,2894,2156,2025-10-22,4,Segundo Debate al proyecto de Ley N° 293,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2026.,False,3,2025-10-23T22:18:15.000Z,2025-10-23T22:27:30.000Z,199964
+4886,2900,2066,2025-09-16,Ordinaria,Segundo Debate al Proyecto de Ley N° 165; (Objetado),"Que modifica un artículo del Código Penal, relacionado con el delito de hurto.",False,3,2025-09-16T22:18:20.000Z,2025-09-16T22:22:26.000Z,196220
+4874,2900,2066,2025-09-16,Ordinaria,Tercer Debate al proyecto de Ley N° 53,"Que modifica dos artículos de la Ley No. 68 de 2016, Que regula el Seguro Obligatorio Básico de Accidentes de Tránsito y Adiciona un numeral al Artículo 241 de la Ley 12 de 2012.",False,3,2025-09-16T23:23:52.000Z,2025-09-16T23:28:10.000Z,196091
+4889,2903,2069,2025-09-17,Ordinaria,Tercer Debate al proyecto de Ley  N° 165,"Que modifica un artículo del Código Penal, relacionado con el delito de hurto.",False,3,2025-09-17T22:49:08.000Z,2025-09-17T22:53:17.000Z,196247
+4985,2906,2081,2025-09-25,Ordinaria,Tercer Debate al Proyecto de Ley N.° 78.,"Que establece la utilización de productos reciclados de Neumáticos Fuera de Uso (NFU) en las mezclas asfálticas para la superficie de rodadura, y los Reciclados de Pavimentos Asfálticos (RAP) en las mezclas asfálticas y bases estabilizadas en la red vial de la República de Panamá.",False,3,2025-09-25T16:55:38.000Z,2025-09-25T17:01:55.000Z,196892
+4991,2906,2081,2025-09-25,Ordinaria,Tercer  debate al Proyecto de Ley N° 299.,"Que modifica la Ley 32 de 2013, Que crea la Autoridad de Pasaportes de Panamá.",False,3,2025-09-25T17:09:47.000Z,2025-09-25T17:14:55.000Z,196898
+4994,2906,2081,2025-09-25,Ordinaria,Tercer debate al Proyecto de Ley N° 240.,"Que Aprueba la Convención de las Naciones Unidas sobre los efectos Internacionales de las Ventas Judiciales de Buques, Adoptado en New York por la Asamblea General de Las Naciones Unidas el 7 de diciembre de 2022. Firmada por Panamá el 4 de marzo de 2025.",False,3,2025-09-25T17:21:09.000Z,2025-09-25T17:24:44.000Z,196901
+4997,2906,2081,2025-09-25,Ordinaria,Tercer debate al Proyecto de Ley N° 174.,Que modifica un artículo del Código Penal de la República de Panamá.,False,3,2025-09-25T17:38:57.000Z,2025-09-25T17:42:58.000Z,196904
+5003,2906,2081,2025-09-25,Ordinaria,Tercer Debate al Proyecto de Ley N° 309.,Que dicta el Presupuesto de la Autoridad del Canal de Panamá para la vigencia fiscal dle 1 de octubre de 2025 al 30 de septiembre de 2026.,False,3,2025-09-25T17:49:10.000Z,2025-09-25T18:01:39.000Z,196910
+5066,2909,2087,2025-09-30,4,Segundo Debate al Proyecto de Ley N° 176.,"Que modifica la Ley 244 de 2021, que crea el Sistema Nacional de Registro Oficial de ofensores sexuales.",False,3,2025-10-01T22:31:05.000Z,2025-10-01T22:34:28.000Z,197237
+5057,2909,2087,2025-09-30,4,Segundo debate al Proyecto de Ley N° 231.,"Que reconoce el pago de los aportes realizados por los educadores jubilados de las promociones de 1972 Y 1973 certificados mediante resolución expedida por la Caja De Seguro Social, quienes, al jubilarse en el año 2005, no se le devolvieron las cuotas aportadas y a los beneficiarios sobrevivientes de los fallecidos.",False,3,2025-10-02T00:22:31.000Z,2025-10-02T00:24:39.000Z,197240
+5207,2915,2108,2025-10-09,Ordinaria,Tercer Debate al Proyecto de Ley N° 153,Que crea el Programa de Incentivos y Oportunidades de Empleo a Resocializados.,False,3,2025-10-09T16:40:38.000Z,2025-10-09T16:46:51.000Z,198299
+5183,2915,2108,2025-10-09,Ordinaria,Tercer Debate al Proyecto de Ley N° 201,"Por la cual se aprueba el Acuerdo de Complementación Económica N° 76 entre los Estados Partes del Mercado Común del Sur (MERCOSUR) signatarios del Tratado de Asunción y la República de Panamá, suscrito en la ciudad de Montevideo, el 6 de diciembre de 2024.",False,3,2025-10-09T17:35:28.000Z,2025-10-09T17:46:35.000Z,198161
+5210,2918,2111,2025-10-13,Ordinaria,Tercer Debate al Proyecto de Ley N° 135,Que establece el aprovechamiento y utilización del agua pluvial en los proyectos del Ministerio de Educación y el Ministerio de Salud.,False,3,2025-10-13T22:35:45.000Z,2025-10-13T22:40:13.000Z,198317
+5423,2936,2162,2025-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No.293.,Que dicta el Presupuesto General del Estado para la vigencia fiscal de 2026.,False,3,2025-10-27T19:58:26.000Z,2025-10-27T20:21:08.000Z,200192
+5426,2936,2162,2025-10-27,Ordinaria,Tercer Debate al Proyecto de Ley No. 111.,Que regula el acogimiento como medida de protección de carácter temporal.,False,3,2025-10-27T20:40:10.000Z,2025-10-27T20:45:39.000Z,200009
+5510,2939,2180,2025-10-29,4,Ratificaciones que ha de efectuar la Asamblea Nacional,,False,3,2025-10-29T17:02:39.000Z,2025-10-29T17:15:20.000Z,200954
+5489,2939,2180,2025-10-29,4,Segundo Debate al Proyecto de Ley N.º 295.,Que adiciona un artículo transitorio al Código Fiscal para autorizar la acuñación de monedas conmemorativas para la Asociación Pro Obras de Beneficiencia (APROB).,False,3,2025-10-29T17:29:32.000Z,2025-10-29T17:42:13.000Z,200735
+5492,2939,2180,2025-10-29,4,Segundo Debate al Proyecto de Ley N.º 432.,"Que crea dependencia denominada Oficina para la Promoción de la Atracción de Inversiones y Promoción de Exportaciones,  PROPANAMÁ; se modifica un artículo del Decreto Ley 6 de 15 de febrero de 2006; que reorganiza el Ministerio de Comercio e Industrias; se deroga la Ley 207 de 5 de abril de 2021, y se dictan otras disposiciones.",False,3,2025-10-29T19:32:41.000Z,2025-10-29T19:50:02.000Z,200738
+5513,2939,2180,2025-10-29,4,Segundo Debate al Proyecto de Ley No. 396;,"Que establece medidas para la Prevención de Pérdidas de alimentos y la promoción de la seguridad alimentaria, y dicta otras disposiciones.",False,3,2025-10-29T21:07:11.000Z,2025-10-29T21:10:09.000Z,200741
+5516,2939,2180,2025-10-29,4,Segundo Debate al Proyecto de Ley No. 137.,"Que declara el 15 de octubre de cada año, día cívico y de fiesta folclórica al Festival del Toro Guapo en el distrito de Antón y dicta otras disposiciones.",False,3,2025-10-29T21:27:01.000Z,2025-10-29T21:35:30.000Z,200759
+5519,2939,2180,2025-10-29,4,Segundo Debate al Proyecto de Ley No. 283;,"Que crea el ""Festival Cultural ""Gladys de La Lastra"".",False,3,2025-10-29T21:38:24.000Z,2025-10-29T21:41:00.000Z,200762
+5495,2939,2180,2025-10-29,4,Segundo Debate al Proyecto de Ley N°. 82;,Que Promueve el Voluntariado en Materia de Limpieza de Espacios Públicos y Modifica la Ley 30 del 12 de julio de 2000.,False,3,2025-10-29T21:46:14.000Z,2025-10-29T21:48:57.000Z,200747
+5564,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto No. 77; (Objetado),"Que subroga la Ley 198 de 2021, que establece el procedimiento para el traspaso a la nación de la servidumbre pública de las urbanizaciones, lotificaciones y parcelaciones, y dicta otra disposición.",False,3,2025-10-30T16:56:18.000Z,2025-10-30T16:59:19.000Z,201197
+5567,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto No. 16; (Objetado),Que dicta normas para la implementación de la economía circular como estrategia ambiental.,False,3,2025-10-30T17:25:56.000Z,2025-10-30T17:29:26.000Z,201200
+5528,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 164; (Objetado),"Que subroga la Ley 7de 1997, que crea la Defensoría del Pueblo, y modifica la Ley 6 de 2017, Que crea el Mecanismo Nacional para la Prevención de la Tortura y otros Tratos o Penas Crueles, Inhumanas o Degradantes.",False,3,2025-10-30T17:35:02.000Z,2025-10-30T17:39:45.000Z,200975
+5531,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 295.,Que adiciona un artículo transitorio al Código Fiscal para autorizar la acuñación de monedas conmemorativas para la Asociación Pro Obras de Beneficiencia (APROB).,False,3,2025-10-30T18:03:17.000Z,2025-10-30T18:13:17.000Z,200978
+5534,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto de Ley N.º 432.,Que crea la Oficina para la Promoción de la Atracción de Inversiones y Promoción de Exportaciones y dicta otras disposiciones.,False,3,2025-10-30T18:18:23.000Z,2025-10-30T18:23:26.000Z,200981
+5537,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 396;,"Que establece medidas para la Prevención de Pérdidas de alimentos y la promoción de la seguridad alimentaria, y dicta otras disposiciones.",False,3,2025-10-30T18:52:12.000Z,2025-10-30T18:57:32.000Z,200984
+5540,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto de Ley No. 137.,"Que declara el 15 de octubre de cada año, día cívico y de fiesta folclórica al Festival del Toro Guapo en el distrito de Antón y dicta otras disposiciones.",False,3,2025-10-30T19:01:57.000Z,2025-10-30T19:04:51.000Z,200987
+5546,2942,2183,2025-10-30,Ordinaria,Tercer Debate al Proyecto de Ley N°. 82;,Que Promueve el Voluntariado en Materia de Limpieza de Espacios Públicos y Modifica la Ley 30 del 12 de julio de 2000.,False,3,2025-10-30T19:08:35.000Z,2025-10-30T19:17:23.000Z,200993
+5663,2948,2237,2026-01-05,Ordinaria,Segundo Debate al Proyecto de Ley No. 100 (Objetado);,"Que adiciona un capítulo a la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes, y dicta otras disposiciones.",False,3,2026-01-05T22:44:37.000Z,2026-01-05T22:49:41.000Z,202403
+5660,2948,2237,2026-01-05,Ordinaria,Tercer Debate al Proyecto No. 283;,"Que crea el Festival Cultural ""Gladys De La Lastra"" y su Patronato.",False,3,2026-01-05T23:10:05.000Z,2026-01-05T23:18:43.000Z,202100
+5666,2951,2243,2026-01-06,Ordinaria,Tercer Debate al Proyecto de Ley No. 100 (Objetado);,"Que adiciona un capítulo a la Ley 16 de 1995, que reorganiza el Instituto Nacional de Deportes, y dicta otras disposiciones.",False,3,2026-01-06T22:11:53.000Z,2026-01-06T22:21:30.000Z,202424
+5681,2954,2249,2026-01-07,Ordinaria,Nombramiento que ha de efectuar la Asamblea Nacional,,False,3,2026-01-07T22:18:22.000Z,2026-01-07T22:24:38.000Z,202931
+5690,2954,2249,2026-01-07,Ordinaria,Segundo Debate al Proyecto de Ley No. 152;,"Por el cual se adiciona un Capítulo sobre los delitos contra la seguridad alimentaria al Título de Delitos contra la Seguridad Colectiva de la Ley 14 de 26 de abril de 2007, que adopta el Código Penal de la República de Panamá.",False,3,2026-01-07T23:32:36.000Z,2026-01-07T23:37:23.000Z,202691
+5711,2957,2252,2026-01-08,Ordinaria,Tercer Debate al Proyecto de Ley No. 152;,"Que adiciona un capitulo al Título IX del Código Penal, sobre seguridad alimentaria.",False,3,2026-01-08T16:22:44.000Z,2026-01-08T16:25:41.000Z,202946
+5726,2966,2255,2026-01-12,Ordinaria,Segundo Debate al Proyecto de Ley No. 268,Que crea el Patronato del Centro de Arte y Cultura de Colón.,False,3,2026-01-12T22:51:33.000Z,2026-01-12T23:02:59.000Z,203207
+5750,3059,2258,2026-01-13,Ordinaria,Tercer Debate al Proyecto de Ley No. 268,Que crea el Patronato del Centro de Arte y Cultura de Colón.,False,3,2026-01-13T22:58:58.000Z,2026-01-13T23:04:52.000Z,203471
+5753,3059,2258,2026-01-13,Ordinaria,Segundo Debate al Proyecto de Ley No. 439,"Que aprueba el Acuerdo entre el Gobierno de la República de Panamá y el Gobierno de la República del Ecuador para el Intercambio de Información en Materia Tributaria, hecho en la Ciudad de Panamá, el 14 de agosto de 2025.",False,3,2026-01-14T00:58:27.000Z,2026-01-14T01:00:24.000Z,203477
+5759,3065,2264,2026-01-14,4,Tercer Debate al Proyecto de Ley No. 439,"Que aprueba el Acuerdo entre el Gobierno de la República de Panamá y el Gobierno de la República del Ecuador para el Intercambio de Información en Materia Tributaria, hecho en la Ciudad de Panamá, el 14 de agosto de 2025.",False,3,2026-01-14T22:25:13.000Z,2026-01-14T22:28:22.000Z,203735
+5762,3065,2264,2026-01-14,4,Segundo Debate al Proyecto de Ley No. 83;,"Que regula la reelección al cargo de rector y otras autoridades, en las universidades oficiales y se dictan otras disposiciones.",False,3,2026-01-15T18:06:32.000Z,2026-01-15T18:18:22.000Z,203738
+5777,3068,2267,2026-01-19,Ordinaria,Segundo Debate al Proyecto de Ley No. 19,Que establece horarios extendidos en Centros de Salud en la República de Panamá.,False,3,2026-01-20T01:04:29.000Z,2026-01-20T01:27:48.000Z,204002
+5783,3071,2270,2026-01-20,Ordinaria,Tercer Debate al Proyecto de Ley No. 19,Que establece horarios extendidos en centros de salud en la República de Panamá.,False,3,2026-01-20T23:44:42.000Z,2026-01-20T23:55:41.000Z,204263
+5786,3071,2270,2026-01-20,Ordinaria,Segundo Debate al Proyecto de Ley No. 177,Que modifica un artículo del Código Procesal Penal.,False,3,2026-01-21T00:46:29.000Z,2026-01-21T00:50:01.000Z,204266
+5801,3074,2273,2026-01-21,Ordinaria,Proyecto de ley 177,Que modifica el código procesal penal,False,3,2026-01-21T22:18:52.000Z,2026-01-21T22:22:22.000Z,204545
+5828,3077,2279,2026-01-26,Ordinaria,Ratificaciones que ha de efectuar la Asamblea Nacional,,False,3,2026-01-26T23:07:05.000Z,2026-01-26T23:11:10.000Z,205376
+5816,3077,2279,2026-01-26,Ordinaria,Segundo Debate al Proyecto de Ley No. 342;,Que crea el programa de pasantía para incentivar el trabajo formal de jóvenes en el sector privado.,False,3,2026-01-26T23:24:34.000Z,2026-01-26T23:45:35.000Z,205106
+5822,3077,2279,2026-01-26,Ordinaria,Segundo Debate al Proyecto de Ley No. 229,"""Por la que se adopta y actualiza la organización judicial de la Provincia de Panamá Oeste y modifica el Código Judicial"".",False,3,2026-01-27T00:51:32.000Z,2026-01-27T01:31:11.000Z,205112
+5849,3080,2291,2026-01-28,Ordinaria,Tercer Debate al Proyecto de Ley No. 342,Que crea el programa de pasantía para incentivar el trabajo formal de jóvenes en el sector privado.,False,3,2026-01-28T23:44:13.000Z,2026-01-29T00:10:25.000Z,205712
+5906,3086,2300,2026-02-02,Ordinaria,Segundo Debate al Proyecto de Ley N° 111,Que regula el acogimiento como medida de protección de carácter temporal.,False,3,2026-02-02T22:45:57.000Z,2026-02-02T22:50:20.000Z,206606
+5885,3086,2300,2026-02-02,Ordinaria,Tercer Debate al Proyecto de Ley No. 229,Que modifica el Código Judicial y dicta otras disposiciones.,False,3,2026-02-02T22:54:30.000Z,2026-02-02T22:58:20.000Z,206303
+5909,3089,2312,2026-02-03,Ordinaria,Tercer Debate al Proyecto de Ley N° 111,Que regula el acogimiento como medida de protección de carácter temporal.,False,3,2026-02-03T22:01:02.000Z,2026-02-03T22:05:31.000Z,206627
+5924,3089,2312,2026-02-03,Ordinaria,Tercer Debate al Proyecto de Ley No. 15; (Objetado),"Que establece el marco jurídico para el derecho de acceso al agua potable, dicta medidas para su conservación e incentiva su protección y la del ambiente de acuerdo con los estándares internacionales.",False,3,2026-02-03T22:59:40.000Z,2026-02-03T23:09:16.000Z,206915
+5942,3092,2318,2026-02-04,Ordinaria,Segundo Debate al Proyecto de Ley No.278.,"Que modifica el artículo 138-A de la Ley 14 del 2007, que adopta el Código Penal de la República de Panamá.",False,3,2026-02-04T23:24:51.000Z,2026-02-04T23:31:08.000Z,206945
+5951,3095,2324,2026-02-05,Ordinaria,Tercer Debate al Proyecto de Ley No. 278.,"Que modifica el artículo 138-A de la Ley 14 del 2007, que adopta el Código Penal de la República de Panamá.",False,3,2026-02-05T15:51:16.000Z,2026-02-05T15:56:23.000Z,207248
+5948,3095,2324,2026-02-05,Ordinaria,Segundo Debate al Proyecto de Ley No. 145.,Que establece la Política Nacional de Orientación Vocacional y Ocupacional.,False,3,2026-02-05T17:15:35.000Z,2026-02-05T17:19:27.000Z,207245
+5960,3098,2330,2026-02-09,Ordinaria,Tercer Debate al Proyecto de Ley No. 145.,Que establece la Política Nacional de Orientación Vocacional y Ocupacional.,False,3,2026-02-09T22:10:06.000Z,2026-02-09T22:18:39.000Z,207551
+5963,3098,2330,2026-02-09,Ordinaria,Segundo Debate al Proyecto de Ley No. 32.,"Que establece el mes de agosto, como el mes de la conmemoración, el reconocimiento y la exaltación de los pueblos originarios de la República de Panamá.",False,3,2026-02-10T00:11:55.000Z,2026-02-10T00:16:52.000Z,207554
+5978,3101,2336,2026-02-10,Ordinaria,Tercer debate al proyecto de Ley N° 32,"Que declara el mes de agosto Mes de la Conmemoración, Reconocimiento y Exaltación de los Pueblos Originarios de la República de Panamá.",False,3,2026-02-10T22:33:08.000Z,2026-02-10T22:38:49.000Z,207866
+6023,3110,2360,2026-02-24,Ordinaria,Segundo Debate al Proyecto de Ley No. 78; (Objetado),Que establece la utilización de productos reciclados de neumáticos fuera de uso en las mezclas asfálticas para la superficie de rodadura y los reciclados de pavimentos asfálticos en las mezclas asfálticas y bases estabilizadas en la red vial.,False,3,2026-02-24T23:15:15.000Z,2026-02-24T23:23:26.000Z,209474
+6014,3110,2360,2026-02-24,Ordinaria,Segundo debate al proyecto de Ley N° 187,Que modifica un artículo del Código Penal.,False,3,2026-02-24T23:24:16.000Z,2026-02-24T23:36:57.000Z,209156

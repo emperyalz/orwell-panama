@@ -1,0 +1,245 @@
+deputy_id,first_name,last_name,full_name,party_id,party_name,party_code,party_color,circuit,seat,gender,is_suplente,principal_id,principal_name
+4,MARCOS ENRIQUE,CASTILLERO BARAHONA,MARCOS ENRIQUE CASTILLERO BARAHONA,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-3,60,M,False,,
+7,ROBERTO,ABREGO TORRES,ROBERTO ABREGO TORRES,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-5,46,M,False,,
+9,FATIMA,AGRAZAL GUIRAUD,FATIMA AGRAZAL GUIRAUD,1,Partido Cambio Democratico,CD,#8CBFCB,9-1,37,M,False,,
+11,FRANCISCO JOS,ALEMAN MENDOZA,FRANCISCO JOS ALEMAN MENDOZA,3,Partido Molirena,MO,#fafe16,8-6,68,M,False,,
+12,RONY RONALD,ARAUZ GONZALEZ,RONY RONALD ARAUZ GONZALEZ,1,Partido Cambio Democratico,CD,#8CBFCB,4-3,53,M,False,,
+17,ITZI NAILYN,ATENCIO GONZALEZ,ITZI NAILYN ATENCIO GONZALEZ,5,Partido Panameñista,PN,#8c38b2,8-6,21,M,False,,
+18,LEANDRO,AVILA,LEANDRO AVILA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,62,M,False,,
+21,LILIA E.,BATISTA DE GUERRA,LILIA E. BATISTA DE GUERRA,7,Realizando Metas,RM,#33B8FF,13-4,13,M,False,,
+22,ADAN,BEJERANO RIOS,ADAN BEJERANO RIOS,4,VAMOS,VA,#865809,12-2,19,M,False,,
+28,ERIC ARIEL,BROCE ESPINO,ERIC ARIEL BROCE ESPINO,2,Partido Revolucionario Democrático,PRD,#3a21f2,7-1,59,M,False,,
+29,EDISON AUGUSTO,BROCE URRIOLA,EDISON AUGUSTO BROCE URRIOLA,4,VAMOS,VA,#865809,8-8,11,M,False,,
+31,LUIS ERNESTO,CARLES RUDY,LUIS ERNESTO CARLES RUDY,5,Partido Panameñista,PN,#8c38b2,2-3,32,M,False,,
+33,ALEJANDRO MAGNO,CASTILLERO PINILLA,ALEJANDRO MAGNO CASTILLERO PINILLA,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-1,31,M,False,,
+35,ALAIN ALBENIS,CEDEÑO HERRERA,ALAIN ALBENIS CEDEÑO HERRERA,7,Realizando Metas,RM,#33B8FF,8-6,31,M,False,,
+36,EVERARDO,CONCEPCIÓN SANTAMARIA,EVERARDO CONCEPCIÓN SANTAMARIA,5,Partido Panameñista,PN,#8c38b2,4-2,20,M,False,,
+37,MAYIN,CORREA DELGADO,MAYIN CORREA DELGADO,1,Partido Cambio Democratico,CD,#8CBFCB,8-8,39,M,False,,
+39,OLIVARES,DE FRIAS FRIAS,OLIVARES DE FRIAS FRIAS,2,Partido Revolucionario Democrático,PRD,#3a21f2,7-2,43,M,False,,
+40,HERNAN,DELGADO QUINTERO,HERNAN DELGADO QUINTERO,1,Partido Cambio Democratico,CD,#8CBFCB,8-4,75,M,False,,
+41,ARNULFO,DIAZ DE LEON,ARNULFO DIAZ DE LEON,1,Partido Cambio Democratico,CD,#8CBFCB,5-1,57,M,False,,
+42,JUAN ALBERTO,ESQUIVEL SANTAMARIA,JUAN ALBERTO ESQUIVEL SANTAMARIA,2,Partido Revolucionario Democrático,PRD,#3a21f2,4-3,15,M,False,,
+44,RAUL ANTONIO,FERNANDEZ DE MARCO,RAUL ANTONIO FERNANDEZ DE MARCO,4,VAMOS,VA,#865809,8-8,18,M,False,,
+45,SERGIO RAFAEL,GALVEZ EVERS,SERGIO RAFAEL GALVEZ EVERS,1,Partido Cambio Democratico,CD,#8CBFCB,8-7,76,M,False,,
+47,BERNARDINO,GONZALEZ GONZALEZ,BERNARDINO GONZALEZ GONZALEZ,5,Partido Panameñista,PN,#8c38b2,2-4,23,M,False,,
+48,GONZALO GASPAR,GONZALEZ MENDIZABAL,GONZALO GASPAR GONZALEZ MENDIZABAL,2,Partido Revolucionario Democrático,PRD,#3a21f2,4-4,44,M,False,,
+49,NESTOR ANTONIO,GUARDIA JAEN,NESTOR ANTONIO GUARDIA JAEN,2,Partido Revolucionario Democrático,PRD,#3a21f2,2-1,65,M,False,,
+51,MELCHOR,HERRERA ESPINOZA,MELCHOR HERRERA ESPINOZA,2,Partido Revolucionario Democrático,PRD,#3a21f2,2-2,17,M,False,,
+52,JOSE MARIA,HERRERA OCAÑA,JOSE MARIA HERRERA OCAÑA,1,Partido Cambio Democratico,CD,#8CBFCB,8-3,58,M,False,,
+54,MARIANO,LOPEZ AMADOR,MARIANO LOPEZ AMADOR,2,Partido Revolucionario Democrático,PRD,#3a21f2,3-1,8,M,False,,
+55,HUGO,MENDEZ LIZONDRO,HUGO MENDEZ LIZONDRO,5,Partido Panameñista,PN,#8c38b2,4-1,22,M,False,,
+57,RAUL GILBERTO,PINEDA VERGARA,RAUL GILBERTO PINEDA VERGARA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,48,M,False,,
+58,DANIEL,RAMOS TUÑON,DANIEL RAMOS TUÑON,2,Partido Revolucionario Democrático,PRD,#3a21f2,2-1,29,M,False,,
+59,BENICIO ENACIO,ROBINSON GRAJALES,BENICIO ENACIO ROBINSON GRAJALES,2,Partido Revolucionario Democrático,PRD,#3a21f2,1-1,67,M,False,,
+60,YESENIA ESTHER,RODRIGUEZ FLORES,YESENIA ESTHER RODRIGUEZ FLORES,5,Partido Panameñista,PN,#8c38b2,8-1,33,M,False,,
+61,ZULAY LEYSET,RODRIGUEZ LU,ZULAY LEYSET RODRIGUEZ LU,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,60,M,False,,
+63,ANA GISELLE,ROSAS MATA,ANA GISELLE ROSAS MATA,1,Partido Cambio Democratico,CD,#8CBFCB,4-6,50,M,False,,
+64,MANOLO ENRIQUE,RUIZ CASTILLO,MANOLO ENRIQUE RUIZ CASTILLO,3,Partido Molirena,MO,#fafe16,4-5,70,M,False,,
+66,RICARDO,SANTO MONTEZUMA,RICARDO SANTO MONTEZUMA,2,Partido Revolucionario Democrático,PRD,#3a21f2,12-3,6,M,False,,
+67,GABRIEL EDUARDO,SILVA VIGNOLI,GABRIEL EDUARDO SILVA VIGNOLI,4,VAMOS,VA,#865809,8-7,10,M,False,,
+68,JAVIER FRANCISCO,SUCRE MEJIA,JAVIER FRANCISCO SUCRE MEJIA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-4,61,M,False,,
+69,RICARDO JAVIER,TORRES DIAZ,RICARDO JAVIER TORRES DIAZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-4,16,M,False,,
+70,PEDRO ANTONIO,TORRES MERO,PEDRO ANTONIO TORRES MERO,5,Partido Panameñista,PN,#8c38b2,3-1,34,M,False,,
+71,JAIME EDGARDO,VARGAS CENTELLA,JAIME EDGARDO VARGAS CENTELLA,2,Partido Revolucionario Democrático,PRD,#3a21f2,5-2,66,M,False,,
+73,JUAN DIEGO,VASQUEZ GUTIERREZ,JUAN DIEGO VASQUEZ GUTIERREZ,4,VAMOS,VA,#865809,8-6,9,M,False,,
+74,ELIAS ALBERTO,VIGIL PEREZ,ELIAS ALBERTO VIGIL PEREZ,5,Partido Panameñista,PN,#8c38b2,8-10,35,M,False,,
+76,MARYLIN E,VALLARINO B,MARYLIN E VALLARINO B,1,Partido Cambio Democratico,CD,#8CBFCB,8-1,56,M,False,,
+181,YANIBEL Y,ABREGO SMITH,YANIBEL Y ABREGO SMITH,1,Partido Cambio Democratico,CD,#8CBFCB,8-2,54,M,False,,
+182,NELSON,JACKSON PALMA,NELSON JACKSON PALMA,7,Realizando Metas,RM,#33B8FF,3-2,55,M,False,,
+183,ABEL,BEKER ABREGO,ABEL BEKER ABREGO,2,Partido Revolucionario Democrático,PRD,#3a21f2,1-1,14,M,False,,
+184,FERNANDO ARIEL,ARCE MENDIZABAL,FERNANDO ARIEL ARCE MENDIZABAL,2,Partido Revolucionario Democrático,PRD,#3a21f2,4-1,30,M,False,,
+185,JULIO HUMBERTO,MENDOZA GONZALEZ,JULIO HUMBERTO MENDOZA GONZALEZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-2,47,M,False,,
+186,KAYRA,HARDING TEJADA,KAYRA HARDING TEJADA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-1,27,M,False,,
+187,PETITA,AYARZA PEREZ,PETITA AYARZA PEREZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,10-1,26,M,False,,
+188,ALINA INES,GONZALEZ CORDOBA,ALINA INES GONZALEZ CORDOBA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-9,24,M,False,,
+189,EUGENIO,BERNAL ORTIZ,EUGENIO BERNAL ORTIZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-3,66,M,False,,
+190,LEOPOLDO LUIS,BENEDETTI MILLIGAN,LEOPOLDO LUIS BENEDETTI MILLIGAN,1,Partido Cambio Democratico,CD,#8CBFCB,3-1,36,M,False,,
+191,LUIS RAFAEL,CRUZ VARGAS,LUIS RAFAEL CRUZ VARGAS,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-1,64,M,False,,
+192,ARIEL ANTONIO,ALBA PEÑALBA,ARIEL ANTONIO ALBA PEÑALBA,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-2,65,M,False,,
+193,GENESIS,ARJONA,GENESIS ARJONA,1,Partido Cambio Democratico,CD,#8CBFCB,8-9,52,M,False,,
+194,HECTOR HUGO,BRANDS CORDOBA,HECTOR HUGO BRANDS CORDOBA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-7,63,M,False,,
+195,EDWIN ALBERTO,ZUÑIGA MENCOMO,EDWIN ALBERTO ZUÑIGA MENCOMO,1,Partido Cambio Democratico,CD,#8CBFCB,8-10,51,M,False,,
+196,MIGUEL ANGEL,FANOVICH TIJERINO,MIGUEL ANGEL FANOVICH TIJERINO,3,Partido Molirena,MO,#fafe16,4-1,69,M,False,,
+197,CORINA EDUARDA,CANO CORDOBA,CORINA EDUARDA CANO CORDOBA,3,Partido Molirena,MO,#fafe16,8-7,71,M,False,,
+198,LEOPOLDO ANGELNO,ARCHIBOLD HOOKER,LEOPOLDO ANGELNO ARCHIBOLD HOOKER,1,Partido Cambio Democratico,CD,#8CBFCB,12-1,73,M,False,,
+199,VICTOR MANUEL,CASTILLO PEREZ,VICTOR MANUEL CASTILLO PEREZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-8,40,M,False,,
+200,ROBERTO ANTONIO,AYALA,ROBERTO ANTONIO AYALA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-5,41,M,False,,
+201,CRISPIANO,ADAMES NAVARRO,CRISPIANO ADAMES NAVARRO,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-3,59,M,False,,
+202,JAIRO ARIEL,SALAZAR RAMIREZ,JAIRO ARIEL SALAZAR RAMIREZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,3-1,64,M,False,,
+203,CENOBIA HAYDEE,VARGAS GRAJALES,CENOBIA HAYDEE VARGAS GRAJALES,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-10,25,M,False,,
+204,TITO,RODRIGUEZ MENA,TITO RODRIGUEZ MENA,3,Partido Molirena,MO,#fafe16,8-9,72,M,False,,
+205,ARQUESIO,ARIAS FELIX,ARQUESIO ARIAS FELIX,2,Partido Revolucionario Democrático,PRD,#3a21f2,10-2,47,M,False,,
+206,DALIA MIRNA,BERNAL YAÑEZ,DALIA MIRNA BERNAL YAÑEZ,1,Partido Cambio Democratico,CD,#8CBFCB,8-6,49,M,False,,
+208,WALKIRIA,CHANDLER D ORCY,WALKIRIA CHANDLER D ORCY,4,VAMOS,VA,#865809,8-7,10,M,True,67,GABRIEL EDUARDO SILVA VIGNOLI
+210,MARCELA,"SENCLIER TRAIL,","MARCELA SENCLIER TRAIL,",2,Partido Revolucionario Democrático,PRD,#3a21f2,3-1,8,M,True,54,MARIANO LOPEZ AMADOR
+212,CLEMENTINA,JIMÉNEZ ACOSTA,CLEMENTINA JIMÉNEZ ACOSTA,2,Partido Revolucionario Democrático,PRD,#3a21f2,12-3,6,M,True,66,RICARDO SANTO MONTEZUMA
+213,BERTA N.,MORENO FLORES,BERTA N. MORENO FLORES,2,Partido Revolucionario Democrático,PRD,#3a21f2,2-1,65,M,True,49,NESTOR ANTONIO GUARDIA JAEN
+214,ARQUIMIDIO,CHOCHO CHIRIPUA,ARQUIMIDIO CHOCHO CHIRIPUA,2,Partido Revolucionario Democrático,PRD,#3a21f2,5-2,66,M,True,71,JAIME EDGARDO VARGAS CENTELLA
+215,ROSA A.,CHÁVEZ MORENO,ROSA A. CHÁVEZ MORENO,2,Partido Revolucionario Democrático,PRD,#3a21f2,1-1,14,M,True,183,ABEL BEKER ABREGO
+216,DAYRA N.,GARCÍA MARTINEZ,DAYRA N. GARCÍA MARTINEZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-4,16,M,True,69,RICARDO JAVIER TORRES DIAZ
+217,CARLOS E,SANTAMARIA,CARLOS E SANTAMARIA,2,Partido Revolucionario Democrático,PRD,#3a21f2,2-2,17,M,True,51,MELCHOR HERRERA ESPINOZA
+218,AYDEE EDIT,WATSON TIELA,AYDEE EDIT WATSON TIELA,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-9,24,M,True,188,ALINA INES GONZALEZ CORDOBA
+220,JAIME,HENDRICKS MARTINEZ,JAIME HENDRICKS MARTINEZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-1,27,M,True,186,KAYRA HARDING TEJADA
+221,FRANCISCO A.,LÓPEZ VAGAS,FRANCISCO A. LÓPEZ VAGAS,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-2,28,M,True,185,JULIO HUMBERTO MENDOZA GONZALEZ
+222,ANABELA M.,LOMBARDO,ANABELA M. LOMBARDO,2,Partido Revolucionario Democrático,PRD,#3a21f2,2-1,29,M,True,58,DANIEL RAMOS TUÑON
+223,ELBA ESTHER,TORRES VARGAS,ELBA ESTHER TORRES VARGAS,2,Partido Revolucionario Democrático,PRD,#3a21f2,4-1,30,M,True,184,FERNANDO ARIEL ARCE MENDIZABAL
+224,ROBIN E.,GARCÍA CEDEÑO,ROBIN E. GARCÍA CEDEÑO,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-1,31,M,True,33,ALEJANDRO MAGNO CASTILLERO PINILLA
+225,FEDERICO,LAU CRUZ,FEDERICO LAU CRUZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-8,40,M,True,199,VICTOR MANUEL CASTILLO PEREZ
+226,NORMA A,MONTENEGRO CEDEÑO,NORMA A MONTENEGRO CEDEÑO,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-5,41,M,True,200,ROBERTO ANTONIO AYALA
+227,ROSA Y.,DOMÍNGUEZ CORREA,ROSA Y. DOMÍNGUEZ CORREA,2,Partido Revolucionario Democrático,PRD,#3a21f2,7-2,43,M,True,39,OLIVARES DE FRIAS FRIAS
+229,SARA J.,MAGALLÓN CAICEDO,SARA J. MAGALLÓN CAICEDO,2,Partido Revolucionario Democrático,PRD,#3a21f2,3-1,64,M,True,202,JAIRO ARIEL SALAZAR RAMIREZ
+230,ALEJANDRA A,ÁBREGO CARREÑO,ALEJANDRA A ÁBREGO CARREÑO,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-5,46,M,True,7,ROBERTO ABREGO TORRES
+231,Marta,Sandoya,Marta Sandoya,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-7,59,M,True,201,CRISPIANO ADAMES NAVARRO
+232,ALEXIS A.,"AYALA BAZÁN,","ALEXIS A. AYALA BAZÁN,",2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,48,M,True,57,RAUL GILBERTO PINEDA VERGARA
+233,RUPILIO,ÁBREGO SANTOS,RUPILIO ÁBREGO SANTOS,2,Partido Revolucionario Democrático,PRD,#3a21f2,1-1,67,M,True,59,BENICIO ENACIO ROBINSON GRAJALES
+234,FÉLIX C.,"COOK,","FÉLIX C. COOK,",2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,60,M,True,61,ZULAY LEYSET RODRIGUEZ LU
+235,OMAR E,CASTILLO LÓPEZ,OMAR E CASTILLO LÓPEZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-8,61,M,True,68,JAVIER FRANCISCO SUCRE MEJIA
+237,EMELIE I,GARCÍA MIRÓ,EMELIE I GARCÍA MIRÓ,4,VAMOS,VA,#865809,,76,M,True,278,ut ut
+238,RAQUEL,ATHANASIADIS ATENCIO,RAQUEL ATHANASIADIS ATENCIO,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-1,64,M,True,191,LUIS RAFAEL CRUZ VARGAS
+240,IRVIN G.,GONZÁÑEZ,IRVIN G. GONZÁÑEZ,2,Partido Revolucionario Democrático,PRD,#3a21f2,9-3,66,M,True,189,EUGENIO BERNAL ORTIZ
+241,RIGOBERTO A.,AMAYA MONTENEGRO,RIGOBERTO A. AMAYA MONTENEGRO,2,Partido Revolucionario Democrático,PRD,#3a21f2,7-1,59,M,True,28,ERIC ARIEL BROCE ESPINO
+242,YAHAIRA L.,PEREN GONZÁLEZ,YAHAIRA L. PEREN GONZÁLEZ,4,VAMOS,VA,#865809,8-6,9,M,True,73,JUAN DIEGO VASQUEZ GUTIERREZ
+243,YAIDELIS M.,GONZÁLEZ FUENTES,YAIDELIS M. GONZÁLEZ FUENTES,4,VAMOS,VA,#865809,8-8,11,M,True,29,EDISON AUGUSTO BROCE URRIOLA
+244,EDILMA,CARPINTERO DE GRACIA,EDILMA CARPINTERO DE GRACIA,4,VAMOS,VA,#865809,12-2,19,M,True,22,ADAN BEJERANO RIOS
+246,ANDRÉS E.,CAMARGO VERGARA,ANDRÉS E. CAMARGO VERGARA,5,Partido Panameñista,PN,#8c38b2,8-6,21,M,True,17,ITZI NAILYN ATENCIO GONZALEZ
+247,ARIANA M,COBA MARTÍNEZ,ARIANA M COBA MARTÍNEZ,5,Partido Panameñista,PN,#8c38b2,4-1,22,M,True,55,HUGO MENDEZ LIZONDRO
+248,VIELKA DEL C.,OSES VARGAS,VIELKA DEL C. OSES VARGAS,5,Partido Panameñista,PN,#8c38b2,2-3,32,M,True,31,LUIS ERNESTO CARLES RUDY
+249,FRANCISCO M.,NIETO SÁNCHEZ,FRANCISCO M. NIETO SÁNCHEZ,5,Partido Panameñista,PN,#8c38b2,8-1,33,M,True,60,YESENIA ESTHER RODRIGUEZ FLORES
+250,TILIO V.,MENESES ARRASTI,TILIO V. MENESES ARRASTI,5,Partido Panameñista,PN,#8c38b2,3-1,34,M,True,70,PEDRO ANTONIO TORRES MERO
+251,KAREN L.,GUTIERREZ MEDINA,KAREN L. GUTIERREZ MEDINA,5,Partido Panameñista,PN,#8c38b2,8-10,35,M,True,74,ELIAS ALBERTO VIGIL PEREZ
+252,ABELARDO E.,ANTONIO QUIJANO,ABELARDO E. ANTONIO QUIJANO,1,Partido Cambio Democratico,CD,#8CBFCB,3-1,36,M,True,190,LEOPOLDO LUIS BENEDETTI MILLIGAN
+255,RAÚL A,RODRÍGUEZ VIRZI,RAÚL A RODRÍGUEZ VIRZI,1,Partido Cambio Democratico,CD,#8CBFCB,4-6,50,M,True,63,ANA GISELLE ROSAS MATA
+256,VIELKA,CORTÉS OVALLE,VIELKA CORTÉS OVALLE,1,Partido Cambio Democratico,CD,#8CBFCB,8-10,51,M,True,195,EDWIN ALBERTO ZUÑIGA MENCOMO
+257,ADOLFO O.,VARGAS OPORTA,ADOLFO O. VARGAS OPORTA,1,Partido Cambio Democratico,CD,#8CBFCB,8-9,52,M,True,193,GENESIS ARJONA
+258,ERIC NELSON,ARAUZ,ERIC NELSON ARAUZ,1,Partido Cambio Democratico,CD,#8CBFCB,4-3,53,M,True,12,RONY RONALD ARAUZ GONZALEZ
+259,HARDING G.,DUFFY VELÁSQUEZ,HARDING G. DUFFY VELÁSQUEZ,1,Partido Cambio Democratico,CD,#8CBFCB,3-2,55,M,True,182,NELSON JACKSON PALMA
+260,AGUSTÍN R.,SELLHORN CARRILLO,AGUSTÍN R. SELLHORN CARRILLO,1,Partido Cambio Democratico,CD,#8CBFCB,8-1,56,M,True,76,MARYLIN E VALLARINO B
+261,ANTONIO,CARAQUITO PEREA,ANTONIO CARAQUITO PEREA,1,Partido Cambio Democratico,CD,#8CBFCB,5-1,57,M,True,41,ARNULFO DIAZ DE LEON
+262,MAIRA ESTHER,GONZÁLEZ CAMARENA,MAIRA ESTHER GONZÁLEZ CAMARENA,3,Partido Molirena,MO,#fafe16,8-6,68,M,True,11,FRANCISCO JOS ALEMAN MENDOZA
+263,LOURDES M.,SALDAÑA CARRASCO,LOURDES M. SALDAÑA CARRASCO,3,Partido Molirena,MO,#fafe16,4-1,69,M,True,196,MIGUEL ANGEL FANOVICH TIJERINO
+266,DARÍO,CASTILLO SIRAIN,DARÍO CASTILLO SIRAIN,1,Partido Cambio Democratico,CD,#8CBFCB,12-1,73,M,True,198,LEOPOLDO ANGELNO ARCHIBOLD HOOKER
+267,ARIEL A,ORTEGA DE LEÓN,ARIEL A ORTEGA DE LEÓN,7,Realizando Metas,RM,#33B8FF,8-5,13,M,True,21,LILIA E. BATISTA DE GUERRA
+268,ANA I.,DELGADO GUERRA,ANA I. DELGADO GUERRA,1,Partido Cambio Democratico,CD,#8CBFCB,8-4,75,M,True,40,HERNAN DELGADO QUINTERO
+269,MERCEDES A.,GALVEZ USEDA,MERCEDES A. GALVEZ USEDA,7,Realizando Metas,RM,#33B8FF,,24,M,True,373,Sergio Rafael Galvez Evers
+271,ROLANDO A.,RODRIGUEZ ESPINOZA,ROLANDO A. RODRIGUEZ ESPINOZA,3,Partido Molirena,MO,#fafe16,8-9,72,M,True,204,TITO RODRIGUEZ MENA
+272,MARCELINO,ARENAS,MARCELINO ARENAS,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-3,42,M,True,4,MARCOS ENRIQUE CASTILLERO BARAHONA
+275,Cecilio E.,Vergara Beitía,Cecilio E. Vergara Beitía,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-10,25,M,True,203,CENOBIA HAYDEE VARGAS GRAJALES
+283,Jorge Luis,Herrera,Jorge Luis Herrera,5,Partido Panameñista,PN,#8c38b2,2-4,51,M,False,,
+286,Medin,Jiménez Pitti,Medin Jiménez Pitti,5,Partido Panameñista,PN,#8c38b2,4-4,54,M,False,,
+289,Francisco Javier,Brea Tristan,Francisco Javier Brea Tristan,5,Partido Panameñista,PN,#8c38b2,9-3,49,M,False,,
+292,Ariana Marisin,Coba,Ariana Marisin Coba,5,Partido Panameñista,PN,#8c38b2,4-3,50,M,False,,
+295,José Luis,Varela Rodríguez,José Luis Varela Rodríguez,5,Partido Panameñista,PN,#8c38b2,6-2,52,M,False,,
+298,Roberto,Archibold Chuito,Roberto Archibold Chuito,5,Partido Panameñista,PN,#8c38b2,12-1,53,M,False,,
+301,Edwin Antonio,Vergara Castillo,Edwin Antonio Vergara Castillo,5,Partido Panameñista,PN,#8c38b2,13-3,68,M,False,,
+304,Melvin,Perez,Melvin Perez,5,Partido Panameñista,PN,#8c38b2,9-3,49,M,True,289,Francisco Javier Brea Tristan
+307,Nixon,Andrade Rodríguez,Nixon Andrade Rodríguez,2,Partido Revolucionario Democrático,PRD,#3a21f2,12-2,62,M,False,,
+310,Didiano,Pinilla Rios,Didiano Pinilla Rios,1,Partido Cambio Democratico,CD,#8CBFCB,9-4,75,M,False,,
+313,Ana Maria,Poveda,Ana Maria Poveda,1,Partido Cambio Democratico,CD,#8CBFCB,,75,M,True,310,Didiano Pinilla Rios
+316,Bolivar,Escala,Bolivar Escala,5,Partido Panameñista,PN,#8c38b2,,51,M,True,283,Jorge Luis Herrera
+319,Ricardo Agustin,Vigil,Ricardo Agustin Vigil,5,Partido Panameñista,PN,#8c38b2,4-3,55,M,False,,
+322,Ernesto,Cedeño Alvarado,Ernesto Cedeño Alvarado,10,SEGUIMOS,SEG,#E66728,8-4,6,M,False,,
+325,José Antonio,Pérez Barboni,José Antonio Pérez Barboni,10,SEGUIMOS,SEG,#E66728,8-3,7,M,False,,
+328,Grace,Hernández Lacayo,Grace Hernández Lacayo,10,SEGUIMOS,SEG,#E66728,8-4,8,M,False,,
+331,Eduardo Alejandro,Gaitán Beitia,Eduardo Alejandro Gaitán Beitia,4,VAMOS,VA,#865809,8-2,9,M,False,,
+334,Walkiria,Chandler D'Orcy,Walkiria Chandler D'Orcy,4,VAMOS,VA,#865809,8-3,10,M,False,,
+337,Roberto José,Zúñiga,Roberto José Zúñiga,4,VAMOS,VA,#865809,8-4,11,M,False,,
+340,Dana Daris,Castañeda,Dana Daris Castañeda,7,Realizando Metas,RM,#33B8FF,2-3,12,M,False,,
+343,Jony,Guevara,Jony Guevara,13,Partido Alianza,PA,#DB2118,,14,M,False,,
+346,Osman Camilo,Gómez,Osman Camilo Gómez,13,Partido Alianza,PA,#DB2118,4-2,15,M,False,,
+349,Eliecer,Castrellón Barrios,Eliecer Castrellón Barrios,16,Partido Popular,PP,#28AF22,4-6,16,M,False,,
+352,Patsy Lee,Renteria,Patsy Lee Renteria,16,Partido Popular,PP,#28AF22,13-4,17,M,False,,
+355,Jorge Isaac,Bloise Iglesias,Jorge Isaac Bloise Iglesias,4,VAMOS,VA,#865809,8-4,18,M,False,,
+358,Paulette,Thomas Horly,Paulette Thomas Horly,4,VAMOS,VA,#865809,8-3,19,M,False,,
+361,Janine,Prado Castaño,Janine Prado Castaño,4,VAMOS,VA,#865809,9-1,20,M,False,,
+364,Alexandra Maria,Brenes Samaniego,Alexandra Maria Brenes Samaniego,4,VAMOS,VA,#865809,8-2,21,M,False,,
+367,Yamireliz,Chong,Yamireliz Chong,4,VAMOS,VA,#865809,3-1,22,M,False,,
+370,Luis Henrique,Duke Walker,Luis Henrique Duke Walker,4,VAMOS,VA,#865809,8-2,23,M,False,,
+373,Sergio Rafael,Galvez Evers,Sergio Rafael Galvez Evers,7,Realizando Metas,RM,#33B8FF,8-3,24,M,False,,
+376,Luis Eduardo,Camacho Castro,Luis Eduardo Camacho Castro,7,Realizando Metas,RM,#33B8FF,8-2,25,M,False,,
+379,Ariel Ulises,Vallarino Aparicio,Ariel Ulises Vallarino Aparicio,7,Realizando Metas,RM,#33B8FF,8-5,26,M,False,,
+382,Ronald Ameth,De Gracia,Ronald Ameth De Gracia,7,Realizando Metas,RM,#33B8FF,7-2,27,M,False,,
+385,Yuzaida Andrea,Marín,Yuzaida Andrea Marín,7,Realizando Metas,RM,#33B8FF,13-4,28,M,False,,
+388,Shirley de la Rosa,Castañeda,Shirley de la Rosa Castañeda,7,Realizando Metas,RM,#33B8FF,13-1,44,M,False,,
+391,Jamis,Acosta,Jamis Acosta,7,Realizando Metas,RM,#33B8FF,4-1,30,M,False,,
+397,Manuel,Cheng Peñalba,Manuel Cheng Peñalba,17,Independiente,IND,#00a7d1,13-1,32,M,False,,
+400,Yarelis Anayansi,Rodríguez,Yarelis Anayansi Rodríguez,4,VAMOS,VA,#865809,8-2,33,M,False,,
+403,Neftali Omar,Zamora Ibarra,Neftali Omar Zamora Ibarra,4,VAMOS,VA,#865809,8-5,34,M,False,,
+406,Manuel Alberto,Samaniego,Manuel Alberto Samaniego,4,VAMOS,VA,#865809,8-6,35,M,False,,
+409,Miguel Ángel,Campos Lima,Miguel Ángel Campos Lima,4,VAMOS,VA,#865809,9-1,36,M,False,,
+412,Betserai,Richards,Betserai Richards,10,SEGUIMOS,SEG,#E66728,8-6,37,M,False,,
+415,Jorge Alberto,González López,Jorge Alberto González López,4,VAMOS,VA,#865809,8-5,38,M,False,,
+418,Lenin Alberto,Ulate,Lenin Alberto Ulate,4,VAMOS,VA,#865809,13-1,39,M,False,,
+421,Luis,Ortega,Luis Ortega,7,Realizando Metas,RM,#33B8FF,8-2,40,M,False,,
+424,Tomás Gabriel,Benavides Aguilar,Tomás Gabriel Benavides Aguilar,7,Realizando Metas,RM,#33B8FF,9-2,41,M,False,,
+427,Rogelio Ricardo,Revello,Rogelio Ricardo Revello,7,Realizando Metas,RM,#33B8FF,3-1,42,M,False,,
+430,Victor De Jesús,Castillo,Victor De Jesús Castillo,7,Realizando Metas,RM,#33B8FF,3-1,43,M,False,,
+433,Nelson,Jackson Palma,Nelson Jackson Palma,7,Realizando Metas,RM,#33B8FF,3-2,29,M,False,,
+436,Isaac,Mosquera,Isaac Mosquera,3,Partido Molirena,MO,#fafe16,5-1,45,M,False,,
+439,Flor Isabel,Brenes Medina,Flor Isabel Brenes Medina,2,Partido Revolucionario Democrático,PRD,#3a21f2,10-1,46,M,False,,
+442,Augusto Efrain,Palacios Muñoz,Augusto Efrain Palacios Muñoz,4,VAMOS,VA,#865809,4-1,56,M,False,,
+445,Jhonathan Edir,Vega,Jhonathan Edir Vega,4,VAMOS,VA,#865809,4-5,57,M,False,,
+448,Carlos Eduardo,Saldaña López,Carlos Eduardo Saldaña López,17,Independiente,IND,#00a7d1,4-1,58,M,False,,
+451,Raphael,Buchanan,Raphael Buchanan,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,63,M,False,,
+454,Eduardo Enrique,Vásquez,Eduardo Enrique Vásquez,1,Partido Cambio Democratico,CD,#8CBFCB,13-2,69,M,False,,
+457,Gertrudis,Rodríguez de Gracia,Gertrudis Rodríguez de Gracia,1,Partido Cambio Democratico,CD,#8CBFCB,12-3,70,M,False,,
+460,Yesica,Romero,Yesica Romero,1,Partido Cambio Democratico,CD,#8CBFCB,1-1,71,M,False,,
+463,Orlando,Carrasquilla,Orlando Carrasquilla,1,Partido Cambio Democratico,CD,#8CBFCB,2-2,72,M,False,,
+466,Carlos,Afú Decerega,Carlos Afú Decerega,1,Partido Cambio Democratico,CD,#8CBFCB,7-1,73,M,False,,
+469,Julio,De La Guardia,Julio De La Guardia,1,Partido Cambio Democratico,CD,#8CBFCB,2-1,74,M,False,,
+472,Manuel,Cohen Salerno,Manuel Cohen Salerno,1,Partido Cambio Democratico,CD,#8CBFCB,6-1,76,M,False,,
+475,Iveet,Vargas,Iveet Vargas,4,VAMOS,VA,#865809,,38,M,True,415,Jorge Alberto González López
+478,Margareth,Pimentel,Margareth Pimentel,4,VAMOS,VA,#865809,13-1,39,M,True,418,Lenin Alberto Ulate
+487,Estefani,Barrios,Estefani Barrios,7,Realizando Metas,RM,#33B8FF,,30,M,True,391,Jamis Acosta
+490,Luis,Batista,Luis Batista,7,Realizando Metas,RM,#33B8FF,,27,M,True,382,Ronald Ameth De Gracia
+493,Luz,Urriola,Luz Urriola,4,VAMOS,VA,#865809,4-5,57,M,True,445,Jhonathan Edir Vega
+496,Alejandro,Salazar Zorrilla,Alejandro Salazar Zorrilla,7,Realizando Metas,RM,#33B8FF,3-1,43,M,True,430,Victor De Jesús Castillo
+499,Grettel,Garrido,Grettel Garrido,4,VAMOS,VA,#865809,8-2,23,M,True,370,Luis Henrique Duke Walker
+502,Kevin,Carrillo,Kevin Carrillo,10,SEGUIMOS,SEG,#E66728,,7,M,True,325,José Antonio Pérez Barboni
+505,Gumercinda,Pérez,Gumercinda Pérez,5,Partido Panameñista,PN,#8c38b2,6-2,52,M,True,295,José Luis Varela Rodríguez
+508,Aimee,Wittgreen,Aimee Wittgreen,4,VAMOS,VA,#865809,4-1,56,M,True,442,Augusto Efrain Palacios Muñoz
+511,José Andrés,González Quinzada,José Andrés González Quinzada,4,VAMOS,VA,#865809,,33,M,True,400,Yarelis Anayansi Rodríguez
+514,Roberto,Barsallo,Roberto Barsallo,10,SEGUIMOS,SEG,#E66728,8-4,6,M,True,322,Ernesto Cedeño Alvarado
+517,Kathia Itzel,Domínguez González,Kathia Itzel Domínguez González,3,Partido Molirena,MO,#fafe16,,45,M,True,436,Isaac Mosquera
+520,Uranis,Moreno,Uranis Moreno,1,Partido Cambio Democratico,CD,#8CBFCB,7-1,73,M,True,466,Carlos Afú Decerega
+529,Benicio,Robinson Jr,Benicio Robinson Jr,2,Partido Revolucionario Democrático,PRD,#3a21f2,1-1,67,M,True,59,BENICIO ENACIO ROBINSON GRAJALES
+532,Abdiel,Nuñez,Abdiel Nuñez,7,Realizando Metas,RM,#33B8FF,13-4,28,M,True,385,Yuzaida Andrea Marín
+535,Malena Del Carmen,Rios,Malena Del Carmen Rios,1,Partido Cambio Democratico,CD,#8CBFCB,,76,M,True,472,Manuel Cohen Salerno
+538,Ricardo,Valencia,Ricardo Valencia,7,Realizando Metas,RM,#33B8FF,13-1,44,M,True,388,Shirley de la Rosa Castañeda
+541,Rosalia,Ellis,Rosalia Ellis,5,Partido Panameñista,PN,#8c38b2,12-1,53,M,True,298,Roberto Archibold Chuito
+544,Cesar,Pineda,Cesar Pineda,1,Partido Cambio Democratico,CD,#8CBFCB,12-3,70,M,True,457,Gertrudis Rodríguez de Gracia
+547,Alain,Cedeño Navarro,Alain Cedeño Navarro,7,Realizando Metas,RM,#33B8FF,8-10,31,M,True,35,ALAIN ALBENIS CEDEÑO HERRERA
+550,Maiquely,Añino,Maiquely Añino,7,Realizando Metas,RM,#33B8FF,2-3,12,M,True,340,Dana Daris Castañeda
+553,Carlito,Saavedra,Carlito Saavedra,1,Partido Cambio Democratico,CD,#8CBFCB,13-2,69,M,True,454,Eduardo Enrique Vásquez
+556,Marcos Mauricio,Rangel,Marcos Mauricio Rangel,1,Partido Cambio Democratico,CD,#8CBFCB,2-2,72,M,True,463,Orlando Carrasquilla
+559,Justino Antonio,Banda Aguirre,Justino Antonio Banda Aguirre,13,Partido Alianza,PA,#DB2118,8-1,14,M,True,343,Jony Guevara
+580,Pedro,Quijano,Pedro Quijano,10,SEGUIMOS,SEG,#E66728,8-4,8,M,True,328,Grace Hernández Lacayo
+583,Gabriel,Solis,Gabriel Solis,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-4,61,M,True,68,JAVIER FRANCISCO SUCRE MEJIA
+586,Joana,Cedeño,Joana Cedeño,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,48,M,True,57,RAUL GILBERTO PINEDA VERGARA
+589,Alberto,Navarro,Alberto Navarro,5,Partido Panameñista,PN,#8c38b2,13-3,68,M,True,301,Edwin Antonio Vergara Castillo
+592,abelardo,Antonio,abelardo Antonio,7,Realizando Metas,RM,#33B8FF,3-1,42,M,True,427,Rogelio Ricardo Revello
+595,Lucy,Barrigon,Lucy Barrigon,2,Partido Revolucionario Democrático,PRD,#3a21f2,5-2,66,M,True,71,JAIME EDGARDO VARGAS CENTELLA
+598,Higinio,Gonzalez Benchiman,Higinio Gonzalez Benchiman,2,Partido Revolucionario Democrático,PRD,#3a21f2,10-2,47,M,True,205,ARQUESIO ARIAS FELIX
+601,Nicolas,Adames,Nicolas Adames,2,Partido Revolucionario Democrático,PRD,#3a21f2,10-1,46,M,True,439,Flor Isabel Brenes Medina
+604,Alexander,Moreno,Alexander Moreno,5,Partido Panameñista,PN,#8c38b2,4-3,50,M,True,292,Ariana Marisin Coba
+607,Arnulfo,Arias,Arnulfo Arias,1,Partido Cambio Democratico,CD,#8CBFCB,2-1,74,M,True,469,Julio De La Guardia
+610,Daryelis,Aponte,Daryelis Aponte,4,VAMOS,VA,#865809,8-5,34,M,True,403,Neftali Omar Zamora Ibarra
+613,Luis,Charris,Luis Charris,7,Realizando Metas,RM,#33B8FF,8-5,26,M,True,379,Ariel Ulises Vallarino Aparicio
+616,Dalmacia,Virzi,Dalmacia Virzi,16,Partido Popular,PP,#28AF22,4-6,16,M,True,349,Eliecer Castrellón Barrios
+619,Marcelino,Arenas,Marcelino Arenas,2,Partido Revolucionario Democrático,PRD,#3a21f2,6-3,60,M,True,4,MARCOS ENRIQUE CASTILLERO BARAHONA
+622,Tatiana Morales,de Ramos,Tatiana Morales de Ramos,4,VAMOS,VA,#865809,4-1,58,M,True,448,Carlos Eduardo Saldaña López
+625,Claudina,Herrera,Claudina Herrera,2,Partido Revolucionario Democrático,PRD,#3a21f2,8-6,63,M,True,451,Raphael Buchanan
+628,Cesar,Santamaria,Cesar Santamaria,13,Partido Alianza,PA,#DB2118,4-2,15,M,True,346,Osman Camilo Gómez
+631,Ariel Anibal,Rios Zapata,Ariel Anibal Rios Zapata,5,Partido Panameñista,PN,#8c38b2,4-4,54,M,True,286,Medin Jiménez Pitti
+634,Nayelis,Gonzalez,Nayelis Gonzalez,4,VAMOS,VA,#865809,8-6,35,M,True,406,Manuel Alberto Samaniego
+637,Dominga,Bejerano,Dominga Bejerano,2,Partido Revolucionario Democrático,PRD,#3a21f2,12-2,62,M,True,307,Nixon Andrade Rodríguez
+643,Elsa,Espinoza,Elsa Espinoza,5,Partido Panameñista,PN,#8c38b2,4-3,55,M,True,319,Ricardo Agustin Vigil
+646,Juan Domingo,Diaz,Juan Domingo Diaz,7,Realizando Metas,RM,#33B8FF,8-2,40,M,True,421,Luis Ortega
+649,Elias,Becker,Elias Becker,1,Partido Cambio Democratico,CD,#8CBFCB,1-1,71,M,True,460,Yesica Romero
+652,Eduard,Rangel Gonzalez,Eduard Rangel Gonzalez,16,Partido Popular,PP,#28AF22,13-4,17,M,True,352,Patsy Lee Renteria
+658,HDS. Viveca,Kochman de Novey,HDS. Viveca Kochman de Novey,4,VAMOS,VA,#865809,8-4,18,M,True,355,Jorge Isaac Bloise Iglesias
+661,Edilberto,Guerrero,Edilberto Guerrero,4,VAMOS,VA,#865809,8-3,19,M,True,358,Paulette Thomas Horly
+664,Kareen Ariel,García Rodríguez,Kareen Ariel García Rodríguez,4,VAMOS,VA,#865809,8-2,21,M,True,364,Alexandra Maria Brenes Samaniego
+668,Charlie,Ho,Charlie Ho,4,VAMOS,VA,#865809,8-3,10,M,True,334,Walkiria Chandler D'Orcy
+671,Herminia,Thompson,Herminia Thompson,4,VAMOS,VA,#865809,8-4,11,M,True,337,Roberto José Zúñiga
+677,Lydia,Caballero,Lydia Caballero,4,VAMOS,VA,#865809,8-2,9,M,True,331,Eduardo Alejandro Gaitán Beitia
+680,Francisco,Jaen,Francisco Jaen,4,VAMOS,VA,#865809,9-1,20,M,True,361,Janine Prado Castaño

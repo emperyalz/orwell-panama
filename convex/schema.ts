@@ -150,9 +150,10 @@ export default defineSchema({
     mp4Url: v.optional(v.string()),  // permanent Convex serving URL
     posterUrl: v.optional(v.string()),
     title: v.optional(v.string()),   // optional caption/title for admin display
-    isFeatured: v.optional(v.boolean()), // show in carousel hero section
-    displayOrder: v.optional(v.number()), // ordering within each section
-    isActive: v.optional(v.boolean()),   // hide without deleting
+    isFeatured: v.optional(v.boolean()),   // show in featured carousel hero
+    showInVideos: v.optional(v.boolean()), // show in the Videos grid section
+    displayOrder: v.optional(v.number()),  // ordering within each section
+    isActive: v.optional(v.boolean()),     // legacy — no longer used in UI
     status: v.union(
       v.literal("pending"),
       v.literal("processing"),

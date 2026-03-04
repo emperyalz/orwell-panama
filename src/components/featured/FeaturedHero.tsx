@@ -322,13 +322,10 @@ function CarouselSlide({
         </div>
       </button>
 
-      {/* Info overlay — platform icon (top-right), avatar + handle (bottom-left) */}
-      {showOverlay && (
-        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-4">
+      {/* Info overlay — platform icon (top-right), avatar + handle (bottom-left) — always visible */}
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-4">
           <div className="flex justify-end">
-            <div className="rounded-full bg-black/50 p-1.5 backdrop-blur-sm">
-              <PlatformIcon platform={video.platform} className="h-4 w-4" />
-            </div>
+            <PlatformIcon platform={video.platform} className="h-4 w-4" />
           </div>
           <div className="flex items-center gap-2">
             {video.handle && (
@@ -337,19 +334,13 @@ function CarouselSlide({
             {!video.handle && video.avatar && (
               <AvatarBadge avatar={video.avatar} handle={video.platform} gradient={gradient} size="md" />
             )}
-            <div>
-              {video.handle ? (
-                <p className="text-sm font-bold text-white drop-shadow">
-                  {video.handle.startsWith("@") ? video.handle : `@${video.handle}`}
-                </p>
-              ) : null}
-              <p className={`capitalize text-white/70 ${video.handle ? "text-[11px]" : "text-xs font-semibold"}`}>
-                {video.platform}
+            {video.handle && (
+              <p className="text-sm font-bold text-white drop-shadow">
+                {video.handle.startsWith("@") ? video.handle : `@${video.handle}`}
               </p>
-            </div>
+            )}
           </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -361,12 +352,10 @@ export function FeaturedHero() {
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  // Build carousel from Convex: prefer isFeatured videos, fall back to all active+done
-  const allReady = (storedVideos ?? []).filter(
-    (r) => r.isActive !== false && r.status === "done",
+  // Build carousel from Convex: only explicitly isFeatured videos
+  const sourceRecords = (storedVideos ?? []).filter(
+    (r) => r.isFeatured === true && r.status === "done",
   );
-  const featured = allReady.filter((r) => r.isFeatured);
-  const sourceRecords = featured.length > 0 ? featured : allReady;
 
   // Generic platform-name handles like "instagram" / "x" aren't real @handles
   const GENERIC = new Set(["instagram", "x", "tiktok", "youtube", "facebook", "twitter"]);
@@ -405,22 +394,62 @@ export function FeaturedHero() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Section header */}
-      <div className="mb-5 flex items-center gap-3">
-        <span className="h-5 w-1 shrink-0 rounded-full bg-red-600" />
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
-          Destacados
-        </h2>
+      {/* Section header row — mirrors the 5-col grid so thumbnails stay within the video column */}
+      <div className="mb-5 grid grid-cols-1 lg:grid-cols-5 lg:gap-4 items-center">
+        {/* Left 3 cols: DESTACADOS label + thumbnail strip flush right */}
+        <div className="lg:col-span-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="h-5 w-1 shrink-0 rounded-full bg-red-600" />
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground)]">
+              Destacados
+            </h2>
+          </div>
+
+          {/* Thumbnail strip — constrained to left-column width */}
+          {total > 1 && (
+            <div className="flex flex-row gap-1.5">
+              {items.map((video, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className={`relative h-14 w-10 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
+                    i === current
+                      ? "ring-2 ring-red-500 scale-105 shadow-lg opacity-100"
+                      : "opacity-60 hover:opacity-90 hover:scale-105"
+                  }`}
+                  aria-label={`${video.handle || video.platform} — video ${i + 1}`}
+                >
+                  {/* Gradient always as base — no black flash while loading */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
+                  {/* Poster on top if available */}
+                  {video.poster && (
+                    <img
+                      src={video.poster}
+                      alt={video.handle || video.platform}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  )}
+                  <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
+                    <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Right 2 cols: empty — keeps the header aligned with the grid below */}
+        <div className="hidden lg:block lg:col-span-2" />
       </div>
 
       {/* 3-card hero grid: carousel left (3/5) | YouTube top-right | article bottom-right */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:grid-rows-2 lg:h-[480px]">
 
-        {/* ── Left: carousel column — relative wrapper so thumbnails can escape overflow-hidden ── */}
-        <div className="relative lg:col-span-3 lg:row-span-2 min-h-[320px]">
+        {/* ── Left: carousel, full height ── */}
+        <div className="lg:col-span-3 lg:row-span-2 min-h-[320px]">
 
-          {/* Carousel — fills the full wrapper, clipped to rounded corners */}
-          <div className="group absolute inset-0 overflow-hidden rounded-2xl bg-black">
+          {/* Carousel */}
+          <div className="group relative h-full min-h-[320px] overflow-hidden rounded-2xl bg-black">
             {total === 0 ? (
               /* Loading or empty state */
               <div className="flex h-full min-h-[320px] items-center justify-center bg-[var(--muted)]">
@@ -481,50 +510,7 @@ export function FeaturedHero() {
             )}
           </div>
 
-          {/* Thumbnail strip — sibling to carousel, NOT inside overflow-hidden.
-              Sits on top of the video's top-right corner via absolute + z-30.  */}
-          {total > 1 && (
-            <div className="absolute top-3 right-3 z-30 flex gap-1.5">
-              {items.map((video, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  className={`relative h-12 w-9 shrink-0 overflow-hidden rounded-lg transition-all duration-300 focus:outline-none ${
-                    i === current
-                      ? "ring-2 ring-white scale-110 shadow-lg opacity-100"
-                      : "opacity-55 hover:opacity-90 hover:scale-105"
-                  }`}
-                  aria-label={`${video.handle || video.platform} — video ${i + 1}`}
-                >
-                  {video.mp4 ? (
-                    <video
-                      src={video.mp4}
-                      preload="metadata"
-                      muted
-                      playsInline
-                      className="absolute inset-0 h-full w-full object-cover"
-                      onLoadedMetadata={(e) => {
-                        (e.currentTarget as HTMLVideoElement).currentTime = 0.1;
-                      }}
-                    />
-                  ) : video.poster ? (
-                    <img
-                      src={video.poster}
-                      alt={video.handle || video.platform}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className={`absolute inset-0 bg-gradient-to-br ${GRADIENT[video.platform]}`} />
-                  )}
-                  <div className="absolute bottom-0.5 right-0.5 rounded-full bg-black/60 p-0.5">
-                    <PlatformIcon platform={video.platform} className="h-2.5 w-2.5" />
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-
-        </div>
+        </div>{/* end left column */}
 
         {/* ── Top-right: YouTube video ── */}
         <div className="lg:col-span-2 lg:row-span-1 min-h-[150px]">

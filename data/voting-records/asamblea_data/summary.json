@@ -1,0 +1,12 @@
+{
+  "scraped_at": "2026-03-04T13:47:26.045204Z",
+  "report_ids_scanned": 482,
+  "reports_with_votes": 397,
+  "total_votings": 932,
+  "total_individual_votes": 356580,
+  "unique_deputies": 244,
+  "errors": 5,
+  "elapsed_seconds": 690.5,
+  "api_endpoint": "https://prensa507.asamblea.gob.pa/api/v1/report/{id}/public",
+  "data_source": "https://prensa507.asamblea.gob.pa/press/home"
+}

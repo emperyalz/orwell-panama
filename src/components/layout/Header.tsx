@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
-import { Moon, Sun, User, LogIn, LogOut, ChevronDown } from "lucide-react";
+import { Moon, Sun, User, LogIn, LogOut, Menu, X } from "lucide-react";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
@@ -53,9 +54,9 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Right side: nav + dropdown */}
+        {/* Right side: nav + controls */}
         <div className="flex items-center gap-1">
-          {/* Nav links */}
+          {/* Desktop nav links */}
           <nav className="hidden md:flex items-center gap-1 mr-3">
             <Link href="/destacados" className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--foreground)] hover:opacity-60 transition-opacity">
               Destacados
@@ -71,7 +72,16 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Dropdown trigger */}
+          {/* Mobile hamburger — only on <md */}
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex md:hidden h-9 w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--accent)] transition-colors mr-1"
+            aria-label="Menú de navegación"
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+
+          {/* User / theme dropdown trigger */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setOpen((v) => !v)}
@@ -159,6 +169,27 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      {/* Mobile nav panel */}
+      {mobileOpen && (
+        <nav className="md:hidden border-t border-[var(--border)] bg-[var(--background)] px-4 py-2">
+          {[
+            { href: "/destacados", label: "Destacados" },
+            { href: "/", label: "Políticos" },
+            { href: "/noticias", label: "Noticias" },
+            { href: "/oficinas", label: "Oficinas de Gobierno" },
+          ].map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMobileOpen(false)}
+              className="block py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--foreground)] hover:opacity-60 transition-opacity border-b border-[var(--border)] last:border-0"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

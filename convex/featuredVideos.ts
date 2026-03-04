@@ -117,7 +117,7 @@ export const removeVideo = mutation({
   },
 });
 
-// ─── Admin mutation: update metadata (isFeatured, isActive, displayOrder, handle) ─
+// ─── Admin mutation: update metadata (isFeatured, showInVideos, displayOrder, handle) ─
 
 export const updateVideo = mutation({
   args: {
@@ -125,7 +125,7 @@ export const updateVideo = mutation({
     handle: v.optional(v.string()),
     title: v.optional(v.string()),
     isFeatured: v.optional(v.boolean()),
-    isActive: v.optional(v.boolean()),
+    showInVideos: v.optional(v.boolean()),
     displayOrder: v.optional(v.number()),
     status: v.optional(v.union(
       v.literal("pending"),
@@ -273,7 +273,9 @@ async function getInstagramMetadata(sourceUrl: string): Promise<{
     const ogImageMatch =
       html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ??
       html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-    const ogImageUrl = ogImageMatch?.[1];
+    // Decode HTML entities in the URL (&amp; → &, etc.) — Instagram embeds
+    // raw HTML-encoded URLs in meta tag content attributes
+    const ogImageUrl = ogImageMatch?.[1]?.replace(/&amp;/g, "&").replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
 
     // ── handle extraction (best-effort) ──────────────────────────────────────
     let handle: string | undefined;
@@ -539,6 +541,35 @@ export const processAll = action({
     }
 
     return { scheduled };
+  },
+});
+
+// ─── Avatar upload helpers (for manual uploads via admin panel or CLI script) ──
+
+/** Step 1: Get a short-lived upload URL from Convex storage */
+export const generateAvatarUploadUrl = action({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+/** Step 2: After uploading a file to the upload URL, call this to save it as the avatar */
+export const patchAvatarFromStorageId = mutation({
+  args: {
+    sourceUrl: v.string(),
+    storageId: v.id("_storage"),
+  },
+  handler: async (ctx, { sourceUrl, storageId }) => {
+    const existing = await ctx.db
+      .query("featuredVideos")
+      .withIndex("by_sourceUrl", (q) => q.eq("sourceUrl", sourceUrl))
+      .first();
+    if (!existing) throw new Error(`No record found for ${sourceUrl}`);
+    const avatarUrl = await ctx.storage.getUrl(storageId);
+    if (!avatarUrl) throw new Error("Storage URL not available");
+    await ctx.db.patch(existing._id, { avatarUrl, updatedAt: Date.now() });
+    return avatarUrl;
   },
 });
 
