@@ -207,6 +207,84 @@ export const seedDeputyBios = mutation({
   },
 });
 
+/**
+ * Link deputyVotingProfiles and deputyBios to politician records by name matching.
+ * This enables the dashboard query to find profiles via politicianId.
+ */
+export const linkProfilesToPoliticians = mutation({
+  handler: async (ctx) => {
+    // Load all politicians
+    const politicians = await ctx.db.query("politicians").collect();
+    // Load all deputy profiles
+    const profiles = await ctx.db.query("deputyVotingProfiles").collect();
+    // Load all deputy bios
+    const bios = await ctx.db.query("deputyBios").collect();
+
+    // Normalize helper
+    const normalize = (name: string) =>
+      name
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\./g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    // Build politician lookup by normalized name tokens
+    const polData = politicians.map((p) => {
+      const norm = normalize(p.name);
+      const tokens = norm.split(" ");
+      return {
+        _id: p._id,
+        name: p.name,
+        norm,
+        tokens,
+        first: tokens[0],
+        last: tokens[tokens.length - 1],
+      };
+    });
+
+    let profilesLinked = 0;
+    let biosLinked = 0;
+
+    // Link profiles
+    for (const profile of profiles) {
+      if (profile.politicianId) continue; // Already linked
+      const depNorm = normalize(profile.deputyName);
+      const depTokens = depNorm.split(" ");
+      const depFirst = depTokens[0];
+      const depLast = depTokens[depTokens.length - 1];
+
+      const match = polData.find(
+        (p) => p.first === depFirst && p.last === depLast
+      );
+      if (match) {
+        await ctx.db.patch(profile._id, { politicianId: match._id });
+        profilesLinked++;
+      }
+    }
+
+    // Link bios
+    for (const bio of bios) {
+      if (bio.politicianId) continue;
+      const bioNorm = normalize(bio.nombreCompleto);
+      const bioTokens = bioNorm.split(" ");
+      const bioFirst = bioTokens[0];
+      const bioLast = bioTokens[bioTokens.length - 1];
+
+      const match = polData.find(
+        (p) => p.first === bioFirst && p.last === bioLast
+      );
+      if (match) {
+        await ctx.db.patch(bio._id, { politicianId: match._id });
+        biosLinked++;
+      }
+    }
+
+    return { profilesLinked, biosLinked, totalPoliticians: politicians.length };
+  },
+});
+
 /** Check how many voting records exist (for resume support). */
 export const getVotingRecordCount = mutation({
   handler: async (ctx) => {

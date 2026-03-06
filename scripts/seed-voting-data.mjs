@@ -24,7 +24,9 @@ function loadEnv() {
     const envFile = readFileSync(resolve(PROJECT_ROOT, ".env.local"), "utf-8");
     for (const line of envFile.split("\n")) {
       const match = line.match(/^([^#=]+)=(.*)$/);
-      if (match) process.env[match[1].trim()] = match[2].trim();
+      if (match && !process.env[match[1].trim()]) {
+        process.env[match[1].trim()] = match[2].trim();
+      }
     }
   } catch { /* ignore */ }
 }
