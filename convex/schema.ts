@@ -165,6 +165,198 @@ export default defineSchema({
     updatedAt: v.number(),
   }).index("by_sourceUrl", ["sourceUrl"]),
 
+  // ─── Voting Records ────────────────────────────────────────────────────────
+
+  // Individual vote records (~360K) — one row per deputy per question
+  votingRecords: defineTable({
+    votingId: v.number(),
+    questionId: v.number(),
+    questionText: v.string(),
+    questionPassed: v.boolean(),
+    votesNeeded: v.number(),
+    totalAFavor: v.number(),
+    totalEnContra: v.number(),
+    totalAbstencion: v.number(),
+    deputyId: v.number(),
+    deputyName: v.string(),
+    partyCode: v.string(),
+    circuit: v.string(),
+    vote: v.string(), // "a_favor", "en_contra", "abstencion"
+    isSuplente: v.boolean(),
+    suplenteOf: v.optional(v.string()),
+    sessionDate: v.string(), // "2021-04-05"
+    votingTitle: v.string(),
+    politicianId: v.optional(v.id("politicians")),
+  })
+    .index("by_deputyId", ["deputyId"])
+    .index("by_votingId", ["votingId"])
+    .index("by_politicianId", ["politicianId"])
+    .index("by_deputyId_sessionDate", ["deputyId", "sessionDate"]),
+
+  // Voting sessions / laws (~937) — one row per legislative vote event
+  votingSessions: defineTable({
+    votingId: v.number(),
+    reportId: v.number(),
+    sessionId: v.number(),
+    sessionDate: v.string(),
+    sessionType: v.string(),
+    votingTitle: v.string(),
+    votingDescription: v.optional(v.string()),
+    totalAFavor: v.optional(v.number()),
+    totalEnContra: v.optional(v.number()),
+    totalAbstencion: v.optional(v.number()),
+    passed: v.optional(v.boolean()),
+    votesNeeded: v.optional(v.number()),
+  })
+    .index("by_votingId", ["votingId"])
+    .index("by_sessionDate", ["sessionDate"]),
+
+  // Deputy voting profiles (~244) — aggregated stats per deputy
+  deputyVotingProfiles: defineTable({
+    deputyId: v.number(),
+    fullName: v.string(),
+    partyCode: v.string(),
+    partyName: v.string(),
+    partyColor: v.string(),
+    circuit: v.string(),
+    seat: v.number(),
+    isSuplente: v.boolean(),
+    principalId: v.optional(v.number()),
+    principalName: v.optional(v.string()),
+    gender: v.optional(v.string()),
+    politicianId: v.optional(v.id("politicians")),
+    totalVotes: v.number(),
+    totalAFavor: v.number(),
+    totalEnContra: v.number(),
+    totalAbstencion: v.number(),
+    sessionsAttended: v.number(),
+    participationRate: v.number(), // 0-1
+  })
+    .index("by_deputyId", ["deputyId"])
+    .index("by_politicianId", ["politicianId"])
+    .index("by_partyCode", ["partyCode"]),
+
+  // Deputy biographical data (~71 principal deputies)
+  deputyBios: defineTable({
+    deputyId: v.number(),
+    politicianId: v.optional(v.id("politicians")),
+    correo: v.optional(v.string()),
+    aiSummary: v.optional(v.string()),
+    aiKeyQualifications: v.optional(v.array(v.string())),
+    aiEducationLevel: v.optional(v.string()),
+    aiProfessionalSectors: v.optional(v.array(v.string())),
+    structuredData: v.optional(
+      v.object({
+        educacion: v.optional(
+          v.array(
+            v.object({
+              institucion: v.optional(v.string()),
+              titulo: v.optional(v.string()),
+              anio: v.optional(v.string()),
+            })
+          )
+        ),
+        experienciaLaboral: v.optional(
+          v.array(
+            v.object({
+              organizacion: v.optional(v.string()),
+              cargo: v.optional(v.string()),
+              periodo: v.optional(v.string()),
+            })
+          )
+        ),
+        cargosPoliticos: v.optional(
+          v.array(
+            v.object({
+              cargo: v.optional(v.string()),
+              cargo_nombre: v.optional(v.string()),
+              periodo: v.optional(v.string()),
+              entidad: v.optional(v.string()),
+            })
+          )
+        ),
+        idiomas: v.optional(v.array(v.string())),
+      })
+    ),
+  })
+    .index("by_deputyId", ["deputyId"])
+    .index("by_politicianId", ["politicianId"]),
+
+  // Pre-computed cross-deputy analytics (~244 rows)
+  deputyAnalytics: defineTable({
+    deputyId: v.number(),
+    politicianId: v.optional(v.id("politicians")),
+    loyaltyScore: v.number(), // 0-100
+    dissentCount: v.number(),
+    dissentVotes: v.array(
+      v.object({
+        votingId: v.number(),
+        votingTitle: v.string(),
+        sessionDate: v.string(),
+        deputyVote: v.string(),
+        partyMajorityVote: v.string(),
+      })
+    ),
+    swingVoteCount: v.number(),
+    swingVotes: v.array(
+      v.object({
+        votingId: v.number(),
+        votingTitle: v.string(),
+        sessionDate: v.string(),
+        totalAFavor: v.number(),
+      })
+    ),
+    attendancePercentile: v.number(),
+    loyaltyPercentile: v.number(),
+    votesPercentile: v.number(),
+    controversialVotes: v.array(
+      v.object({
+        votingId: v.number(),
+        votingTitle: v.string(),
+        sessionDate: v.string(),
+        deputyVote: v.string(),
+        totalEnContra: v.number(),
+        totalAFavor: v.number(),
+        passed: v.boolean(),
+      })
+    ),
+    topAllies: v.array(
+      v.object({
+        deputyId: v.number(),
+        deputyName: v.string(),
+        partyCode: v.string(),
+        agreementPct: v.number(),
+        sharedVotes: v.number(),
+      })
+    ),
+    topRivals: v.array(
+      v.object({
+        deputyId: v.number(),
+        deputyName: v.string(),
+        partyCode: v.string(),
+        agreementPct: v.number(),
+        sharedVotes: v.number(),
+      })
+    ),
+    monthlyStats: v.array(
+      v.object({
+        month: v.string(), // "2024-01"
+        totalVotes: v.number(),
+        aFavor: v.number(),
+        enContra: v.number(),
+        abstencion: v.number(),
+        pctAFavor: v.number(), // 0-100
+      })
+    ),
+    attendanceDates: v.array(v.string()), // ["2024-01-15", ...]
+    provinceAttendanceRank: v.optional(v.number()),
+    provinceTotalDeputies: v.optional(v.number()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_deputyId", ["deputyId"])
+    .index("by_politicianId", ["politicianId"]),
+
   // Admin users
   users: defineTable({
     name: v.string(),
