@@ -52,18 +52,18 @@ export function ProfessionalProfile({ bio }: ProfessionalProfileProps) {
   const education = (sd?.educacion ?? []).map((e) => ({
     primary: e.titulo ?? "Título no especificado",
     secondary: e.institucion,
-    date: e.anio,
+    date: e.periodo,
   }));
 
   const career = (sd?.experienciaLaboral ?? []).map((e) => ({
     primary: e.cargo ?? "Cargo no especificado",
-    secondary: e.organizacion,
+    secondary: e.empresa,
     date: e.periodo,
   }));
 
   const political = (sd?.cargosPoliticos ?? []).map((e) => ({
-    primary: e.cargo ?? e.cargo_nombre ?? "Cargo no especificado",
-    secondary: e.entidad,
+    primary: e.cargo ?? "Cargo no especificado",
+    secondary: e.partido,
     date: e.periodo,
   }));
 

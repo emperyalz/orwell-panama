@@ -2,6 +2,12 @@ import { internalAction, internalMutation, internalQuery } from "./_generated/se
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
+/** Convert epoch ms to "YYYY-MM-DD" date string */
+function epochToDateStr(epoch: number): string {
+  const d = new Date(epoch);
+  return d.toISOString().slice(0, 10);
+}
+
 /**
  * Batch computation of deputy analytics.
  * Reads all voting records and computes: loyalty, dissent, swing votes,
@@ -27,6 +33,15 @@ export const compute = internalAction({
     const allRecords: any[] = await ctx.runQuery(
       internal.computeAnalytics.getAllVotingRecords
     );
+
+    // 2b. Load lawsVoted for per-voting totals (swing/controversial detection)
+    const allLaws: any[] = await ctx.runQuery(
+      internal.computeAnalytics.getAllLaws
+    );
+    const lawByVotingId = new Map<number, any>();
+    for (const law of allLaws) {
+      lawByVotingId.set(law.votingId, law);
+    }
 
     // Group records by deputy
     const byDeputy = new Map<number, any[]>();
@@ -74,8 +89,11 @@ export const compute = internalAction({
       const controversialVotes: any[] = [];
 
       for (const rec of records) {
+        // Convert epoch ms to date string for aggregation
+        const dateStr = epochToDateStr(rec.sessionDate);
+
         // Monthly aggregation
-        const month = rec.sessionDate.slice(0, 7); // "2024-01"
+        const month = dateStr.slice(0, 7); // "2024-01"
         const ms = monthMap.get(month) ?? {
           total: 0,
           aFavor: 0,
@@ -89,7 +107,7 @@ export const compute = internalAction({
         monthMap.set(month, ms);
 
         // Attendance dates
-        attendanceDateSet.add(rec.sessionDate);
+        attendanceDateSet.add(dateStr);
 
         // Party loyalty
         const questionKey = `${rec.votingId}-${rec.questionId}`;
@@ -114,7 +132,7 @@ export const compute = internalAction({
               dissentVotes.push({
                 votingId: rec.votingId,
                 votingTitle: rec.votingTitle,
-                sessionDate: rec.sessionDate,
+                sessionDate: dateStr,
                 deputyVote: rec.vote,
                 partyMajorityVote: majorityVote,
               });
@@ -122,10 +140,15 @@ export const compute = internalAction({
           }
         }
 
+        // Get per-voting totals from lawsVoted for swing/controversial detection
+        const law = lawByVotingId.get(rec.votingId);
+        const lawTotalAFavor = law?.totalAFavor ?? 0;
+        const lawTotalEnContra = law?.totalEnContra ?? 0;
+
         // Swing votes: total a_favor between 36-38 and they voted a_favor
         if (
-          rec.totalAFavor >= 36 &&
-          rec.totalAFavor <= 38 &&
+          lawTotalAFavor >= 36 &&
+          lawTotalAFavor <= 38 &&
           rec.vote === "a_favor" &&
           swingVotes.length < 10
         ) {
@@ -134,15 +157,15 @@ export const compute = internalAction({
             swingVotes.push({
               votingId: rec.votingId,
               votingTitle: rec.votingTitle,
-              sessionDate: rec.sessionDate,
-              totalAFavor: rec.totalAFavor,
+              sessionDate: dateStr,
+              totalAFavor: lawTotalAFavor,
             });
           }
         }
 
         // Controversial: 15+ en_contra
         if (
-          rec.totalEnContra >= 15 &&
+          lawTotalEnContra >= 15 &&
           controversialVotes.length < 10
         ) {
           if (
@@ -153,10 +176,10 @@ export const compute = internalAction({
             controversialVotes.push({
               votingId: rec.votingId,
               votingTitle: rec.votingTitle,
-              sessionDate: rec.sessionDate,
+              sessionDate: dateStr,
               deputyVote: rec.vote,
-              totalEnContra: rec.totalEnContra,
-              totalAFavor: rec.totalAFavor,
+              totalEnContra: lawTotalEnContra,
+              totalAFavor: lawTotalAFavor,
               passed: rec.questionPassed,
             });
           }
@@ -244,9 +267,9 @@ export const compute = internalAction({
     const deputyQuestions = new Map<number, Map<string, string>>();
     for (const [deputyId, records] of byDeputy) {
       const qMap = new Map<string, string>();
-      // Take last 200 unique questions
+      // Take last 200 unique questions — sort by epoch desc
       const sorted = records.sort(
-        (a: any, b: any) => b.sessionDate.localeCompare(a.sessionDate)
+        (a: any, b: any) => b.sessionDate - a.sessionDate
       );
       let count = 0;
       for (const r of sorted) {
@@ -264,7 +287,7 @@ export const compute = internalAction({
     const profileMap = new Map(
       profiles.map((p: any) => [
         p.deputyId,
-        { name: p.fullName, partyCode: p.partyCode },
+        { name: p.deputyName, partyCode: p.partyCode },
       ])
     );
 
@@ -366,6 +389,13 @@ export const getAllProfiles = internalQuery({
 export const getAllVotingRecords = internalQuery({
   handler: async (ctx) => {
     return await ctx.db.query("votingRecords").collect();
+  },
+});
+
+/** Internal query: get all laws for vote totals */
+export const getAllLaws = internalQuery({
+  handler: async (ctx) => {
+    return await ctx.db.query("lawsVoted").collect();
   },
 });
 

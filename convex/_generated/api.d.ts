@@ -11,7 +11,6 @@
 import type * as accounts from "../accounts.js";
 import type * as computeAnalytics from "../computeAnalytics.js";
 import type * as featuredVideos from "../featuredVideos.js";
-import type * as ingestVoting from "../ingestVoting.js";
 import type * as mediaSources from "../mediaSources.js";
 import type * as parties from "../parties.js";
 import type * as politicians from "../politicians.js";
@@ -19,6 +18,7 @@ import type * as seed from "../seed.js";
 import type * as storage from "../storage.js";
 import type * as users from "../users.js";
 import type * as voting from "../voting.js";
+import type * as votingIngestion from "../votingIngestion.js";
 
 import type {
   ApiFromModules,
@@ -30,7 +30,6 @@ declare const fullApi: ApiFromModules<{
   accounts: typeof accounts;
   computeAnalytics: typeof computeAnalytics;
   featuredVideos: typeof featuredVideos;
-  ingestVoting: typeof ingestVoting;
   mediaSources: typeof mediaSources;
   parties: typeof parties;
   politicians: typeof politicians;
@@ -38,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   storage: typeof storage;
   users: typeof users;
   voting: typeof voting;
+  votingIngestion: typeof votingIngestion;
 }>;
 
 /**

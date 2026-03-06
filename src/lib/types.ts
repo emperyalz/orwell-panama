@@ -76,15 +76,10 @@ export interface AllyRival {
 
 export interface DeputyVotingProfile {
   deputyId: number;
-  fullName: string;
+  deputyName: string;
   partyCode: string;
-  partyName: string;
-  partyColor: string;
   circuit: string;
-  seat: number;
   isSuplente: boolean;
-  principalId?: number;
-  principalName?: string;
   totalVotes: number;
   totalAFavor: number;
   totalEnContra: number;
@@ -115,13 +110,19 @@ export interface DeputyBio {
   aiSummary?: string;
   aiKeyQualifications?: string[];
   aiEducationLevel?: string;
-  aiProfessionalSectors?: string[];
+  aiProfessionalSector?: string;
   correo?: string;
   structuredData?: {
-    educacion?: { institucion?: string; titulo?: string; anio?: string }[];
-    experienciaLaboral?: { organizacion?: string; cargo?: string; periodo?: string }[];
-    cargosPoliticos?: { cargo?: string; cargo_nombre?: string; periodo?: string; entidad?: string }[];
-    idiomas?: string[];
+    fechaNacimiento?: string;
+    cedula?: string;
+    estadoCivil?: string;
+    direccion?: string;
+    educacion: { institucion?: string; titulo?: string; periodo?: string; descripcion?: string }[];
+    experienciaLaboral: { empresa?: string; cargo?: string; periodo?: string; descripcion?: string }[];
+    cargosPoliticos: { cargo?: string; periodo?: string; partido?: string }[];
+    habilidades: string[];
+    idiomas: string[];
+    seminariosCursos: string[];
   };
 }
 
@@ -131,12 +132,8 @@ export interface VoteRecord {
   questionText: string;
   questionPassed: boolean;
   vote: string;
-  sessionDate: string;
+  sessionDate: string; // "YYYY-MM-DD" (converted from epoch in query)
   votingTitle: string;
-  totalAFavor: number;
-  totalEnContra: number;
-  totalAbstencion: number;
-  votesNeeded: number;
 }
 
 export interface ChamberStats {
