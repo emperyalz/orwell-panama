@@ -239,10 +239,39 @@ export const linkProfilesToPoliticians = mutation({
         name: p.name,
         norm,
         tokens,
+        tokenSet: new Set(tokens),
         first: tokens[0],
-        last: tokens[tokens.length - 1],
       };
     });
+
+    /**
+     * Improved matching: checks if the first name matches AND at least one
+     * other politician token appears anywhere in the full name.
+     * This handles "Marcos Castillero" matching
+     * "MARCOS ENRIQUE CASTILLERO BARAHONA" correctly.
+     * Falls back to checking if ALL politician tokens appear in the full name
+     * (handles "Luis Eduardo Camacho" → "Luis Eduardo Camacho Castro").
+     */
+    const findMatch = (fullName: string) => {
+      const norm = normalize(fullName);
+      const tokens = norm.split(" ");
+      const tokenSet = new Set(tokens);
+      const first = tokens[0];
+
+      // Strategy 1: First name matches + at least one other token in common
+      const candidates = polData.filter((p) => p.first === first);
+      for (const c of candidates) {
+        const shared = c.tokens.filter((t) => tokenSet.has(t));
+        if (shared.length >= 2) return c;
+      }
+
+      // Strategy 2: All politician name tokens appear in the profile name
+      for (const p of polData) {
+        if (p.tokens.every((t) => tokenSet.has(t))) return p;
+      }
+
+      return null;
+    };
 
     let profilesLinked = 0;
     let biosLinked = 0;
@@ -250,14 +279,7 @@ export const linkProfilesToPoliticians = mutation({
     // Link profiles
     for (const profile of profiles) {
       if (profile.politicianId) continue; // Already linked
-      const depNorm = normalize(profile.deputyName);
-      const depTokens = depNorm.split(" ");
-      const depFirst = depTokens[0];
-      const depLast = depTokens[depTokens.length - 1];
-
-      const match = polData.find(
-        (p) => p.first === depFirst && p.last === depLast
-      );
+      const match = findMatch(profile.deputyName);
       if (match) {
         await ctx.db.patch(profile._id, { politicianId: match._id });
         profilesLinked++;
@@ -267,14 +289,7 @@ export const linkProfilesToPoliticians = mutation({
     // Link bios
     for (const bio of bios) {
       if (bio.politicianId) continue;
-      const bioNorm = normalize(bio.nombreCompleto);
-      const bioTokens = bioNorm.split(" ");
-      const bioFirst = bioTokens[0];
-      const bioLast = bioTokens[bioTokens.length - 1];
-
-      const match = polData.find(
-        (p) => p.first === bioFirst && p.last === bioLast
-      );
+      const match = findMatch(bio.nombreCompleto);
       if (match) {
         await ctx.db.patch(bio._id, { politicianId: match._id });
         biosLinked++;
@@ -282,6 +297,18 @@ export const linkProfilesToPoliticians = mutation({
     }
 
     return { profilesLinked, biosLinked, totalPoliticians: politicians.length };
+  },
+});
+
+/** Patch a profile's politicianId (for manual fixes). */
+export const patchProfilePoliticianId = mutation({
+  args: {
+    profileId: v.id("deputyVotingProfiles"),
+    politicianId: v.id("politicians"),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.profileId, { politicianId: args.politicianId });
+    return "ok";
   },
 });
 
