@@ -95,6 +95,12 @@ export default async function PoliticianPage({ params }: PageProps) {
       <BackButton />
       <HeroSection politician={politician} />
 
+      {/* Digital Presence & Official Links — always at top near hero */}
+      <div className="mt-4 space-y-4">
+        <SocialPresence accounts={politician.accounts} />
+        <OfficialLinks politician={politician} />
+      </div>
+
       {/* Deputy dashboard */}
       {isDeputy && hasDashboard && dashboard!.profile && (
         <div className="mt-6 space-y-6">
@@ -167,12 +173,6 @@ export default async function PoliticianPage({ params }: PageProps) {
           {/* Professional Profile */}
           {dashboard!.bio && <ProfessionalProfile bio={dashboard!.bio} />}
 
-          {/* Social Presence */}
-          <SocialPresence accounts={politician.accounts} />
-
-          {/* Official Links */}
-          <OfficialLinks politician={politician} />
-
           {/* Recent Votes Table */}
           {dashboard!.recentVotes.length > 0 && (
             <RecentVotes votes={dashboard!.recentVotes} />
@@ -184,8 +184,6 @@ export default async function PoliticianPage({ params }: PageProps) {
       {(!isDeputy || !hasDashboard) && (
         <div className="mt-6 space-y-6">
           <InfoGrid politician={politician} />
-          <SocialPresence accounts={politician.accounts} />
-          <OfficialLinks politician={politician} />
         </div>
       )}
     </div>
