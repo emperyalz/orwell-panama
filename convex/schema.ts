@@ -91,7 +91,8 @@ export default defineSchema({
       )
     ),
     wikidataUrl: v.optional(v.string()), // e.g. https://www.wikidata.org/wiki/Q12345
-    color: v.string(), // Hex color
+    color: v.string(), // Hex color (primary)
+    secondaryColor: v.optional(v.string()), // Hex color (secondary)
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_code", ["code"]),

@@ -21,9 +21,7 @@ export function HeroSection({ politician }: HeroSectionProps) {
           <img
             src={politician.hasHeadshot ? politician.headshot : "/images/placeholder.svg"}
             alt={politician.name}
-            width={200}
-            height={200}
-            className="h-[200px] w-[200px] rounded-full border-4 border-[var(--border)] bg-[var(--muted)] object-cover shadow-lg"
+            className="w-[180px] sm:w-[220px] rounded-2xl border-4 border-[var(--border)] bg-[var(--muted)] object-cover shadow-lg"
           />
         </div>
 

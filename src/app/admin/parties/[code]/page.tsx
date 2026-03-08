@@ -269,6 +269,29 @@ export default function EditPartyPage({ params }: PageProps) {
           </div>
           <div>
             <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">
+              Secondary Color
+            </label>
+            <div className="flex gap-2">
+              <input
+                value={getFieldValue("secondaryColor")}
+                onChange={(e) => setField("secondaryColor", e.target.value)}
+                placeholder="#FF0000"
+                className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
+              />
+              <input
+                type="color"
+                value={getFieldValue("secondaryColor") || getFieldValue("color") || "#888888"}
+                onChange={(e) => setField("secondaryColor", e.target.value)}
+                className="h-9 w-12 shrink-0 cursor-pointer rounded-lg border border-[var(--border)] bg-[var(--background)] p-0.5"
+                title="Pick secondary color"
+              />
+            </div>
+            <p className="mt-1 text-[10px] text-[var(--muted-foreground)]">
+              Used alongside primary color for gradients and accents
+            </p>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">
               WikiData URL
             </label>
             <input
