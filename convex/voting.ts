@@ -26,8 +26,8 @@ export const getDeputyDashboard = query({
       };
     }
 
-    // Fetch analytics, bio, and recent votes in parallel
-    const [analytics, bio, recentVotesDocs] = await Promise.all([
+    // Fetch analytics, bio, transparency, and recent votes in parallel
+    const [analytics, bio, transparency, recentVotesDocs] = await Promise.all([
       ctx.db
         .query("deputyAnalytics")
         .withIndex("by_deputyId", (q) => q.eq("deputyId", profile.deputyId))
@@ -35,6 +35,12 @@ export const getDeputyDashboard = query({
       ctx.db
         .query("deputyBios")
         .withIndex("by_deputyId", (q) => q.eq("deputyId", profile.deputyId))
+        .first(),
+      ctx.db
+        .query("deputyTransparency")
+        .withIndex("by_politicianId", (q) =>
+          q.eq("politicianId", args.politicianId)
+        )
         .first(),
       ctx.db
         .query("votingRecords")
@@ -51,24 +57,24 @@ export const getDeputyDashboard = query({
       questionText: v.questionText,
       questionPassed: v.questionPassed,
       vote: v.vote,
-      sessionDate: v.sessionDate,
+      sessionDate: String(v.sessionDate),
       votingTitle: v.votingTitle,
-      totalAFavor: v.totalAFavor,
-      totalEnContra: v.totalEnContra,
-      totalAbstencion: v.totalAbstencion,
-      votesNeeded: v.votesNeeded,
+      totalAFavor: v.totalAFavor ?? 0,
+      totalEnContra: v.totalEnContra ?? 0,
+      totalAbstencion: v.totalAbstencion ?? 0,
+      votesNeeded: v.votesNeeded ?? 0,
     }));
 
     return {
       profile: profile
         ? {
             deputyId: profile.deputyId,
-            fullName: profile.fullName,
+            fullName: profile.fullName ?? profile.deputyName ?? "Unknown",
             partyCode: profile.partyCode,
-            partyName: profile.partyName,
-            partyColor: profile.partyColor,
+            partyName: profile.partyName ?? profile.partyCode,
+            partyColor: profile.partyColor ?? "#666",
             circuit: profile.circuit,
-            seat: profile.seat,
+            seat: profile.seat ?? 0,
             isSuplente: profile.isSuplente,
             principalId: profile.principalId,
             principalName: profile.principalName,
@@ -107,6 +113,18 @@ export const getDeputyDashboard = query({
             aiProfessionalSectors: bio.aiProfessionalSectors,
             correo: bio.correo,
             structuredData: bio.structuredData,
+          }
+        : null,
+      transparency: transparency
+        ? {
+            suplente: transparency.suplente,
+            planillaTotal: transparency.planillaTotal,
+            biography: transparency.biography,
+            commissions: transparency.commissions,
+            performanceScores: transparency.performanceScores,
+            documents: transparency.documents,
+            voluntaryDeclarations: transparency.voluntaryDeclarations,
+            espacioCivicoUrl: transparency.espacioCivicoUrl,
           }
         : null,
       recentVotes,
@@ -189,12 +207,12 @@ export const getVotesByDeputyPaginated = query({
         questionText: v.questionText,
         questionPassed: v.questionPassed,
         vote: v.vote,
-        sessionDate: v.sessionDate,
+        sessionDate: String(v.sessionDate),
         votingTitle: v.votingTitle,
-        totalAFavor: v.totalAFavor,
-        totalEnContra: v.totalEnContra,
-        totalAbstencion: v.totalAbstencion,
-        votesNeeded: v.votesNeeded,
+        totalAFavor: v.totalAFavor ?? 0,
+        totalEnContra: v.totalEnContra ?? 0,
+        totalAbstencion: v.totalAbstencion ?? 0,
+        votesNeeded: v.votesNeeded ?? 0,
       })),
       nextCursor: hasMore ? offset + limit : null,
     };

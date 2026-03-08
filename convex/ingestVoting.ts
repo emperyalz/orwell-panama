@@ -105,7 +105,7 @@ export const computeProfileStats = mutation({
 
     // Count unique session dates
     for (const rec of allRecords) {
-      totalSessionDates.add(rec.sessionDate);
+      totalSessionDates.add(String(rec.sessionDate));
     }
     const totalSessions = totalSessionDates.size;
 

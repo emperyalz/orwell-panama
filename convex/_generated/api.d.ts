@@ -17,6 +17,7 @@ import type * as parties from "../parties.js";
 import type * as politicians from "../politicians.js";
 import type * as seed from "../seed.js";
 import type * as storage from "../storage.js";
+import type * as transparency from "../transparency.js";
 import type * as users from "../users.js";
 import type * as voting from "../voting.js";
 
@@ -36,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   politicians: typeof politicians;
   seed: typeof seed;
   storage: typeof storage;
+  transparency: typeof transparency;
   users: typeof users;
   voting: typeof voting;
 }>;
