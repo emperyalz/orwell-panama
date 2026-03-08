@@ -60,6 +60,7 @@ export const create = mutation({
     ),
     wikidataUrl: v.optional(v.string()),
     color: v.string(),
+    secondaryColor: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const now = Date.now();
@@ -98,6 +99,7 @@ export const update = mutation({
     ),
     wikidataUrl: v.optional(v.string()),
     color: v.optional(v.string()),
+    secondaryColor: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { id, ...fields } = args;

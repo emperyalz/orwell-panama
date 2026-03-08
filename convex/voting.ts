@@ -69,12 +69,12 @@ export const getDeputyDashboard = query({
       profile: profile
         ? {
             deputyId: profile.deputyId,
-            fullName: profile.fullName ?? profile.deputyName ?? "Unknown",
+            fullName: String(profile.fullName ?? profile.deputyName ?? "Unknown"),
             partyCode: profile.partyCode,
-            partyName: profile.partyName ?? profile.partyCode,
-            partyColor: profile.partyColor ?? "#666",
+            partyName: String(profile.partyName ?? profile.partyCode),
+            partyColor: String(profile.partyColor ?? "#666"),
             circuit: profile.circuit,
-            seat: profile.seat ?? 0,
+            seat: Number(profile.seat ?? 0),
             isSuplente: profile.isSuplente,
             principalId: profile.principalId,
             principalName: profile.principalName,
