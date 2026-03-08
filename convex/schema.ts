@@ -195,14 +195,15 @@ export default defineSchema({
     .index("by_deputyId", ["deputyId"])
     .index("by_votingId", ["votingId"])
     .index("by_politicianId", ["politicianId"])
-    .index("by_deputyId_sessionDate", ["deputyId", "sessionDate"]),
+    .index("by_deputyId_sessionDate", ["deputyId", "sessionDate"])
+    .index("by_voteId", ["voteId"]),
 
   // Voting sessions / laws (~937) — one row per legislative vote event
   votingSessions: defineTable({
     votingId: v.number(),
     reportId: v.number(),
     sessionId: v.number(),
-    sessionDate: v.string(),
+    sessionDate: v.union(v.string(), v.number()),
     sessionType: v.string(),
     votingTitle: v.string(),
     votingDescription: v.optional(v.string()),
@@ -211,6 +212,11 @@ export default defineSchema({
     totalAbstencion: v.optional(v.number()),
     passed: v.optional(v.boolean()),
     votesNeeded: v.optional(v.number()),
+    votingStart: v.optional(v.number()),
+    votingEnd: v.optional(v.number()),
+    isSecret: v.optional(v.boolean()),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
   })
     .index("by_votingId", ["votingId"])
     .index("by_sessionDate", ["sessionDate"]),
