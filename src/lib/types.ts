@@ -76,10 +76,15 @@ export interface AllyRival {
 
 export interface DeputyVotingProfile {
   deputyId: number;
-  deputyName: string;
+  fullName: string;
   partyCode: string;
+  partyName: string;
+  partyColor: string;
   circuit: string;
+  seat: number;
   isSuplente: boolean;
+  principalId?: number;
+  principalName?: string;
   totalVotes: number;
   totalAFavor: number;
   totalEnContra: number;

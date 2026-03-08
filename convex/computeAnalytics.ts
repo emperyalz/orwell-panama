@@ -377,7 +377,7 @@ export const getVotingRecordsByDeputy = internalQuery({
 /** Internal query: get all laws for vote totals */
 export const getAllLaws = internalQuery({
   handler: async (ctx) => {
-    return await ctx.db.query("lawsVoted").collect();
+    return await ctx.db.query("votingSessions").collect();
   },
 });
 

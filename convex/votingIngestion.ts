@@ -29,11 +29,11 @@ export const seedLaws = mutation({
     let inserted = 0;
     for (const law of args.laws) {
       const existing = await ctx.db
-        .query("lawsVoted")
+        .query("votingSessions")
         .withIndex("by_votingId", (q) => q.eq("votingId", law.votingId))
         .first();
       if (existing) continue;
-      await ctx.db.insert("lawsVoted", { ...law, createdAt: now, updatedAt: now });
+      await ctx.db.insert("votingSessions", { ...law, createdAt: now, updatedAt: now });
       inserted++;
     }
     return { inserted };
@@ -279,7 +279,9 @@ export const linkProfilesToPoliticians = mutation({
     // Link profiles
     for (const profile of profiles) {
       if (profile.politicianId) continue; // Already linked
-      const match = findMatch(profile.deputyName);
+      const name = profile.deputyName ?? profile.fullName;
+      if (!name) continue;
+      const match = findMatch(name);
       if (match) {
         await ctx.db.patch(profile._id, { politicianId: match._id });
         profilesLinked++;
@@ -289,6 +291,7 @@ export const linkProfilesToPoliticians = mutation({
     // Link bios
     for (const bio of bios) {
       if (bio.politicianId) continue;
+      if (!bio.nombreCompleto) continue;
       const match = findMatch(bio.nombreCompleto);
       if (match) {
         await ctx.db.patch(bio._id, { politicianId: match._id });

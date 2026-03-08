@@ -1,12 +1,6 @@
 import { query } from "./_generated/server";
 import { v } from "convex/values";
 
-/** Convert epoch ms to "YYYY-MM-DD" date string */
-function epochToDateStr(epoch: number): string {
-  const d = new Date(epoch);
-  return d.toISOString().slice(0, 10);
-}
-
 /**
  * Get complete dashboard data for a deputy politician.
  * Fetches profile, analytics, bio, and recent votes in one call.
@@ -32,8 +26,8 @@ export const getDeputyDashboard = query({
       };
     }
 
-    // Fetch analytics, bio, and recent votes in parallel
-    const [analytics, bio, recentVotesDocs] = await Promise.all([
+    // Fetch analytics, bio, transparency, and recent votes in parallel
+    const [analytics, bio, transparency, recentVotesDocs] = await Promise.all([
       ctx.db
         .query("deputyAnalytics")
         .withIndex("by_deputyId", (q) => q.eq("deputyId", profile.deputyId))
@@ -43,8 +37,14 @@ export const getDeputyDashboard = query({
         .withIndex("by_deputyId", (q) => q.eq("deputyId", profile.deputyId))
         .first(),
       ctx.db
+        .query("deputyTransparency")
+        .withIndex("by_politicianId", (q) =>
+          q.eq("politicianId", args.politicianId)
+        )
+        .first(),
+      ctx.db
         .query("votingRecords")
-        .withIndex("by_deputyId", (q) =>
+        .withIndex("by_deputyId_sessionDate", (q) =>
           q.eq("deputyId", profile.deputyId)
         )
         .order("desc")
@@ -57,18 +57,27 @@ export const getDeputyDashboard = query({
       questionText: v.questionText,
       questionPassed: v.questionPassed,
       vote: v.vote,
-      sessionDate: epochToDateStr(v.sessionDate),
+      sessionDate: String(v.sessionDate),
       votingTitle: v.votingTitle,
+      totalAFavor: v.totalAFavor ?? 0,
+      totalEnContra: v.totalEnContra ?? 0,
+      totalAbstencion: v.totalAbstencion ?? 0,
+      votesNeeded: v.votesNeeded ?? 0,
     }));
 
     return {
       profile: profile
         ? {
             deputyId: profile.deputyId,
-            deputyName: profile.deputyName,
+            fullName: profile.fullName ?? profile.deputyName ?? "Unknown",
             partyCode: profile.partyCode,
+            partyName: profile.partyName ?? profile.partyCode,
+            partyColor: profile.partyColor ?? "#666",
             circuit: profile.circuit,
+            seat: profile.seat ?? 0,
             isSuplente: profile.isSuplente,
+            principalId: profile.principalId,
+            principalName: profile.principalName,
             totalVotes: profile.totalVotes,
             totalAFavor: profile.totalAFavor,
             totalEnContra: profile.totalEnContra,
@@ -101,9 +110,21 @@ export const getDeputyDashboard = query({
             aiSummary: bio.aiSummary,
             aiKeyQualifications: bio.aiKeyQualifications,
             aiEducationLevel: bio.aiEducationLevel,
-            aiProfessionalSector: bio.aiProfessionalSector,
+            aiProfessionalSectors: bio.aiProfessionalSectors,
             correo: bio.correo,
             structuredData: bio.structuredData,
+          }
+        : null,
+      transparency: transparency
+        ? {
+            suplente: transparency.suplente,
+            planillaTotal: transparency.planillaTotal,
+            biography: transparency.biography,
+            commissions: transparency.commissions,
+            performanceScores: transparency.performanceScores,
+            documents: transparency.documents,
+            voluntaryDeclarations: transparency.voluntaryDeclarations,
+            espacioCivicoUrl: transparency.espacioCivicoUrl,
           }
         : null,
       recentVotes,
@@ -127,8 +148,8 @@ async function getChamberStatsInternal(ctx: any) {
     };
   }
 
-  // Count unique sessions from lawsVoted
-  const laws = await ctx.db.query("lawsVoted").collect();
+  // Count unique session dates from voting sessions
+  const sessions = await ctx.db.query("votingSessions").collect();
 
   const totalDeputies = profiles.filter((p: any) => !p.isSuplente).length;
   const avgAttendance =
@@ -144,7 +165,7 @@ async function getChamberStatsInternal(ctx: any) {
       : 0;
 
   return {
-    totalSessions: laws.length,
+    totalSessions: sessions.length,
     avgAttendance: Math.round(avgAttendance * 100),
     avgLoyalty: Math.round(avgLoyalty),
     totalDeputies,
@@ -169,7 +190,7 @@ export const getVotesByDeputyPaginated = query({
     const limit = args.limit ?? 20;
     const allVotes = await ctx.db
       .query("votingRecords")
-      .withIndex("by_deputyId", (q) =>
+      .withIndex("by_deputyId_sessionDate", (q) =>
         q.eq("deputyId", args.deputyId)
       )
       .order("desc")
@@ -186,112 +207,14 @@ export const getVotesByDeputyPaginated = query({
         questionText: v.questionText,
         questionPassed: v.questionPassed,
         vote: v.vote,
-        sessionDate: epochToDateStr(v.sessionDate),
+        sessionDate: String(v.sessionDate),
         votingTitle: v.votingTitle,
+        totalAFavor: v.totalAFavor ?? 0,
+        totalEnContra: v.totalEnContra ?? 0,
+        totalAbstencion: v.totalAbstencion ?? 0,
+        votesNeeded: v.votesNeeded ?? 0,
       })),
       nextCursor: hasMore ? offset + limit : null,
     };
-  },
-});
-
-// ─── Additional queries (from user's existing codebase) ──────────────────
-
-/** List all deputy voting profiles, optionally filtered by party. */
-export const listProfiles = query({
-  args: {
-    partyCode: v.optional(v.string()),
-  },
-  handler: async (ctx, args) => {
-    if (args.partyCode) {
-      return ctx.db
-        .query("deputyVotingProfiles")
-        .withIndex("by_partyCode", (q) => q.eq("partyCode", args.partyCode!))
-        .collect();
-    }
-    return ctx.db.query("deputyVotingProfiles").collect();
-  },
-});
-
-/** Get a single deputy profile by deputyId. */
-export const getProfile = query({
-  args: { deputyId: v.number() },
-  handler: async (ctx, args) => {
-    return ctx.db
-      .query("deputyVotingProfiles")
-      .withIndex("by_deputyId", (q) => q.eq("deputyId", args.deputyId))
-      .first();
-  },
-});
-
-/** Get a deputy profile linked to a politician. */
-export const getProfileByPolitician = query({
-  args: { politicianId: v.id("politicians") },
-  handler: async (ctx, args) => {
-    return ctx.db
-      .query("deputyVotingProfiles")
-      .withIndex("by_politicianId", (q) =>
-        q.eq("politicianId", args.politicianId)
-      )
-      .first();
-  },
-});
-
-/** Get voting records for a specific deputy. */
-export const getVotesByDeputy = query({
-  args: {
-    deputyId: v.number(),
-    limit: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const limit = args.limit ?? 50;
-    return ctx.db
-      .query("votingRecords")
-      .withIndex("by_deputyId", (q) => q.eq("deputyId", args.deputyId))
-      .order("desc")
-      .take(limit);
-  },
-});
-
-/** Get voting records for a specific law/voting. */
-export const getVotesByVoting = query({
-  args: { votingId: v.number() },
-  handler: async (ctx, args) => {
-    return ctx.db
-      .query("votingRecords")
-      .withIndex("by_votingId", (q) => q.eq("votingId", args.votingId))
-      .collect();
-  },
-});
-
-/** Get voting records linked to a politician. */
-export const getVotesByPolitician = query({
-  args: {
-    politicianId: v.id("politicians"),
-    limit: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const limit = args.limit ?? 50;
-    return ctx.db
-      .query("votingRecords")
-      .withIndex("by_politicianId", (q) =>
-        q.eq("politicianId", args.politicianId)
-      )
-      .order("desc")
-      .take(limit);
-  },
-});
-
-/** List laws/votings, most recent first. */
-export const listLaws = query({
-  args: {
-    limit: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const limit = args.limit ?? 50;
-    return ctx.db
-      .query("lawsVoted")
-      .withIndex("by_sessionDate")
-      .order("desc")
-      .take(limit);
   },
 });

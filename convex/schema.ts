@@ -165,163 +165,134 @@ export default defineSchema({
     updatedAt: v.number(),
   }).index("by_sourceUrl", ["sourceUrl"]),
 
-  // ── Voting Records (from Asamblea Nacional 507 API) ──────────────────
+  // ─── Voting Records ────────────────────────────────────────────────────────
 
-  // Individual deputy votes — ~360K records
+  // Individual vote records (~360K) — one row per deputy per question
   votingRecords: defineTable({
-    voteId: v.number(),
     votingId: v.number(),
+    voteId: v.optional(v.number()),
     questionId: v.number(),
-    deputyId: v.number(),
-    deputyName: v.string(),
-    politicianId: v.optional(v.id("politicians")),
-    partyCode: v.string(),
-    circuit: v.string(),
-    vote: v.union(
-      v.literal("a_favor"),
-      v.literal("en_contra"),
-      v.literal("abstencion")
-    ),
-    isSuplente: v.boolean(),
-    sessionDate: v.number(), // epoch ms
-    votingTitle: v.string(),
     questionText: v.string(),
     questionPassed: v.boolean(),
-    createdAt: v.number(),
-    updatedAt: v.number(),
+    votesNeeded: v.optional(v.number()),
+    totalAFavor: v.optional(v.number()),
+    totalEnContra: v.optional(v.number()),
+    totalAbstencion: v.optional(v.number()),
+    deputyId: v.number(),
+    deputyName: v.string(),
+    partyCode: v.string(),
+    circuit: v.string(),
+    vote: v.string(), // "a_favor", "en_contra", "abstencion"
+    isSuplente: v.boolean(),
+    suplenteOf: v.optional(v.string()),
+    sessionDate: v.union(v.string(), v.number()), // "2021-04-05" or timestamp
+    votingTitle: v.string(),
+    politicianId: v.optional(v.id("politicians")),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
   })
-    .index("by_voteId", ["voteId"])
     .index("by_deputyId", ["deputyId"])
-    .index("by_politicianId", ["politicianId"])
     .index("by_votingId", ["votingId"])
-    .index("by_partyCode", ["partyCode"])
-    .index("by_sessionDate", ["sessionDate"]),
+    .index("by_politicianId", ["politicianId"])
+    .index("by_deputyId_sessionDate", ["deputyId", "sessionDate"])
+    .index("by_voteId", ["voteId"]),
 
-  // Laws / legislative items voted on — ~939 records
-  lawsVoted: defineTable({
+  // Voting sessions / laws (~937) — one row per legislative vote event
+  votingSessions: defineTable({
     votingId: v.number(),
     reportId: v.number(),
     sessionId: v.number(),
-    sessionDate: v.number(), // epoch ms
+    sessionDate: v.union(v.string(), v.number()),
     sessionType: v.string(),
     votingTitle: v.string(),
     votingDescription: v.optional(v.string()),
-    isSecret: v.boolean(),
+    totalAFavor: v.optional(v.number()),
+    totalEnContra: v.optional(v.number()),
+    totalAbstencion: v.optional(v.number()),
+    passed: v.optional(v.boolean()),
+    votesNeeded: v.optional(v.number()),
     votingStart: v.optional(v.number()),
     votingEnd: v.optional(v.number()),
-    totalAFavor: v.number(),
-    totalEnContra: v.number(),
-    totalAbstencion: v.number(),
-    createdAt: v.number(),
-    updatedAt: v.number(),
+    isSecret: v.optional(v.boolean()),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
   })
     .index("by_votingId", ["votingId"])
-    .index("by_sessionDate", ["sessionDate"])
-    .searchIndex("search_title", {
-      searchField: "votingTitle",
-      filterFields: ["sessionDate", "sessionType"],
-    }),
+    .index("by_sessionDate", ["sessionDate"]),
 
-  // Per-deputy aggregate voting profiles — ~244 records
+  // Deputy voting profiles (~244) — aggregated stats per deputy
   deputyVotingProfiles: defineTable({
     deputyId: v.number(),
-    deputyName: v.string(),
-    politicianId: v.optional(v.id("politicians")),
+    fullName: v.optional(v.string()),
+    deputyName: v.optional(v.string()),
     partyCode: v.string(),
+    partyName: v.optional(v.string()),
+    partyColor: v.optional(v.string()),
     circuit: v.string(),
+    seat: v.optional(v.number()),
     isSuplente: v.boolean(),
+    principalId: v.optional(v.number()),
+    principalName: v.optional(v.string()),
+    gender: v.optional(v.string()),
+    politicianId: v.optional(v.id("politicians")),
     totalVotes: v.number(),
     totalAFavor: v.number(),
     totalEnContra: v.number(),
     totalAbstencion: v.number(),
-    participationRate: v.number(), // 0-1
-    firstVoteDate: v.number(),
-    lastVoteDate: v.number(),
     sessionsAttended: v.number(),
-    createdAt: v.number(),
-    updatedAt: v.number(),
+    participationRate: v.number(), // 0-1
+    firstVoteDate: v.optional(v.number()),
+    lastVoteDate: v.optional(v.number()),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
   })
     .index("by_deputyId", ["deputyId"])
     .index("by_politicianId", ["politicianId"])
     .index("by_partyCode", ["partyCode"]),
 
-  // Deputy biographical profiles — from asamblea.gob.pa scrape + AI enrichment (71 principal deputies)
+  // Deputy biographical data (~71 principal deputies)
   deputyBios: defineTable({
-    diputadoId: v.number(), // asamblea.gob.pa persona ID
-    deputyId: v.number(), // 507 API deputy ID — links to votingRecords
+    deputyId: v.number(),
+    diputadoId: v.optional(v.number()),
     politicianId: v.optional(v.id("politicians")),
-    nombreCompleto: v.string(),
-    nombres: v.string(), // first names
-    apellidos: v.string(), // last names
-    slug: v.string(),
-    partido: v.string(), // full party name
-    partyCode: v.string(), // short code e.g. "PRD"
-    provincia: v.string(),
-    circuito: v.string(),
-    suplentes: v.optional(v.string()), // substitute deputy name
-    correo: v.optional(v.string()), // email
+    correo: v.optional(v.string()),
+    // Original assembly data
+    nombreCompleto: v.optional(v.string()),
+    nombres: v.optional(v.string()),
+    apellidos: v.optional(v.string()),
+    slug: v.optional(v.string()),
     profileUrl: v.optional(v.string()),
     fotoUrl: v.optional(v.string()),
     pdfUrl: v.optional(v.string()),
-    hasPdf: v.boolean(),
-    resumeText: v.optional(v.string()),
+    hasPdf: v.optional(v.boolean()),
     resumePages: v.optional(v.number()),
-    // Structured career data extracted from resume PDFs
-    structuredData: v.optional(
-      v.object({
-        fechaNacimiento: v.optional(v.string()),
-        cedula: v.optional(v.string()),
-        estadoCivil: v.optional(v.string()),
-        direccion: v.optional(v.string()),
-        educacion: v.array(
-          v.object({
-            institucion: v.optional(v.string()),
-            titulo: v.optional(v.string()),
-            periodo: v.optional(v.string()),
-            descripcion: v.optional(v.string()),
-          })
-        ),
-        experienciaLaboral: v.array(
-          v.object({
-            empresa: v.optional(v.string()),
-            cargo: v.optional(v.string()),
-            periodo: v.optional(v.string()),
-            descripcion: v.optional(v.string()),
-          })
-        ),
-        cargosPoliticos: v.array(
-          v.object({
-            cargo: v.optional(v.string()),
-            periodo: v.optional(v.string()),
-            partido: v.optional(v.string()),
-          })
-        ),
-        habilidades: v.array(v.string()),
-        idiomas: v.array(v.string()),
-        seminariosCursos: v.array(v.string()),
-      })
-    ),
-    // AI-generated enrichment
-    aiSummary: v.optional(v.string()),
-    aiKeyQualifications: v.optional(v.array(v.string())),
-    aiEducationLevel: v.optional(v.string()),
-    aiYearsExperience: v.optional(v.number()),
-    aiProfessionalSector: v.optional(v.string()),
-    // 507 system metadata
-    seatNumber: v.optional(v.number()),
-    gender: v.optional(v.string()),
+    resumeText: v.optional(v.string()),
+    // Party/circuit info
+    partido: v.optional(v.string()),
+    partyCode: v.optional(v.string()),
     bancada: v.optional(v.string()),
     bancadaFull: v.optional(v.string()),
     bancadaColor: v.optional(v.string()),
-    cssReformVote: v.optional(v.string()), // "A FAVOR", "EN CONTRA", "AUSENTE"
-    createdAt: v.number(),
-    updatedAt: v.number(),
+    provincia: v.optional(v.string()),
+    circuito: v.optional(v.string()),
+    seatNumber: v.optional(v.number()),
+    gender: v.optional(v.string()),
+    suplentes: v.optional(v.string()),
+    cssReformVote: v.optional(v.string()),
+    // AI-generated fields
+    aiSummary: v.optional(v.string()),
+    aiKeyQualifications: v.optional(v.array(v.string())),
+    aiEducationLevel: v.optional(v.string()),
+    aiProfessionalSectors: v.optional(v.array(v.string())),
+    aiProfessionalSector: v.optional(v.string()),
+    aiYearsExperience: v.optional(v.number()),
+    // Flexible structure — data varies widely across deputies' resumes
+    structuredData: v.optional(v.any()),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
   })
     .index("by_deputyId", ["deputyId"])
-    .index("by_diputadoId", ["diputadoId"])
-    .index("by_politicianId", ["politicianId"])
-    .index("by_partyCode", ["partyCode"])
-    .index("by_provincia", ["provincia"]),
+    .index("by_politicianId", ["politicianId"]),
 
   // Pre-computed cross-deputy analytics (~244 rows)
   deputyAnalytics: defineTable({
@@ -397,6 +368,55 @@ export default defineSchema({
   })
     .index("by_deputyId", ["deputyId"])
     .index("by_politicianId", ["politicianId"]),
+
+  // Deputy transparency data from Espacio Cívico
+  deputyTransparency: defineTable({
+    politicianId: v.id("politicians"),
+    espacioCivicoSlug: v.string(), // e.g. "ariana-coba"
+    espacioCivicoUrl: v.string(), // full URL
+
+    // Suplente (substitute deputy)
+    suplente: v.optional(v.string()),
+
+    // Staff payroll total — e.g. "B/. 37,063"
+    planillaTotal: v.optional(v.string()),
+
+    // Biography from Espacio Cívico (may differ from deputyBios)
+    biography: v.optional(v.string()),
+
+    // Commissions the deputy sits on
+    commissions: v.optional(v.array(v.string())),
+
+    // Performance scores (0-5 scale)
+    performanceScores: v.optional(
+      v.object({
+        calificacionPonderada: v.optional(v.number()),
+        asistenciaPleno: v.optional(v.number()),
+        asistenciaComisiones: v.optional(v.number()),
+        viajesViaticos: v.optional(v.number()),
+        declaracionIntereses: v.optional(v.number()),
+        declaracionPatrimonio: v.optional(v.number()),
+      })
+    ),
+
+    // Document URLs
+    documents: v.optional(
+      v.object({
+        cvUrl: v.optional(v.string()),
+        propuestaPoliticaUrl: v.optional(v.string()),
+        declaracionInteresesUrl: v.optional(v.string()),
+        declaracionPatrimonioUrl: v.optional(v.string()),
+      })
+    ),
+
+    // Whether deputy filed voluntary declarations
+    voluntaryDeclarations: v.optional(v.boolean()),
+
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_politicianId", ["politicianId"])
+    .index("by_espacioCivicoSlug", ["espacioCivicoSlug"]),
 
   // Admin users
   users: defineTable({
