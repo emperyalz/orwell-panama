@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import type { Id } from "../../../../../convex/_generated/dataModel";
@@ -31,6 +31,50 @@ const WIKIPEDIA_LANGUAGES = [
   { value: "it", label: "Italiano" },
 ] as const;
 
+/* ------------------------------------------------------------------ */
+/*  Uncontrolled colour-picker swatch                                  */
+/*  The native <input type="color"> is hidden behind a coloured div.   */
+/*  React never reconciles its `value` prop, so the browser's native   */
+/*  widget cannot interfere with React's DOM operations.               */
+/* ------------------------------------------------------------------ */
+function ColorPickerSwatch({
+  color,
+  onChange,
+  title,
+}: {
+  color: string;
+  onChange: (c: string) => void;
+  title?: string;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Sync the displayed colour imperatively (bypasses React reconciliation)
+  useEffect(() => {
+    if (inputRef.current && inputRef.current.value !== color) {
+      inputRef.current.value = color;
+    }
+  }, [color]);
+
+  return (
+    <div
+      className="relative h-9 w-12 shrink-0 cursor-pointer rounded-lg border border-[var(--border)] overflow-hidden"
+      title={title}
+    >
+      {/* Visual preview — React only updates the inline style */}
+      <div className="absolute inset-0" style={{ backgroundColor: color }} />
+      {/* Hidden native picker — uncontrolled so React never reconciles it */}
+      <input
+        ref={inputRef}
+        type="color"
+        defaultValue={color}
+        onChange={(e) => onChange(e.target.value)}
+        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        tabIndex={-1}
+      />
+    </div>
+  );
+}
+
 export default function EditPartyPage({ params }: PageProps) {
   const { code } = use(params);
 
@@ -42,9 +86,6 @@ export default function EditPartyPage({ params }: PageProps) {
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [form, setForm] = useState<Record<string, string>>({});
-  // Increment after each save to force-remount form DOM nodes (avoids
-  // browser <input type="color"> interfering with React reconciliation)
-  const [formKey, setFormKey] = useState(0);
   const [socialAccounts, setSocialAccounts] = useState<
     { platform: string; url: string }[] | null
   >(null);
@@ -131,13 +172,11 @@ export default function EditPartyPage({ params }: PageProps) {
           updates[key] = value;
         }
       }
-      // Always include social accounts if modified
       if (socialAccounts !== null) {
         updates.socialAccounts = socialAccounts.filter(
           (s) => s.platform && s.url
         );
       }
-      // Always include wikipedia urls if modified
       if (wikipediaUrls !== null) {
         updates.wikipediaUrls = wikipediaUrls.filter(
           (w) => w.language && w.url
@@ -149,14 +188,10 @@ export default function EditPartyPage({ params }: PageProps) {
           ...updates,
         });
       }
-      // Clear local overrides — Convex reactive query now has the
-      // authoritative data.  Bumping formKey forces React to remount
-      // the form DOM (incl. native <input type="color"> widgets) so
-      // React never tries to reconcile a stale DOM tree.
+      // Clear local overrides so Convex reactive query is authoritative
       setForm({});
       setSocialAccounts(null);
       setWikipediaUrls(null);
-      setFormKey((k) => k + 1);
 
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -168,6 +203,14 @@ export default function EditPartyPage({ params }: PageProps) {
       setSaving(false);
     }
   }
+
+  /* ---------------------------------------------------------------- */
+  /*  IMPORTANT: Every section below uses CSS visibility toggling      */
+  /*  (hidden class) instead of conditional React rendering.           */
+  /*  This prevents React from calling insertBefore() to add/remove    */
+  /*  DOM nodes, which fails when browser extensions have modified      */
+  /*  the DOM tree outside of React's control.                         */
+  /* ---------------------------------------------------------------- */
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -187,26 +230,26 @@ export default function EditPartyPage({ params }: PageProps) {
             {party.fullName}
           </p>
         </div>
+        {/* Save button — all states always rendered, toggled via CSS */}
         <button
           onClick={handleSave}
           disabled={saving}
           className="flex items-center gap-2 rounded-lg bg-[var(--foreground)] px-4 py-2 text-sm font-medium text-[var(--background)] transition-opacity hover:opacity-90 disabled:opacity-50"
         >
-          {saved ? (
-            <Check className="h-4 w-4" />
-          ) : (
-            <Save className="h-4 w-4" />
-          )}
-          {saving ? "Saving..." : saved ? "Saved!" : "Save Changes"}
+          <Check className={`h-4 w-4 ${saved ? "" : "hidden"}`} />
+          <Save className={`h-4 w-4 ${saved ? "hidden" : ""}`} />
+          <span className={saving ? "" : "hidden"}>Saving...</span>
+          <span className={!saving && saved ? "" : "hidden"}>Saved!</span>
+          <span className={!saving && !saved ? "" : "hidden"}>Save Changes</span>
         </button>
       </div>
 
-      {/* Error banner */}
-      {saveError && (
-        <div className="rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-400">
-          <strong>Error:</strong> {saveError}
-        </div>
-      )}
+      {/* Error banner — always rendered, hidden when no error */}
+      <div
+        className={`rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-400 ${saveError ? "" : "hidden"}`}
+      >
+        <strong>Error:</strong> {saveError}
+      </div>
 
       {/* Logo upload */}
       <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
@@ -222,9 +265,8 @@ export default function EditPartyPage({ params }: PageProps) {
         />
       </div>
 
-      {/* Party form — key forces full DOM remount after save to avoid
-          insertBefore errors from native <input type="color"> widgets */}
-      <div key={`party-form-${formKey}`} className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-4">
+      {/* Party form */}
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-4">
         <h2 className="text-sm font-semibold text-[var(--foreground)]">
           Party Information
         </h2>
@@ -281,11 +323,9 @@ export default function EditPartyPage({ params }: PageProps) {
                 placeholder="#FF0000"
                 className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
               />
-              <input
-                type="color"
-                value={getFieldValue("color") || "#888888"}
-                onChange={(e) => setField("color", e.target.value)}
-                className="h-9 w-12 shrink-0 cursor-pointer rounded-lg border border-[var(--border)] bg-[var(--background)] p-0.5"
+              <ColorPickerSwatch
+                color={getFieldValue("color") || "#888888"}
+                onChange={(c) => setField("color", c)}
                 title="Pick a color"
               />
             </div>
@@ -304,11 +344,9 @@ export default function EditPartyPage({ params }: PageProps) {
                 placeholder="#FF0000"
                 className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
               />
-              <input
-                type="color"
-                value={getFieldValue("secondaryColor") || getFieldValue("color") || "#888888"}
-                onChange={(e) => setField("secondaryColor", e.target.value)}
-                className="h-9 w-12 shrink-0 cursor-pointer rounded-lg border border-[var(--border)] bg-[var(--background)] p-0.5"
+              <ColorPickerSwatch
+                color={getFieldValue("secondaryColor") || getFieldValue("color") || "#888888"}
+                onChange={(c) => setField("secondaryColor", c)}
                 title="Pick secondary color"
               />
             </div>
@@ -345,105 +383,100 @@ export default function EditPartyPage({ params }: PageProps) {
           </button>
         </div>
 
-        {/* Add Wikipedia URL form */}
-        {showAddWiki && (
-          <div className="rounded-lg border border-dashed border-[var(--border)] bg-[var(--muted)]/30 p-4 space-y-3">
-            <h3 className="text-xs font-semibold text-[var(--foreground)]">
-              New Wikipedia Link
-            </h3>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div>
-                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
-                  Language
-                </label>
-                <CustomSelect
-                  value={newWiki.language}
-                  onChange={(v) =>
-                    setNewWiki({ ...newWiki, language: v })
-                  }
-                  options={WIKIPEDIA_LANGUAGES.map((l) => ({
-                    value: l.value,
-                    label: `${l.label} (${l.value})`,
-                  }))}
-                  size="sm"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
-                  URL
-                </label>
-                <input
-                  value={newWiki.url}
-                  onChange={(e) =>
-                    setNewWiki({ ...newWiki, url: e.target.value })
-                  }
-                  placeholder={`https://${newWiki.language}.wikipedia.org/wiki/...`}
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                />
-              </div>
+        {/* Add Wikipedia URL form — always rendered, toggled via CSS */}
+        <div className={`rounded-lg border border-dashed border-[var(--border)] bg-[var(--muted)]/30 p-4 space-y-3 ${showAddWiki ? "" : "hidden"}`}>
+          <h3 className="text-xs font-semibold text-[var(--foreground)]">
+            New Wikipedia Link
+          </h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                Language
+              </label>
+              <CustomSelect
+                value={newWiki.language}
+                onChange={(v) =>
+                  setNewWiki({ ...newWiki, language: v })
+                }
+                options={WIKIPEDIA_LANGUAGES.map((l) => ({
+                  value: l.value,
+                  label: `${l.label} (${l.value})`,
+                }))}
+                size="sm"
+              />
             </div>
-            <div className="flex gap-2 pt-1">
-              <button
-                onClick={addWikipediaUrl}
-                disabled={!newWiki.url}
-                className="rounded-lg bg-[var(--foreground)] px-3 py-1.5 text-xs font-medium text-[var(--background)] disabled:opacity-50"
-              >
-                Add Wikipedia Link
-              </button>
-              <button
-                onClick={() => setShowAddWiki(false)}
-                className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)]"
-              >
-                Cancel
-              </button>
+            <div>
+              <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                URL
+              </label>
+              <input
+                value={newWiki.url}
+                onChange={(e) =>
+                  setNewWiki({ ...newWiki, url: e.target.value })
+                }
+                placeholder={`https://${newWiki.language}.wikipedia.org/wiki/...`}
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
+              />
             </div>
           </div>
-        )}
+          <div className="flex gap-2 pt-1">
+            <button
+              onClick={addWikipediaUrl}
+              disabled={!newWiki.url}
+              className="rounded-lg bg-[var(--foreground)] px-3 py-1.5 text-xs font-medium text-[var(--background)] disabled:opacity-50"
+            >
+              Add Wikipedia Link
+            </button>
+            <button
+              onClick={() => setShowAddWiki(false)}
+              className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)]"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
 
-        {/* Existing Wikipedia URLs */}
-        {currentWikipediaUrls.length === 0 ? (
-          <p className="text-xs text-[var(--muted-foreground)] italic">
-            No Wikipedia links added yet.
-          </p>
-        ) : (
-          <div className="space-y-2">
-            {currentWikipediaUrls.map((wiki, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
-              >
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--muted)] text-[10px] font-bold text-[var(--muted-foreground)] uppercase">
-                  {wiki.language}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-[var(--foreground)]">
-                    Wikipedia ({getLanguageLabel(wiki.language)})
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)] truncate">
-                    {wiki.url}
-                  </p>
-                </div>
-                <a
-                  href={wiki.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-                <button
-                  onClick={() => removeWikipediaUrl(index)}
-                  className="text-[var(--muted-foreground)] hover:text-red-500"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
+        {/* Existing Wikipedia URLs — both states always rendered, toggled via CSS */}
+        <p className={`text-xs text-[var(--muted-foreground)] italic ${currentWikipediaUrls.length === 0 ? "" : "hidden"}`}>
+          No Wikipedia links added yet.
+        </p>
+        <div className={`space-y-2 ${currentWikipediaUrls.length === 0 ? "hidden" : ""}`}>
+          {currentWikipediaUrls.map((wiki, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
+            >
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--muted)] text-[10px] font-bold text-[var(--muted-foreground)] uppercase">
+                {wiki.language}
               </div>
-            ))}
-          </div>
-        )}
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-medium text-[var(--foreground)]">
+                  Wikipedia ({getLanguageLabel(wiki.language)})
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)] truncate">
+                  {wiki.url}
+                </p>
+              </div>
+              <a
+                href={wiki.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+              <button
+                onClick={() => removeWikipediaUrl(index)}
+                className="text-[var(--muted-foreground)] hover:text-red-500"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Social accounts — dropdown-based like politicians */}
+      {/* Social accounts */}
       <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-[var(--foreground)]">
@@ -458,98 +491,93 @@ export default function EditPartyPage({ params }: PageProps) {
           </button>
         </div>
 
-        {/* Add social account form */}
-        {showAddSocial && (
-          <div className="rounded-lg border border-dashed border-[var(--border)] bg-[var(--muted)]/30 p-4 space-y-3">
-            <h3 className="text-xs font-semibold text-[var(--foreground)]">
-              New Social Account
-            </h3>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div>
-                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
-                  Platform
-                </label>
-                <CustomSelect
-                  value={newSocial.platform}
-                  onChange={(v) =>
-                    setNewSocial({ ...newSocial, platform: v })
-                  }
-                  options={SOCIAL_PLATFORMS.map((p) => ({ value: p.value, label: p.label }))}
-                  size="sm"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
-                  URL
-                </label>
-                <input
-                  value={newSocial.url}
-                  onChange={(e) =>
-                    setNewSocial({ ...newSocial, url: e.target.value })
-                  }
-                  placeholder={
-                    SOCIAL_PLATFORMS.find((p) => p.value === newSocial.platform)?.prefix || "https://..."
-                  }
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
-                />
-              </div>
+        {/* Add social account form — always rendered, toggled via CSS */}
+        <div className={`rounded-lg border border-dashed border-[var(--border)] bg-[var(--muted)]/30 p-4 space-y-3 ${showAddSocial ? "" : "hidden"}`}>
+          <h3 className="text-xs font-semibold text-[var(--foreground)]">
+            New Social Account
+          </h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                Platform
+              </label>
+              <CustomSelect
+                value={newSocial.platform}
+                onChange={(v) =>
+                  setNewSocial({ ...newSocial, platform: v })
+                }
+                options={SOCIAL_PLATFORMS.map((p) => ({ value: p.value, label: p.label }))}
+                size="sm"
+              />
             </div>
-            <div className="flex gap-2 pt-1">
-              <button
-                onClick={addSocialAccount}
-                disabled={!newSocial.url}
-                className="rounded-lg bg-[var(--foreground)] px-3 py-1.5 text-xs font-medium text-[var(--background)] disabled:opacity-50"
-              >
-                Add Account
-              </button>
-              <button
-                onClick={() => setShowAddSocial(false)}
-                className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)]"
-              >
-                Cancel
-              </button>
+            <div>
+              <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                URL
+              </label>
+              <input
+                value={newSocial.url}
+                onChange={(e) =>
+                  setNewSocial({ ...newSocial, url: e.target.value })
+                }
+                placeholder={
+                  SOCIAL_PLATFORMS.find((p) => p.value === newSocial.platform)?.prefix || "https://..."
+                }
+                className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-2 py-1.5 text-xs focus:outline-none"
+              />
             </div>
           </div>
-        )}
+          <div className="flex gap-2 pt-1">
+            <button
+              onClick={addSocialAccount}
+              disabled={!newSocial.url}
+              className="rounded-lg bg-[var(--foreground)] px-3 py-1.5 text-xs font-medium text-[var(--background)] disabled:opacity-50"
+            >
+              Add Account
+            </button>
+            <button
+              onClick={() => setShowAddSocial(false)}
+              className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium text-[var(--muted-foreground)]"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
 
-        {/* Existing social accounts */}
-        {currentSocials.length === 0 ? (
-          <p className="text-xs text-[var(--muted-foreground)] italic">
-            No social accounts linked yet.
-          </p>
-        ) : (
-          <div className="space-y-2">
-            {currentSocials.map((social, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
-              >
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-[var(--foreground)]">
-                    {getPlatformLabel(social.platform)}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)] truncate">
-                    {social.url}
-                  </p>
-                </div>
-                <a
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-                <button
-                  onClick={() => removeSocialAccount(index)}
-                  className="text-[var(--muted-foreground)] hover:text-red-500"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
+        {/* Existing social accounts — both states always rendered, toggled via CSS */}
+        <p className={`text-xs text-[var(--muted-foreground)] italic ${currentSocials.length === 0 ? "" : "hidden"}`}>
+          No social accounts linked yet.
+        </p>
+        <div className={`space-y-2 ${currentSocials.length === 0 ? "hidden" : ""}`}>
+          {currentSocials.map((social, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-medium text-[var(--foreground)]">
+                  {getPlatformLabel(social.platform)}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)] truncate">
+                  {social.url}
+                </p>
               </div>
-            ))}
-          </div>
-        )}
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+              <button
+                onClick={() => removeSocialAccount(index)}
+                className="text-[var(--muted-foreground)] hover:text-red-500"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

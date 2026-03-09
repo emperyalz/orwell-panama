@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 export default function PartyEditError({
@@ -10,9 +10,23 @@ export default function PartyEditError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const retryCount = useRef(0);
+
   useEffect(() => {
     console.error("Party edit page error:", error);
-  }, [error]);
+
+    // Auto-recover from insertBefore DOM errors (caused by browser
+    // extensions modifying the DOM outside of React's control).
+    // Retry up to 2 times — the fresh mount usually succeeds because
+    // the DOM is in a clean state after the error boundary catches.
+    if (
+      error?.message?.includes("insertBefore") &&
+      retryCount.current < 2
+    ) {
+      retryCount.current += 1;
+      reset();
+    }
+  }, [error, reset]);
 
   return (
     <div className="mx-auto max-w-xl space-y-6 py-12 px-4">
