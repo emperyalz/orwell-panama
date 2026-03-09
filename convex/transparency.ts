@@ -58,6 +58,66 @@ export const upsertTransparency = mutation({
   },
 });
 
+/** Patch extracted document data onto an existing transparency record */
+export const upsertExtractedDocuments = mutation({
+  args: {
+    politicianId: v.id("politicians"),
+    extractedPropuesta: v.optional(v.any()),
+    extractedIntereses: v.optional(v.any()),
+    extractedPatrimonio: v.optional(v.any()),
+    extractionStatus: v.optional(
+      v.object({
+        propuesta: v.optional(
+          v.object({
+            status: v.string(),
+            extractedAt: v.optional(v.number()),
+            error: v.optional(v.string()),
+          })
+        ),
+        intereses: v.optional(
+          v.object({
+            status: v.string(),
+            extractedAt: v.optional(v.number()),
+            error: v.optional(v.string()),
+          })
+        ),
+        patrimonio: v.optional(
+          v.object({
+            status: v.string(),
+            extractedAt: v.optional(v.number()),
+            error: v.optional(v.string()),
+          })
+        ),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("deputyTransparency")
+      .withIndex("by_politicianId", (q) =>
+        q.eq("politicianId", args.politicianId)
+      )
+      .first();
+
+    if (!existing) {
+      return { action: "not_found", id: null };
+    }
+
+    const patch: Record<string, any> = { updatedAt: Date.now() };
+    if (args.extractedPropuesta !== undefined)
+      patch.extractedPropuesta = args.extractedPropuesta;
+    if (args.extractedIntereses !== undefined)
+      patch.extractedIntereses = args.extractedIntereses;
+    if (args.extractedPatrimonio !== undefined)
+      patch.extractedPatrimonio = args.extractedPatrimonio;
+    if (args.extractionStatus !== undefined)
+      patch.extractionStatus = args.extractionStatus;
+
+    await ctx.db.patch(existing._id, patch);
+    return { action: "updated", id: existing._id };
+  },
+});
+
 /** Get transparency data for a specific politician */
 export const getByPoliticianId = query({
   args: { politicianId: v.id("politicians") },

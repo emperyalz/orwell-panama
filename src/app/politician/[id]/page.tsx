@@ -20,6 +20,9 @@ import { RecentVotes } from "@/components/politician-detail/dashboard/RecentVote
 import { TransparencyScorecard } from "@/components/politician-detail/dashboard/TransparencyScorecard";
 import { CommissionsCard } from "@/components/politician-detail/dashboard/CommissionsCard";
 import { TransparencyDetails } from "@/components/politician-detail/dashboard/TransparencyDetails";
+import { PolicyProposalCard } from "@/components/politician-detail/dashboard/PolicyProposalCard";
+import { DeclaracionInteresesCard } from "@/components/politician-detail/dashboard/DeclaracionInteresesCard";
+import { DeclaracionPatrimonioCard } from "@/components/politician-detail/dashboard/DeclaracionPatrimonioCard";
 import { normalizePartyCode, PARTY_LABELS } from "@/lib/constants";
 import type { Politician } from "@/lib/types";
 import type { Metadata } from "next";
@@ -150,6 +153,29 @@ export default async function PoliticianPage({ params }: PageProps) {
                     />
                   )}
               </div>
+              {/* Extracted Document KPIs */}
+              {dashboard!.transparency.extractedPropuesta && (
+                <PolicyProposalCard
+                  data={dashboard!.transparency.extractedPropuesta}
+                  partyCode={dashboard!.profile.partyCode}
+                  pdfUrl={dashboard!.transparency.documents?.propuestaPoliticaUrl}
+                />
+              )}
+              {dashboard!.transparency.extractedIntereses && (
+                <DeclaracionInteresesCard
+                  data={dashboard!.transparency.extractedIntereses}
+                  partyCode={dashboard!.profile.partyCode}
+                  pdfUrl={dashboard!.transparency.documents?.declaracionInteresesUrl}
+                />
+              )}
+              {dashboard!.transparency.extractedPatrimonio && (
+                <DeclaracionPatrimonioCard
+                  data={dashboard!.transparency.extractedPatrimonio}
+                  partyCode={dashboard!.profile.partyCode}
+                  pdfUrl={dashboard!.transparency.documents?.declaracionPatrimonioUrl}
+                />
+              )}
+
               <TransparencyDetails
                 suplente={dashboard!.transparency.suplente}
                 planillaTotal={dashboard!.transparency.planillaTotal}

@@ -413,6 +413,36 @@ export default defineSchema({
     // Whether deputy filed voluntary declarations
     voluntaryDeclarations: v.optional(v.boolean()),
 
+    // AI-extracted structured data from PDF documents
+    extractedPropuesta: v.optional(v.any()), // Policy proposal structured data
+    extractedIntereses: v.optional(v.any()), // Declaration of interests structured data
+    extractedPatrimonio: v.optional(v.any()), // Asset declaration structured data
+    extractionStatus: v.optional(
+      v.object({
+        propuesta: v.optional(
+          v.object({
+            status: v.string(), // "success" | "error" | "no_document"
+            extractedAt: v.optional(v.number()),
+            error: v.optional(v.string()),
+          })
+        ),
+        intereses: v.optional(
+          v.object({
+            status: v.string(),
+            extractedAt: v.optional(v.number()),
+            error: v.optional(v.string()),
+          })
+        ),
+        patrimonio: v.optional(
+          v.object({
+            status: v.string(),
+            extractedAt: v.optional(v.number()),
+            error: v.optional(v.string()),
+          })
+        ),
+      })
+    ),
+
     createdAt: v.number(),
     updatedAt: v.number(),
   })

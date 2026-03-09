@@ -156,6 +156,94 @@ export interface DeputyDashboard {
   chamberStats: ChamberStats;
 }
 
+// ─── Extracted Document Types ────────────────────────────────────────────────
+
+export interface ExtractedPropuesta {
+  resumenEjecutivo: string;
+  areasEstrategicas: { area: string; propuestas: string[] }[];
+  promesasClave: string[];
+  gruposBeneficiarios: string[];
+  temasPrioritarios: string[];
+  presupuestoMencionado: string | null;
+  tieneIndicadores: boolean;
+  indicadores: string[];
+}
+
+export interface ActividadComercial {
+  empresa: string;
+  cargo: string;
+  tipo: string; // "Privada" | "Pública" | "Mixta" | "ONG" | "Otro"
+}
+
+export interface Membresia {
+  organizacion: string;
+  cargo: string;
+}
+
+export interface FuenteIngreso {
+  fuente: string;
+  tipo: string; // "Salario" | "Honorarios" | "Inversiones" | "Alquiler" | "Otro"
+}
+
+export interface ParienteEnGobierno {
+  nombre: string;
+  cargo: string;
+  relacion: string;
+}
+
+export interface ExtractedIntereses {
+  actividadesComerciales: ActividadComercial[];
+  membresias: Membresia[];
+  fuentesIngreso: FuenteIngreso[];
+  conflictosDeclarados: string[];
+  parientesEnGobierno: ParienteEnGobierno[];
+  totalEmpresas: number;
+  totalMembresias: number;
+  totalFuentesIngreso: number;
+}
+
+export interface BienInmueble {
+  descripcion: string;
+  ubicacion: string;
+  valorEstimado: string;
+}
+
+export interface Vehiculo {
+  descripcion: string;
+  valorEstimado: string;
+}
+
+export interface CuentaBancaria {
+  banco: string;
+  tipo: string;
+  montoAproximado: string;
+}
+
+export interface Inversion {
+  tipo: string;
+  descripcion: string;
+  valorEstimado: string;
+}
+
+export interface Deuda {
+  acreedor: string;
+  tipo: string;
+  montoAproximado: string;
+}
+
+export interface ExtractedPatrimonio {
+  bienesInmuebles: BienInmueble[];
+  vehiculos: Vehiculo[];
+  cuentasBancarias: CuentaBancaria[];
+  inversiones: Inversion[];
+  deudas: Deuda[];
+  patrimonioNeto: string | null;
+  totalInmuebles: number;
+  totalVehiculos: number;
+  totalCuentas: number;
+  totalDeudas: number;
+}
+
 export type SortOption =
   | "rank"
   | "firstName_asc"

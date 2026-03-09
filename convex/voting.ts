@@ -125,6 +125,9 @@ export const getDeputyDashboard = query({
             documents: transparency.documents,
             voluntaryDeclarations: transparency.voluntaryDeclarations,
             espacioCivicoUrl: transparency.espacioCivicoUrl,
+            extractedPropuesta: transparency.extractedPropuesta,
+            extractedIntereses: transparency.extractedIntereses,
+            extractedPatrimonio: transparency.extractedPatrimonio,
           }
         : null,
       recentVotes,
