@@ -22,6 +22,7 @@ import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { createRequire } from "module";
 import Anthropic from "@anthropic-ai/sdk";
+import { PDFDocument } from "pdf-lib";
 
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
@@ -93,6 +94,97 @@ async function extractTextFromPdf(pdfBuffer) {
   } catch {
     return "";
   }
+}
+
+// ─── PDF Splitting (for oversized scanned PDFs) ─────────────────────────────
+
+/**
+ * Split a large PDF into smaller chunks that stay under the Claude base64 limit.
+ * Each chunk targets ~18MB raw so base64 encoding stays under 25MB.
+ */
+async function splitPdfIntoChunks(pdfBuffer) {
+  const srcDoc = await PDFDocument.load(pdfBuffer);
+  const totalPages = srcDoc.getPageCount();
+  const avgPageSize = pdfBuffer.length / totalPages;
+
+  // Target 18MB raw per chunk (~24MB base64, safely under 25MB)
+  const maxRawPerChunk = 18 * 1024 * 1024;
+  const pagesPerChunk = Math.max(1, Math.floor(maxRawPerChunk / avgPageSize));
+
+  console.log(
+    `\n    📄 Splitting ${totalPages} pages (avg ${(avgPageSize / 1024).toFixed(0)}KB/page) into chunks of ${pagesPerChunk} pages`
+  );
+
+  const chunks = [];
+  for (let start = 0; start < totalPages; start += pagesPerChunk) {
+    const end = Math.min(start + pagesPerChunk, totalPages);
+    const chunkDoc = await PDFDocument.create();
+    const pageIndices = Array.from({ length: end - start }, (_, i) => start + i);
+    const copiedPages = await chunkDoc.copyPages(srcDoc, pageIndices);
+    for (const page of copiedPages) {
+      chunkDoc.addPage(page);
+    }
+    const chunkBytes = await chunkDoc.save();
+    chunks.push(Buffer.from(chunkBytes));
+  }
+
+  console.log(`    📄 Created ${chunks.length} chunks: ${chunks.map((c) => `${(c.length / 1024 / 1024).toFixed(1)}MB`).join(", ")}`);
+  return chunks;
+}
+
+/**
+ * Merge extraction results from multiple PDF chunks.
+ * Each doc type has different array fields to concatenate.
+ */
+function mergeChunkResults(chunkResults, docType) {
+  if (chunkResults.length === 0) throw new Error("No chunk results to merge");
+  if (chunkResults.length === 1) return chunkResults[0];
+
+  if (docType === "patrimonio") {
+    const merged = {
+      bienesInmuebles: chunkResults.flatMap((c) => c.bienesInmuebles || []),
+      vehiculos: chunkResults.flatMap((c) => c.vehiculos || []),
+      cuentasBancarias: chunkResults.flatMap((c) => c.cuentasBancarias || []),
+      inversiones: chunkResults.flatMap((c) => c.inversiones || []),
+      deudas: chunkResults.flatMap((c) => c.deudas || []),
+      patrimonioNeto: chunkResults.reduce((acc, c) => c.patrimonioNeto || acc, null),
+    };
+    merged.totalInmuebles = merged.bienesInmuebles.length;
+    merged.totalVehiculos = merged.vehiculos.length;
+    merged.totalCuentas = merged.cuentasBancarias.length;
+    merged.totalDeudas = merged.deudas.length;
+    return merged;
+  }
+
+  if (docType === "intereses") {
+    const merged = {
+      actividadesComerciales: chunkResults.flatMap((c) => c.actividadesComerciales || []),
+      membresias: chunkResults.flatMap((c) => c.membresias || []),
+      fuentesIngreso: chunkResults.flatMap((c) => c.fuentesIngreso || []),
+      conflictosDeclarados: chunkResults.flatMap((c) => c.conflictosDeclarados || []),
+      parientesEnGobierno: chunkResults.flatMap((c) => c.parientesEnGobierno || []),
+    };
+    merged.totalEmpresas = merged.actividadesComerciales.length;
+    merged.totalMembresias = merged.membresias.length;
+    merged.totalFuentesIngreso = merged.fuentesIngreso.length;
+    return merged;
+  }
+
+  if (docType === "propuesta") {
+    return {
+      resumenEjecutivo: chunkResults.find((c) => c.resumenEjecutivo)?.resumenEjecutivo || "",
+      areasEstrategicas: chunkResults.flatMap((c) => c.areasEstrategicas || []),
+      promesasClave: chunkResults.flatMap((c) => c.promesasClave || []),
+      gruposBeneficiarios: [...new Set(chunkResults.flatMap((c) => c.gruposBeneficiarios || []))],
+      temasPrioritarios: [...new Set(chunkResults.flatMap((c) => c.temasPrioritarios || []))],
+      presupuestoMencionado: chunkResults.find((c) => c.presupuestoMencionado)?.presupuestoMencionado || null,
+      tieneIndicadores: chunkResults.some((c) => c.tieneIndicadores),
+      indicadores: chunkResults.flatMap((c) => c.indicadores || []),
+    };
+  }
+
+  // Fallback: return first result
+  return chunkResults[0];
 }
 
 // ─── Claude AI Extraction ────────────────────────────────────────────────────
@@ -251,10 +343,55 @@ async function extractWithClaude(pdfText, pdfBuffer, docType, deputyName) {
       if (useVision) {
         // Send PDF as base64 document for Claude to read (scanned/image PDF)
         const base64Pdf = pdfBuffer.toString("base64");
-        // Max 25MB for base64
+
+        // If base64 exceeds 25MB, split into chunks and process separately
         if (base64Pdf.length > 25 * 1024 * 1024) {
-          throw new Error("PDF too large for vision API (>25MB)");
+          process.stdout.write(` → splitting oversized PDF (${(pdfBuffer.length / 1024 / 1024).toFixed(1)}MB)...`);
+          const chunks = await splitPdfIntoChunks(pdfBuffer);
+          const chunkResults = [];
+
+          for (let ci = 0; ci < chunks.length; ci++) {
+            const chunkBase64 = chunks[ci].toString("base64");
+            if (chunkBase64.length > 25 * 1024 * 1024) {
+              console.warn(`\n    ⚠️  Chunk ${ci + 1}/${chunks.length} still too large (${(chunkBase64.length / 1024 / 1024).toFixed(1)}MB base64), skipping`);
+              continue;
+            }
+            process.stdout.write(`\n    📄 Chunk ${ci + 1}/${chunks.length}...`);
+            const chunkResponse = await anthropic.messages.create({
+              model: MODEL,
+              max_tokens: 4096,
+              messages: [{
+                role: "user",
+                content: [
+                  {
+                    type: "document",
+                    source: { type: "base64", media_type: "application/pdf", data: chunkBase64 },
+                  },
+                  {
+                    type: "text",
+                    text: `${prompt}\n\nThe above is page chunk ${ci + 1} of ${chunks.length} of the PDF document for deputy ${deputyName}. Extract the structured data from this chunk.`,
+                  },
+                ],
+              }],
+            });
+            const chunkText = chunkResponse.content[0]?.text || "";
+            const chunkJson = chunkText.replace(/^```json?\n?/, "").replace(/\n?```$/, "").trim();
+            try {
+              chunkResults.push(JSON.parse(chunkJson));
+              process.stdout.write(" ✅");
+            } catch {
+              process.stdout.write(" ⚠️ (parse error, skipping chunk)");
+            }
+            // Rate limit between chunks
+            await sleep(1500);
+          }
+
+          if (chunkResults.length === 0) {
+            throw new Error("All chunks failed to extract");
+          }
+          return mergeChunkResults(chunkResults, docType);
         }
+
         messages = [
           {
             role: "user",
@@ -428,19 +565,8 @@ async function main() {
           process.stdout.write(` (${pdfText.length} chars)`);
         }
 
-        // Skip very large PDFs for vision mode (>20MB = too costly)
-        if (isScanned && pdfBuffer.length > 20 * 1024 * 1024) {
-          console.log(` ⚠️ scanned PDF too large for vision (${(pdfBuffer.length / 1024 / 1024).toFixed(1)}MB)`);
-          results[slug][key] = {
-            status: "error",
-            error: "Scanned PDF too large for vision API",
-            pdfUrl: url,
-          };
-          stats[key].error++;
-          continue;
-        }
-
         // AI extraction — uses text or vision depending on PDF type
+        // (large scanned PDFs are automatically split into chunks)
         process.stdout.write(" → Claude extraction...");
         const extracted = await extractWithClaude(pdfText, pdfBuffer, key, dep.name);
         console.log(" ✅");
