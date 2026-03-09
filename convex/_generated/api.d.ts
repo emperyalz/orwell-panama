@@ -12,6 +12,8 @@ import type * as accounts from "../accounts.js";
 import type * as computeAnalytics from "../computeAnalytics.js";
 import type * as documentExtraction from "../documentExtraction.js";
 import type * as documentExtractionHelpers from "../documentExtractionHelpers.js";
+import type * as documentStorage from "../documentStorage.js";
+import type * as documentStorageHelpers from "../documentStorageHelpers.js";
 import type * as featuredVideos from "../featuredVideos.js";
 import type * as mediaSources from "../mediaSources.js";
 import type * as migrations from "../migrations.js";
@@ -35,6 +37,8 @@ declare const fullApi: ApiFromModules<{
   computeAnalytics: typeof computeAnalytics;
   documentExtraction: typeof documentExtraction;
   documentExtractionHelpers: typeof documentExtractionHelpers;
+  documentStorage: typeof documentStorage;
+  documentStorageHelpers: typeof documentStorageHelpers;
   featuredVideos: typeof featuredVideos;
   mediaSources: typeof mediaSources;
   migrations: typeof migrations;

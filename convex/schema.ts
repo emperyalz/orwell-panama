@@ -400,13 +400,23 @@ export default defineSchema({
       })
     ),
 
-    // Document URLs
+    // Document URLs (external) + Convex storage references (self-hosted)
     documents: v.optional(
       v.object({
+        // External URLs (original source from espaciocivico.org)
         cvUrl: v.optional(v.string()),
         propuestaPoliticaUrl: v.optional(v.string()),
         declaracionInteresesUrl: v.optional(v.string()),
         declaracionPatrimonioUrl: v.optional(v.string()),
+        // Convex storage — self-hosted copies of the PDFs
+        cvStorageId: v.optional(v.id("_storage")),
+        cvLocalUrl: v.optional(v.string()),
+        propuestaPoliticaStorageId: v.optional(v.id("_storage")),
+        propuestaPoliticaLocalUrl: v.optional(v.string()),
+        declaracionInteresesStorageId: v.optional(v.id("_storage")),
+        declaracionInteresesLocalUrl: v.optional(v.string()),
+        declaracionPatrimonioStorageId: v.optional(v.id("_storage")),
+        declaracionPatrimonioLocalUrl: v.optional(v.string()),
       })
     ),
 

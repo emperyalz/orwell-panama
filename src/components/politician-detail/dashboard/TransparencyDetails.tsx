@@ -5,6 +5,11 @@ interface TransparencyDocument {
   propuestaPoliticaUrl?: string;
   declaracionInteresesUrl?: string;
   declaracionPatrimonioUrl?: string;
+  // Self-hosted Convex storage URLs (preferred over external)
+  cvLocalUrl?: string;
+  propuestaPoliticaLocalUrl?: string;
+  declaracionInteresesLocalUrl?: string;
+  declaracionPatrimonioLocalUrl?: string;
 }
 
 interface TransparencyDetailsProps {
@@ -42,10 +47,10 @@ export function TransparencyDetails({
 }: TransparencyDetailsProps) {
   const hasDocuments =
     documents &&
-    (documents.cvUrl ||
-      documents.propuestaPoliticaUrl ||
-      documents.declaracionInteresesUrl ||
-      documents.declaracionPatrimonioUrl);
+    (documents.cvLocalUrl || documents.cvUrl ||
+      documents.propuestaPoliticaLocalUrl || documents.propuestaPoliticaUrl ||
+      documents.declaracionInteresesLocalUrl || documents.declaracionInteresesUrl ||
+      documents.declaracionPatrimonioLocalUrl || documents.declaracionPatrimonioUrl);
 
   return (
     <div className="space-y-4">
@@ -87,26 +92,26 @@ export function TransparencyDetails({
             Documentos Públicos
           </p>
           <div className="flex flex-wrap gap-2">
-            {documents?.cvUrl && (
-              <DocLink href={documents.cvUrl} label="CV" icon="📄" />
+            {(documents?.cvLocalUrl || documents?.cvUrl) && (
+              <DocLink href={documents.cvLocalUrl || documents.cvUrl!} label="CV" icon="📄" />
             )}
-            {documents?.propuestaPoliticaUrl && (
+            {(documents?.propuestaPoliticaLocalUrl || documents?.propuestaPoliticaUrl) && (
               <DocLink
-                href={documents.propuestaPoliticaUrl}
+                href={documents.propuestaPoliticaLocalUrl || documents.propuestaPoliticaUrl!}
                 label="Propuesta Política"
                 icon="📋"
               />
             )}
-            {documents?.declaracionInteresesUrl && (
+            {(documents?.declaracionInteresesLocalUrl || documents?.declaracionInteresesUrl) && (
               <DocLink
-                href={documents.declaracionInteresesUrl}
+                href={documents.declaracionInteresesLocalUrl || documents.declaracionInteresesUrl!}
                 label="Declaración de Intereses"
                 icon="📊"
               />
             )}
-            {documents?.declaracionPatrimonioUrl && (
+            {(documents?.declaracionPatrimonioLocalUrl || documents?.declaracionPatrimonioUrl) && (
               <DocLink
-                href={documents.declaracionPatrimonioUrl}
+                href={documents.declaracionPatrimonioLocalUrl || documents.declaracionPatrimonioUrl!}
                 label="Declaración Patrimonial"
                 icon="💰"
               />
