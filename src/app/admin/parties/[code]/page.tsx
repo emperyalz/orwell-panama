@@ -42,6 +42,9 @@ export default function EditPartyPage({ params }: PageProps) {
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [form, setForm] = useState<Record<string, string>>({});
+  // Increment after each save to force-remount form DOM nodes (avoids
+  // browser <input type="color"> interfering with React reconciliation)
+  const [formKey, setFormKey] = useState(0);
   const [socialAccounts, setSocialAccounts] = useState<
     { platform: string; url: string }[] | null
   >(null);
@@ -146,6 +149,15 @@ export default function EditPartyPage({ params }: PageProps) {
           ...updates,
         });
       }
+      // Clear local overrides — Convex reactive query now has the
+      // authoritative data.  Bumping formKey forces React to remount
+      // the form DOM (incl. native <input type="color"> widgets) so
+      // React never tries to reconcile a stale DOM tree.
+      setForm({});
+      setSocialAccounts(null);
+      setWikipediaUrls(null);
+      setFormKey((k) => k + 1);
+
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (err: any) {
@@ -210,8 +222,9 @@ export default function EditPartyPage({ params }: PageProps) {
         />
       </div>
 
-      {/* Party form */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-4">
+      {/* Party form — key forces full DOM remount after save to avoid
+          insertBefore errors from native <input type="color"> widgets */}
+      <div key={`party-form-${formKey}`} className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-4">
         <h2 className="text-sm font-semibold text-[var(--foreground)]">
           Party Information
         </h2>
