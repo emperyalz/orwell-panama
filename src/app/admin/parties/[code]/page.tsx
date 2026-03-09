@@ -40,6 +40,7 @@ export default function EditPartyPage({ params }: PageProps) {
 
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [form, setForm] = useState<Record<string, string>>({});
   const [socialAccounts, setSocialAccounts] = useState<
     { platform: string; url: string }[] | null
@@ -119,6 +120,7 @@ export default function EditPartyPage({ params }: PageProps) {
 
   async function handleSave() {
     setSaving(true);
+    setSaveError(null);
     try {
       const updates: Record<string, any> = {};
       for (const [key, value] of Object.entries(form)) {
@@ -146,6 +148,10 @@ export default function EditPartyPage({ params }: PageProps) {
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
+    } catch (err: any) {
+      console.error("Save failed:", err);
+      setSaveError(err?.message ?? "Failed to save changes");
+      setTimeout(() => setSaveError(null), 5000);
     } finally {
       setSaving(false);
     }
@@ -182,6 +188,13 @@ export default function EditPartyPage({ params }: PageProps) {
           {saving ? "Saving..." : saved ? "Saved!" : "Save Changes"}
         </button>
       </div>
+
+      {/* Error banner */}
+      {saveError && (
+        <div className="rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-400">
+          <strong>Error:</strong> {saveError}
+        </div>
+      )}
 
       {/* Logo upload */}
       <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
