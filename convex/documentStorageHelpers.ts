@@ -61,13 +61,14 @@ export const getDocumentsToMigrate = internalQuery({
         const externalUrl = (docs as any)[mapping.urlField];
         const storageId = (docs as any)[mapping.storageIdField];
 
-        // Has external URL, no local storage yet
-        if (
+        // Has external URL, no local storage yet — skip placeholders and malformed URLs
+        const isValidUrl =
           externalUrl &&
-          !storageId &&
+          externalUrl.includes("drive-image/") &&
           !externalUrl.endsWith("1") &&
-          !externalUrl.endsWith("/1")
-        ) {
+          !externalUrl.endsWith("/1");
+
+        if (isValidUrl && !storageId) {
           results.push({
             transparencyId: record._id,
             politicianId: record.politicianId,
@@ -106,12 +107,16 @@ export const getMigrationStatus = query({
         for (const [docType, mapping] of Object.entries(DOC_TYPE_FIELDS)) {
           const externalUrl = (docs as any)?.[mapping.urlField];
           const storageId = (docs as any)?.[mapping.storageIdField];
-          const isPlaceholder = externalUrl?.endsWith("1") || externalUrl?.endsWith("/1");
+          const isValid =
+            !!externalUrl &&
+            externalUrl.includes("drive-image/") &&
+            !externalUrl.endsWith("1") &&
+            !externalUrl.endsWith("/1");
 
           status[docType] = {
-            hasExternal: !!externalUrl && !isPlaceholder,
+            hasExternal: isValid,
             hasMigrated: !!storageId,
-            externalUrl: externalUrl && !isPlaceholder ? externalUrl : undefined,
+            externalUrl: isValid ? externalUrl : undefined,
           };
         }
 
