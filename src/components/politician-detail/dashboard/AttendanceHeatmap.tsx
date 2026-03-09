@@ -32,6 +32,7 @@ export function AttendanceHeatmap({
 
     const MONTHS_ES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
     let lastMonth = -1;
+    let lastYear = -1;
 
     const d = new Date(startDate);
     while (d <= today) {
@@ -39,10 +40,15 @@ export function AttendanceHeatmap({
       const attended = attendedSet.has(dateStr);
       currentWeek.push({ date: new Date(d), attended });
 
-      // Track month labels
+      // Track month labels — show year on first label and whenever the year changes
       if (d.getMonth() !== lastMonth) {
-        months.push({ label: MONTHS_ES[d.getMonth()], col: weeks.length });
+        const showYear = d.getFullYear() !== lastYear;
+        const label = showYear
+          ? `${MONTHS_ES[d.getMonth()]} ${d.getFullYear()}`
+          : MONTHS_ES[d.getMonth()];
+        months.push({ label, col: weeks.length });
         lastMonth = d.getMonth();
+        lastYear = d.getFullYear();
       }
 
       if (d.getDay() === 0) {

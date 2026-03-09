@@ -148,16 +148,24 @@ async function getChamberStatsInternal(ctx: any) {
     };
   }
 
-  // Count unique session dates from voting sessions
-  const sessions = await ctx.db.query("votingSessions").collect();
-
   const totalDeputies = profiles.filter((p: any) => !p.isSuplente).length;
   const avgAttendance =
     profiles.reduce((sum: number, p: any) => sum + p.participationRate, 0) /
     profiles.length;
 
-  // Average loyalty from analytics (if computed)
+  // Compute total unique session dates + average loyalty from analytics
   const analytics = await ctx.db.query("deputyAnalytics").collect();
+
+  // Total unique session dates = union of all deputies' attendance dates
+  const allSessionDates = new Set<string>();
+  for (const a of analytics) {
+    if (a.attendanceDates) {
+      for (const d of a.attendanceDates) {
+        allSessionDates.add(d);
+      }
+    }
+  }
+
   const avgLoyalty =
     analytics.length > 0
       ? analytics.reduce((sum: number, a: any) => sum + a.loyaltyScore, 0) /
@@ -165,7 +173,7 @@ async function getChamberStatsInternal(ctx: any) {
       : 0;
 
   return {
-    totalSessions: sessions.length,
+    totalSessions: allSessionDates.size,
     avgAttendance: Math.round(avgAttendance * 100),
     avgLoyalty: Math.round(avgLoyalty),
     totalDeputies,
