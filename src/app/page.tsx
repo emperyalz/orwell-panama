@@ -2,15 +2,17 @@ import { Suspense } from "react";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../convex/_generated/api";
 import { HomeClient } from "@/components/politicians/HomeClient";
+import { normalizePartyCode, PARTY_LABELS } from "@/lib/constants";
 import type { Politician } from "@/lib/types";
 
 function toViewPolitician(doc: any): Politician {
+  const normalised = normalizePartyCode(doc.party);
   return {
     id: doc.externalId,
     name: doc.name,
     slug: doc.slug,
-    party: doc.party,
-    partyFull: doc.partyFull,
+    party: normalised,
+    partyFull: doc.partyFull ?? PARTY_LABELS[normalised],
     role: doc.role,
     roleCategory: doc.roleCategory,
     province: doc.province,
@@ -41,7 +43,8 @@ function computeBreakdown(
   const counts: Record<string, number> = {};
   for (const p of politicians) {
     if (p.roleCategory === roleCategory) {
-      counts[p.party] = (counts[p.party] ?? 0) + 1;
+      const code = normalizePartyCode(p.party);
+      counts[code] = (counts[code] ?? 0) + 1;
     }
   }
   return Object.entries(counts)
@@ -58,7 +61,8 @@ export default async function HomePage() {
   ]);
 
   const politicians: Politician[] = rawPoliticians.map(toViewPolitician);
-  const parties = rawUniqueParties.map((p: any) => p.code);
+  // Deduplicate after normalization (PA→ALZ, VA→LP, etc.)
+  const parties = [...new Set(rawUniqueParties.map((p: any) => normalizePartyCode(p.code)))].sort();
   const provinces = rawProvinces;
 
   const partyColors: Record<string, string> = {};

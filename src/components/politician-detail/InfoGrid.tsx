@@ -1,4 +1,5 @@
 import type { Politician } from "@/lib/types";
+import { getPartyLogoPath, normalizePartyCode, PARTY_LABELS } from "@/lib/constants";
 
 interface InfoGridProps {
   politician: Politician;
@@ -33,7 +34,7 @@ export function InfoGrid({ politician }: InfoGridProps) {
       <InfoCard label="Circuito" value={circuitValue} />
       <div className="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--card)] px-5 py-4">
         <img
-          src={`/icons/parties/${politician.party.toLowerCase()}.svg`}
+          src={getPartyLogoPath(politician.party)}
           alt={politician.partyFull}
           className="h-8 w-8 shrink-0 object-contain"
         />
@@ -42,7 +43,7 @@ export function InfoGrid({ politician }: InfoGridProps) {
             Partido
           </p>
           <p className="mt-1 text-base font-bold text-[var(--card-foreground)]">
-            {politician.partyFull}
+            {politician.partyFull ?? PARTY_LABELS[normalizePartyCode(politician.party)] ?? politician.party}
           </p>
         </div>
       </div>

@@ -20,6 +20,7 @@ import { RecentVotes } from "@/components/politician-detail/dashboard/RecentVote
 import { TransparencyScorecard } from "@/components/politician-detail/dashboard/TransparencyScorecard";
 import { CommissionsCard } from "@/components/politician-detail/dashboard/CommissionsCard";
 import { TransparencyDetails } from "@/components/politician-detail/dashboard/TransparencyDetails";
+import { normalizePartyCode, PARTY_LABELS } from "@/lib/constants";
 import type { Politician } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -27,12 +28,13 @@ type PageProps = { params: Promise<{ id: string }> };
 
 /** Map Convex document to Politician view type */
 function toViewPolitician(doc: any): Politician {
+  const normalised = normalizePartyCode(doc.party);
   return {
     id: doc.externalId,
     name: doc.name,
     slug: doc.slug,
-    party: doc.party,
-    partyFull: doc.partyFull,
+    party: normalised,
+    partyFull: doc.partyFull ?? PARTY_LABELS[normalised],
     role: doc.role,
     roleCategory: doc.roleCategory,
     province: doc.province,

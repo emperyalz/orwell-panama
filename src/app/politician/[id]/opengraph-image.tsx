@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
+import { normalizePartyCode, PARTY_LABELS } from "@/lib/constants";
 
 export const runtime = "edge";
 export const alt = "Político — ORWELL";
@@ -57,8 +58,9 @@ export default async function OGImage({
     );
   }
 
-  // Get party data from DB
-  const party = parties.find((p) => p.code === doc.party);
+  // Get party data from DB (normalise alias codes like PA→ALZ)
+  const normalisedCode = normalizePartyCode(doc.party);
+  const party = parties.find((p) => p.code === normalisedCode);
   const primaryColor = party?.color ?? "#374151";
   const secondaryColor = party?.secondaryColor ?? primaryColor;
 

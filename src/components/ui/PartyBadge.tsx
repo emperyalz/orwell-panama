@@ -1,16 +1,4 @@
-/** Map party code → logo file (mixed formats from Wikipedia/official sources). */
-const PARTY_LOGOS: Record<string, string> = {
-  cd: "/icons/parties/cd.png",
-  prd: "/icons/parties/prd.png",
-  pan: "/icons/parties/pan.png",
-  lp: "/icons/parties/lp.svg",
-  rm: "/icons/parties/rm.png",
-  moca: "/icons/parties/moca.svg",
-  pp: "/icons/parties/pp.png",
-  molirena: "/icons/parties/molirena.png",
-  alz: "/icons/parties/alz.jpg",
-  ind: "/icons/parties/ind.svg",
-};
+import { getPartyLogoPath, normalizePartyCode, PARTY_LABELS } from "@/lib/constants";
 
 interface PartyBadgeProps {
   party: string;
@@ -37,19 +25,21 @@ export function PartyBadge({
     lg: "text-base",
   };
 
-  const logoPath =
-    PARTY_LOGOS[party.toLowerCase()] ??
-    `/icons/parties/${party.toLowerCase()}.svg`;
+  const normalised = normalizePartyCode(party);
+  const logoPath = getPartyLogoPath(party);
+  const label = showFull
+    ? partyFull ?? PARTY_LABELS[normalised] ?? normalised
+    : normalised;
 
   return (
     <div className="flex items-center gap-1.5">
       <img
         src={logoPath}
-        alt={party}
+        alt={normalised}
         className={`${sizeClasses[size]} object-contain`}
       />
       <span className={`font-medium text-[var(--foreground)] ${textSizeClasses[size]}`}>
-        {showFull && partyFull ? partyFull : party}
+        {label}
       </span>
     </div>
   );

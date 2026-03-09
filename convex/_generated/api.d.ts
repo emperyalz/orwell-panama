@@ -12,6 +12,7 @@ import type * as accounts from "../accounts.js";
 import type * as computeAnalytics from "../computeAnalytics.js";
 import type * as featuredVideos from "../featuredVideos.js";
 import type * as mediaSources from "../mediaSources.js";
+import type * as migrations from "../migrations.js";
 import type * as parties from "../parties.js";
 import type * as politicians from "../politicians.js";
 import type * as seed from "../seed.js";
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   computeAnalytics: typeof computeAnalytics;
   featuredVideos: typeof featuredVideos;
   mediaSources: typeof mediaSources;
+  migrations: typeof migrations;
   parties: typeof parties;
   politicians: typeof politicians;
   seed: typeof seed;

@@ -1,3 +1,44 @@
+/* ------------------------------------------------------------------ */
+/*  Party code normalisation                                           */
+/*  The Asamblea voting-records CSVs use abbreviated codes (PA, VA,    */
+/*  MO, PN) that differ from the official Tribunal Electoral siglas.   */
+/*  This mapping lets the entire UI resolve them consistently.         */
+/* ------------------------------------------------------------------ */
+const PARTY_CODE_ALIASES: Record<string, string> = {
+  PA: "ALZ",       // Partido Alianza  — official TE code is ALZ
+  VA: "LP",        // Coalición VAMOS  — not a party; deputies are Libre Postulación
+  MO: "MOCA",      // Movimiento Otro Camino
+  PN: "PAN",       // Partido Panameñista
+};
+
+/** Normalise a party code to the official Tribunal Electoral sigla. */
+export function normalizePartyCode(code: string): string {
+  const upper = code.toUpperCase();
+  return PARTY_CODE_ALIASES[upper] ?? upper;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Party logo paths (mixed file formats from official sources)        */
+/* ------------------------------------------------------------------ */
+export const PARTY_LOGOS: Record<string, string> = {
+  cd: "/icons/parties/cd.png",
+  prd: "/icons/parties/prd.png",
+  pan: "/icons/parties/pan.png",
+  lp: "/icons/parties/lp.svg",
+  rm: "/icons/parties/rm.png",
+  moca: "/icons/parties/moca.svg",
+  pp: "/icons/parties/pp.png",
+  molirena: "/icons/parties/molirena.png",
+  alz: "/icons/parties/alz.jpg",
+  ind: "/icons/parties/ind.svg",
+};
+
+/** Get the logo path for a party code (handles aliases + mixed formats). */
+export function getPartyLogoPath(code: string): string {
+  const normalised = normalizePartyCode(code).toLowerCase();
+  return PARTY_LOGOS[normalised] ?? `/icons/parties/${normalised}.svg`;
+}
+
 export const PARTY_COLORS: Record<string, string> = {
   CD: "var(--color-party-cd)",
   PRD: "var(--color-party-prd)",
