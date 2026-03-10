@@ -14,11 +14,14 @@ for (const line of envContent.split("\n")) {
   if (match) envVars[match[1].trim()] = match[2].trim();
 }
 
-const CONVEX_URL = envVars.NEXT_PUBLIC_CONVEX_URL;
+// Prefer shell env var over .env.local (allows targeting production)
+const CONVEX_URL =
+  process.env.NEXT_PUBLIC_CONVEX_URL || envVars.NEXT_PUBLIC_CONVEX_URL;
 if (!CONVEX_URL) {
-  console.error("Missing NEXT_PUBLIC_CONVEX_URL in .env.local");
+  console.error("Missing NEXT_PUBLIC_CONVEX_URL in .env.local or environment");
   process.exit(1);
 }
+console.log(`🎯 Target: ${CONVEX_URL}\n`);
 
 // ─── Party Data (from web research agents) ─────────────────────────────────
 
