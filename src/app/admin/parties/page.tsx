@@ -12,11 +12,12 @@ import {
   Plus,
   Trash2,
   ExternalLink,
-  Globe,
 } from "lucide-react";
 import { PLATFORM_CONFIG } from "@/lib/constants";
+import { PlatformIcons } from "@/components/politicians/PlatformIcons";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { CustomSelect } from "@/components/ui/CustomSelect";
+import type { PoliticianAccount } from "@/lib/types";
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -250,42 +251,24 @@ function PartyRow({
           </p>
         </div>
 
-        {/* Social / Web icons */}
-        <div className="hidden sm:flex items-center gap-1.5">
-          {party.officialWebsite && (
-            <a
-              href={party.officialWebsite}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Official Website"
-              onClick={(e) => e.stopPropagation()}
-              className="opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <Globe className="h-[18px] w-[18px] text-[var(--foreground)]" />
-            </a>
-          )}
-          {(party.socialAccounts ?? []).map((account) => {
-            const config = PLATFORM_CONFIG[account.platform];
-            if (!config) return null;
-            return (
-              <a
-                key={account.platform}
-                href={account.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={`${config.label}`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img
-                  src={config.icon}
-                  alt={config.label}
-                  className="opacity-60 hover:opacity-100 transition-opacity dark:brightness-0 dark:invert dark:opacity-50 dark:hover:opacity-80"
-                  style={{ width: 18, height: 18 }}
-                />
-              </a>
-            );
-          })}
-        </div>
+        {/* Social platform icons (same as politician rows) */}
+        {(party.socialAccounts?.length ?? 0) > 0 && (
+          <div className="hidden lg:block shrink-0">
+            <PlatformIcons
+              accounts={(party.socialAccounts ?? []).map((a) => ({
+                platform: a.platform as PoliticianAccount["platform"],
+                handle: "",
+                profileUrl: a.url,
+                avatar: "",
+                verdict: "CONFIRMED" as const,
+                score: 0,
+                pollingTier: "cool" as const,
+              }))}
+              size={16}
+              showLinks={false}
+            />
+          </div>
+        )}
 
         {/* Color dots — Primary + Secondary */}
         <div className="hidden sm:flex items-center gap-1.5">
