@@ -251,9 +251,9 @@ function PartyRow({
           </p>
         </div>
 
-        {/* Social platform icons (same as politician rows) */}
+        {/* Social platform icons (grey-tone, matching politician rows) */}
         {(party.socialAccounts?.length ?? 0) > 0 && (
-          <div className="hidden lg:block shrink-0">
+          <div className="hidden lg:block shrink-0 [&_img]:grayscale [&_img]:opacity-50 [&_img]:hover:grayscale-0 [&_img]:hover:opacity-100">
             <PlatformIcons
               accounts={(party.socialAccounts ?? []).map((a) => ({
                 platform: a.platform as PoliticianAccount["platform"],
