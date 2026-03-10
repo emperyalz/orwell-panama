@@ -12,7 +12,9 @@ import {
   Plus,
   Trash2,
   ExternalLink,
+  Globe,
 } from "lucide-react";
+import { PLATFORM_CONFIG } from "@/lib/constants";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 
@@ -246,6 +248,43 @@ function PartyRow({
           <p className="text-xs text-[var(--muted-foreground)] truncate">
             {party.fullName}
           </p>
+        </div>
+
+        {/* Social / Web icons */}
+        <div className="hidden sm:flex items-center gap-1.5">
+          {party.officialWebsite && (
+            <a
+              href={party.officialWebsite}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official Website"
+              onClick={(e) => e.stopPropagation()}
+              className="opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <Globe className="h-[18px] w-[18px] text-[var(--foreground)]" />
+            </a>
+          )}
+          {(party.socialAccounts ?? []).map((account) => {
+            const config = PLATFORM_CONFIG[account.platform];
+            if (!config) return null;
+            return (
+              <a
+                key={account.platform}
+                href={account.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`${config.label}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={config.icon}
+                  alt={config.label}
+                  className="opacity-60 hover:opacity-100 transition-opacity dark:brightness-0 dark:invert dark:opacity-50 dark:hover:opacity-80"
+                  style={{ width: 18, height: 18 }}
+                />
+              </a>
+            );
+          })}
         </div>
 
         {/* Color dots — Primary + Secondary */}
