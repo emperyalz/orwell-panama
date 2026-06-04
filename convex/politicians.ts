@@ -14,7 +14,15 @@ export const list = query({
   handler: async (ctx, args) => {
     // Fetch politicians — use index filter when a single filter is provided
     let politicians;
-    if (args.roleCategory) {
+    if (args.roleCategory === "Party Leader") {
+      // Party Leader is special: include both primary Party Leaders AND
+      // dual-role politicians flagged isPartyLeader (e.g. a Deputy who also
+      // leads a party). The single-value index can't express that OR, so scan.
+      const all = await ctx.db.query("politicians").collect();
+      politicians = all.filter(
+        (p) => p.roleCategory === "Party Leader" || p.isPartyLeader === true
+      );
+    } else if (args.roleCategory) {
       politicians = await ctx.db
         .query("politicians")
         .withIndex("by_roleCategory", (q) =>
@@ -25,6 +33,7 @@ export const list = query({
               | "Mayor"
               | "Governor"
               | "President"
+              | "Party Leader"
           )
         )
         .collect();
@@ -239,8 +248,10 @@ export const create = mutation({
       v.literal("Deputy"),
       v.literal("Mayor"),
       v.literal("Governor"),
-      v.literal("President")
+      v.literal("President"),
+      v.literal("Party Leader")
     ),
+    isPartyLeader: v.optional(v.boolean()),
     province: v.string(),
     district: v.optional(v.string()),
     circuit: v.optional(v.string()),
@@ -275,9 +286,11 @@ export const update = mutation({
         v.literal("Deputy"),
         v.literal("Mayor"),
         v.literal("Governor"),
-        v.literal("President")
+        v.literal("President"),
+        v.literal("Party Leader")
       )
     ),
+    isPartyLeader: v.optional(v.boolean()),
     province: v.optional(v.string()),
     district: v.optional(v.string()),
     circuit: v.optional(v.string()),

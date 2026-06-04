@@ -79,10 +79,11 @@ export const PARTY_LABELS: Record<string, string> = {
 };
 
 export const ROLE_CATEGORIES = [
-  { value: "Deputy", label: "Diputados" },
+  { value: "Party Leader", label: "Líderes de Partido" },
+  { value: "President", label: "Presidente" },
   { value: "Governor", label: "Gobernadores" },
   { value: "Mayor", label: "Alcaldes" },
-  { value: "President", label: "Presidente" },
+  { value: "Deputy", label: "Diputados" },
 ] as const;
 
 export const PROVINCES = [

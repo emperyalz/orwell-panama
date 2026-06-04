@@ -24,8 +24,11 @@ export function PoliticianCard({ politician }: PoliticianCardProps) {
           loading="lazy"
         />
         {/* Role badge overlay */}
-        <div className="absolute bottom-2 left-2">
+        <div className="absolute bottom-2 left-2 flex flex-wrap items-center gap-1">
           <RoleBadge role={politician.role} roleCategory={politician.roleCategory} />
+          {politician.isPartyLeader && politician.roleCategory !== "Party Leader" && (
+            <RoleBadge role="Líder de Partido" roleCategory="Party Leader" />
+          )}
         </div>
       </div>
 

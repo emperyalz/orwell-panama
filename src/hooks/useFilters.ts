@@ -35,10 +35,11 @@ export function useFilters(politicians: Politician[]) {
   }, [router, pathname]);
 
   const RANK_ORDER: Record<string, number> = {
-    President: 0,
-    Governor: 1,
-    Mayor: 2,
-    Deputy: 3,
+    "Party Leader": 0,
+    President: 1,
+    Governor: 2,
+    Mayor: 3,
+    Deputy: 4,
   };
 
   const filtered = useMemo(() => {
@@ -49,7 +50,14 @@ export function useFilters(politicians: Politician[]) {
       ) {
         return false;
       }
-      if (filters.role && p.roleCategory !== filters.role) return false;
+      if (filters.role) {
+        // "Party Leader" filter also matches dual-role politicians (e.g. a
+        // Deputy who also leads a party) via the isPartyLeader flag.
+        const matchesRole =
+          p.roleCategory === filters.role ||
+          (filters.role === "Party Leader" && p.isPartyLeader === true);
+        if (!matchesRole) return false;
+      }
       if (filters.province && p.province !== filters.province) return false;
       if (filters.party && p.party !== filters.party) return false;
       return true;

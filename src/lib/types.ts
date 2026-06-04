@@ -15,7 +15,9 @@ export interface Politician {
   party: string;
   partyFull: string;
   role: string;
-  roleCategory: "Deputy" | "Mayor" | "Governor" | "President";
+  roleCategory: "Deputy" | "Mayor" | "Governor" | "President" | "Party Leader";
+  /** Secondary flag: also leads a party (e.g. a Deputy who is a party president). */
+  isPartyLeader?: boolean;
   province: string;
   district?: string;
   circuit?: string;

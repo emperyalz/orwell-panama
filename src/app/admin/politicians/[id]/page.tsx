@@ -35,7 +35,7 @@ const PLATFORMS = [
 
 const VERDICTS = ["CONFIRMED", "PROBABLE"] as const;
 const TIERS = ["hot", "warm", "cool", "dormant"] as const;
-const ROLE_CATEGORIES = ["Deputy", "Mayor", "Governor", "President"] as const;
+const ROLE_CATEGORIES = ["Deputy", "Mayor", "Governor", "President", "Party Leader"] as const;
 
 export default function EditPoliticianPage({ params }: PageProps) {
   const { id } = use(params);
@@ -63,6 +63,8 @@ export default function EditPoliticianPage({ params }: PageProps) {
 
   // Form state for politician
   const [form, setForm] = useState<Record<string, string>>({});
+  // isPartyLeader is a boolean, tracked separately from the string form state.
+  const [isPartyLeaderOverride, setIsPartyLeaderOverride] = useState<boolean | null>(null);
   const [newAccount, setNewAccount] = useState({
     platform: "instagram" as string,
     handle: "",
@@ -101,6 +103,12 @@ export default function EditPoliticianPage({ params }: PageProps) {
         if (value !== (politician as any)[key]) {
           updates[key] = value;
         }
+      }
+      if (
+        isPartyLeaderOverride !== null &&
+        isPartyLeaderOverride !== (politician as any).isPartyLeader
+      ) {
+        updates.isPartyLeader = isPartyLeaderOverride;
       }
       if (Object.keys(updates).length > 0) {
         await updatePolitician({
@@ -288,6 +296,21 @@ export default function EditPoliticianPage({ params }: PageProps) {
               options={ROLE_CATEGORIES.map((rc) => ({ value: rc, label: rc }))}
               size="default"
             />
+            {/* Dual-role flag: also a party leader (e.g. a Deputy who leads a party) */}
+            <label className="mt-2 flex items-center gap-2 text-xs font-medium text-[var(--foreground)] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={
+                  isPartyLeaderOverride ?? Boolean((politician as any).isPartyLeader)
+                }
+                onChange={(e) => {
+                  setIsPartyLeaderOverride(e.target.checked);
+                  setSaved(false);
+                }}
+                className="h-4 w-4 rounded border-[var(--border)]"
+              />
+              También es líder de partido
+            </label>
           </div>
           <div>
             <label className="block text-xs font-medium text-[var(--muted-foreground)] mb-1">

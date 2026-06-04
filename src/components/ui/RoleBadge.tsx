@@ -8,6 +8,7 @@ const ROLE_COLORS: Record<string, string> = {
   Governor: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
   Mayor: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
   President: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+  "Party Leader": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
 };
 
 export function RoleBadge({ role, roleCategory }: RoleBadgeProps) {

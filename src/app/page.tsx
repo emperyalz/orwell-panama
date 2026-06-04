@@ -15,6 +15,7 @@ function toViewPolitician(doc: any): Politician {
     partyFull: doc.partyFull ?? PARTY_LABELS[normalised],
     role: doc.role,
     roleCategory: doc.roleCategory,
+    isPartyLeader: doc.isPartyLeader,
     province: doc.province,
     district: doc.district,
     circuit: doc.circuit,
@@ -42,7 +43,11 @@ function computeBreakdown(
 ) {
   const counts: Record<string, number> = {};
   for (const p of politicians) {
-    if (p.roleCategory === roleCategory) {
+    // "Party Leader" also counts dual-role politicians flagged isPartyLeader.
+    const matches =
+      p.roleCategory === roleCategory ||
+      (roleCategory === "Party Leader" && p.isPartyLeader === true);
+    if (matches) {
       const code = normalizePartyCode(p.party);
       counts[code] = (counts[code] ?? 0) + 1;
     }
@@ -94,6 +99,14 @@ export default async function HomePage() {
       sublabel: "Diputados",
       total: rawPoliticians.filter((p: any) => p.roleCategory === "Deputy").length,
       slices: computeBreakdown(rawPoliticians, "Deputy", partyColors),
+    },
+    {
+      label: "Líderes de Partido",
+      sublabel: "Presidentes y secretarios generales",
+      total: rawPoliticians.filter(
+        (p: any) => p.roleCategory === "Party Leader" || p.isPartyLeader === true
+      ).length,
+      slices: computeBreakdown(rawPoliticians, "Party Leader", partyColors),
     },
   ];
 

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ArrowLeft, Save } from "lucide-react";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 
-const ROLE_CATEGORIES = ["Deputy", "Mayor", "Governor", "President"] as const;
+const ROLE_CATEGORIES = ["Deputy", "Mayor", "Governor", "President", "Party Leader"] as const;
 
 export default function NewPoliticianPage() {
   const router = useRouter();

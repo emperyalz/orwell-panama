@@ -14,8 +14,13 @@ export default defineSchema({
       v.literal("Deputy"),
       v.literal("Mayor"),
       v.literal("Governor"),
-      v.literal("President")
+      v.literal("President"),
+      v.literal("Party Leader")
     ),
+    // Secondary flag: a politician whose PRIMARY role is something else
+    // (e.g. a sitting Deputy) but who also leads a party. Lets them appear
+    // under the "Party Leader" filter without losing their primary category.
+    isPartyLeader: v.optional(v.boolean()),
     province: v.string(),
     district: v.optional(v.string()),
     circuit: v.optional(v.string()),
