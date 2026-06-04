@@ -63,7 +63,7 @@ const PROFILES = {
     foundedDate: "1998-05-20",
     headName: "Yanibel Ábrego",
     headRole: "Presidenta del partido",
-    headPhoto: "", // no free photo located; falls back to placeholder
+    headPhoto: "/images/party-heads/cd.jpg",
     description:
       "Cambio Democrático (CD) es un partido de centroderecha fundado el 20 de mayo de 1998 por el empresario Ricardo Martinelli, con quien llegó a la presidencia en 2009. Promueve el libre mercado y el estado de derecho; tras la salida de Martinelli en 2020, fue dirigido por Rómulo Roux y desde octubre de 2024 lo preside Yanibel Ábrego Smith.",
   },
@@ -95,7 +95,7 @@ const PROFILES = {
     foundedDate: "1960-11-20",
     headName: "Cirilo Salas",
     headRole: "Presidente del partido",
-    headPhoto: "", // no free photo located; falls back to placeholder
+    headPhoto: "/images/party-heads/pp.jpg",
     description:
       "El Partido Popular (PP) es el heredero del histórico Partido Demócrata Cristiano de Panamá, fundado el 20 de noviembre de 1960 y renombrado Partido Popular en 2001. De ideología democristiana y doctrina social cristiana, es miembro de la Organización Demócrata Cristiana de América; en diciembre de 2025 eligió a Cirilo Salas Lemos como presidente.",
   },
