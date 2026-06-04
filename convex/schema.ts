@@ -93,6 +93,12 @@ export default defineSchema({
     wikidataUrl: v.optional(v.string()), // e.g. https://www.wikidata.org/wiki/Q12345
     color: v.string(), // Hex color (primary)
     secondaryColor: v.optional(v.string()), // Hex color (secondary)
+    // ─── Profile fields (Partidos page) ───
+    description: v.optional(v.string()), // Brief in Spanish (2-3 sentences)
+    foundedDate: v.optional(v.string()), // "YYYY-MM-DD" or "YYYY"
+    headName: v.optional(v.string()), // Party head / leader full name
+    headRole: v.optional(v.string()), // Their title, e.g. "Presidente del partido"
+    headPhoto: v.optional(v.string()), // Path: "/images/party-heads/rm.jpg"
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_code", ["code"]),

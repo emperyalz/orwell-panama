@@ -48,3 +48,6 @@ data/voting-records/asamblea_data/votes.csv
 data/voting-records/asamblea_panama.db
 data/voting-records/asamblea_data/raw_json/
 data/extracted-documents.json
+
+# Playwright CLI debug artifacts
+.playwright-cli/

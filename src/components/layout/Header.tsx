@@ -64,6 +64,9 @@ export function Header() {
             <Link href="/" className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--foreground)] hover:opacity-60 transition-opacity">
               Políticos
             </Link>
+            <Link href="/partidos" className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--foreground)] hover:opacity-60 transition-opacity">
+              Partidos
+            </Link>
             <Link href="/noticias" className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--foreground)] hover:opacity-60 transition-opacity">
               Noticias
             </Link>
@@ -176,6 +179,7 @@ export function Header() {
           {[
             { href: "/destacados", label: "Destacados" },
             { href: "/", label: "Políticos" },
+            { href: "/partidos", label: "Partidos" },
             { href: "/noticias", label: "Noticias" },
             { href: "/oficinas", label: "Oficinas de Gobierno" },
           ].map(({ href, label }) => (

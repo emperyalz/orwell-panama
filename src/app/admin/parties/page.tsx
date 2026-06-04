@@ -131,6 +131,11 @@ type PartyDoc = {
   socialAccounts?: { platform: string; url: string }[];
   wikipediaUrls?: { language: string; url: string }[];
   wikidataUrl?: string;
+  description?: string;
+  foundedDate?: string;
+  headName?: string;
+  headRole?: string;
+  headPhoto?: string;
 };
 
 function PartyRow({
@@ -451,6 +456,71 @@ function PartyRow({
                   className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
                 />
               </div>
+            </div>
+          </div>
+
+          {/* ── Profile (Partidos page) ── */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wider">
+              Perfil (página Partidos)
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                  Fecha de fundación
+                </label>
+                <input
+                  value={getFieldValue("foundedDate")}
+                  onChange={(e) => setField("foundedDate", e.target.value)}
+                  placeholder="YYYY-MM-DD o YYYY"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                  Líder — Nombre
+                </label>
+                <input
+                  value={getFieldValue("headName")}
+                  onChange={(e) => setField("headName", e.target.value)}
+                  placeholder="Nombre del presidente / líder"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                  Líder — Cargo
+                </label>
+                <input
+                  value={getFieldValue("headRole")}
+                  onChange={(e) => setField("headRole", e.target.value)}
+                  placeholder="Presidente del partido"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                  Líder — Foto (ruta)
+                </label>
+                <input
+                  value={getFieldValue("headPhoto")}
+                  onChange={(e) => setField("headPhoto", e.target.value)}
+                  placeholder="/images/party-heads/rm.jpg"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-[10px] font-medium text-[var(--muted-foreground)] mb-1">
+                Reseña (español)
+              </label>
+              <textarea
+                value={getFieldValue("description")}
+                onChange={(e) => setField("description", e.target.value)}
+                rows={4}
+                placeholder="2-3 oraciones describiendo el partido…"
+                className="w-full resize-y rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm leading-relaxed text-[var(--foreground)] focus:border-[var(--foreground)] focus:outline-none"
+              />
             </div>
           </div>
 
