@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Moon, Sun, User, LogIn, LogOut, Menu, X } from "lucide-react";
+import {LanguageSwitcher} from "@/components/i18n/LanguageRuntime";
 
 const subscribeHydration = () => () => {};
 
@@ -82,6 +83,7 @@ export function Header() {
               Oficinas de Gobierno
             </Link>
           </nav>
+          <LanguageSwitcher compact />
 
           {/* Mobile hamburger — only on <md */}
           <button

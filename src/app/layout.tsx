@@ -5,6 +5,7 @@ import { ConvexClientProvider } from "./ConvexClientProvider";
 import { AuthProvider } from "./AuthProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import {LanguageRuntime} from "@/components/i18n/LanguageRuntime";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,6 +32,7 @@ export default function RootLayout({
         <AuthProvider>
           <ConvexClientProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+              <LanguageRuntime />
               <Header />
               <main className="min-h-screen">{children}</main>
               <Footer />
