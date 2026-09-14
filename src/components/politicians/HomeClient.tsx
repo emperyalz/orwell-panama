@@ -1,163 +1,22 @@
-"use client";
-
-import { useState } from "react";
-import { useFilters } from "@/hooks/useFilters";
-import { SearchBar } from "./SearchBar";
-import { FilterBar } from "./FilterBar";
-import { PoliticianCard } from "./PoliticianCard";
-import { PoliticianListItem } from "./PoliticianListItem";
-import { GovernmentChart } from "./GovernmentChart";
-import type { Politician } from "@/lib/types";
-import { Users, LayoutGrid, List } from "lucide-react";
-
-interface PartySlice {
-  code: string;
-  count: number;
-  color: string;
-}
-
-interface GovTier {
-  label: string;
-  sublabel: string;
-  total: number;
-  slices: PartySlice[];
-  comingSoon?: boolean;
-}
-
-interface HomeClientProps {
-  politicians: Politician[];
-  parties: string[];
-  provinces: string[];
-  govTiers: GovTier[];
-}
-
-export function HomeClient({
-  politicians,
-  parties,
-  provinces,
-  govTiers,
-}: HomeClientProps) {
-  const { filters, setFilter, resetFilters, filtered, hasActiveFilters } =
-    useFilters(politicians);
-  const [viewMode, setViewMode] = useState<"gallery" | "list">("gallery");
-
-  return (
-    <div>
-      {/* ─── Single combined dark strip: left = title + search + filters | right = chart ─── */}
-      <div className="bg-[#111] border-b border-[#222]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12">
-
-            {/* Left column — content pushed to bottom so filters sit at pb-6 (matching original) */}
-            <div className="flex flex-col justify-end gap-4 pt-8 pb-6">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight text-white">
-                  Directorio de Políticos de Panamá
-                </h1>
-                <p className="mt-2 text-xs text-neutral-400">
-                  Inteligencia basada en datos, impulsada por el repositorio más completo de política panameña
-                </p>
-              </div>
-
-              <SearchBar
-                value={filters.search}
-                onChange={(v) => setFilter("search", v)}
-                variant="dark"
-              />
-
-              <div className="flex items-center justify-between gap-3">
-                <FilterBar
-                  filters={filters}
-                  onFilterChange={setFilter}
-                  onReset={resetFilters}
-                  hasActiveFilters={hasActiveFilters}
-                  parties={parties}
-                  provinces={provinces}
-                  variant="dark"
-                />
-                {/* View mode toggle */}
-                <div className="flex shrink-0 items-center rounded-lg border border-[#333] bg-[#1a1a1a] p-0.5">
-                  <button
-                    onClick={() => setViewMode("gallery")}
-                    className={`rounded-md p-1.5 transition-colors ${
-                      viewMode === "gallery" ? "bg-white text-black" : "text-[#888] hover:text-white"
-                    }`}
-                    title="Vista galería"
-                    aria-label="Vista galería"
-                  >
-                    <LayoutGrid className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode("list")}
-                    className={`rounded-md p-1.5 transition-colors ${
-                      viewMode === "list" ? "bg-white text-black" : "text-[#888] hover:text-white"
-                    }`}
-                    title="Vista lista"
-                    aria-label="Vista lista"
-                  >
-                    <List className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Mobile/tablet chart — sits below filters, inside dark strip, hidden on desktop */}
-              <div className="lg:hidden pt-2 pb-2">
-                <GovernmentChart tiers={govTiers} />
-              </div>
-            </div>
-
-            {/* Right column — desktop chart, bottom-aligned to match left pb-6 */}
-            <div className="hidden lg:flex flex-col justify-end pb-6 pt-4">
-              <GovernmentChart tiers={govTiers} />
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      {/* ─── Results grid ─── */}
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-          <Users className="h-4 w-4" />
-          <span>
-            {hasActiveFilters
-              ? `Mostrando ${filtered.length} de ${politicians.length} políticos`
-              : `${politicians.length} políticos`}
-          </span>
-        </div>
-
-        {filtered.length > 0 ? (
-          viewMode === "gallery" ? (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {filtered.map((p) => (
-                <PoliticianCard key={p.id} politician={p} />
-              ))}
-            </div>
-          ) : (
-            <div className="space-y-1.5">
-              {filtered.map((p) => (
-                <PoliticianListItem key={p.id} politician={p} />
-              ))}
-            </div>
-          )
-        ) : (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[var(--border)] py-16">
-            <Users className="h-12 w-12 text-[var(--muted-foreground)] opacity-50" />
-            <p className="mt-4 text-lg font-medium text-[var(--muted-foreground)]">
-              No se encontraron resultados
-            </p>
-            <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-              Intenta con otros filtros o términos de búsqueda
-            </p>
-            <button
-              onClick={resetFilters}
-              className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-            >
-              Limpiar filtros
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+'use client';
+import Link from 'next/link';
+import {useState,useMemo} from 'react';
+import {useSearchParams,useRouter} from 'next/navigation';
+import {ArrowRight,ArrowUpRight,Search,SlidersHorizontal,Scale,X,LayoutGrid,List} from 'lucide-react';
+import {Portrait} from '@/components/reference/Portrait';
+import {PARTY_LABELS,getPartyLogoPath,ROLE_CATEGORIES} from '@/lib/constants';
+import type {Politician} from '@/lib/types';
+type Tier={label:string;sublabel:string;total:number;slices:{code:string;count:number;color:string}[]};
+const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+export function HomeClient({politicians,parties,provinces,govTiers}:{politicians:Politician[];parties:string[];provinces:string[];govTiers:Tier[]}){
+ const params=useSearchParams();const router=useRouter();const [search,setSearch]=useState(params.get('search')||'');const [party,setParty]=useState(params.get('party')||'');const [role,setRole]=useState(params.get('role')||'');const [province,setProvince]=useState(params.get('province')||'');const [sort,setSort]=useState('name');const [view,setView]=useState('grid');const [selected,setSelected]=useState<string[]>([]);
+ const filtered=useMemo(()=>politicians.filter(p=>(!search||normalize(`${p.name} ${p.partyFull} ${p.province}`).includes(normalize(search)))&&(!party||p.party===party)&&(!province||p.province===province)&&(!role||p.roleCategory===role||(role==='Party Leader'&&p.isPartyLeader))).sort((a,b)=>sort==='party'?a.party.localeCompare(b.party)||a.name.localeCompare(b.name):sort==='province'?a.province.localeCompare(b.province)||a.name.localeCompare(b.name):a.name.localeCompare(b.name)),[politicians,search,party,province,role,sort]);
+ const updateUrl=(updates:Record<string,string>)=>{const next=new URLSearchParams({search,party,role,province,...updates});for(const [k,v] of [...next])if(!v)next.delete(k);window.history.replaceState(null,'',`/?${next}`);};
+ const reset=()=>{setSearch('');setParty('');setRole('');setProvince('');window.history.replaceState(null,'','/');};
+ return <div className="reference-world"><div className="directory-intro"><div className="reference-wrap intro-grid"><div><h1>La política tiene nombres.<br/><span>Conoce su trayectoria.</span></h1><p>Perfiles públicos de Panamá. Consulta sus documentos y sigue el rastro de sus decisiones.</p><label className="directory-search"><Search size={22}/><input aria-label="Buscar políticos" placeholder="Busca un nombre, partido o provincia" value={search} onChange={e=>{setSearch(e.target.value);updateUrl({search:e.target.value});}}/>{search&&<button onClick={()=>{setSearch('');updateUrl({search:''});}} aria-label="Borrar búsqueda"><X size={17}/></button>}<span>Panamá</span></label><div className="search-hints">Explora <button onClick={()=>{setRole('Deputy');updateUrl({role:'Deputy'});}}>Asamblea Nacional</button><span>·</span><button onClick={()=>{setRole('Mayor');updateUrl({role:'Mayor'});}}>Alcaldías</button></div></div><aside className="directory-context"><div className="context-heading"><strong>Panamá</strong><span>Perfiles en el directorio</span></div>{govTiers.filter(t=>t.total>0).map(t=><button className="institution-row" key={t.label} onClick={()=>{const r=t.label==='Asamblea Nacional'?'Deputy':t.label==='Presidente'?'President':t.label==='Alcaldes'?'Mayor':t.label==='Gobernadores'?'Governor':'Party Leader';setRole(r);updateUrl({role:r});}}><span>{t.label}</span><div className="composition-bar">{t.slices.map(s=><i key={s.code} style={{backgroundColor:s.color,flex:s.count}} title={`${s.code}: ${s.count}`}/>)}</div><strong>{t.total}</strong></button>)}<p>Cobertura del directorio, no censo de cargos. Una persona puede ejercer más de un rol.</p></aside></div></div>
+ <div className="reference-wrap"><div className="directory-toolbar"><div className="filter-fields"><SlidersHorizontal size={17}/><select aria-label="Filtrar por cargo" value={role} onChange={e=>{setRole(e.target.value);updateUrl({role:e.target.value});}}><option value="">Todos los cargos</option>{ROLE_CATEGORIES.map(r=><option key={r.value} value={r.value}>{r.label}</option>)}</select><select aria-label="Filtrar por partido" value={party} onChange={e=>{setParty(e.target.value);updateUrl({party:e.target.value});}}><option value="">Todos los partidos</option>{parties.map(p=><option key={p} value={p}>{PARTY_LABELS[p]||p}</option>)}</select><select aria-label="Filtrar por provincia" value={province} onChange={e=>{setProvince(e.target.value);updateUrl({province:e.target.value});}}><option value="">Todas las provincias</option>{provinces.map(p=><option key={p}>{p}</option>)}</select></div>{(search||party||province||role)&&<button className="clear-filter" onClick={reset}>Limpiar <X size={13}/></button>}</div>
+ <div className="results-heading"><div><h2>Directorio de perfiles</h2><span role="status">{filtered.length} de {politicians.length} perfiles</span></div><div className="results-controls"><select aria-label="Ordenar perfiles" value={sort} onChange={e=>setSort(e.target.value)}><option value="name">Nombre A–Z</option><option value="party">Partido</option><option value="province">Provincia</option></select><button aria-label="Vista de tarjetas" aria-pressed={view==='grid'} onClick={()=>setView('grid')}><LayoutGrid size={18}/></button><button aria-label="Vista de lista" aria-pressed={view==='list'} onClick={()=>setView('list')}><List size={18}/></button></div></div>
+ {filtered.length?<div className={view==='grid'?'directory-grid':'directory-list'}>{filtered.map(p=><article className="directory-card" key={p.id}><Link className="directory-person" href={`/politician/${p.id}`}><Portrait src={p.headshot} name={p.name} className="directory-portrait"/><div><span className="directory-role">{p.role}</span><h3>{p.name}</h3><p>{p.province}{p.circuit?` · ${p.circuit}`:''}</p></div><ArrowUpRight className="person-arrow" size={18}/></Link><div className="directory-card-bottom"><Link href={`/partidos/${p.party.toLowerCase()}`}><img src={getPartyLogoPath(p.party)} alt=""/>{p.party}</Link><span>{p.accounts.length} redes</span><button aria-label={`Comparar ${p.name}`} aria-pressed={selected.includes(p.id)} disabled={selected.length===2&&!selected.includes(p.id)} onClick={()=>setSelected(s=>s.includes(p.id)?s.filter(id=>id!==p.id):[...s,p.id])}><Scale size={14}/>{selected.includes(p.id)?'Añadido':'Comparar'}</button></div></article>)}</div>:<div className="no-results"><h3>No encontramos ese perfil</h3><p>Prueba otro nombre o elimina los filtros.</p><button className="record-button" onClick={reset}>Ver todos los perfiles</button></div>}
+ <div className="directory-end"><p>Un registro útil también muestra lo que falta.</p><Link href="/metodologia">Fuentes y metodología <ArrowRight size={16}/></Link></div>
+ </div>{selected.length>0&&<div className="comparison-tray"><Scale size={20}/><span>{selected.map(id=>politicians.find(p=>p.id===id)?.name).join(' / ')}</span><button disabled={selected.length<2} onClick={()=>router.push(`/comparar?a=${selected[0]}&b=${selected[1]}`)}>Comparar {selected.length}/2 <ArrowRight size={16}/></button><button aria-label="Cancelar comparación" onClick={()=>setSelected([])}><X size={18}/></button></div>}</div>;
 }

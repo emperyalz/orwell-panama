@@ -1,7 +1,9 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { multiplayerTables } from "./multiplayerSchema";
 
 export default defineSchema({
+  ...multiplayerTables,
   // Politicians — elected officials
   politicians: defineTable({
     externalId: v.string(), // e.g. "DEP-015", "MAY-003"

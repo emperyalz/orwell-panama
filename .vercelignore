@@ -1,0 +1,9 @@
+.git
+.env*
+artifacts
+.impeccable
+.playwright-cli
+node_modules
+.next
+/data/
+*.tsbuildinfo

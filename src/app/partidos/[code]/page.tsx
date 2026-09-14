@@ -1,0 +1,6 @@
+import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import {getDirectory} from '@/lib/reference-data';
+import {PARTY_LABELS,normalizePartyCode,getPartyLogoPath} from '@/lib/constants';
+import {Portrait} from '@/components/reference/Portrait';
+export default async function Party({params}:{params:Promise<{code:string}>}){const {code}=await params;const party=normalizePartyCode(code);const people=(await getDirectory()).filter(p=>normalizePartyCode(p.party)===party);if(!people.length&&!PARTY_LABELS[party])notFound();return <div className="reference-world"><div className="reference-wrap entity-page"><Link className="source-link" href="/partidos">Todos los partidos</Link><div className="entity-title"><img src={getPartyLogoPath(party)} alt=""/><div><h1>{PARTY_LABELS[party]||party}</h1><p>{people.length} perfiles vinculados en el directorio</p></div></div><p className="biography">La agrupación corresponde al registro del directorio. Los cambios de afiliación requieren una fuente y fecha propias.</p><div className="related-grid">{people.map(p=><Link className="related-person" key={p.externalId} href={`/politician/${p.externalId}`}><Portrait src={p.headshot} name={p.name}/><div><strong>{p.name}</strong><span>{p.role} · {p.province}</span></div></Link>)}</div></div></div>}

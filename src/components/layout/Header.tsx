@@ -1,20 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import {usePathname} from "next/navigation";
+import {ProfileHeader} from "@/components/reference/ProfileHeader";
 import { useTheme } from "next-themes";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Moon, Sun, User, LogIn, LogOut, Menu, X } from "lucide-react";
 
+const subscribeHydration = () => () => {};
+
 export function Header() {
+  const path=usePathname();
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(subscribeHydration, () => true, () => false);
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setMounted(true), []);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -28,6 +32,10 @@ export function Header() {
   }, []);
 
   const isDark = mounted && theme === "dark";
+
+  if (path === '/multiplayer') return null;
+
+  if (/^\/politician\/[^/]+$/.test(path)) return <ProfileHeader/>;
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur-sm">
