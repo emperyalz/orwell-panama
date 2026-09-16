@@ -1,6 +1,12 @@
 import { query } from "./_generated/server";
 import { v } from "convex/values";
 
+export const getVoteDetail=query({args:{politicianId:v.id('politicians'),questionId:v.number()},handler:async(ctx,args)=>{
+ const profile=await ctx.db.query('deputyVotingProfiles').withIndex('by_politicianId',q=>q.eq('politicianId',args.politicianId)).first();if(!profile)return null;
+ const vote=await ctx.db.query('votingRecords').withIndex('by_deputyId',q=>q.eq('deputyId',profile.deputyId)).filter(q=>q.eq(q.field('questionId'),args.questionId)).first();if(!vote)return null;
+ const session=await ctx.db.query('votingSessions').withIndex('by_votingId',q=>q.eq('votingId',vote.votingId)).first();return {...vote,sourceUrl:session?.reportId?`https://prensa507.asamblea.gob.pa/api/v1/report/${session.reportId}/public`:null};
+}});
+
 /**
  * Get complete dashboard data for a deputy politician.
  * Fetches profile, analytics, bio, and recent votes in one call.
@@ -198,16 +204,16 @@ export const getVotesByDeputyPaginated = query({
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const limit = args.limit ?? 20;
+    const limit = Math.max(1, Math.min(100, Math.floor(args.limit ?? 20)));
+    const offset = Math.max(0, Math.floor(args.cursor ?? 0));
     const allVotes = await ctx.db
       .query("votingRecords")
       .withIndex("by_deputyId_sessionDate", (q) =>
         q.eq("deputyId", args.deputyId)
       )
       .order("desc")
-      .collect();
+      .take(offset + limit + 1);
 
-    const offset = args.cursor ?? 0;
     const page = allVotes.slice(offset, offset + limit);
     const hasMore = offset + limit < allVotes.length;
 

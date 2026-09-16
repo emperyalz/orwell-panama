@@ -1,0 +1,20 @@
+import Link from 'next/link';
+import {ArrowUpRight,Plus} from 'lucide-react';
+import {fetchQuery} from 'convex/nextjs';
+import {api} from '../../../convex/_generated/api';
+import {getDirectory} from '@/lib/reference-data';
+import {Portrait} from './Portrait';
+import {getPartyLogoPath,normalizePartyCode} from '@/lib/constants';
+import {ProvinceMap} from './ProvinceMap';
+import './profile-index.css';
+
+export async function ExplorePage({kind,query={}}:{kind:'territory'|'committee'|'party';query?:{province?:string;circuit?:string;district?:string;name?:string}}){
+ const people=await getDirectory();
+ const memberships=kind==='committee'?await fetchQuery(api.transparency.listMemberships,{}):[];
+ const groups=new Map<string,typeof people>();
+ if(kind==='committee'){for(const row of memberships)for(const name of row.commissions){const person=people.find(p=>p._id===row.politicianId);if(person)groups.set(name,[...(groups.get(name)||[]),person]);}}
+ else for(const p of people){const name=kind==='party'?p.partyFull:query.circuit!==undefined?p.circuit:query.district!==undefined?p.district:p.province;if(name)groups.set(name,[...(groups.get(name)||[]),p]);}
+ const selected=query.name||query.circuit||query.district||query.province;
+ const title=kind==='committee'?'Comisiones':kind==='party'?'Partidos':query.circuit!==undefined?'Circuitos electorales':query.district!==undefined?'Distritos':'Provincias';
+ return <div className="reference-world"><div className="reference-wrap explore-page"><header><span className="eyebrow">Explorar Panamá</span><h1>{title}</h1><p>Encuentra las personas vinculadas a cada {kind==='committee'?'comisión registrada':kind==='party'?'partido o agrupación':'territorio'}, en todos los cargos del directorio.</p></header>{kind==='territory'&&<nav className="explore-switch"><Link href="/territorios">Provincias</Link><Link href="/territorios?circuit=">Circuitos</Link><Link href="/territorios?district=">Distritos</Link></nav>}<div className="explore-groups">{[...groups].sort(([a],[b])=>a.localeCompare(b,'es')).map(([name,members])=><details key={name} open={selected===name}><summary>{kind==='party'?<img src={getPartyLogoPath(normalizePartyCode(members[0].party))} alt="" width={48} height={48}/>:kind==='territory'&&query.circuit===undefined&&query.district===undefined?<ProvinceMap name={name}/>:null}<strong>{name}</strong><span>{members.length} perfiles</span><Plus size={20} aria-hidden="true"/></summary><div className="related-grid">{members.map(p=><Link className="related-person" key={p._id} href={`/politician/${p.externalId}`}><Portrait src={p.hasHeadshot?p.headshot:undefined} name={p.name}/><div><strong>{p.name}</strong><span>{p.role} · {p.province}{p.circuit?` · ${p.circuit}`:''}</span></div><ArrowUpRight size={18}/></Link>)}</div></details>)}</div>{kind==='committee'&&<p className="source-note">Membresía importada de Espacio Cívico. El período no está publicado en este registro. <Link href="/metodologia">Consultar cobertura</Link></p>}{kind==='territory'&&<p className="source-note">Los circuitos electorales y los distritos administrativos son ámbitos distintos. Solo se muestran asociaciones documentadas en el directorio. Mapas: Instituto Geográfico Nacional Tommy Guardia, a través de ArcGIS.</p>}</div></div>;
+}

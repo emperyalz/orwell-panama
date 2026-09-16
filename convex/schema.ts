@@ -4,6 +4,14 @@ import { multiplayerTables } from "./multiplayerSchema";
 
 export default defineSchema({
   ...multiplayerTables,
+  activity: defineTable({
+    politicianId:v.id('politicians'),kind:v.union(v.literal('news'),v.literal('social')),
+    sourceUrl:v.string(),sourceName:v.string(),title:v.string(),summary:v.optional(v.string()),
+    platform:v.optional(v.string()),publishedAt:v.number(),collectedAt:v.number(),
+    imageUrl:v.optional(v.string()),
+  }).index('by_politician_date',['politicianId','publishedAt']).index('by_published',['publishedAt']).index('by_politician_url',['politicianId','sourceUrl']),
+  collectionRuns:defineTable({kind:v.string(),checkedAt:v.number(),inserted:v.number(),errors:v.array(v.string())}).index('by_kind',['kind']),
+  legislativeReports:defineTable({reportId:v.number(),completedAt:v.number()}).index('by_report',['reportId']),
   // Politicians — elected officials
   politicians: defineTable({
     externalId: v.string(), // e.g. "DEP-015", "MAY-003"

@@ -1,6 +1,11 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
+export const listMemberships = query({args:{},handler:async(ctx)=>{
+ const rows=await ctx.db.query('deputyTransparency').collect();
+ return rows.map(r=>({politicianId:r.politicianId,commissions:r.commissions||[]}));
+}});
+
 /** Upsert a deputy transparency record from Espacio Cívico */
 export const upsertTransparency = mutation({
   args: {
@@ -52,6 +57,7 @@ export const upsertTransparency = mutation({
     if (existing) {
       await ctx.db.patch(existing._id, {
         ...args,
+        documents: args.documents ? {...existing.documents,...args.documents} : existing.documents,
         updatedAt: now,
       });
       return { action: "updated", id: existing._id };

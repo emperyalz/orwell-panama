@@ -10,8 +10,11 @@
 
 import type * as accounts from "../accounts.js";
 import type * as actionItems from "../actionItems.js";
+import type * as activity from "../activity.js";
+import type * as activityActions from "../activityActions.js";
 import type * as comments from "../comments.js";
 import type * as computeAnalytics from "../computeAnalytics.js";
+import type * as crons from "../crons.js";
 import type * as decisions from "../decisions.js";
 import type * as documentExtraction from "../documentExtraction.js";
 import type * as documentExtractionHelpers from "../documentExtractionHelpers.js";
@@ -20,6 +23,9 @@ import type * as documentStorageHelpers from "../documentStorageHelpers.js";
 import type * as featuredVideos from "../featuredVideos.js";
 import type * as fields from "../fields.js";
 import type * as images from "../images.js";
+import type * as legislativeActions from "../legislativeActions.js";
+import type * as legislativeFeed from "../legislativeFeed.js";
+import type * as legislativeRefresh from "../legislativeRefresh.js";
 import type * as mediaSources from "../mediaSources.js";
 import type * as migrations from "../migrations.js";
 import type * as multiplayerSchema from "../multiplayerSchema.js";
@@ -45,8 +51,11 @@ import type {
 declare const fullApi: ApiFromModules<{
   accounts: typeof accounts;
   actionItems: typeof actionItems;
+  activity: typeof activity;
+  activityActions: typeof activityActions;
   comments: typeof comments;
   computeAnalytics: typeof computeAnalytics;
+  crons: typeof crons;
   decisions: typeof decisions;
   documentExtraction: typeof documentExtraction;
   documentExtractionHelpers: typeof documentExtractionHelpers;
@@ -55,6 +64,9 @@ declare const fullApi: ApiFromModules<{
   featuredVideos: typeof featuredVideos;
   fields: typeof fields;
   images: typeof images;
+  legislativeActions: typeof legislativeActions;
+  legislativeFeed: typeof legislativeFeed;
+  legislativeRefresh: typeof legislativeRefresh;
   mediaSources: typeof mediaSources;
   migrations: typeof migrations;
   multiplayerSchema: typeof multiplayerSchema;

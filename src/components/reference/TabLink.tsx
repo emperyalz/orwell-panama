@@ -1,0 +1,2 @@
+'use client';
+export function TabLink({tab,children}:{tab:string;children:React.ReactNode}){return <button className="source-link" onClick={()=>{window.dispatchEvent(new CustomEvent('orwell:open-tab',{detail:{id:tab}}));window.dispatchEvent(new CustomEvent('orwell:profile-tab',{detail:{id:tab}}));document.querySelector('.record-tabs')?.scrollIntoView({behavior:'smooth',block:'start'});}}>{children}</button>;}

@@ -38,6 +38,7 @@ async function scrapePage(slug) {
   const url = `${BASE}/${slug}`;
   try {
     const res = await fetch(url, {
+      signal: AbortSignal.timeout(20000),
       headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
     });
     if (!res.ok) return null;
@@ -248,7 +249,7 @@ async function main() {
   console.log(`❌ Failed/not found: ${failed.length}`);
   if (failed.length > 0) console.log(`   ${failed.join(", ")}`);
 
-  writeFileSync("data/espacio-civico-deputies.json", JSON.stringify(results, null, 2));
+  writeFileSync(process.env.SCRAPE_OUTPUT || "data/espacio-civico-deputies.json", JSON.stringify(results, null, 2));
   console.log(`\n💾 Saved to data/espacio-civico-deputies.json`);
 
   // Stats

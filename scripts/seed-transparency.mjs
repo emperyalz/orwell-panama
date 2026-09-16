@@ -46,7 +46,7 @@ async function main() {
 
   // Read scraped data
   const scraped = JSON.parse(
-    readFileSync("data/espacio-civico-deputies.json", "utf8")
+    readFileSync(process.env.SCRAPE_INPUT || "data/espacio-civico-deputies.json", "utf8")
   );
   console.log(`📋 ${scraped.length} scraped profiles to process\n`);
 
