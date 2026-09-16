@@ -1,0 +1,10 @@
+import {fetchQuery} from 'convex/nextjs';
+import {api} from '../../../../convex/_generated/api';
+import {notFound} from 'next/navigation';
+import Link from 'next/link';
+import {displayDate} from '@/lib/reference';
+import '@/components/reference/profile-index.css';
+import {siteUrl} from '@/lib/site';
+type Props={params:Promise<{ficha:string}>};
+export async function generateMetadata({params}:Props){const {ficha}=await params;const r=await fetchQuery(api.bills.get,{ficha});return{title:r?`${r.projectNumber?'Proyecto '+r.projectNumber:'Ficha '+ficha} | ORWELL Panamá`:'Ficha no encontrada',description:r?.title,alternates:{canonical:siteUrl(`/proyectos/${ficha}`)}};}
+export default async function Bill({params}:Props){const {ficha}=await params;const r=await fetchQuery(api.bills.get,{ficha});if(!r)notFound();const people=await fetchQuery(api.politicians.list,{});return <div className="reference-world"><article className="reference-wrap methodology"><Link className="record-button" href="/proyectos">Todos los proyectos</Link><span className="eyebrow">Ficha {r.ficha} · {displayDate(r.presentedAt)}</span><h1 data-no-translate>{r.title}</h1><h2>Etapa publicada</h2><p data-no-translate>{r.stage}</p><h2>Proponentes registrados</h2><p data-no-translate>{r.proponents}</p><div className="topic-list">{people.filter(p=>r.politicianIds.includes(p._id)).map(p=><Link href={`/politician/${p.externalId}`} key={p._id} data-no-translate>{p.name}</Link>)}</div><h2>Cambios observados</h2>{r.history.map((h,i)=><p key={i}><time>{displayDate(h.observedAt)}</time> · <span data-no-translate>{h.stage}</span></p>)}<p className="source-note">Las fechas de cambios corresponden a la recogida de ORWELL. No son fechas de aprobación. El estado procede del seguimiento oficial; una votación o un tercer debate no acredita por sí solo una ley sancionada.</p><a className="record-button" href={r.sourceUrl} target="_blank" rel="noreferrer">Consultar ficha en la Asamblea</a><p className="source-note">Busca la ficha {r.ficha} en el sistema oficial. Última comprobación: {displayDate(r.checkedAt)}.</p></article></div>;}

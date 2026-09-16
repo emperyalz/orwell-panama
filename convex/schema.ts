@@ -8,10 +8,13 @@ export default defineSchema({
     politicianId:v.id('politicians'),kind:v.union(v.literal('news'),v.literal('social')),
     sourceUrl:v.string(),sourceName:v.string(),title:v.string(),summary:v.optional(v.string()),
     platform:v.optional(v.string()),publishedAt:v.number(),collectedAt:v.number(),
-    imageUrl:v.optional(v.string()),
+    imageUrl:v.optional(v.string()),sourceLogoUrl:v.optional(v.string()),mediaKind:v.optional(v.union(v.literal('image'),v.literal('video'))),
   }).index('by_politician_date',['politicianId','publishedAt']).index('by_published',['publishedAt']).index('by_politician_url',['politicianId','sourceUrl']),
   collectionRuns:defineTable({kind:v.string(),checkedAt:v.number(),inserted:v.number(),errors:v.array(v.string())}).index('by_kind',['kind']),
   legislativeReports:defineTable({reportId:v.number(),completedAt:v.number()}).index('by_report',['reportId']),
+  politicianFacts:defineTable({politicianId:v.id('politicians'),birthDate:v.optional(v.string()),birthPlace:v.optional(v.string()),citizenship:v.optional(v.string()),biography:v.optional(v.string()),sources:v.array(v.object({field:v.string(),url:v.string()})),checkedAt:v.number()}).index('by_politician',['politicianId']),
+  bills:defineTable({ficha:v.string(),projectNumber:v.optional(v.string()),anteprojectNumber:v.optional(v.string()),title:v.string(),stage:v.string(),presentedAt:v.number(),proponents:v.string(),politicianIds:v.array(v.id('politicians')),sourceUrl:v.string(),checkedAt:v.number(),history:v.array(v.object({stage:v.string(),observedAt:v.number()}))}).index('by_ficha',['ficha']).index('by_presented',['presentedAt']),
+  billPeople:defineTable({politicianId:v.id('politicians'),billId:v.id('bills'),presentedAt:v.number()}).index('by_person_date',['politicianId','presentedAt']).index('by_bill',['billId']),
   // Politicians — elected officials
   politicians: defineTable({
     externalId: v.string(), // e.g. "DEP-015", "MAY-003"

@@ -6,12 +6,13 @@ export const getPerson = cache((id:string)=>fetchQuery(api.politicians.getByExte
 export const getProfile = cache(async(id:string)=>{
  const person=await getPerson(id);
  if(!person) return null;
+ const facts=await fetchQuery(api.politicianFacts.get,{politicianId:person._id});
  let dashboard=null;
  let unavailable=false;
  if(person.roleCategory==='Deputy') {
   try {dashboard=await fetchQuery(api.voting.getDeputyDashboard,{politicianId:person._id});} catch {unavailable=true;}
  }
- return {person,dashboard,unavailable};
+ return {person,dashboard,unavailable,facts};
 });
 
 export const getProfileParty = cache((code:string)=>fetchQuery(api.parties.getByCode,{code}));

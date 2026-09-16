@@ -7,13 +7,15 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import {LanguageRuntime} from "@/components/i18n/LanguageRuntime";
 import "./globals.css";
+import {SITE_URL} from '@/lib/site';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "ORWELL | POLÍTICA",
   description:
-    "Directorio de políticos panameños con perfiles de redes sociales verificados. 74 políticos, 186 cuentas verificadas.",
+    "Perfiles de la política panameña, documentos públicos, noticias y registros legislativos con sus fuentes.",
   openGraph: {
     title: "ORWELL | POLÍTICA",
     description:

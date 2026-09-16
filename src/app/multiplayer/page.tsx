@@ -1,3 +1,5 @@
+import Bills from '@/app/proyectos/page';
+import BillDetail from '@/app/proyectos/[ficha]/page';
 import Vote from '@/app/politician/[id]/voto/[question]/page';
 import Territories from '@/app/territorios/page';
 import Committees from '@/app/comisiones/page';
@@ -20,6 +22,7 @@ function pathSession(pathname:string){
  if(pathname==='/')return {id:'orwell-panama-site-personas',name:'Personas'};
  const vote=pathname.match(/^\/politician\/([^/]+)\/voto\/(\d+)$/);if(vote)return {id:`orwell-panama-${vote[1]}-vote-${vote[2]}`,name:'Votación'};
  if(pathname==='/territorios')return {id:'orwell-panama-site-territorios',name:'Territorios'};
+ if(pathname.startsWith('/proyectos'))return {id:'orwell-panama-site-proyectos',name:'Proyectos'};
  if(pathname==='/comisiones')return {id:'orwell-panama-site-comisiones',name:'Comisiones'};
  if(pathname==='/destacados')return {id:'orwell-panama-site-destacados',name:'Actividad'};
  if(pathname==='/oficinas')return {id:'orwell-panama-site-cargos',name:'Cargos'};
@@ -41,6 +44,8 @@ export default async function Multiplayer({searchParams}:{searchParams:Promise<Q
   else if(pathname==='/comisiones')content=<Committees searchParams={Promise.resolve({name:requested.searchParams.get('name')||undefined})}/>;
   else if(pathname==='/oficinas')content=<Offices/>;
   else if(pathname==='/partidos')content=<PartidosPage searchParams={Promise.resolve({name:requested.searchParams.get('name')||undefined})}/>;
+  else if(pathname==='/proyectos')content=<Bills/>;
+  else if(/^\/proyectos\/\d+$/.test(pathname))content=<BillDetail params={Promise.resolve({ficha:pathname.split('/')[2]})}/>;
   else if(pathname==='/metodologia')content=<Methodology/>;
   else if(pathname==='/destacados')content=<Highlights/>;
   else if(pathname==='/comparar')content=<Compare searchParams={Promise.resolve({a:requested.searchParams.get('a')||'',b:requested.searchParams.get('b')||''})}/>;

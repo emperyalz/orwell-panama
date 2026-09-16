@@ -1,0 +1,14 @@
+import {query,internalMutation} from './_generated/server';
+import {v} from 'convex/values';
+import {paginationOptsValidator} from 'convex/server';
+export const sitemap=query({args:{},handler:async ctx=>(await ctx.db.query('bills').collect()).map(({ficha,checkedAt})=>({ficha,checkedAt}))});
+export const paginated=query({args:{paginationOpts:paginationOptsValidator},handler:(ctx,args)=>ctx.db.query('bills').withIndex('by_presented').order('desc').paginate(args.paginationOpts)});
+const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
+export const list=query({args:{limit:v.optional(v.number())},handler:(ctx,args)=>ctx.db.query('bills').withIndex('by_presented').order('desc').take(Math.min(args.limit||50,200))});
+export const forPerson=query({args:{politicianId:v.id('politicians')},handler:async(ctx,args)=>{const links=await ctx.db.query('billPeople').withIndex('by_person_date',q=>q.eq('politicianId',args.politicianId)).order('desc').take(50);const rows=await Promise.all(links.map(l=>ctx.db.get(l.billId)));return rows.filter(r=>r!==null);}});
+export const get=query({args:{ficha:v.string()},handler:(ctx,{ficha})=>ctx.db.query('bills').withIndex('by_ficha',q=>q.eq('ficha',ficha)).first()});
+export const ingest=internalMutation({args:{rows:v.array(v.object({ficha:v.string(),projectNumber:v.optional(v.string()),anteprojectNumber:v.optional(v.string()),title:v.string(),stage:v.string(),presentedAt:v.number(),proponents:v.string(),sourceUrl:v.string()}))},handler:async(ctx,{rows})=>{
+ const people=await ctx.db.query('politicians').collect();let inserted=0;let changed=0;
+ for(const row of rows){if(!Number.isFinite(row.presentedAt)||!row.ficha||!row.title)continue;const names=row.proponents.split(',');const politicianIds=people.filter(p=>names.some(n=>{const words=normalize(n);const parts=normalize(p.name);return parts.length>=2&&parts.every(part=>words.includes(part));})).map(p=>p._id);const old=await ctx.db.query('bills').withIndex('by_ficha',q=>q.eq('ficha',row.ficha)).first();const history=old?.history||[];if(!old||old.stage!==row.stage){history.push({stage:row.stage,observedAt:Date.now()});changed++;}const data={...row,politicianIds,checkedAt:Date.now(),history};let billId;if(old){await ctx.db.patch(old._id,data);billId=old._id;}else{billId=await ctx.db.insert('bills',data);inserted++;}const links=await ctx.db.query('billPeople').withIndex('by_bill',q=>q.eq('billId',billId)).collect();for(const politicianId of politicianIds)if(!links.some(l=>l.politicianId===politicianId))await ctx.db.insert('billPeople',{politicianId,billId,presentedAt:row.presentedAt});for(const link of links)if(!politicianIds.includes(link.politicianId))await ctx.db.delete(link._id);}
+ return {inserted,changed};
+}});
