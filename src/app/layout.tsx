@@ -13,6 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {icon:[{url:'/icon.svg',type:'image/svg+xml'},{url:'/favicon.ico',sizes:'any'}],shortcut:'/favicon.ico'},
   title: "ORWELL | POLÍTICA",
   description:
     "Perfiles de la política panameña, documentos públicos, noticias y registros legislativos con sus fuentes.",

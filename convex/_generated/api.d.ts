@@ -39,6 +39,7 @@ import type * as politicians from "../politicians.js";
 import type * as presence from "../presence.js";
 import type * as seed from "../seed.js";
 import type * as sessions from "../sessions.js";
+import type * as sourceRegistry from "../sourceRegistry.js";
 import type * as stickyNotes from "../stickyNotes.js";
 import type * as storage from "../storage.js";
 import type * as transparency from "../transparency.js";
@@ -85,6 +86,7 @@ declare const fullApi: ApiFromModules<{
   presence: typeof presence;
   seed: typeof seed;
   sessions: typeof sessions;
+  sourceRegistry: typeof sourceRegistry;
   stickyNotes: typeof stickyNotes;
   storage: typeof storage;
   transparency: typeof transparency;
