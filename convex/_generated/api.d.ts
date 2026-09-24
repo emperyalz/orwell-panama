@@ -36,6 +36,7 @@ import type * as multiplayerSchema from "../multiplayerSchema.js";
 import type * as parties from "../parties.js";
 import type * as politicianFacts from "../politicianFacts.js";
 import type * as politicians from "../politicians.js";
+import type * as portraitReview from "../portraitReview.js";
 import type * as presence from "../presence.js";
 import type * as seed from "../seed.js";
 import type * as sessions from "../sessions.js";
@@ -83,6 +84,7 @@ declare const fullApi: ApiFromModules<{
   parties: typeof parties;
   politicianFacts: typeof politicianFacts;
   politicians: typeof politicians;
+  portraitReview: typeof portraitReview;
   presence: typeof presence;
   seed: typeof seed;
   sessions: typeof sessions;

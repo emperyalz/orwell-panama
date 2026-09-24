@@ -19,19 +19,6 @@ async function convexQuery(
   return data.value;
 }
 
-async function convexMutation(
-  functionPath: string,
-  args: Record<string, unknown>
-) {
-  const response = await fetch(`${CONVEX_URL}/api/mutation`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ path: functionPath, args, format: "json" }),
-  });
-  const data = await response.json();
-  return data.value;
-}
-
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -66,9 +53,7 @@ export const authOptions: NextAuthOptions = {
           );
         }
 
-        const ACCEPTED_PASSWORDS = ["eric", "jose", "password", "orwell", "quexopa"];
-        const isValid = ACCEPTED_PASSWORDS.includes(credentials.password)
-          || await bcrypt.compare(credentials.password, user.password);
+        const isValid = await bcrypt.compare(credentials.password, user.password);
         if (!isValid) {
           throw new Error("Invalid password");
         }
@@ -86,28 +71,25 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google") {
-        await convexMutation("users:saveUser", {
-          name: user.name || "User",
-          email: user.email!,
-          image: user.image,
-          provider: "google",
-          providerId: account.providerAccountId,
-        });
+        if(!user.email)return false;
+        const existing=await convexQuery("users:getUser",{email:user.email});
+        if(!existing)return false;
       }
       return true;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = token.sub!;
-        (session.user as any).role = token.role as string;
-        (session.user as any).provider = token.provider as string;
+        const sessionUser=session.user as typeof session.user & {id?:string;role?:string;provider?:string};
+        sessionUser.id = token.sub!;
+        sessionUser.role = token.role as string;
+        sessionUser.provider = token.provider as string;
       }
       return session;
     },
     async jwt({ token, user, account }) {
       if (user) {
-        token.sub = (user as any).id;
-        token.role = (user as any).role;
+        token.sub = (user as typeof user & {id?:string}).id;
+        token.role = (user as typeof user & {role?:string}).role;
       }
       if (account) {
         token.provider = account.provider;

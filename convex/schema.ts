@@ -4,6 +4,18 @@ import { multiplayerTables } from "./multiplayerSchema";
 
 export default defineSchema({
   ...multiplayerTables,
+  portraitReviewReferences: defineTable({
+    externalId: v.string(),
+    kind: v.union(v.literal('source'), v.literal('upload')),
+    title: v.string(),
+    sourcePage: v.optional(v.string()),
+    imageUrl: v.optional(v.string()),
+    storageId: v.optional(v.id('_storage')),
+    sortOrder: v.number(),
+    deletedAt: v.optional(v.number()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index('by_externalId_order', ['externalId', 'sortOrder']),
   activity: defineTable({
     politicianId:v.id('politicians'),kind:v.union(v.literal('news'),v.literal('social')),
     sourceUrl:v.string(),sourceName:v.string(),title:v.string(),summary:v.optional(v.string()),
