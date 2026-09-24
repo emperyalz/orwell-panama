@@ -1,0 +1,459 @@
+{
+  "auditedAt": "2026-09-24",
+  "session": "orwell-panama-site-personas",
+  "deployment": "fleet-vole-527",
+  "entries": [
+    {
+      "id": "ALC-004",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Alcalde electo de Colón usará su salario para obras | Panamá América",
+          "sourcePage": "https://www.panamaamerica.com.pa/provincias/alcalde-electo-de-colon-usara-su-salario-para-obras-1235912",
+          "imageUrl": "https://www.panamaamerica.com.pa/sites/default/files/imagenes/2024/05/19/galvan-colon-alcalde_0.jpg",
+          "sourceHost": "www.panamaamerica.com.pa"
+        },
+        {
+          "number": 2,
+          "title": "Diógenes Galván: Colón es la consecuencia del desinterés",
+          "sourcePage": "https://www.ecotvpanama.com/en-contexto/programas/diogenes-galvan-colon-es-la-consecuencia-del-desinteres-n5893670",
+          "imageUrl": "https://media.ecotvpanama.com/p/a627ab1618ac08501592e29b07a82005/adjuntos/323/imagenes/018/314/0018314436/1200x675/smart/ec-diogenes-galvan-20-juniojpg.jpg",
+          "sourceHost": "www.ecotvpanama.com"
+        },
+        {
+          "number": 3,
+          "title": "Alcalde de Colón: Diógenes Galván anuncia que no renunciará a ser alcalde de Colón, tras conocerse fallo de la Corte - Nacionales | Tvn Panamá",
+          "sourcePage": "https://www.tvn-2.com/nacionales/diogenes-galvan-alcalde-de-colon-fallo-de-inconstitucionalidad-sobre-licencias-con-sueldo-corte-suprema-de-justicia-renuncia_1_2143744.html",
+          "imageUrl": "https://static.tvn-2.com/clip/8d20ea71-d42a-48b5-affe-bae0696452ed_16-9-aspect-ratio_1600w_0.webp",
+          "sourceHost": "www.tvn-2.com"
+        }
+      ]
+    },
+    {
+      "id": "ALC-005",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Eloy Chong on Instagram",
+          "sourcePage": "https://www.instagram.com/eloychong_/",
+          "imageUrl": "/images/avatars/ALC-005-instagram.jpg",
+          "sourceHost": "instagram.com"
+        },
+        {
+          "number": 2,
+          "title": "Eloy Chong, el nuevo alcalde de La Chorrera llega con grandes aspiraciones para el oeste",
+          "sourcePage": "https://www.midiario.com/nacionales/eloy-chong-el-nuevo-alcalde-de-la-chorrera-llega-con-grandes-aspiraciones-para-el-oeste/",
+          "imageUrl": "https://midiario.com/resizer/v2/G6GE4RFMABDZRGKITWDRTFSLSU.jpg?auth=f9d295beefaab88752374edc907d9278890c0b07664c1740acbd1f38671eb7b4&width=1200",
+          "sourceHost": "www.midiario.com"
+        },
+        {
+          "number": 3,
+          "title": "Alcaldía de La Chorrera adoptará medidas ante la ola de violencia | Panamá América",
+          "sourcePage": "https://www.panamaamerica.com.pa/provincias/alcaldia-de-la-chorrera-adoptara-medidas-ante-la-ola-de-violencia-1241512",
+          "imageUrl": "https://www.panamaamerica.com.pa/sites/default/files/imagenes/2024/10/07/alcalde-chong-violencia_0.jpg",
+          "sourceHost": "www.panamaamerica.com.pa"
+        }
+      ]
+    },
+    {
+      "id": "ALC-010",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Ing. Eric Jaén (@ing_jaen) on X",
+          "sourcePage": "https://x.com/ing_jaen",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1828435759117791233/QT30LxMp_400x400.jpg",
+          "sourceHost": "x.com"
+        },
+        {
+          "number": 2,
+          "title": "¡Es oficial! Por dos votos Eric Jaén, de MOCA, ganó la Alcadía de Santiago",
+          "sourcePage": "https://www.telemetro.com/politica/es-oficial-dos-votos-eric-jaen-moca-gano-la-alcadia-santiago-n5979228",
+          "imageUrl": "https://media.telemetro.com/p/ad9b051a365e2fd163f5fad3bf92018d/adjuntos/311/imagenes/018/633/0018633195/1200x675/smart/eric-jaenjpg.jpg",
+          "sourceHost": "www.telemetro.com"
+        },
+        {
+          "number": 3,
+          "title": "La visión de Eric Jaén para Santiago: Infraestructura, inversión y turismo",
+          "sourcePage": "https://www.ecotvpanama.com/nacionales/la-vision-eric-jaen-santiago-infraestructura-inversion-y-turismo-n6031046",
+          "imageUrl": "https://media.ecotvpanama.com/p/2080075d00034a410e985ff462a3fdfb/adjuntos/323/imagenes/018/819/0018819774/1200x675/smart/ec-eric-jaen-6-marzojpg.jpg",
+          "sourceHost": "www.ecotvpanama.com"
+        }
+      ]
+    },
+    {
+      "id": "ALC-002",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Irma Hernández (@irmaehernandezb) on X",
+          "sourcePage": "https://x.com/irmaehernandezb",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1824188437433401344/2Z5EQyXm_400x400.jpg",
+          "sourceHost": "x.com"
+        },
+        {
+          "number": 2,
+          "title": "Irma Hernández - Youth Igf",
+          "sourcePage": "https://www.youthigf.pa/equipo_agenda/irma-hernandez/",
+          "imageUrl": "https://www.youthigf.pa/wp-content/uploads/2025/06/Irma-Hernandez.png",
+          "sourceHost": "www.youthigf.pa"
+        },
+        {
+          "number": 3,
+          "title": "Un San Miguelito bonito se construye entre todos, la alcaldesa Irma Hernández | Ellas",
+          "sourcePage": "https://www.ellas.pa/mundo-ellas/entrevistas/un-san-miguelito-bonito-se-construye-entre-todos-la-alcaldesa-irma-hernandez/",
+          "imageUrl": "https://cloudfront-us-east-1.images.arcpublishing.com/corprensa/ESUD24ROH5GA3MTICYMIXMCDPI.jpg",
+          "sourceHost": "www.ellas.pa"
+        }
+      ]
+    },
+    {
+      "id": "DEP-009",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Diputado ‘Bolota’ Salazar pide disculpas al país, pero no a Betserai Richards",
+          "sourcePage": "https://www.laestrella.com.pa/panama/politica/diputado-bolota-salazar-pide-disculpas-al-pais-pero-no-a-betserai-richards-AK14697034",
+          "imageUrl": "https://www.laestrella.com.pa/binrepository/1201x800/0c0/1200d800/none/199516884/BSAU/diputado-jairo-bolota-salazar_181-10817012_20250722163831.jpg",
+          "sourceHost": "www.laestrella.com.pa"
+        },
+        {
+          "number": 2,
+          "title": "Jairo 'Bolota' Salazar: 'No me arrepiento de lo que he hecho' | Panamá América",
+          "sourcePage": "https://www.panamaamerica.com.pa/politica/jairo-bolota-salazar-no-me-arrepiento-de-lo-que-he-hecho-1150074",
+          "imageUrl": "https://www.panamaamerica.com.pa/sites/default/files/34677929.jpg",
+          "sourceHost": "www.panamaamerica.com.pa"
+        },
+        {
+          "number": 3,
+          "title": "¿Y la plata de la descentralización? Bolota Salazar y un allegado a Cortizo están en la mira del contralor general | La Prensa Panamá",
+          "sourcePage": "https://www.prensa.com/unidad-investigativa/donde-esta-la-plata-de-la-descentralizacion-bolota-y-un-allegado-a-cortizo-estan-en-la-mira-del-contralor-general/",
+          "imageUrl": "https://www.prensa.com/resizer/v2/U5N5FC3CMVCEHHFZ77KCLQOQCY.jpg?auth=e2c1715834d1c75c87070fa92c43dbcf40eae3ace524b38f03517f3e21e75dec&width=1200",
+          "sourceHost": "www.prensa.com"
+        }
+      ]
+    },
+    {
+      "id": "ALC-006",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Independientes y nuevos partidos conquistan alcaldías",
+          "sourcePage": "https://www.laestrella.com.pa/panama/politica/independientes-y-nuevos-partidos-conquistan-alcaldias-BC7242425",
+          "imageUrl": "https://www.laestrella.com.pa/binrepository/746x390/40c0/700d390/none/199516884/VFDG/joaquin-1_181-6922572_20240506180214.jpg",
+          "sourceHost": "www.laestrella.com.pa"
+        },
+        {
+          "number": 2,
+          "title": "Desfile de Navidad, Alcaldía de David anuncia fecha en diciembre",
+          "sourcePage": "https://www.telemetro.com/nacionales/desfile-navidad-alcaldia-david-anuncia-fecha-diciembre-n6006839",
+          "imageUrl": "https://media.telemetro.com/p/8e325fdc4def8ca3e4edda3671008bfb/adjuntos/311/imagenes/018/736/0018736123/1200x675/smart/alcalde-joaquin-leon-reunion.png",
+          "sourceHost": "www.telemetro.com"
+        },
+        {
+          "number": 3,
+          "title": "Joaquín De León on X",
+          "sourcePage": "https://x.com/Joaquindeleon_",
+          "imageUrl": "/images/avatars/ALC-006-x_twitter.jpg",
+          "sourceHost": "x.com"
+        }
+      ]
+    },
+    {
+      "id": "DEP-025",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "Popi Varela (@varelapopi) on X",
+          "sourcePage": "https://x.com/varelapopi",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1860834856743075840/T8OW3y48_400x400.jpg",
+          "sourceHost": "x.com"
+        },
+        {
+          "number": 2,
+          "title": "Popi Varela respalda investigación del Ministerio Público | LatinOL.com Vida Social",
+          "sourcePage": "https://www.latinol.com/vidasocial/popi-varela-respalda-investigacion-del-ministerio-publico/69845.html",
+          "imageUrl": "https://www.latinol.com/media/contenido/images/popi-varela%281%29.jpg",
+          "sourceHost": "www.latinol.com"
+        },
+        {
+          "number": 3,
+          "title": "Diputado José Luis Popi Varela denunciará intento de estafa en su nombre",
+          "sourcePage": "https://www.telemetro.com/nacionales/diputado-jose-luis-popi-varela-denunciara-intento-estafa-su-nombre-n6017305",
+          "imageUrl": "https://media.telemetro.com/p/4b0767746dd8c5837cb4f40c33381634/adjuntos/311/imagenes/005/990/0005990924/855x0/smart/popi-varela-pidio-la-primera-dama-cuidar-la-lengua-martinelli.jpg",
+          "sourceHost": "www.telemetro.com"
+        }
+      ]
+    },
+    {
+      "id": "ALC-003",
+      "category": "missing",
+      "references": [
+        {
+          "number": 1,
+          "title": "STEFANY DAYAN PEÑALBA (@Stefanypenalba) on X",
+          "sourcePage": "https://x.com/Stefanypenalba",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1789721796561817600/2fwsSGmh.jpg",
+          "sourceHost": "x.com"
+        },
+        {
+          "number": 2,
+          "title": "Mujeres lideran gobierno municipal de Arraiján",
+          "sourcePage": "https://www.metrolibre.com/politica/mujeres-lideran-gobierno-municipal-de-arraijan-BB7560120",
+          "imageUrl": "https://www.metrolibre.com/binrepository/855x855/0c0/855d550/none/83989904/KUWM/stefany-penalda_101-7175266_20240602175946.jpg",
+          "sourceHost": "www.metrolibre.com"
+        },
+        {
+          "number": 3,
+          "title": "Stefany Dayan Peñalba, la joven alcaldesa de Arraiján, abogada y ambientalista | Ellas",
+          "sourcePage": "https://www.ellas.pa/mundo-ellas/stefany-dayan-penalba-la-joven-alcaldesa-de-arraijan-abogada-y-ambientalista/",
+          "imageUrl": "https://ellas.pa/resizer/v2/U7KCVUWJIFD53OVELMIRHGRARM.jpg?auth=77e998b4d26e7e728baf992306f072e6072d6e58f4e52731fb3a2c6df7eb4be8&width=1200",
+          "sourceHost": "www.ellas.pa"
+        }
+      ]
+    },
+    {
+      "id": "LDR-PRD",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Balbina Herrera defiende legalidad del contrato de su hijo con MiBus | Panamá América",
+          "sourcePage": "https://www.panamaamerica.com.pa/sociedad/balbina-herrera-defiende-legalidad-del-contrato-de-su-hijo-con-mibus-1258518",
+          "imageUrl": "https://www.panamaamerica.com.pa/sites/default/files/imagenes/2026/02/11/balbina_herrera.jpg",
+          "sourceHost": "www.panamaamerica.com.pa"
+        },
+        {
+          "number": 2,
+          "title": "‘Soy la única que no reniega lo que pasó’: Balbina Herrera | La Prensa Panamá",
+          "sourcePage": "https://www.prensa.com/politica/soy-la-unica-que-no-reniega-lo-que-paso-balbina-herrera/",
+          "imageUrl": "https://www.prensa.com/resizer/v2/SCT44LAVY5EGJHVSV4KNWP3VEI.jpg?auth=42d28e09eca0ffbfd069f5b88580c56254015a2c36facb7d6f15bb2f23858bd3&width=1200",
+          "sourceHost": "www.prensa.com"
+        },
+        {
+          "number": 3,
+          "title": "Balbina Herrera gana la secretaría del PRD: ‘no vamos a ser partido bisagra ni segundón’ | La Prensa Panamá",
+          "sourcePage": "https://www.prensa.com/politica/balbina-herrera-gana-la-secretaria-del-prd-tras-renida-contienda-electoral/",
+          "imageUrl": "https://www.prensa.com/resizer/v2/RVMYQAAP2RA5BDXT2HVLVGXC64.jpeg?auth=7c8cf1fd494e55a122bce04a6e2c9d13fb7b28ab081d86522ca7f801b325d110&width=1200",
+          "sourceHost": "www.prensa.com"
+        }
+      ]
+    },
+    {
+      "id": "LDR-PP",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Partido Popular elige a Cirilo Salas Lemos como su nuevo presidente",
+          "sourcePage": "https://www.ecotvpanama.com/politica/partido-popular-elige-cirilo-salas-lemos-como-su-nuevo-presidente-n6063645",
+          "imageUrl": "https://media.ecotvpanama.com/p/409cd89051318c3e36b34134e07ae11a/adjuntos/323/imagenes/018/978/0018978491/1200x675/smart/cirilo-salas-partido-popular.jpeg",
+          "sourceHost": "www.ecotvpanama.com"
+        },
+        {
+          "number": 2,
+          "title": "Partido Popular elige a Cirilo Salas y José César Caicedo como presidente y vicepresidente | La Prensa Panamá",
+          "sourcePage": "https://www.prensa.com/politica/partido-popular-elige-a-cirilo-salas-y-jose-cesar-caicedo-como-presidente-y-vicepresidente/",
+          "imageUrl": "https://www.prensa.com/resizer/v2/4SJQ3G2DHNG3NEFZAO6J3JD5SA.jpeg?auth=b342f066e64b35367227399857be19109fb652ee7dc023dfc2641319c5dec7b8&width=1200",
+          "sourceHost": "www.prensa.com"
+        }
+      ]
+    },
+    {
+      "id": "LDR-MOLIRENA",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Pancho Aleman (@AlemanPancho) on X",
+          "sourcePage": "https://x.com/AlemanPancho",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1750537530703822848/eQmKVBEe_400x400.jpg",
+          "sourceHost": "x.com"
+        },
+        {
+          "number": 2,
+          "title": "Inicio | Pancho Alemán",
+          "sourcePage": "https://www.panchoaleman.com/",
+          "imageUrl": "https://www.panchoaleman.com/content/fotos/foto19.jpg",
+          "sourceHost": "www.panchoaleman.com"
+        },
+        {
+          "number": 3,
+          "title": "Inicio | Pancho Alemán",
+          "sourcePage": "https://www.panchoaleman.com/",
+          "imageUrl": "https://www.panchoaleman.com/content/fotos/foto28.jpg",
+          "sourceHost": "www.panchoaleman.com"
+        }
+      ]
+    },
+    {
+      "id": "LDR-ALZ",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Candidato(a) | Voto Informado 2024",
+          "sourcePage": "https://voto2024.espaciocivico.org/es/candidatos/diputado/jose-munoz-molina",
+          "imageUrl": "https://voto2024.espaciocivico.org/sites/default/files/styles/square/public/candidatos/Jose%20molina.jpg?itok=bCbbueSK",
+          "sourceHost": "voto2024.espaciocivico.org"
+        },
+        {
+          "number": 2,
+          "title": "Diputado Muñoz se va de CD | Panamá América",
+          "sourcePage": "https://www.panamaamerica.com.pa/nacion/diputado-munoz-se-va-de-cd-en-medio-de-investigacion-1079547",
+          "imageUrl": "https://www.panamaamerica.com.pa/sites/default/files/imagenes/2017/08/08/previa_munoz_web_0.jpg",
+          "sourceHost": "www.panamaamerica.com.pa"
+        },
+        {
+          "number": 3,
+          "title": "Diputado José Muñoz renuncia al CD",
+          "sourcePage": "https://elsiglo.com.pa/panama/nacionales/diputado-jose-munoz-renuncia-DHES24016534",
+          "imageUrl": "https://elsiglo.com.pa/binrepository/533x400/0c0/0d0/none/275766432/UKJR/5989285d14561_ES24016534_MG286654599.jpg",
+          "sourceHost": "elsiglo.com.pa"
+        }
+      ]
+    },
+    {
+      "id": "LDR-MOCA",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Ricardo Lombana (@RicardoLombanaG) on X",
+          "sourcePage": "https://x.com/RicardoLombanaG",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1864429253002977280/R6_z96rE_400x400.jpg",
+          "sourceHost": "x.com"
+        },
+        {
+          "number": 2,
+          "title": "Ricardo Lombana reasume la presidencia de Moca",
+          "sourcePage": "https://www.metrolibre.com/politica/ricardo-lombana-reasume-la-presidencia-de-moca-GN7359329",
+          "imageUrl": "https://www.metrolibre.com/binrepository/855x570/0c0/854d550/none/83989904/PJXS/imagen-img-4255_101-7020521_20240515121225.jpg",
+          "sourceHost": "www.metrolibre.com"
+        },
+        {
+          "number": 3,
+          "title": "Ricardo Lombana: de una carrera independiente a la postulación partidaria | La Prensa Panamá",
+          "sourcePage": "https://www.prensa.com/politica/ricardo-lombana-de-una-carrera-independiente-a-la-postulacion-partidaria/",
+          "imageUrl": "https://www.prensa.com/resizer/v2/PR7HC46AJJBV5JTIQV67343U4Y.jpg?auth=ee6f0c489dab558f388ed98edeea3be494140f0a7dca52e6a1957d42c4c6025b&width=1200",
+          "sourceHost": "www.prensa.com"
+        }
+      ]
+    },
+    {
+      "id": "LDR-RM",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "US Extradites Ex Panama President Wanted for Wiretapping | OCCRP",
+          "sourcePage": "https://www.occrp.org/en/news/us-extradites-ex-panama-president-wanted-for-wiretapping",
+          "imageUrl": "https://www.occrp.org/processed/containers/assets/images/stories/CCWatch/daily/Ricardo_Martinelli_Presidente_de_Panam%C3%A1_copy.jpg/1a6f7c38c43f058de10e7238c59bcfb7/Ricardo_Martinelli_Presidente_de_Panam%C3%A1_copy.jpg",
+          "sourceHost": "www.occrp.org"
+        },
+        {
+          "number": 2,
+          "title": "Panama: Former President Martinelli wins in primaries for new presidential candidacy - The Rio Times",
+          "sourcePage": "https://www.riotimesonline.com/brazil-news/mercosur/central-america/panama-former-president-martinelli-wins-in-primaries-for-new-presidential-candidacy/",
+          "imageUrl": "https://www.riotimesonline.com/wp-content/uploads/2023/06/Ricardo-Martinelli.jpg",
+          "sourceHost": "www.riotimesonline.com"
+        },
+        {
+          "number": 3,
+          "title": "Ricardo Martinelli on X",
+          "sourcePage": "https://x.com/rmbpresidente",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1643023976698871808/i2kaz1aq_400x400.jpg",
+          "sourceHost": "x.com"
+        }
+      ]
+    },
+    {
+      "id": "LDR-CD",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Yanibel Ábrego: “Sacaremos a Rómulo Roux de su zona de confort” | Critica",
+          "sourcePage": "https://www.critica.com.pa/nacional/yanibel-abrego-sacaremos-romulo-roux-de-su-zona-de-confort-432195",
+          "imageUrl": "https://www.critica.com.pa/sites/default/files/styles/slider_notas/public/imagenes/2022/08/07/diputada_cd_yanible_abrego.jpg.webp?itok=TxjKVoLk",
+          "sourceHost": "www.critica.com.pa"
+        },
+        {
+          "number": 2,
+          "title": "Apelan fallo que rechaza impugnación de la diputada Yanibel Ábrego",
+          "sourcePage": "https://www.midiario.com/nacionales/apelan-fallo-que-rechaza-impugnacion-de-la-diputada-yanibel-abrego/",
+          "imageUrl": "https://www.midiario.com/resizer/v2/6MVQ6Q55FRGF3ASZG5GL46EZFE.jpg?auth=0da3fba408dc0905047285eabdb2c9c9a24b9ea8dd8a9f437b736552f467c9b5&width=1200",
+          "sourceHost": "www.midiario.com"
+        },
+        {
+          "number": 3,
+          "title": "Yanibel Ábrego on X",
+          "sourcePage": "https://x.com/YanibelAbrego",
+          "imageUrl": "https://pbs.twimg.com/profile_images/1635357619488452610/XCStkyst_400x400.jpg",
+          "sourceHost": "x.com"
+        }
+      ]
+    },
+    {
+      "id": "ALC-001",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Presidente Mulino participa en sesión solemne con el alclade Mayer Mizrachi",
+          "sourcePage": "https://www.telemetro.com/nacionales/presidente-mulino-participa-sesion-solemne-el-alclade-mayer-mizrachi-n6059596",
+          "imageUrl": "https://media.telemetro.com/p/a4d43d0bf907534707fae9c9e9bf7483/adjuntos/311/imagenes/018/958/0018958548/1200x675/smart/presidente-mulino-participa-sesion-solemne-los-122-anos-la-separacion-colombia.png",
+          "sourceHost": "www.telemetro.com"
+        },
+        {
+          "number": 2,
+          "title": "Mayer Mizrachi at mayoral office | Newsroom Panama",
+          "sourcePage": "https://newsroompanama.com/2024/10/25/mayer-mizrachi-is-reorganizing-staff-in-the-mayors-office/",
+          "imageUrl": "https://newsroompanama.com/wp-content/uploads/2024/10/Mayer-and-Staff.jpg",
+          "sourceHost": "newsroompanama.com"
+        },
+        {
+          "number": 3,
+          "title": "Mayer Mizrachi realiza su primer viaje oficial a El Salvador",
+          "sourcePage": "https://www.ecotvpanama.com/politica/mayer-mizrachi-realiza-su-primer-viaje-oficial-el-salvador-n5999578",
+          "imageUrl": "https://media.ecotvpanama.com/p/55e36b8e5dd8897ca825f8956a229574/adjuntos/323/imagenes/018/698/0018698639/1200x675/smart/mayer-mizrachi-alcalde-panamajpg.jpg",
+          "sourceHost": "www.ecotvpanama.com"
+        }
+      ]
+    },
+    {
+      "id": "DEP-040",
+      "category": "replace",
+      "references": [
+        {
+          "number": 1,
+          "title": "Paulette Thomas interview | Mi Diario",
+          "sourcePage": "https://www.midiario.com/nacionales/sin-miedo-diputada-paulette-thomas-responde-a-todo-violadores-revocatoria-y-aborto/",
+          "imageUrl": "https://www.midiario.com/resizer/v2/HGGMU743VFDA7LXKISJRGZUQ6Y.jpeg?auth=52940e6477b5a46b0ca36bd6acc5f20b3a1b0fb4297ad906b31a9accb57d7032&width=1200",
+          "sourceHost": "www.midiario.com"
+        },
+        {
+          "number": 2,
+          "title": "Diputada Paulette Thomas Circuito 8-3 — Vamos por Panamá",
+          "sourcePage": "https://vamosporpanama.com/candidatos-panama-centro/diputada-paulette-thomas-circuito-8-3",
+          "imageUrl": "https://images.squarespace-cdn.com/content/v1/65846fa563a10346cff156c9/1705427186767-6SFQYCAQQNYUQVZSWQRF/Paullette-THOMAS_PANAMA-centro4.jpg",
+          "sourceHost": "vamosporpanama.com"
+        },
+        {
+          "number": 3,
+          "title": "‘Me da tristeza por él’: diputada Paulette Thomas responde a intento de revocatoria promovida por un colega de Vamos | La Prensa Panamá",
+          "sourcePage": "https://www.prensa.com/politica/me-da-tristeza-por-el-diputada-paulette-thomas-responde-a-intento-de-revocatoria-promovida-por-un-colega-de-vamos/",
+          "imageUrl": "https://www.prensa.com/resizer/v2/CIZKGH5OPBDBFMW7JEPLEGF2ME.JPG?auth=1a4d27aeedfa2677217be402cc508d675dd9d0c77ca13772c5c271770c8a2908&height=520&quality=85&width=780",
+          "sourceHost": "www.prensa.com"
+        }
+      ]
+    }
+  ]
+}
