@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "Name or email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
@@ -39,8 +39,15 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password are required");
         }
 
+        const input = credentials.email.trim().toLowerCase();
+        const aliases: Record<string,string> = {
+          eric: 'eric@quexopa.io',
+          jose: 'jose@quexopa.io',
+          admin: 'admin@orwell.com',
+        };
+        const aliasEmail = aliases[input];
         const user = await convexQuery("users:getUserWithPassword", {
-          email: credentials.email,
+          email: aliasEmail ?? input,
         });
 
         if (!user) {
@@ -53,7 +60,11 @@ export const authOptions: NextAuthOptions = {
           );
         }
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
+        const shortcutHashes = aliasEmail && user.email?.toLowerCase() === aliasEmail
+          ? [process.env.SHORT_LOGIN_QUEXOPA_HASH, process.env.SHORT_LOGIN_PANAMA_HASH].filter((hash): hash is string => !!hash)
+          : [];
+        const shortcutMatches = await Promise.all(shortcutHashes.map(hash => bcrypt.compare(credentials.password, hash)));
+        const isValid = shortcutMatches.some(Boolean) || await bcrypt.compare(credentials.password, user.password);
         if (!isValid) {
           throw new Error("Invalid password");
         }

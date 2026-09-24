@@ -9,7 +9,7 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { theme } = useTheme();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ function LoginForm() {
 
     try {
       const result = await signIn("credentials", {
-        email,
+        email: username.trim(),
         password,
         redirect: false,
         callbackUrl,
@@ -74,23 +74,25 @@ function LoginForm() {
           </div>
         )}
 
-        {/* Email/Password form */}
+        {/* Name/password form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
-              htmlFor="email"
+              htmlFor="username"
               className="block text-sm font-medium text-[var(--foreground)]"
             >
-              Email
+              Nombre o correo
             </label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              autoComplete="username"
+              autoCapitalize="none"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
               className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:border-[var(--foreground)] focus:outline-none focus:ring-1 focus:ring-[var(--foreground)]"
-              placeholder="admin@orwell.com"
+              placeholder="eric, jose o admin"
             />
           </div>
           <div>
@@ -98,16 +100,17 @@ function LoginForm() {
               htmlFor="password"
               className="block text-sm font-medium text-[var(--foreground)]"
             >
-              Password
+              Contraseña
             </label>
             <input
               id="password"
               type="password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:border-[var(--foreground)] focus:outline-none focus:ring-1 focus:ring-[var(--foreground)]"
-              placeholder="Enter password"
+              placeholder="Contraseña"
             />
           </div>
           <button
@@ -115,7 +118,7 @@ function LoginForm() {
             disabled={loading}
             className="w-full rounded-lg bg-[var(--foreground)] px-4 py-2.5 text-sm font-medium text-[var(--background)] transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
