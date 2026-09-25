@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useSyncExternalStore } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import type { Id } from "../../../../../convex/_generated/dataModel";
@@ -19,6 +19,9 @@ import {
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { PortraitWorkspace } from "@/components/admin/PortraitWorkspace";
 import { CustomSelect } from "@/components/ui/CustomSelect";
+
+const subscribeLanguage = (notify: () => void) => { window.addEventListener("storage", notify); return () => window.removeEventListener("storage", notify); };
+const currentLanguage = () => localStorage.getItem("orwell-panama-language") || "es";
 
 type PageProps = { params: Promise<{ id: string }> };
 
@@ -40,6 +43,7 @@ const ROLE_CATEGORIES = ["Deputy", "Mayor", "Governor", "President", "Party Lead
 export default function EditPoliticianPage({ params }: PageProps) {
   const { id } = use(params);
   const router = useRouter();
+  const language = useSyncExternalStore(subscribeLanguage, currentLanguage, () => "es");
 
   const politician = useQuery(api.politicians.getByExternalId, {
     externalId: id,
@@ -301,7 +305,7 @@ export default function EditPoliticianPage({ params }: PageProps) {
                 }}
                 className="h-4 w-4 rounded border-[var(--border)]"
               />
-              También es líder de partido
+              <span data-no-translate>{language === "en" ? "Also a party leader" : language === "pt" ? "Também é líder partidário" : "También es líder de partido"}</span>
             </label>
           </div>
           <div>

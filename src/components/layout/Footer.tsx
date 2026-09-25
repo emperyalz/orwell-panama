@@ -5,6 +5,7 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 text-center text-sm text-[var(--muted-foreground)]">
           <div className="flex items-center gap-2">
             <img
+              data-no-translate
               src="/icons/official/asamblea-nacional.png"
               alt="Asamblea Nacional"
               className="h-6 w-6"
