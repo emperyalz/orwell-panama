@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useState, useSyncExternalStore } from "react";
-import { useQuery, useMutation } from "convex/react";
+import { useQuery, useMutation, useAction } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import type { Id } from "../../../../../convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
@@ -53,6 +53,9 @@ export default function EditPoliticianPage({ params }: PageProps) {
   const updateAccount = useMutation(api.accounts.update);
   const removeAccount = useMutation(api.accounts.remove);
   const storeAvatar = useMutation(api.storage.storeAvatar);
+  const refreshTikTokAvatar = useAction(api.accountAvatar.refreshTikTok);
+  const [refreshingAccountId, setRefreshingAccountId] = useState<string | null>(null);
+  const [avatarError, setAvatarError] = useState<string | null>(null);
 
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -175,6 +178,8 @@ export default function EditPoliticianPage({ params }: PageProps) {
 
   async function handleSaveAccount() {
     if (!editingAccountId) return;
+    const account = politician?.accounts.find((a) => a._id === editingAccountId);
+    const changedTikTokUrl = account?.platform === "tiktok" && account.profileUrl !== editAccountForm.profileUrl;
     await updateAccount({
       id: editingAccountId as Id<"accounts">,
       handle: editAccountForm.handle,
@@ -185,6 +190,19 @@ export default function EditPoliticianPage({ params }: PageProps) {
     });
     setEditingAccountId(null);
     setEditAccountForm({});
+    if (changedTikTokUrl) await handleRefreshTikTokAvatar(editingAccountId);
+  }
+
+  async function handleRefreshTikTokAvatar(accountId: string) {
+    setAvatarError(null);
+    setRefreshingAccountId(accountId);
+    try {
+      await refreshTikTokAvatar({ id: accountId as Id<"accounts"> });
+    } catch (error) {
+      setAvatarError(error instanceof Error ? error.message : "Could not refresh the account avatar.");
+    } finally {
+      setRefreshingAccountId(null);
+    }
   }
 
   return (
@@ -499,6 +517,7 @@ export default function EditPoliticianPage({ params }: PageProps) {
 
         {/* Existing accounts */}
         <div className="space-y-2">
+          {avatarError && <p role="alert" className="text-xs text-red-600">{avatarError}</p>}
           {politician.accounts.map((a) =>
             editingAccountId === a._id ? (
               /* ── Inline edit mode ── */
@@ -625,6 +644,11 @@ export default function EditPoliticianPage({ params }: PageProps) {
                     {a.verdict} · Score: {a.score} · Tier: {a.pollingTier}
                   </p>
                 </div>
+                {a.platform === "tiktok" && (
+                  <button type="button" onClick={() => handleRefreshTikTokAvatar(a._id)} disabled={refreshingAccountId === a._id} className="text-[10px] font-medium text-blue-700 disabled:opacity-50" title="Fetch this account's current TikTok avatar">
+                    {refreshingAccountId === a._id ? "Refreshing..." : "Refresh avatar"}
+                  </button>
+                )}
                 <button
                   onClick={() => startEditAccount(a)}
                   className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"

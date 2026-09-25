@@ -125,6 +125,8 @@ const rows: [string, string, string][] = [
  ['No accounts','Sin cuentas','Sem contas'],
  ['No social accounts linked yet.','Aún no hay cuentas sociales vinculadas.','Ainda não há contas sociais vinculadas.'],
  ['Edit Account','Editar cuenta','Editar conta'],
+ ['Refresh avatar','Actualizar avatar','Atualizar avatar'],
+ ['Refreshing...','Actualizando...','Atualizando...'],
  ['Editing:','Editando:','Editando:'],
  ['Add Politician','Añadir político','Adicionar político'],
  ['Add New Politician','Añadir nuevo político','Adicionar novo político'],
