@@ -2245,8 +2245,8 @@
     "roleCategory": "Deputy",
     "province": "Colón",
     "circuit": "3-1",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/DEP-009.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/DEP-009-site-crop-v2.jpg",
     "accounts": [
       {
         "platform": "instagram",
