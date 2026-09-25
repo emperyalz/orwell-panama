@@ -1,7 +1,11 @@
 {
   "ALC-002": "/images/portrait-pilots/ALC-002-approved.png",
   "ALC-003": "/images/portrait-pilots/ALC-003-fullbody-v2.png",
-  "ALC-004": "/images/portrait-pilots/ALC-004-brown-shoes-v4.png",
-  "ALC-010": "/images/portrait-pilots/ALC-010-fullbody-v4.png",
+  "ALC-004": "/images/portrait-pilots/ALC-004-overlap-v5.png",
+  "ALC-005": "/images/portrait-pilots/ALC-005-overlap-v2.png",
+  "ALC-006": "/images/portrait-pilots/ALC-006-overlap-v2.png",
+  "ALC-010": "/images/portrait-pilots/ALC-010-overlap-v5.png",
+  "DEP-009": "/images/portrait-pilots/DEP-009-overlap-v2.png",
+  "DEP-025": "/images/portrait-pilots/DEP-025-overlap-v2.png",
   "LDR-CD": "/images/portrait-pilots/LDR-CD-v2.png"
 }
