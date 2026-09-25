@@ -1,6 +1,7 @@
 'use client';
 
 import {useEffect,useSyncExternalStore} from 'react';
+import {translateAdminText} from './adminCopy';
 
 export type SiteLanguage='es'|'en'|'pt';
 const storageKey='orwell-panama-language';
@@ -166,18 +167,24 @@ function translateText(raw:string,lang:'en'|'pt'){
  return translated===clean?raw:raw.replace(clean,translated);
 }
 
-function translateTree(root:Node,lang:'en'|'pt'){
+function translateTree(root:Node,lang:SiteLanguage){
+ const adminPage=window.location.pathname.startsWith('/admin');
+ if(lang==='es'&&!adminPage)return;
+ const localize=(value:string)=>{
+  if(adminPage){const admin=translateAdminText(value,lang);if(admin!==value)return admin;}
+  return lang==='es'?value:translateText(value,lang);
+ };
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes:Text[]=root.nodeType===Node.TEXT_NODE?[root as Text]:[];
  while(walker.nextNode())nodes.push(walker.currentNode as Text);
- nodes.forEach(node=>{if(!node.parentElement?.closest('script,style,textarea,[data-no-translate]'))node.nodeValue=translateText(node.nodeValue||'',lang)});
- if(root instanceof Element){[root,...Array.from(root.querySelectorAll('*'))].forEach(el=>{for(const attr of ['placeholder','aria-label','title']){const value=el.getAttribute(attr);if(value)el.setAttribute(attr,translateText(value,lang));}})}
+ nodes.forEach(node=>{if(!node.parentElement?.closest('script,style,textarea,[data-no-translate]')){const value=node.nodeValue||'';const next=localize(value);if(next!==value)node.nodeValue=next;}});
+ if(root instanceof Element){[root,...Array.from(root.querySelectorAll('*'))].forEach(el=>{if(el.closest('[data-no-translate]'))return;for(const attr of ['placeholder','aria-label','title']){const value=el.getAttribute(attr);if(value){const next=localize(value);if(next!==value)el.setAttribute(attr,next);}}})}
 }
 
 export function LanguageRuntime(){
  useEffect(()=>{
-  const saved=localStorage.getItem(storageKey);const lang:SiteLanguage=saved==='en'||saved==='pt'?saved:'es';document.documentElement.lang=lang;if(lang==='es')return;
+  const saved=localStorage.getItem(storageKey);const lang:SiteLanguage=saved==='en'||saved==='pt'?saved:'es';document.documentElement.lang=lang;
   let observer:MutationObserver|undefined;let timer:number|undefined;
-  const apply=()=>{timer=window.setTimeout(()=>{translateTree(document.body,lang);observer=new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>translateTree(node,lang))));observer.observe(document.body,{childList:true,subtree:true});},350)};
+  const apply=()=>{timer=window.setTimeout(()=>{translateTree(document.body,lang);observer=new MutationObserver(records=>records.forEach(record=>{record.addedNodes.forEach(node=>translateTree(node,lang));if(record.type==='characterData'||record.type==='attributes')translateTree(record.target,lang)}));observer.observe(document.body,{childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title'],subtree:true});},350)};
   if(document.readyState==='complete')apply();else window.addEventListener('load',apply,{once:true});
   return()=>{window.removeEventListener('load',apply);if(timer)window.clearTimeout(timer);observer?.disconnect()};
  },[]);
@@ -186,5 +193,6 @@ export function LanguageRuntime(){
 
 export function LanguageSwitcher({compact=false}:{compact?:boolean}){
  const lang=useSyncExternalStore(subscribeLanguage,readLanguage,readServerLanguage);
- return <div className={`language-switcher${compact?' language-switcher-compact':''}`} data-no-translate aria-label="Idioma"><span className="sr-only">Idioma</span>{(['es','en','pt'] as const).map(code=><button key={code} type="button" aria-pressed={lang===code} onClick={()=>{localStorage.setItem(storageKey,code);window.location.reload();}}>{code.toUpperCase()}</button>)}</div>;
+ const label=lang==='en'?'Language':'Idioma';
+ return <div className={`language-switcher${compact?' language-switcher-compact':''}`} data-no-translate aria-label={label}><span className="sr-only">{label}</span>{(['es','en','pt'] as const).map(code=><button key={code} type="button" aria-pressed={lang===code} onClick={()=>{localStorage.setItem(storageKey,code);window.location.reload();}}>{code.toUpperCase()}</button>)}</div>;
 }
