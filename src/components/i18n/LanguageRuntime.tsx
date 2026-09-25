@@ -177,14 +177,14 @@ function translateTree(root:Node,lang:SiteLanguage){
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes:Text[]=root.nodeType===Node.TEXT_NODE?[root as Text]:[];
  while(walker.nextNode())nodes.push(walker.currentNode as Text);
  nodes.forEach(node=>{if(!node.parentElement?.closest('script,style,textarea,[data-no-translate]')){const value=node.nodeValue||'';const next=localize(value);if(next!==value)node.nodeValue=next;}});
- if(root instanceof Element){[root,...Array.from(root.querySelectorAll('*'))].forEach(el=>{if(el.closest('[data-no-translate]'))return;for(const attr of ['placeholder','aria-label','title']){const value=el.getAttribute(attr);if(value){const next=localize(value);if(next!==value)el.setAttribute(attr,next);}}})}
+ if(root instanceof Element){[root,...Array.from(root.querySelectorAll('*'))].forEach(el=>{if(el.closest('[data-no-translate]'))return;for(const attr of ['placeholder','aria-label','title','alt']){const value=el.getAttribute(attr);if(value){const next=localize(value);if(next!==value)el.setAttribute(attr,next);}}})}
 }
 
 export function LanguageRuntime(){
  useEffect(()=>{
   const saved=localStorage.getItem(storageKey);const lang:SiteLanguage=saved==='en'||saved==='pt'?saved:'es';document.documentElement.lang=lang;
   let observer:MutationObserver|undefined;let timer:number|undefined;
-  const apply=()=>{timer=window.setTimeout(()=>{translateTree(document.body,lang);observer=new MutationObserver(records=>records.forEach(record=>{record.addedNodes.forEach(node=>translateTree(node,lang));if(record.type==='characterData'||record.type==='attributes')translateTree(record.target,lang)}));observer.observe(document.body,{childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title'],subtree:true});},350)};
+  const apply=()=>{timer=window.setTimeout(()=>{translateTree(document.body,lang);observer=new MutationObserver(records=>records.forEach(record=>{record.addedNodes.forEach(node=>translateTree(node,lang));if(record.type==='characterData'||record.type==='attributes')translateTree(record.target,lang)}));observer.observe(document.body,{childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title','alt'],subtree:true});},350)};
   if(document.readyState==='complete')apply();else window.addEventListener('load',apply,{once:true});
   return()=>{window.removeEventListener('load',apply);if(timer)window.clearTimeout(timer);observer?.disconnect()};
  },[]);

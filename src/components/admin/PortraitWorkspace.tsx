@@ -94,8 +94,8 @@ export function PortraitWorkspace({ externalId, politicianId, headshot, fullBody
         </div>
         {rows.length > 0 && <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {rows.map((row) => <figure key={row._id} className="min-w-0 rounded-md border border-[var(--border)] p-2">
-            {row.imageUrl && <a href={row.sourcePage || row.imageUrl} target="_blank" rel="noreferrer"><img src={row.imageUrl} alt={row.title} referrerPolicy="no-referrer" className="aspect-square w-full rounded object-cover" /></a>}
-            <figcaption className="mt-2 flex items-start justify-between gap-2 text-[11px] text-[var(--muted-foreground)]"><span className="min-w-0 truncate" title={row.title}>{row.title}</span>{canEdit && <button type="button" onClick={() => void deleteReference(row._id)} aria-label={`Eliminar ${row.title}`} className="shrink-0 text-red-600"><Trash2 className="h-3.5 w-3.5" /></button>}</figcaption>
+            {row.imageUrl && <a href={row.sourcePage || row.imageUrl} target="_blank" rel="noreferrer"><img data-no-translate src={row.imageUrl} alt={row.title} referrerPolicy="no-referrer" className="aspect-square w-full rounded object-cover" /></a>}
+            <figcaption className="mt-2 flex items-start justify-between gap-2 text-[11px] text-[var(--muted-foreground)]"><span data-no-translate className="min-w-0 truncate" title={row.title}>{row.title}</span>{canEdit && <button type="button" onClick={() => void deleteReference(row._id)} aria-label={`Eliminar ${row.title}`} className="shrink-0 text-red-600"><Trash2 className="h-3.5 w-3.5" /></button>}</figcaption>
           </figure>)}
         </div>}
         {error && <p role="alert" className="mt-3 text-xs text-red-600">{error}</p>}

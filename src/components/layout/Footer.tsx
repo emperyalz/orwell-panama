@@ -12,6 +12,7 @@ export function Footer() {
             <span>
               Datos de la{" "}
               <a
+                data-no-translate
                 href="https://www.asamblea.gob.pa"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -21,11 +22,7 @@ export function Footer() {
               </a>
             </span>
           </div>
-          <p className="max-w-xl text-xs">
-            Este directorio es un proyecto de monitoreo cívico independiente.
-            Las cuentas de redes sociales han sido verificadas mediante búsquedas
-            públicas y fuentes oficiales.
-          </p>
+          <p className="max-w-xl text-xs">Este directorio es un proyecto de monitoreo cívico independiente. Las cuentas de redes sociales han sido verificadas mediante búsquedas públicas y fuentes oficiales.</p>
           <p className="text-xs">© {new Date().getFullYear()} ORWELL | POLÍTICA</p>
         </div>
       </div>

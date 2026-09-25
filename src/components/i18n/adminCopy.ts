@@ -3,6 +3,13 @@ import type { SiteLanguage } from './LanguageRuntime';
 // Admin pages predate the language switch and contain both English and Spanish
 // source labels. Keep both as lookup keys so either source renders in any locale.
 const rows: [string, string, string][] = [
+ ['Portraits','Retratos','Retratos'],
+ ['ORWELL, Panama directory','ORWELL, directorio de Panamá','ORWELL, diretório do Panamá'],
+ ['Search politicians','Buscar políticos','Pesquisar políticos'],
+ ['Cropped profile portrait','Retrato recortado del perfil','Retrato recortado do perfil'],
+ ['Full-body portrait','Retrato de cuerpo completo','Retrato de corpo inteiro'],
+ ['This directory is an independent civic monitoring project.','Este directorio es un proyecto de monitoreo cívico independiente.','Este diretório é um projeto independente de monitoramento cívico.'],
+ ['Social media accounts have been verified through public searches and official sources.','Las cuentas de redes sociales han sido verificadas mediante búsquedas públicas y fuentes oficiales.','As contas de redes sociais foram verificadas por meio de buscas públicas e fontes oficiais.'],
  ['Back to site','Volver al sitio','Voltar ao site'],
  ['Dashboard','Panel de control','Painel de controle'],
  ['Politicians','Políticos','Políticos'],
