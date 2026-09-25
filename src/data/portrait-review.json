@@ -427,33 +427,6 @@
           "sourceHost": "www.ecotvpanama.com"
         }
       ]
-    },
-    {
-      "id": "DEP-040",
-      "category": "replace",
-      "references": [
-        {
-          "number": 1,
-          "title": "Paulette Thomas interview | Mi Diario",
-          "sourcePage": "https://www.midiario.com/nacionales/sin-miedo-diputada-paulette-thomas-responde-a-todo-violadores-revocatoria-y-aborto/",
-          "imageUrl": "https://www.midiario.com/resizer/v2/HGGMU743VFDA7LXKISJRGZUQ6Y.jpeg?auth=52940e6477b5a46b0ca36bd6acc5f20b3a1b0fb4297ad906b31a9accb57d7032&width=1200",
-          "sourceHost": "www.midiario.com"
-        },
-        {
-          "number": 2,
-          "title": "Diputada Paulette Thomas Circuito 8-3 — Vamos por Panamá",
-          "sourcePage": "https://vamosporpanama.com/candidatos-panama-centro/diputada-paulette-thomas-circuito-8-3",
-          "imageUrl": "https://images.squarespace-cdn.com/content/v1/65846fa563a10346cff156c9/1705427186767-6SFQYCAQQNYUQVZSWQRF/Paullette-THOMAS_PANAMA-centro4.jpg",
-          "sourceHost": "vamosporpanama.com"
-        },
-        {
-          "number": 3,
-          "title": "‘Me da tristeza por él’: diputada Paulette Thomas responde a intento de revocatoria promovida por un colega de Vamos | La Prensa Panamá",
-          "sourcePage": "https://www.prensa.com/politica/me-da-tristeza-por-el-diputada-paulette-thomas-responde-a-intento-de-revocatoria-promovida-por-un-colega-de-vamos/",
-          "imageUrl": "https://www.prensa.com/resizer/v2/CIZKGH5OPBDBFMW7JEPLEGF2ME.JPG?auth=1a4d27aeedfa2677217be402cc508d675dd9d0c77ca13772c5c271770c8a2908&height=520&quality=85&width=780",
-          "sourceHost": "www.prensa.com"
-        }
-      ]
     }
   ]
 }

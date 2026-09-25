@@ -257,8 +257,8 @@
     "role": "Alcaldesa",
     "roleCategory": "Mayor",
     "province": "Panamá",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/ALC-002.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/ALC-002-site-crop-v1.jpg",
     "accounts": [
       {
         "platform": "instagram",
@@ -957,8 +957,8 @@
     "roleCategory": "Mayor",
     "province": "Panamá Oeste",
     "district": "La Chorrera",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/ALC-005.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/ALC-005-site-crop-v1.jpg",
     "accounts": [
       {
         "platform": "instagram",
@@ -1557,8 +1557,8 @@
     "roleCategory": "Mayor",
     "province": "Chiriquí",
     "district": "David",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/ALC-006.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/ALC-006-site-crop-v1.jpg",
     "accounts": [
       {
         "platform": "instagram",
@@ -1834,8 +1834,8 @@
     "role": "Alcaldesa",
     "roleCategory": "Mayor",
     "province": "Panamá Oeste",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/ALC-003.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/ALC-003-site-crop-v1.jpg",
     "accounts": [
       {
         "platform": "instagram",

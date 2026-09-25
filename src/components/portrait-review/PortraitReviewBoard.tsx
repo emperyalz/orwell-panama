@@ -14,7 +14,7 @@ type Reference={_id?:Id<'portraitReviewReferences'>;kind:'source'|'upload';title
 function PersonCard({person,references,canEdit,upload,remove}:{person:Person;references:Reference[];canEdit:boolean;upload:(id:string,file:File)=>Promise<void>;remove:(id:Id<'portraitReviewReferences'>)=>Promise<void>}){
  const input=useRef<HTMLInputElement>(null);
  const scroller=useRef<HTMLDivElement>(null);
- const isApproved=person.id==='ALC-002'||person.id==='ALC-003'||person.id==='ALC-004'||person.id==='ALC-010'||person.id==='DEP-009'||person.id==='DEP-025'||person.id==='LDR-MOCA';
+ const isApproved=person.id==='ALC-002'||person.id==='ALC-003'||person.id==='ALC-004'||person.id==='ALC-005'||person.id==='ALC-006'||person.id==='ALC-010'||person.id==='DEP-009'||person.id==='DEP-025'||person.id==='LDR-CD'||person.id==='LDR-MOCA';
  const [dragging,setDragging]=useState(false);
  const [busy,setBusy]=useState(false);
  const [progress,setProgress]=useState('');
