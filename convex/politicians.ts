@@ -297,6 +297,8 @@ export const update = mutation({
     hasHeadshot: v.optional(v.boolean()),
     headshot: v.optional(v.string()),
     headshotStorageId: v.optional(v.id("_storage")),
+    fullBodyPortrait: v.optional(v.string()),
+    fullBodyStorageId: v.optional(v.id("_storage")),
     officialGovUrl: v.optional(v.string()),
     wikipediaUrl: v.optional(v.string()),
     personalWebsite: v.optional(v.string()),

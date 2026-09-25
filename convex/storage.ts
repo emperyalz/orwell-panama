@@ -35,6 +35,21 @@ export const storeHeadshot = mutation({
   },
 });
 
+/** Keep the full-body source separate from the cropped public headshot. */
+export const storeFullBodyPortrait = mutation({
+  args: { politicianId: v.id("politicians"), storageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    const url = await ctx.storage.getUrl(args.storageId);
+    if (!url) throw new Error("Portrait URL unavailable");
+    await ctx.db.patch(args.politicianId, {
+      fullBodyStorageId: args.storageId,
+      fullBodyPortrait: url,
+      updatedAt: Date.now(),
+    });
+    return args.storageId;
+  },
+});
+
 /** Store a logo for a party. Updates party record with storageId. */
 export const storePartyLogo = mutation({
   args: {

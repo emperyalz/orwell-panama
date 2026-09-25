@@ -52,6 +52,8 @@ export default defineSchema({
     hasHeadshot: v.boolean(),
     headshot: v.string(), // Path: "/images/headshots/DEP-015.jpg"
     headshotStorageId: v.optional(v.id("_storage")), // Convex file storage
+    fullBodyPortrait: v.optional(v.string()),
+    fullBodyStorageId: v.optional(v.id("_storage")),
     officialGovUrl: v.optional(v.string()),
     wikipediaUrl: v.optional(v.string()),
     personalWebsite: v.optional(v.string()),

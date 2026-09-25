@@ -17,7 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
-import { ImageUpload } from "@/components/admin/ImageUpload";
+import { PortraitWorkspace } from "@/components/admin/PortraitWorkspace";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 
 type PageProps = { params: Promise<{ id: string }> };
@@ -48,7 +48,6 @@ export default function EditPoliticianPage({ params }: PageProps) {
   const createAccount = useMutation(api.accounts.create);
   const updateAccount = useMutation(api.accounts.update);
   const removeAccount = useMutation(api.accounts.remove);
-  const storeHeadshot = useMutation(api.storage.storeHeadshot);
   const storeAvatar = useMutation(api.storage.storeAvatar);
 
   const [saving, setSaving] = useState(false);
@@ -216,19 +215,12 @@ export default function EditPoliticianPage({ params }: PageProps) {
         </button>
       </div>
 
-      {/* Headshot upload */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
-        <ImageUpload
-          currentImageUrl={politician.headshot}
-          label="Headshot Photo"
-          onUploaded={async (storageId) => {
-            await storeHeadshot({
-              politicianId: politician!._id as Id<"politicians">,
-              storageId: storageId as Id<"_storage">,
-            });
-          }}
-        />
-      </div>
+      <PortraitWorkspace
+        externalId={politician.externalId}
+        politicianId={politician._id as Id<"politicians">}
+        headshot={politician.headshot}
+        fullBodyPortrait={politician.fullBodyPortrait}
+      />
 
       {/* Politician form */}
       <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-4">

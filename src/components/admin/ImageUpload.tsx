@@ -7,7 +7,7 @@ import { Upload, X, Image as ImageIcon } from "lucide-react";
 
 interface ImageUploadProps {
   currentImageUrl?: string;
-  onUploaded: (storageId: string) => void;
+  onUploaded: (storageId: string) => void | Promise<void>;
   label?: string;
   className?: string;
 }
@@ -21,11 +21,18 @@ export function ImageUpload({
   const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
+  const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (!["image/jpeg", "image/png", "image/webp", "image/avif"].includes(file.type) || file.size > 8_000_000) {
+      setError("Usa JPG, PNG, WebP o AVIF de hasta 8 MB.");
+      e.target.value = "";
+      return;
+    }
+    setError("");
 
     // Preview
     const reader = new FileReader();
@@ -41,10 +48,12 @@ export function ImageUpload({
         headers: { "Content-Type": file.type },
         body: file,
       });
+      if (!response.ok) throw new Error("No se pudo subir la imagen");
       const { storageId } = await response.json();
-      onUploaded(storageId);
+      if (!storageId) throw new Error("No se recibió el archivo");
+      await onUploaded(storageId);
     } catch (error) {
-      console.error("Upload failed:", error);
+      setError(error instanceof Error ? error.message : "No se pudo subir la imagen");
       setPreview(null);
     } finally {
       setUploading(false);
@@ -98,14 +107,15 @@ export function ImageUpload({
             {uploading ? "Uploading..." : "Choose File"}
           </button>
           <p className="mt-1 text-[10px] text-[var(--muted-foreground)]">
-            JPG, PNG, WebP. Max 5MB.
+            JPG, PNG, WebP o AVIF. Máximo 8 MB.
           </p>
+          {error && <p role="alert" className="mt-1 text-[10px] text-red-600">{error}</p>}
         </div>
 
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/jpeg,image/png,image/webp"
+          accept="image/jpeg,image/png,image/webp,image/avif"
           onChange={handleFileSelect}
           className="hidden"
         />
