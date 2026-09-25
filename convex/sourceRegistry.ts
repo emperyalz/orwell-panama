@@ -18,7 +18,7 @@ export const summary=query({args:{},handler:async ctx=>{
  return {
   publishers:[...publishers.values()].sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'es')),
   platforms:[...platforms.values()].sort((a,b)=>b.posts-a.posts),
-  socialAccounts:accounts.map(account=>({personName:peopleById.get(String(account.politicianId))?.name||'Perfil sin identificar',platform:account.platform,handle:account.handle,profileUrl:account.profileUrl,posts:socialCounts.get(`${account.politicianId}:${account.platform}`)||0})).sort((a,b)=>a.personName.localeCompare(b.personName,'es')||a.platform.localeCompare(b.platform)),
+  socialAccounts:accounts.map(account=>({personName:peopleById.get(String(account.politicianId))?.name||'Perfil sin identificar',platform:account.platform,handle:account.handle,profileUrl:account.profileUrl,avatar:account.avatar,posts:socialCounts.get(`${account.politicianId}:${account.platform}`)||0})).sort((a,b)=>a.personName.localeCompare(b.personName,'es')||a.platform.localeCompare(b.platform)),
   totals:{news:activity.filter(r=>r.kind==='news').length,social:activity.filter(r=>r.kind==='social').length,profilesWithActivity:new Set(activity.map(r=>String(r.politicianId))).size,accounts:accounts.length,profiles:people.length,bills:bills.length},
  };
 }});
