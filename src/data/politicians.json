@@ -1203,8 +1203,8 @@
     "role": "Alcalde",
     "roleCategory": "Mayor",
     "province": "Colón",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/ALC-004.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/ALC-004-site-crop.jpg",
     "accounts": [
       {
         "platform": "instagram",
