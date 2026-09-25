@@ -2543,8 +2543,8 @@
     "roleCategory": "Deputy",
     "province": "Herrera",
     "circuit": "6-2",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/DEP-025.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/DEP-025-site-crop-v1.jpg",
     "accounts": [
       {
         "platform": "instagram",
