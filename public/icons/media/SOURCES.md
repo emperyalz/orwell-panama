@@ -21,3 +21,4 @@ Additional publisher marks copied on 2026-09-25 without redrawing or recoloring.
 | metrolibre-icon.png | metrolibre.com official favicon | `e399eb342d9696e758826383ca5467fcbc151b3e958e8e8e8ff376721c7175a6` |
 | critica-red.png | critica.com.pa official site wordmark | `1a3f054ca7ee5729a5023813f698ac56d59b5489ef3670c47d63b6e4d2583531` |
 | infobae.svg | infobae.com official site SVG | `c528855685c4d5735f193ae10ef252e2412bb21d4409e166ccf43736c02cef44` |
+| capitalfinanciero-mark.png | Blank-margin crop of canonical `capitalfinanciero.jpg`; mark geometry and colors unchanged | `9fb3b49c499a50fb91b2ec76efd350a425124cb3c6bd1c74fd5aa50c1fdf22d0` |

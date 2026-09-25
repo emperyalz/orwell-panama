@@ -607,12 +607,13 @@ export default function EditPoliticianPage({ params }: PageProps) {
               >
                 <img
                   src={a.avatar || `/icons/platforms/${a.platform === "x_twitter" ? "x-twitter" : a.platform}.svg`}
-                  alt={`${a.handle} account avatar`}
+                  alt={a.avatar ? `${a.handle} account avatar` : `${a.platform} icon`}
                   className="h-8 w-8 shrink-0 rounded-full object-cover"
                   onError={(event) => {
                     const fallback = `/icons/platforms/${a.platform === "x_twitter" ? "x-twitter" : a.platform}.svg`;
                     if (event.currentTarget.src.endsWith(fallback)) return;
                     event.currentTarget.src = fallback;
+                    event.currentTarget.alt = `${a.platform} icon`;
                   }}
                 />
                 <div className="min-w-0 flex-1">
