@@ -60,7 +60,7 @@ const LEADERS = [
     wikipediaUrl: "https://es.wikipedia.org/wiki/Balbina_Herrera",
     accounts: [
       { platform: "x_twitter", handle: "BalbinaHerrera", profileUrl: "https://x.com/BalbinaHerrera", verdict: "CONFIRMED" },
-      { platform: "instagram", handle: "balbinaherrerah", profileUrl: "https://www.instagram.com/balbinaherrerah/", verdict: "CONFIRMED" },
+      { platform: "instagram", handle: "balbinaherreraa", profileUrl: "https://www.instagram.com/balbinaherreraa/", verdict: "CONFIRMED" },
       { platform: "facebook", handle: "balbina.herreraarauz", profileUrl: "https://www.facebook.com/balbina.herreraarauz/", verdict: "PROBABLE" },
     ],
   },
@@ -149,7 +149,7 @@ async function ensureLeader(L) {
     if (dup) continue;
     await m("accounts:create", {
       politicianId, platform: a.platform, handle: a.handle, profileUrl: a.profileUrl,
-      avatar: "", verdict: a.verdict, score: score(a.verdict), pollingTier: "warm",
+      avatar: `/images/avatars/${L.externalId}-${a.platform}.jpg`, verdict: a.verdict, score: score(a.verdict), pollingTier: "warm",
     });
     added++;
   }

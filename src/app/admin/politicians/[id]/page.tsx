@@ -605,17 +605,16 @@ export default function EditPoliticianPage({ params }: PageProps) {
                 key={a._id}
                 className="flex items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
               >
-                {a.avatar ? (
-                  <img
-                    src={a.avatar}
-                    alt={a.handle}
-                    className="h-8 w-8 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--muted)] text-[10px] font-bold text-[var(--muted-foreground)] uppercase">
-                    {a.platform.slice(0, 2)}
-                  </div>
-                )}
+                <img
+                  src={a.avatar || `/icons/platforms/${a.platform === "x_twitter" ? "x-twitter" : a.platform}.svg`}
+                  alt={`${a.handle} account avatar`}
+                  className="h-8 w-8 shrink-0 rounded-full object-cover"
+                  onError={(event) => {
+                    const fallback = `/icons/platforms/${a.platform === "x_twitter" ? "x-twitter" : a.platform}.svg`;
+                    if (event.currentTarget.src.endsWith(fallback)) return;
+                    event.currentTarget.src = fallback;
+                  }}
+                />
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-medium text-[var(--foreground)]">
                     {a.platform === "x_twitter" ? "X / Twitter" : a.platform} ·
