@@ -1457,8 +1457,8 @@
     "role": "Alcalde",
     "roleCategory": "Mayor",
     "province": "Veraguas",
-    "hasHeadshot": false,
-    "headshot": "/images/headshots/ALC-010.jpg",
+    "hasHeadshot": true,
+    "headshot": "/images/portrait-pilots/ALC-010-site-crop.jpg",
     "accounts": [
       {
         "platform": "instagram",
