@@ -236,5 +236,23 @@
     "status": "todo",
     "icon": "globe",
     "order": 13
+  },
+  {
+    "key": "election-profile-mapping",
+    "title": {
+      "en": "Reconnect 24 election profiles",
+      "es": "Reconectar 24 perfiles electorales",
+      "pt": "Reconectar 24 perfis eleitorais"
+    },
+    "detail": {
+      "en": "Restored 24 missing connections. All 71 deputies and seven directory mayors now link to their portraits and profiles. Matched profiles have a clickable Tribunal/INED logo on Profile and official results-page, PDF and CSV links in Career. Verified live.",
+      "es": "Restauradas 24 conexiones. Los 71 diputados y siete alcaldes del directorio tienen retratos y enlaces al perfil. Los perfiles vinculados muestran el logo Tribunal/INED en Perfil y enlaces oficiales a resultados, PDF y CSV en Trayectoria. Verificado en producción.",
+      "pt": "Restauradas 24 conexões. Os 71 deputados e sete prefeitos do diretório têm retratos e links de perfil. Perfis vinculados mostram o logo Tribunal/INED em Perfil e links oficiais para resultados, PDF e CSV em Trajetória. Verificado no site."
+    },
+    "status": "done",
+    "icon": "users",
+    "order": 14,
+    "href": "/elecciones",
+    "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
   }
 ]

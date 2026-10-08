@@ -36,3 +36,7 @@ Shared page: https://orwell-panama.vercel.app/scoreboard. Production database st
 ## Updating this scoreboard
 
 New requests are appended here. An item is checked only after its result is delivered and the relevant verification is complete. The working-now section names the actual active task. Completed requests stay visible.
+
+- [x] Reconnect 24 election profiles: reconcile official names with verified directory identities, restore portraits and profile links, and add clickable Tribunal/INED branding on the Profile tab plus official record links in Career.
+
+Election identity correction verified live October 8, 2026: 71 deputy portraits/profile links, seven mayor links, and branded Tribunal/INED source links on matched Profile and Career views. The remaining 74 mayor results are outside the current directory.

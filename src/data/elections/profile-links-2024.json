@@ -1,0 +1,889 @@
+{
+  "reviewedAt": "2026-10-08",
+  "links": [
+    {
+      "politicianId": "DEP-050",
+      "profileName": "Alaín Cedeño",
+      "electionId": "deputy-131",
+      "electionName": "Alaín Cedeño",
+      "kind": "deputy",
+      "territory": "8-6",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-031",
+      "profileName": "Alexandra Brenes",
+      "electionId": "deputy-111",
+      "electionName": "Alexandra \"Ale\" Brenes",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-018",
+      "profileName": "Ariana Coba",
+      "electionId": "deputy-98",
+      "electionName": "Ariana Coba",
+      "kind": "deputy",
+      "territory": "4-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-048",
+      "profileName": "Ariel Vallarino",
+      "electionId": "deputy-129",
+      "electionName": "Ariel Vallarino",
+      "kind": "deputy",
+      "territory": "8-5",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-058",
+      "profileName": "Arquesio Arias",
+      "electionId": "deputy-140",
+      "electionName": "Dr. A. Arias",
+      "kind": "deputy",
+      "territory": "10-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-013",
+      "profileName": "Augusto Palacios",
+      "electionId": "deputy-93",
+      "electionName": "Augusto \"Tuto\" Palacios",
+      "kind": "deputy",
+      "territory": "4-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-002",
+      "profileName": "Benicio Robinson",
+      "electionId": "deputy-82",
+      "electionName": "Benicio Robinson \"El Gato\"",
+      "kind": "deputy",
+      "territory": "1-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-049",
+      "profileName": "Betserai Richards",
+      "electionId": "deputy-130",
+      "electionName": "Betserai Richards",
+      "kind": "deputy",
+      "territory": "8-6",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-082",
+      "profileName": "Carlos Afú",
+      "electionId": "deputy-107",
+      "electionName": "Tito Afú",
+      "kind": "deputy",
+      "territory": "7-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Page/OrganoLegislativo/Comisiones?cat=PRESUPUESTO"
+      ]
+    },
+    {
+      "politicianId": "DEP-014",
+      "profileName": "Carlos Saldaña",
+      "electionId": "deputy-94",
+      "electionName": "Carlos \"Calitin\" Saldaña",
+      "kind": "deputy",
+      "territory": "4-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-037",
+      "profileName": "Crispiano Adames",
+      "electionId": "deputy-117",
+      "electionName": "Dr. Crispiano Adames Navarro",
+      "kind": "deputy",
+      "territory": "8-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-004",
+      "profileName": "Dana Castañeda",
+      "electionId": "deputy-86",
+      "electionName": "Dana Castañeda",
+      "kind": "deputy",
+      "territory": "2-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-056",
+      "profileName": "Didiano Pinilla",
+      "electionId": "deputy-138",
+      "electionName": "Didiano \"didi\" Pinilla",
+      "kind": "deputy",
+      "territory": "9-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "ALC-004",
+      "profileName": "Diógenes Galván",
+      "electionId": "mayor-10",
+      "electionName": "Diógenes Galván",
+      "kind": "mayor",
+      "territory": "Colón",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-029",
+      "profileName": "Eduardo Gaitán",
+      "electionId": "deputy-110",
+      "electionName": "Eduardo Gaitan",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-062",
+      "profileName": "Eduardo Vásquez",
+      "electionId": "deputy-147",
+      "electionName": "Eduardo \"Fana\" Vasquez",
+      "kind": "deputy",
+      "territory": "13-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-063",
+      "profileName": "Edwin Vergara",
+      "electionId": "deputy-148",
+      "electionName": "Edwin Vergara",
+      "kind": "deputy",
+      "territory": "13-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-021",
+      "profileName": "Eliécer Castrellón",
+      "electionId": "deputy-101",
+      "electionName": "Eliécer Castrellón",
+      "kind": "deputy",
+      "territory": "4-6",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "ALC-005",
+      "profileName": "Eloy Chong",
+      "electionId": "mayor-79",
+      "electionName": "Eloy Chong",
+      "kind": "mayor",
+      "territory": "La Chorrera",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "ALC-010",
+      "profileName": "Eric Jaén",
+      "electionId": "mayor-62",
+      "electionName": "Eric Javier Jaén",
+      "kind": "mayor",
+      "territory": "Santiago",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv",
+        "https://www.gacetaoficial.gob.pa/storage/gacetas/2026/07/30570_A/GacetaNo_30570a_20260717.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-043",
+      "profileName": "Ernesto Cedeño",
+      "electionId": "deputy-124",
+      "electionName": "Doctor Ernesto Cedeño",
+      "kind": "deputy",
+      "territory": "8-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-080",
+      "profileName": "Flor Brenes",
+      "electionId": "deputy-139",
+      "electionName": "Flor Brenes",
+      "kind": "deputy",
+      "territory": "10-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-055",
+      "profileName": "Francisco Brea",
+      "electionId": "deputy-137",
+      "electionName": "Francisco \"Panchito\" Brea",
+      "kind": "deputy",
+      "territory": "9-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-081",
+      "profileName": "Gertrudis Rodríguez",
+      "electionId": "deputy-143",
+      "electionName": "Gertrudis \"Tule\" Rodriguez",
+      "kind": "deputy",
+      "territory": "12-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-044",
+      "profileName": "Grace Hernández",
+      "electionId": "deputy-126",
+      "electionName": "Grace Hernández",
+      "kind": "deputy",
+      "territory": "8-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "ALC-002",
+      "profileName": "Irma Hernández Berrío",
+      "electionId": "mayor-51",
+      "electionName": "Irma E. Hernández",
+      "kind": "mayor",
+      "territory": "San Miguelito",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv",
+        "https://www.gacetaoficial.gob.pa/storage/gacetas/2026/09/30614_D/105305.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-022",
+      "profileName": "Isaac Mosquera",
+      "electionId": "deputy-102",
+      "electionName": "Isaac Mosquera",
+      "kind": "deputy",
+      "territory": "5-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-023",
+      "profileName": "Jaime Vargas",
+      "electionId": "deputy-103",
+      "electionName": "Jaime Vargas",
+      "kind": "deputy",
+      "territory": "5-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-009",
+      "profileName": "Jairo Salazar",
+      "electionId": "deputy-90",
+      "electionName": "Jairo \"Bolota\" Salazar",
+      "kind": "deputy",
+      "territory": "3-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-015",
+      "profileName": "Jamis Acosta",
+      "electionId": "deputy-95",
+      "electionName": "Jamis Acosta",
+      "kind": "deputy",
+      "territory": "4-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-064",
+      "profileName": "Janine Prado",
+      "electionId": "deputy-134",
+      "electionName": "Janine Prado",
+      "kind": "deputy",
+      "territory": "9-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-045",
+      "profileName": "Javier Sucre",
+      "electionId": "deputy-123",
+      "electionName": "Javier \"Paco\" Sucre",
+      "kind": "deputy",
+      "territory": "8-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-020",
+      "profileName": "Jhonathan Vega",
+      "electionId": "deputy-100",
+      "electionName": "Jhonathan Vega",
+      "kind": "deputy",
+      "territory": "4-5",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "ALC-006",
+      "profileName": "Joaquín De León",
+      "electionId": "mayor-21",
+      "electionName": "Joaquín De león",
+      "kind": "mayor",
+      "territory": "David",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-073",
+      "profileName": "Jony Guevara",
+      "electionId": "deputy-109",
+      "electionName": "Joan \"Jony\" Guevara",
+      "kind": "deputy",
+      "territory": "8-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-042",
+      "profileName": "Jorge Bloise",
+      "electionId": "deputy-125",
+      "electionName": "Jorge Bloise Iglesias",
+      "kind": "deputy",
+      "territory": "8-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-076",
+      "profileName": "Jorge González López",
+      "electionId": "deputy-128",
+      "electionName": "Jorge Gonzalez",
+      "kind": "deputy",
+      "territory": "8-5",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-005",
+      "profileName": "Jorge Herrera",
+      "electionId": "deputy-87",
+      "electionName": "Jorge Herrera",
+      "kind": "deputy",
+      "territory": "2-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-025",
+      "profileName": "José Luis Varela",
+      "electionId": "deputy-105",
+      "electionName": "José \"Popi\" Varela",
+      "kind": "deputy",
+      "territory": "6-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://s3-legispan.asamblea.gob.pa/legispan/ACTAS/2020/2024/PLENO/2024_9_3_V_PLENO.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-039",
+      "profileName": "José Pérez Barboni",
+      "electionId": "deputy-119",
+      "electionName": "José Pérez Barboni",
+      "kind": "deputy",
+      "territory": "8-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-008",
+      "profileName": "Julio De La Guardia",
+      "electionId": "deputy-83",
+      "electionName": "Julio de La Guardia",
+      "kind": "deputy",
+      "territory": "2-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-066",
+      "profileName": "Lenin Ulate",
+      "electionId": "deputy-144",
+      "electionName": "Lenin Alberto Ulate R.",
+      "kind": "deputy",
+      "territory": "13-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/DocumentosCompartidos/210/Documento_Revista_Debate_No._36.pdf"
+      ],
+      "note": "Directory district 13-3 differs from verified election district 13-1. Identity confirmed by official Assembly records; preserve the original election district."
+    },
+    {
+      "politicianId": "DEP-070",
+      "profileName": "Lilia Batista",
+      "electionId": "deputy-150",
+      "electionName": "Lilia Batista",
+      "kind": "deputy",
+      "territory": "13-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-030",
+      "profileName": "Luis Duke",
+      "electionId": "deputy-112",
+      "electionName": "Luis \"Lucho\" Duke",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-033",
+      "profileName": "Luis Eduardo Camacho",
+      "electionId": "deputy-113",
+      "electionName": "Camacho Castro \"El Amigo Fiel\"",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-035",
+      "profileName": "Luis Omar Ortega",
+      "electionId": "deputy-116",
+      "electionName": "Omar Ortega",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-068",
+      "profileName": "Manuel Cheng",
+      "electionId": "deputy-146",
+      "electionName": "Manuel Cheng Peñalba",
+      "kind": "deputy",
+      "territory": "13-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/DocumentosCompartidos/255/Documento_ASISTENCIA_FEBRERO_2026.pdf"
+      ],
+      "note": "Directory district 13-3 differs from verified election district 13-1. Identity confirmed by official Assembly records; preserve the original election district."
+    },
+    {
+      "politicianId": "DEP-024",
+      "profileName": "Manuel Cohen",
+      "electionId": "deputy-104",
+      "electionName": "Manuel Cohen",
+      "kind": "deputy",
+      "territory": "6-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-051",
+      "profileName": "Manuel Samaniego",
+      "electionId": "deputy-132",
+      "electionName": "Manuel Samaniego",
+      "kind": "deputy",
+      "territory": "8-6",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-026",
+      "profileName": "Marcos Castillero",
+      "electionId": "deputy-106",
+      "electionName": "Marcos Castillero B.",
+      "kind": "deputy",
+      "territory": "6-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "ALC-001",
+      "profileName": "Mayer Mizrachi",
+      "electionId": "mayor-50",
+      "electionName": "Mayer Mizrachi",
+      "kind": "mayor",
+      "territory": "Panamá",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-019",
+      "profileName": "Medín Jiménez",
+      "electionId": "deputy-99",
+      "electionName": "Medin Jiménez Pittí",
+      "kind": "deputy",
+      "territory": "4-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-065",
+      "profileName": "Miguel A. Campos",
+      "electionId": "deputy-135",
+      "electionName": "Miguel Angel Campos",
+      "kind": "deputy",
+      "territory": "9-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-046",
+      "profileName": "Neftalí Zamora",
+      "electionId": "deputy-127",
+      "electionName": "Neftali Zamora",
+      "kind": "deputy",
+      "territory": "8-5",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-079",
+      "profileName": "Nelson Jackson Palma",
+      "electionId": "deputy-92",
+      "electionName": "Nelson Jackson Palma",
+      "kind": "deputy",
+      "territory": "3-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-007",
+      "profileName": "Néstor Guardia",
+      "electionId": "deputy-84",
+      "electionName": "Nestor \"Tin\" Guardia",
+      "kind": "deputy",
+      "territory": "2-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-072",
+      "profileName": "Nixon Andrade",
+      "electionId": "deputy-142",
+      "electionName": "Nixon Andrade",
+      "kind": "deputy",
+      "territory": "12-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-003",
+      "profileName": "Orlando Carrasquilla",
+      "electionId": "deputy-85",
+      "electionName": "Orlando \"El Capi\" Carrasquilla",
+      "kind": "deputy",
+      "territory": "2-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-016",
+      "profileName": "Osmán Gómez",
+      "electionId": "deputy-96",
+      "electionName": "Osman Camilo Gómez",
+      "kind": "deputy",
+      "territory": "4-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-071",
+      "profileName": "Patsy Lee Rentería",
+      "electionId": "deputy-151",
+      "electionName": "Patsy Lee Renteria",
+      "kind": "deputy",
+      "territory": "13-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-040",
+      "profileName": "Paulette Thomas",
+      "electionId": "deputy-121",
+      "electionName": "Paulette Thomas Horly",
+      "kind": "deputy",
+      "territory": "8-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-052",
+      "profileName": "Raphael Buchanan",
+      "electionId": "deputy-133",
+      "electionName": "Raphael Buchanan",
+      "kind": "deputy",
+      "territory": "8-6",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-034",
+      "profileName": "Raúl Pineda",
+      "electionId": "deputy-114",
+      "electionName": "Raul Pineda",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-017",
+      "profileName": "Ricardo Vigil",
+      "electionId": "deputy-97",
+      "electionName": "Ricardo Vigil López",
+      "kind": "deputy",
+      "territory": "4-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-059",
+      "profileName": "Roberto Archibold",
+      "electionId": "deputy-141",
+      "electionName": "Roberto Archibold \"Chobra\"",
+      "kind": "deputy",
+      "territory": "12-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-041",
+      "profileName": "Roberto Zúñiga",
+      "electionId": "deputy-122",
+      "electionName": "Roberto Zuñiga",
+      "kind": "deputy",
+      "territory": "8-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-012",
+      "profileName": "Rogelio Revello",
+      "electionId": "deputy-91",
+      "electionName": "Rogelio \"Revan\" Revello",
+      "kind": "deputy",
+      "territory": "3-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-074",
+      "profileName": "Ronald De Gracia",
+      "electionId": "deputy-108",
+      "electionName": "Ronald de Gracia",
+      "kind": "deputy",
+      "territory": "7-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-038",
+      "profileName": "Sergio Gálvez",
+      "electionId": "deputy-118",
+      "electionName": "Sergio \"Chello\" Gálvez",
+      "kind": "deputy",
+      "territory": "8-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-067",
+      "profileName": "Shirley Castañedas",
+      "electionId": "deputy-145",
+      "electionName": "Shirley Castañedas \"La Licen\"",
+      "kind": "deputy",
+      "territory": "13-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "ALC-003",
+      "profileName": "Stefany Dayan Peñalba",
+      "electionId": "mayor-76",
+      "electionName": "Stefany Peñalba",
+      "kind": "mayor",
+      "territory": "Arraiján",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/329a411a-07ae-47c7-b4fd-8845e4a01040/resource/a22562c8-c8f3-4664-bb35-9c335aad820a/download/cuadro-10-alcaldes-proclamados.csv",
+        "https://www.gacetaoficial.gob.pa/storage/gacetas/2025/12/30428_D/116349.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-077",
+      "profileName": "Tomás Benavides",
+      "electionId": "deputy-136",
+      "electionName": "Tomas \"Tomy\" Benavides",
+      "kind": "deputy",
+      "territory": "9-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-078",
+      "profileName": "Victor Castillo",
+      "electionId": "deputy-88",
+      "electionName": "Víctor de Jesus hijo de Delfia",
+      "kind": "deputy",
+      "territory": "3-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://s3-legispan.asamblea.gob.pa/legispan/ACTAS/2020/2025/PLENO/2025_7_1_A_PLENO.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-036",
+      "profileName": "Walkiria Chandler",
+      "electionId": "deputy-120",
+      "electionName": "Walkiria Chandler D'Orcy",
+      "kind": "deputy",
+      "territory": "8-3",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-011",
+      "profileName": "Yamireliz Chong",
+      "electionId": "deputy-89",
+      "electionName": "Yamireliz Chong",
+      "kind": "deputy",
+      "territory": "3-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-032",
+      "profileName": "Yarelis Rodríguez",
+      "electionId": "deputy-115",
+      "electionName": "Doctora Yarelis Rodriguez",
+      "kind": "deputy",
+      "territory": "8-2",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv",
+        "https://www.asamblea.gob.pa/Uploads/Transparencia/Articulos/Terciario/398/articulo_ID398.pdf"
+      ]
+    },
+    {
+      "politicianId": "DEP-001",
+      "profileName": "Yesica Romero",
+      "electionId": "deputy-81",
+      "electionName": "Yesica Romero",
+      "kind": "deputy",
+      "territory": "1-1",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    },
+    {
+      "politicianId": "DEP-069",
+      "profileName": "Yuzaida Marín",
+      "electionId": "deputy-149",
+      "electionName": "Yuzaida Marin",
+      "kind": "deputy",
+      "territory": "13-4",
+      "sources": [
+        "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/9eee83e4-4928-4350-9a55-98cbbc1b23e2/download/cuadro-06-diputado-proclamados.csv"
+      ]
+    }
+  ]
+}

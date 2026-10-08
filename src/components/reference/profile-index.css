@@ -89,3 +89,7 @@
 @media(max-width:900px){.index-header nav{justify-content:flex-start;gap:20px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}.index-header nav a{flex-shrink:0}}
 /* The research workspaces share navigation without squeezing the search field. */
 @media(min-width:901px) and (max-width:1600px){.index-header{height:auto;flex-wrap:wrap;padding-top:16px;padding-bottom:14px}.index-header nav{order:3;width:100%;margin:0;gap:26px;overflow-x:auto;white-space:nowrap}.index-header nav a{padding:8px 0;flex-shrink:0}.index-header nav a[aria-current]:after{bottom:0}.index-header form{margin-left:auto;width:min(32vw,385px)}}
+
+.career-election-sources{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:14px}.career-election-sources>img{width:180px;max-width:100%;height:auto;object-fit:contain}.career-election-sources>a{display:inline-flex;align-items:center;gap:5px}
+
+.index-election-source{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:1px solid #cbc6cf;margin-bottom:20px;width:fit-content;max-width:100%;color:#171717}.index-election-source img{width:280px;max-width:calc(100% - 76px);height:auto;object-fit:contain}.index-election-source span{font-family:Arial,sans-serif;font-size:14px}.index-election-source:hover{border-color:#171717}.index-election-source:focus-visible{outline:2px solid currentColor;outline-offset:3px}
