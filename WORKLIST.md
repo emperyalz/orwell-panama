@@ -10,7 +10,7 @@ Updated October 8, 2026. Voice questions and new requests add to this list; they
 - [x] Profile timeline with matched official election results and clearly labeled missing historical coverage.
 - [x] English, Spanish, and Portuguese workspace interfaces; mobile checks and independent design review fixes.
 - [x] Correct deployment packaging for the election snapshot.
-- [ ] Verify production deployment and live page behavior.
+- [x] Verify production deployment and live page behavior: eight-profile comparison, official election search, social archive coverage, and source-linked profile career tab.
 
 ## Remaining direction
 
@@ -23,4 +23,4 @@ Updated October 8, 2026. Voice questions and new requests add to this list; they
 
 ## New requests
 
-Append Eric's next items here without removing the existing scope.
+- [ ] Develop six distinct homepage concepts, using established design references from The Index and Mobbin. Address hierarchy, structure, visual identification, discovery, comparison, and repeat browsing. Deliver six flat PNG mockups for visual review. Eric explicitly requested image concepts only, with no coded or functional homepage implementations.
