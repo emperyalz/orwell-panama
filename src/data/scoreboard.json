@@ -1498,5 +1498,54 @@
       }
     ],
     "evidence": "Deployed to orwell-panama.vercel.app/scoreboard. Actual event collector active; live no-refresh event updates, duplicate protection, mobile desktop and EN/ES/PT verified. Local machine/network required for fresh collection; ended turns do not mark project deliverables done."
+  },
+  {
+    "key": "workstation-awake",
+    "title": {
+      "en": "Keep the work computer awake",
+      "es": "Mantener despierta la computadora de trabajo",
+      "pt": "Manter o computador de trabalho acordado"
+    },
+    "detail": {
+      "en": "Prevent automatic system sleep while allowing display sleep. Local collector needs the machine awake and online. Keep lid open and power connected.",
+      "es": "Impedir suspensión automática permitiendo apagar la pantalla. La recolección local requiere conexión y equipo despierto. Mantener tapa abierta y alimentación conectada.",
+      "pt": "Impedir suspensão automática permitindo apagar a tela. A coleta local requer conexão e computador acordado. Manter tampa aberta e alimentação conectada."
+    },
+    "status": "done",
+    "icon": "wrench",
+    "order": -0.5,
+    "evidence": "Verified macOS caffeinate process has PreventUserIdleSystemSleep and PreventSystemSleep assertions; user LaunchAgent KeepAlive RunAtLoad active. Display sleep remains15minutes. No claim to override closed-lid, manual shutdown or power loss.",
+    "checklist": [
+      {
+        "key": "service",
+        "label": {
+          "en": "Install persistent keep-awake service",
+          "es": "Instalar servicio persistente para impedir suspensión",
+          "pt": "Instalar serviço persistente contra suspensão"
+        },
+        "done": true,
+        "evidence": "UserLaunchAgent com.orwell.keep-awake runs caffeinate -i -s, KeepAlive and RunAtLoad."
+      },
+      {
+        "key": "verify",
+        "label": {
+          "en": "Verify system sleep prevention",
+          "es": "Verificar prevención de suspensión del sistema",
+          "pt": "Verificar prevenção de suspensão do sistema"
+        },
+        "done": true,
+        "evidence": "pmset assertions show caffeinate PreventUserIdleSystemSleep and PreventSystemSleep; launchctl state running."
+      },
+      {
+        "key": "display",
+        "label": {
+          "en": "Allow the screen to turn off",
+          "es": "Permitir apagar la pantalla",
+          "pt": "Permitir apagar a tela"
+        },
+        "done": true,
+        "evidence": "Service has no display-sleep assertion; display timeout remains15minutes. Other active apps may independently keep display awake."
+      }
+    ]
   }
 ]
