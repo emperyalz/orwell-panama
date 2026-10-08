@@ -1,11 +1,83 @@
 {
- "/root":{"name":"Orwell lead","team":"implementation","assignment":{"en":"Connect and verify the live scoreboard; preserve the Orwell backlog","es":"Conectar y verificar el tablero en vivo; conservar pendientes de Orwell","pt":"Conectar e verificar o painel ao vivo; preservar tarefas pendentes do Orwell"}},
- "/root/identity_a_economy":{"name":"Social research A","team":"research","assignment":{"en":"Audit the first 30 politicians and 70 linked accounts","es":"Revisar los primeros 30 políticos y 70 cuentas vinculadas","pt":"Revisar os primeiros 30 políticos e 70 contas vinculadas"}},
- "/root/identity_qa_economy":{"name":"Independent identity QA","team":"qa","assignment":{"en":"Independently verify the remaining account ownership evidence","es":"Verificar independientemente las pruebas de titularidad pendientes","pt":"Verificar independentemente as provas de titularidade pendentes"}},
- "/root/live_agent_ui":{"name":"Scoreboard interface","team":"implementation","assignment":{"en":"Live team cards and activity timeline in three languages","es":"Tarjetas de equipos y actividad en vivo en tres idiomas","pt":"Cartões de equipes e atividade ao vivo em três idiomas"}},
- "/root/live_agent_bridge":{"name":"Activity collector","team":"implementation","assignment":{"en":"Stream sanitized actual Codex events into the scoreboard","es":"Transmitir eventos reales de Codex al tablero sin datos privados","pt":"Transmitir eventos reais do Codex ao painel sem dados privados"}},
- "/root/social_identity_a":{"name":"Original research A","team":"research","assignment":{"en":"First 30 politicians; superseded by lower-cost research A","es":"Primeros 30 políticos; sustituido por investigación A de menor costo","pt":"Primeiros 30 políticos; substituído pela pesquisa A de menor custo"}},
- "/root/social_identity_b":{"name":"Social research B","team":"research","assignment":{"en":"Audit the next 30 politicians and 76 accounts","es":"Revisar los siguientes 30 políticos y 76 cuentas","pt":"Revisar os próximos 30 políticos e 76 contas"}},
- "/root/social_identity_c":{"name":"Social research C","team":"research","assignment":{"en":"Audit the remaining 28 politicians and 73 accounts","es":"Revisar los 28 políticos restantes y 73 cuentas","pt":"Revisar os 28 políticos restantes e 73 contas"}},
- "/root/social_identity_qa":{"name":"Original identity QA","team":"qa","assignment":{"en":"Independent ownership review; continued by lower-cost QA","es":"Revisión independiente; continuada por revisión de menor costo","pt":"Revisão independente; continuada por revisão de menor custo"}}
+  "/root": {
+    "name": "Orwell lead",
+    "team": "implementation",
+    "assignment": {
+      "en": "Connect and verify the live scoreboard; preserve the Orwell backlog",
+      "es": "Conectar y verificar el tablero en vivo; conservar pendientes de Orwell",
+      "pt": "Conectar e verificar o painel ao vivo; preservar tarefas pendentes do Orwell"
+    }
+  },
+  "/root/identity_a_economy": {
+    "name": "Social research A",
+    "team": "research",
+    "assignment": {
+      "en": "Resolve accepted correction leads and research politicians with no linked accounts",
+      "es": "Resolver correcciones respaldadas e investigar políticos sin cuentas vinculadas",
+      "pt": "Resolver correções comprovadas e pesquisar políticos sem contas vinculadas"
+    }
+  },
+  "/root/identity_qa_economy": {
+    "name": "Independent identity QA",
+    "team": "qa",
+    "assignment": {
+      "en": "Independently verify the remaining account ownership evidence",
+      "es": "Verificar independientemente las pruebas de titularidad pendientes",
+      "pt": "Verificar independentemente as provas de titularidade pendentes"
+    }
+  },
+  "/root/live_agent_ui": {
+    "name": "Scoreboard interface",
+    "team": "implementation",
+    "assignment": {
+      "en": "Live team cards and activity timeline in three languages",
+      "es": "Tarjetas de equipos y actividad en vivo en tres idiomas",
+      "pt": "Cartões de equipes e atividade ao vivo em três idiomas"
+    }
+  },
+  "/root/live_agent_bridge": {
+    "name": "Activity collector",
+    "team": "implementation",
+    "assignment": {
+      "en": "Stream sanitized actual Codex events into the scoreboard",
+      "es": "Transmitir eventos reales de Codex al tablero sin datos privados",
+      "pt": "Transmitir eventos reais do Codex ao painel sem dados privados"
+    }
+  },
+  "/root/social_identity_a": {
+    "name": "Original research A",
+    "team": "research",
+    "assignment": {
+      "en": "First 30 politicians; superseded by lower-cost research A",
+      "es": "Primeros 30 políticos; sustituido por investigación A de menor costo",
+      "pt": "Primeiros 30 políticos; substituído pela pesquisa A de menor custo"
+    }
+  },
+  "/root/social_identity_b": {
+    "name": "Social research B",
+    "team": "research",
+    "assignment": {
+      "en": "Audit the next 30 politicians and 76 accounts",
+      "es": "Revisar los siguientes 30 políticos y 76 cuentas",
+      "pt": "Revisar os próximos 30 políticos e 76 contas"
+    }
+  },
+  "/root/social_identity_c": {
+    "name": "Social research C",
+    "team": "research",
+    "assignment": {
+      "en": "Audit the remaining 28 politicians and 73 accounts",
+      "es": "Revisar los 28 políticos restantes y 73 cuentas",
+      "pt": "Revisar os 28 políticos restantes e 73 contas"
+    }
+  },
+  "/root/social_identity_qa": {
+    "name": "Original identity QA",
+    "team": "qa",
+    "assignment": {
+      "en": "Independent ownership review; continued by lower-cost QA",
+      "es": "Revisión independiente; continuada por revisión de menor costo",
+      "pt": "Revisão independente; continuada por revisão de menor custo"
+    }
+  }
 }
