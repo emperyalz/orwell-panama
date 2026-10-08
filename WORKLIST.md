@@ -29,7 +29,7 @@ Shared page: https://orwell-panama.vercel.app/scoreboard. Production database st
 
 ## Additional requests
 
-- [ ] Publish and verify the styled shareable scoreboard, with live status, icons, large green completion checks, and mobile access.
+- [x] Publish and verify the styled shareable scoreboard, with live status, icons, large green completion checks, and mobile access. Verified production and automatic status update without reloading on October 8, 2026.
 
 - [x] Develop six distinct homepage concepts, using established design references from The Index and Mobbin. Address hierarchy, structure, visual identification, discovery, comparison, and repeat browsing. Deliver six flat PNG mockups for visual review. Eric explicitly requested image concepts only, with no coded or functional homepage implementations.
 

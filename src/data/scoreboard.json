@@ -131,13 +131,15 @@
       "pt": "Painel compartilhado do projeto"
     },
     "detail": {
-      "en": "A visual page with live database status, large completion checks and a shareable link. Production verification is underway.",
-      "es": "Página visual con estado compartido en la base de datos, marcas de finalización y enlace. Verificación en curso.",
-      "pt": "Página visual com status no banco de dados, marcas de conclusão e link. Verificação em andamento."
+      "en": "Published and verified on the live site. Shared database updates, large green completion checks, three languages and six homepage PNG links.",
+      "es": "Publicado y verificado en el sitio. Actualizaciones compartidas, marcas verdes, tres idiomas y seis enlaces PNG de inicio.",
+      "pt": "Publicado e verificado no site. Atualizações compartilhadas, marcas verdes, três idiomas e seis links PNG da página inicial."
     },
-    "status": "doing",
+    "status": "done",
     "icon": "layout",
-    "order": 7
+    "order": 7,
+    "href": "/scoreboard",
+    "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
   },
   {
     "key": "social-freshness",
