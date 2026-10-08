@@ -28,5 +28,6 @@ for kind,filename in [('mayor','alcaldes'),('deputy','diputados')]:
 assert sum(r['kind']=='deputy' for r in rows)==71
 assert sum(r['kind']=='mayor' for r in rows)==81
 payload={'electionDate':'2024-05-05','retrievedAt':'2026-10-08','scope':'proclaimed-winners','sources':[{'url':urls[kind],'sha256':hashlib.sha256((root/'data/elections'/f'{file}-2024.csv').read_bytes()).hexdigest()} for kind,file in [('mayor','alcaldes'),('deputy','diputados')]],'results':rows}
-(root/'data/elections/results-2024.json').write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
+(root/'src/data/elections').mkdir(parents=True,exist_ok=True)
+(root/'src/data/elections/results-2024.json').write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
 print(f'Validated {len(rows)} proclaimed winners: 71 deputies, 81 mayors.')

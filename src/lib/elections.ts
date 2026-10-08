@@ -1,4 +1,4 @@
-import snapshot from '../../data/elections/results-2024.json';
+import snapshot from '../data/elections/results-2024.json';
 export const electionResults=snapshot.results;
 export const electionSnapshot=snapshot;
 export type ElectionResult=(typeof electionResults)[number];

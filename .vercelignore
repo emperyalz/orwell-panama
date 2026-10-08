@@ -5,8 +5,5 @@ artifacts
 .playwright-cli
 node_modules
 .next
-/data/*
-!/data/elections/
-/data/elections/*
-!/data/elections/results-2024.json
+/data/
 *.tsbuildinfo
