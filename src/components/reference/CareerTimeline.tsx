@@ -1,0 +1,15 @@
+'use client';
+import {ArrowUpRight} from 'lucide-react';
+import Link from 'next/link';
+import {useSyncExternalStore} from 'react';
+import type {ElectionResult} from '@/lib/elections';
+import {electionParty} from '@/lib/election-party';
+import {getPartyLogoPath} from '@/lib/constants';
+const subscribe=(fn:()=>void)=>{window.addEventListener('storage',fn);return()=>window.removeEventListener('storage',fn);};
+const language=()=>localStorage.getItem('orwell-panama-language')||'es';
+const copy={title:['Trayectoria y elecciones','Career and elections','Trajetória e eleições'],elected:['Proclamado en la elección de 2024','Proclaimed in the 2024 election','Proclamado na eleição de 2024'],votes:['votos obtenidos','votes obtained','votos obtidos'],source:['Resultado oficial · Tribunal Electoral','Official result · Electoral Tribunal','Resultado oficial · Tribunal Electoral'],noMatch:['No hay un resultado electoral vinculado de forma inequívoca a esta ficha.','No election result has been unambiguously linked to this profile.','Nenhum resultado eleitoral foi vinculado de forma inequívoca a este perfil.'],scope:['La proclamación no certifica el cargo actual. Los cambios de partido y mandatos anteriores requieren fuentes fechadas.','Proclamation does not certify current office. Party changes and earlier terms require dated sources.','A proclamação não certifica o cargo atual. Mudanças de partido e mandatos anteriores exigem fontes datadas.'],all:['Explorar resultados de 2024','Explore 2024 results','Explorar resultados de 2024'],registered:['Cargo en el directorio','Office in the directory'],record:['Registro del directorio actualizado','Directory record updated','Registro do diretório atualizado']} as const;
+export function CareerTimeline({result,updatedAt}:{result:ElectionResult|null;updatedAt:number}){
+ const lang=useSyncExternalStore(subscribe,language,()=> 'es'),i=lang==='en'?1:lang==='pt'?2:0,t=(k:keyof typeof copy)=>copy[k][i];
+ const date=(d:string|number)=>new Intl.DateTimeFormat(lang,{dateStyle:'long',timeZone:'UTC'}).format(typeof d==='string'?new Date(d+'T00:00:00Z'):d);
+ return <section className="record-section" data-no-translate><div className="section-heading"><h2>{t('title')}</h2><Link href="/elecciones">{t('all')} <ArrowUpRight size={15} aria-hidden="true"/></Link></div>{result?<div className="career-row"><img src={getPartyLogoPath(electionParty(result.party))} alt={result.party} width={36} height={36} style={{objectFit:'contain'}}/><div><time>{date(result.date)}</time><p><strong>{t('elected')}</strong> · {result.name}</p><p>{result.votes.toLocaleString(lang)} {t('votes')} · {result.territory} · {result.party}</p><a href={result.source} target="_blank" rel="noreferrer">{t('source')} <ArrowUpRight size={15} aria-hidden="true"/></a></div></div>:<p className="record-empty">{t('noMatch')}</p>}<div className="career-row"><span className="career-dot"/><div><time>{date(updatedAt)}</time><p>{t('record')}</p></div></div><p className="source-note">{t('scope')}</p></section>;
+}

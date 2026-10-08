@@ -1,12 +1,40 @@
-import Link from 'next/link';
-import {getDirectory,getProfile} from '@/lib/reference-data';
-import {documentLinks,archiveRange,displayDate} from '@/lib/reference';
-import {ComparePicker} from '@/components/reference/ComparePicker';
-import {Portrait} from '@/components/reference/Portrait';
-export const metadata={title:'Comparar perfiles | ORWELL Política',robots:{index:false}};
-export default async function Compare({searchParams}:{searchParams:Promise<{a?:string;b?:string}>}){
- const {a='',b=''}=await searchParams;const people=await getDirectory();const valid=(id:string)=>people.some(p=>p.externalId===id);
- const [left,right]=await Promise.all([valid(a)?getProfile(a):null,valid(b)&&b!==a?getProfile(b):null]);const profiles=[left,right];
- const rows:[string,(p:NonNullable<typeof left>)=>React.ReactNode][]=[['Cargo',p=>p.person.role],['Provincia',p=>p.person.province],['Circuito',p=>p.person.circuit||'No consta'],['Partido / agrupación',p=>p.person.partyFull||p.person.party],['Cuentas registradas',p=>String(p.person.accounts.length)],['Documentos enlazados',p=>String(documentLinks(p.dashboard).length)],['Archivo de votos',p=>archiveRange(p.dashboard)?.label||'Sin archivo'],['Tipo de registro legislativo',p=>p.dashboard?.profile?(p.dashboard.profile.isSuplente?'Suplente (archivo)':'Principal (archivo)'):'No consta'],['Salario personal',()=> 'No documentado'],['Patrimonio neto declarado',p=>p.dashboard?.transparency?.extractedPatrimonio?.patrimonioNeto||'No documentado'],['Última modificación del directorio',p=>displayDate(p.person.updatedAt)]];
- return <div className="reference-world"><div className="reference-wrap comparison-page"><Link className="source-link" href="/">Volver al directorio</Link><h1>Perfiles, lado a lado.</h1><p className="biography">Contrasta cargos y evidencia disponible. El volumen del archivo no mide el desempeño.</p><ComparePicker people={people.map(p=>({id:p.externalId,name:p.name})).sort((a,b)=>a.name.localeCompare(b.name))} a={left?a:''} b={right?b:''}/>{left&&right?<><div className="compare-table"><div className="compare-row compare-head"><span>Panamá</span>{profiles.map(p=><Link key={p!.person.externalId} href={`/politician/${p!.person.externalId}`}><Portrait src={p!.person.headshot} name={p!.person.name}/><strong>{p!.person.name}</strong><span>Ver perfil y fuentes</span></Link>)}</div>{rows.map(([label,get])=><div className="compare-row" key={label}><strong>{label}</strong>{profiles.map(p=><span key={p!.person.externalId}>{get(p!)}</span>)}</div>)}</div><div className="coverage-box"><p>No se comparan tasas de asistencia ni lealtad: el archivo mezcla períodos y tipos de mandato. Consulta el alcance y las fuentes en cada perfil.</p></div></>:<p className="record-empty">Selecciona dos perfiles distintos para abrir la comparación.</p>}</div></div>
+import {fetchQuery} from 'convex/nextjs';
+import {api} from '../../../convex/_generated/api';
+import {getDirectory, getProfile} from '@/lib/reference-data';
+import {archiveRange, documentLinks, recordDate} from '@/lib/reference';
+import {comparisonIds, type ComparisonPerson} from '@/lib/comparison';
+import {ComparisonWorkspace} from '@/components/reference/ComparisonWorkspace';
+import './comparison.css';
+
+export const metadata = {title: 'Compare politicians | ORWELL Politics', robots: {index: false}};
+
+export default async function Compare({searchParams}: {searchParams: Promise<{ids?: string; a?: string; b?: string}>}) {
+  const params = await searchParams;
+  const [directory, registry] = await Promise.all([getDirectory(), fetchQuery(api.sourceRegistry.summary, {})]);
+  const ids = comparisonIds(params).filter(id => directory.some(person => person.externalId === id));
+  const records = await Promise.all(ids.map(id => getProfile(id)));
+  const profiles: ComparisonPerson[] = records.flatMap(record => {
+    if (!record) return [];
+    const {person, dashboard, facts, unavailable} = record;
+    const voting = dashboard?.profile;
+    return [{
+      id: person.externalId, name: person.name, portrait: person.headshot,
+      party: person.party, partyName: person.partyFull || person.party,
+      role: person.role, province: person.province, circuit: person.circuit,
+      birthDate: facts?.birthDate, accounts: person.accounts.map(account => ({
+        platform: account.platform, handle: account.handle, profileUrl: account.profileUrl, verdict: account.verdict, avatar: account.avatar,
+        posts: registry.socialAccounts.find(row => row.profileUrl === account.profileUrl)?.posts ?? 0,
+        latest: registry.socialAccounts.find(row => row.profileUrl === account.profileUrl)?.lastArchivedAt ?? null,
+        scope: registry.socialAccounts.find(row => row.profileUrl === account.profileUrl)?.archiveScope ?? 'person-platform',
+      })), documents: documentLinks(dashboard), archive: archiveRange(dashboard),
+      votes: voting?.totalVotes ?? null, inFavor: voting?.totalAFavor ?? null,
+      against: voting?.totalEnContra ?? null, abstentions: voting?.totalAbstencion ?? null,
+      alternate: voting?.isSuplente ?? null, unavailable,
+      recentVotes: (dashboard?.recentVotes ?? []).map(vote => ({
+        questionId: vote.questionId, questionText: vote.questionText, vote: vote.vote, date: recordDate(vote.sessionDate),
+      })),
+    }];
+  });
+  return <ComparisonWorkspace people={directory.map(person => ({id: person.externalId, name: person.name,
+    portrait: person.headshot, party: person.party, role: person.role, province: person.province}))} profiles={profiles}/>;
 }

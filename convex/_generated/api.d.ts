@@ -28,6 +28,7 @@ import type * as documentStorageHelpers from "../documentStorageHelpers.js";
 import type * as featuredVideos from "../featuredVideos.js";
 import type * as fields from "../fields.js";
 import type * as images from "../images.js";
+import type * as intelligence from "../intelligence.js";
 import type * as legislativeActions from "../legislativeActions.js";
 import type * as legislativeFeed from "../legislativeFeed.js";
 import type * as legislativeRefresh from "../legislativeRefresh.js";
@@ -77,6 +78,7 @@ declare const fullApi: ApiFromModules<{
   featuredVideos: typeof featuredVideos;
   fields: typeof fields;
   images: typeof images;
+  intelligence: typeof intelligence;
   legislativeActions: typeof legislativeActions;
   legislativeFeed: typeof legislativeFeed;
   legislativeRefresh: typeof legislativeRefresh;

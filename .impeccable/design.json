@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-14T17:22:02.625432+00:00",
-  "title": "Design System: ORWELL Politician Profile",
+  "generatedAt": "2026-10-08T18:54:52.143863+00:00",
+  "title": "Design System: ORWELL Political Index",
   "extensions": {
     "colorMeta": {
       "pan-purple": {
@@ -185,6 +185,132 @@
           "oklch(84% 0.1291 75.91)",
           "oklch(95% 0.1291 75.91)"
         ]
+      },
+      "workspace-green": {
+        "role": "primary",
+        "displayName": "Workspace Green",
+        "tonalRamp": [
+          "oklch(15% 0.0474 176.77)",
+          "oklch(26% 0.0474 176.77)",
+          "oklch(38% 0.0474 176.77)",
+          "oklch(49% 0.0474 176.77)",
+          "oklch(61% 0.0474 176.77)",
+          "oklch(72% 0.0474 176.77)",
+          "oklch(84% 0.0474 176.77)",
+          "oklch(95% 0.0474 176.77)"
+        ]
+      },
+      "comparison-green": {
+        "role": "primary",
+        "displayName": "Comparison Green",
+        "tonalRamp": [
+          "oklch(15% 0.0778 146.17)",
+          "oklch(26% 0.0778 146.17)",
+          "oklch(38% 0.0778 146.17)",
+          "oklch(49% 0.0778 146.17)",
+          "oklch(61% 0.0778 146.17)",
+          "oklch(72% 0.0778 146.17)",
+          "oklch(84% 0.0778 146.17)",
+          "oklch(95% 0.0778 146.17)"
+        ]
+      },
+      "workspace-action": {
+        "role": "primary",
+        "displayName": "Workspace Action",
+        "tonalRamp": [
+          "oklch(15% 0.0311 164.17)",
+          "oklch(26% 0.0311 164.17)",
+          "oklch(38% 0.0311 164.17)",
+          "oklch(49% 0.0311 164.17)",
+          "oklch(61% 0.0311 164.17)",
+          "oklch(72% 0.0311 164.17)",
+          "oklch(84% 0.0311 164.17)",
+          "oklch(95% 0.0311 164.17)"
+        ]
+      },
+      "workspace-ground": {
+        "role": "neutral",
+        "displayName": "Workspace Ground",
+        "tonalRamp": [
+          "oklch(15% 0.0041 121.56)",
+          "oklch(26% 0.0041 121.56)",
+          "oklch(38% 0.0041 121.56)",
+          "oklch(49% 0.0041 121.56)",
+          "oklch(61% 0.0041 121.56)",
+          "oklch(72% 0.0041 121.56)",
+          "oklch(84% 0.0041 121.56)",
+          "oklch(95% 0.0041 121.56)"
+        ]
+      },
+      "coverage-surface": {
+        "role": "neutral",
+        "displayName": "Coverage Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0074 132.42)",
+          "oklch(26% 0.0074 132.42)",
+          "oklch(38% 0.0074 132.42)",
+          "oklch(49% 0.0074 132.42)",
+          "oklch(61% 0.0074 132.42)",
+          "oklch(72% 0.0074 132.42)",
+          "oklch(84% 0.0074 132.42)",
+          "oklch(95% 0.0074 132.42)"
+        ]
+      },
+      "difference-surface": {
+        "role": "neutral",
+        "displayName": "Difference Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0328 122.06)",
+          "oklch(26% 0.0328 122.06)",
+          "oklch(38% 0.0328 122.06)",
+          "oklch(49% 0.0328 122.06)",
+          "oklch(61% 0.0328 122.06)",
+          "oklch(72% 0.0328 122.06)",
+          "oklch(84% 0.0328 122.06)",
+          "oklch(95% 0.0328 122.06)"
+        ]
+      },
+      "table-identity": {
+        "role": "neutral",
+        "displayName": "Table Identity",
+        "tonalRamp": [
+          "oklch(15% 0.0054 117.92)",
+          "oklch(26% 0.0054 117.92)",
+          "oklch(38% 0.0054 117.92)",
+          "oklch(49% 0.0054 117.92)",
+          "oklch(61% 0.0054 117.92)",
+          "oklch(72% 0.0054 117.92)",
+          "oklch(84% 0.0054 117.92)",
+          "oklch(95% 0.0054 117.92)"
+        ]
+      },
+      "workspace-muted": {
+        "role": "neutral",
+        "displayName": "Workspace Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0214 165.67)",
+          "oklch(26% 0.0214 165.67)",
+          "oklch(38% 0.0214 165.67)",
+          "oklch(49% 0.0214 165.67)",
+          "oklch(61% 0.0214 165.67)",
+          "oklch(72% 0.0214 165.67)",
+          "oklch(84% 0.0214 165.67)",
+          "oklch(95% 0.0214 165.67)"
+        ]
+      },
+      "workspace-rule": {
+        "role": "neutral",
+        "displayName": "Workspace Rule",
+        "tonalRamp": [
+          "oklch(15% 0.0153 142.22)",
+          "oklch(26% 0.0153 142.22)",
+          "oklch(38% 0.0153 142.22)",
+          "oklch(49% 0.0153 142.22)",
+          "oklch(61% 0.0153 142.22)",
+          "oklch(72% 0.0153 142.22)",
+          "oklch(84% 0.0153 142.22)",
+          "oklch(95% 0.0153 142.22)"
+        ]
       }
     },
     "typographyMeta": {
@@ -195,6 +321,22 @@
       "body": {
         "displayName": "Narrow evidence text",
         "purpose": "Facts and linked evidence rows."
+      },
+      "workspace-title": {
+        "displayName": "Research title",
+        "purpose": "Condensed research page heading."
+      },
+      "workspace-body": {
+        "displayName": "Research reading text",
+        "purpose": "Inter prose and table values, distinct from narrow profile text."
+      },
+      "workspace-label": {
+        "displayName": "Research control label",
+        "purpose": "Compact filter and provenance labels."
+      },
+      "workspace-metric": {
+        "displayName": "Archive metric",
+        "purpose": "Oswald counts with date context."
       }
     },
     "shadows": [],
@@ -203,6 +345,11 @@
         "name": "link-opacity",
         "value": "opacity .15s ease",
         "purpose": "Only when reduced motion is not requested; hover opacity .8."
+      },
+      {
+        "name": "comparison-scroll",
+        "value": "smooth; auto with prefers-reduced-motion: reduce",
+        "purpose": "Horizontal arrow controls; charts do not animate."
       }
     ],
     "breakpoints": [
@@ -217,6 +364,18 @@
       {
         "name": "wide-min",
         "value": "1700px"
+      },
+      {
+        "name": "research-mobile-max",
+        "value": "700px"
+      },
+      {
+        "name": "comparison-mobile-max",
+        "value": "720px"
+      },
+      {
+        "name": "research-wide-min",
+        "value": "1400px"
       }
     ]
   },
@@ -258,20 +417,57 @@
       "description": "Document link with file and external-link SVGs.",
       "html": "<a class=\"ds-row\" href=\"#document\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8ZM14 2v6h6M8 13h8M8 17h8\"/></svg><span>Documento público</span><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></a>",
       "css": "@font-face{font-family:IndexNarrow;src:url('/fonts/oswald.ttf') format('truetype');font-weight:200 700;font-display:swap}@font-face{font-family:IndexDisplay;src:url('/fonts/anton.ttf') format('truetype');font-weight:400;font-display:swap}.ds-row{display:flex;align-items:center;gap:12px;font:16px IndexNarrow,Arial,sans-serif;padding:7px 0;border-bottom:1px solid #cdc8d0;color:#161616;background:#faf9f5;text-decoration:none}.ds-row span{flex:1}.ds-row svg{flex-shrink:0}.ds-row:hover{text-decoration:underline;opacity:.8}.ds-compare:focus-visible,.ds-search input:focus-visible,.ds-tabs button:focus-visible,.ds-row:focus-visible{outline:3px solid #b98016;outline-offset:4px}"
+    },
+    {
+      "name": "Workspace selected control",
+      "kind": "button",
+      "refersTo": "workspace-selected",
+      "description": "Square selected election office control.",
+      "html": "<button class=\"ds-workspace-selected\" aria-pressed=\"true\">Deputies</button>",
+      "css": ".ds-workspace-selected{font:16px Inter,system-ui,sans-serif;border:1px solid #b8c1b6;border-radius:0;background:#244b42;color:#fff;padding:12px 20px;min-height:44px}.ds-workspace-selected:hover{text-decoration:underline}.ds-workspace-selected:focus-visible{outline:2px solid #244b42;outline-offset:4px}"
+    },
+    {
+      "name": "Archive search field",
+      "kind": "input",
+      "refersTo": "workspace-field",
+      "description": "Labeled archive filter.",
+      "html": "<label class=\"ds-archive-field\">Search by name<input type=\"search\" placeholder=\"Search by name\"></label>",
+      "css": ".ds-archive-field{display:grid;gap:7px;font:13px Inter,system-ui,sans-serif;color:#192622}.ds-archive-field input{height:42px;border:1px solid #bac2b9;border-radius:0;background:#fff;padding:10px;color:#203c32;font:14px Inter,system-ui,sans-serif}.ds-archive-field input:hover{border-color:#244b42}.ds-archive-field input:focus-visible{outline:2px solid #244b42;outline-offset:4px}"
+    },
+    {
+      "name": "Coverage notice",
+      "kind": "card",
+      "refersTo": "coverage-notice",
+      "description": "Flat context block adjoining imported archive evidence.",
+      "html": "<aside class=\"ds-coverage\"><strong>Archive, not real-time activity</strong><p>These data describe imported posts. An empty month may indicate a collection gap.</p><span>Available period: May 2013 to April 2026</span></aside>",
+      "css": ".ds-coverage{border-block:1px solid #b8c1b6;border-radius:0;background:#edf0eb;padding:18px 24px;font:16px Inter,system-ui,sans-serif;color:#516159}.ds-coverage p{line-height:1.65;margin:8px 0}.ds-coverage span{font-size:13px}"
+    },
+    {
+      "name": "Research comparison table",
+      "kind": "custom",
+      "description": "Focusable horizontal table, sticky row identity and known-value difference fill.",
+      "html": "<div class=\"ds-matrix-scroll\" role=\"region\" aria-label=\"Profile comparison\" tabindex=\"0\"><table class=\"ds-matrix\"><thead><tr><th>Office</th><th>Reference</th><th>Comparison</th></tr></thead><tbody><tr><th scope=\"row\">Party</th><td>Panameñista</td><td class=\"ds-difference\">Libre Postulación</td></tr><tr><th scope=\"row\">Birth date</th><td class=\"ds-missing\">No data</td><td class=\"ds-missing\">No data</td></tr></tbody></table></div>",
+      "css": ".ds-matrix-scroll{overflow:auto;max-height:74vh}.ds-matrix-scroll:focus-visible{outline:2px solid #244b42;outline-offset:4px}.ds-matrix{border-collapse:separate;border-spacing:0;min-width:650px;width:100%;font:13px Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#18241f}.ds-matrix th,.ds-matrix td{padding:18px 20px;text-align:left;border-bottom:1px solid #d0d4cd;border-right:1px solid #d0d4cd;background:#faf9f5}.ds-matrix tr>:first-child{position:sticky;left:0;background:#f0f0e9;min-width:140px;z-index:1}.ds-matrix thead th{position:sticky;top:0;z-index:2}.ds-matrix thead th:first-child{z-index:3}.ds-matrix td.ds-difference{background:#e9f1d9}.ds-matrix td.ds-missing{color:#626c63;font-style:italic}"
     }
   ],
   "narrative": {
     "northStar": "The Political Index",
-    "overview": "A condensed political index on neutral paper. Party colors identify the person, while fine rules organize evidence into a dense, readable profile. This system records the implemented politician profile only; it does not redefine the directory, comparison pages, or inherited detailed record panels.\n\nThe September 14 approved composition governs this surface. Self-hosted Anton and Oswald approximate its letterforms because no original font file accompanied the reference. Official ORWELL and party marks remain unchanged.",
+    "overview": "A condensed political index on neutral paper. Party colors identify the person, while fine rules organize evidence into a dense, readable profile. This record covers the politician profile and the implemented comparison, social intelligence and Panama election workspaces. The profile preserves its party identity; research workspaces use neutral reading surfaces and green controls.\n\nThe September 14 approved composition governs the profile surface. Self-hosted Anton and Oswald approximate its letterforms because no original font file accompanied the reference. Official ORWELL and party marks remain unchanged. The research extension follows that incumbent world and supplied interaction references; no generated composition or FORM seed was selected.",
     "keyCharacteristics": [
       "Large condensed identity typography and a close portrait.",
       "Party-colored identity fields above neutral evidence sections.",
-      "Flat ruled structure with visible source notes and explicit missing coverage."
+      "Flat ruled structure with visible source notes and explicit missing coverage.",
+      "Horizontal research tables with sticky identity, dated provenance and native ES / EN / PT copy."
     ],
     "rules": [
       {
         "name": "The Party Field Rule",
         "body": "Use party color for identity fields, active tabs, and archive bars; keep evidence on neutral paper. PAN uses its dedicated purple and gold; other groups use sourced database colors.",
+        "section": "colors"
+      },
+      {
+        "name": "The Known Difference Rule",
+        "body": "Highlight a comparison cell only when its known value differs from the known reference value. Keep missing evidence visibly separate; gendered forms of the same office are semantically equal.",
         "section": "colors"
       },
       {
@@ -283,6 +479,11 @@
         "name": "The Evidence Rule",
         "body": "Keep source notes and missing-data states visible within their corresponding evidence section. Absence and loading failure have distinct text.",
         "section": "components"
+      },
+      {
+        "name": "The Dated Evidence Rule",
+        "body": "Place the source, relevant date and coverage limitation beside each research block. Keep election party distinct from directory party, and publication time distinct from import checks.",
+        "section": "components"
       }
     ],
     "dos": [
@@ -290,14 +491,22 @@
       "Do derive party foregrounds from the implemented contrast calculation, retaining the PAN-specific foreground.",
       "Do remeasure surname lines after fonts load and when their container resizes.",
       "Do preserve whole surname words and accents when fitting names.",
-      "Do collapse the evidence grid into a single column at the mobile breakpoint."
+      "Do collapse the evidence grid into a single column at the mobile breakpoint.",
+      "Do preserve focusable horizontal tables, sticky identity columns and visible scroll hints.",
+      "Do keep workspace interface and limitation copy native in Spanish, English and Portuguese.",
+      "Do pair verified publisher, party and platform marks with accessible identity text.",
+      "Do preserve archive periods, retrieval dates and distinct missing-data states.",
+      "Do bound source marks to their container while preserving native aspect ratio, and keep profile actions below long winner names."
     ],
     "donts": [
       "Don't generate or redraw official marks.",
       "Don't apply one party palette to every profile.",
       "Don't compress surname text below the implemented horizontal floor.",
       "Don't imply that missing records, imported archive dates, or stored counts establish current office coverage.",
-      "Don't promote the one-person portrait crop into a universal portrait rule."
+      "Don't promote the one-person portrait crop into a universal portrait rule.",
+      "Don't describe global expansion, earlier careers or dated party changes as shipped coverage.",
+      "Don't treat gendered office labels as substantive comparison differences.",
+      "Don't turn archived volume into popularity, performance or voting-intention scores."
     ]
   }
 }
