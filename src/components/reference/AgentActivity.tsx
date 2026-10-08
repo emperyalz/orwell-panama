@@ -1,0 +1,55 @@
+'use client';
+
+import {useEffect,useState} from 'react';
+import {useQuery} from 'convex/react';
+import {Activity,Clock3} from 'lucide-react';
+import {api} from '../../../convex/_generated/api';
+import './agent-activity.css';
+
+type Language='en'|'es'|'pt';
+type Status='running'|'completed'|'blocked'|'error'|'idle';
+type EventKind='assigned'|'progress'|'completed'|'error'|'model_changed';
+
+const copy={
+ en:{title:'Agent activity',subtitle:'Current assignments and recorded updates',recent:'Recent updates',empty:'No agents recorded yet.',noEvents:'No updates recorded yet.',loading:'Loading agent activity…',team:{research:'Research',qa:'Quality assurance',implementation:'Implementation'},status:{running:'Running',completed:'Completed',blocked:'Blocked',error:'Error',idle:'Idle'},kind:{assigned:'Assigned',progress:'Progress',completed:'Completed',error:'Error',model_changed:'Model changed'},assignment:'Assignment',model:'Model',reasoning:'Reasoning',last:'Last activity',unknown:'Not recorded',stale:'Last update is over 5 minutes old',snapshot:'Snapshot received',past:'Completed and idle agents',reasoningValue:{low:'Low',medium:'Medium',high:'High',unknown:'Unknown'}},
+ es:{title:'Actividad de agentes',subtitle:'Asignaciones actuales y actualizaciones registradas',recent:'Actualizaciones recientes',empty:'Aún no hay agentes registrados.',noEvents:'Aún no hay actualizaciones registradas.',loading:'Cargando actividad de agentes…',team:{research:'Investigación',qa:'Control de calidad',implementation:'Implementación'},status:{running:'En curso',completed:'Completado',blocked:'Bloqueado',error:'Error',idle:'Inactivo'},kind:{assigned:'Asignado',progress:'Avance',completed:'Completado',error:'Error',model_changed:'Cambio de modelo'},assignment:'Asignación',model:'Modelo',reasoning:'Razonamiento',last:'Última actividad',unknown:'Sin registrar',stale:'La última actualización tiene más de 5 minutos',snapshot:'Datos recibidos',past:'Agentes completados e inactivos',reasoningValue:{low:'Bajo',medium:'Medio',high:'Alto',unknown:'Desconocido'}},
+ pt:{title:'Atividade dos agentes',subtitle:'Tarefas atuais e atualizações registradas',recent:'Atualizações recentes',empty:'Nenhum agente registrado ainda.',noEvents:'Nenhuma atualização registrada ainda.',loading:'Carregando atividade dos agentes…',team:{research:'Pesquisa',qa:'Controle de qualidade',implementation:'Implementação'},status:{running:'Em andamento',completed:'Concluído',blocked:'Bloqueado',error:'Erro',idle:'Inativo'},kind:{assigned:'Atribuído',progress:'Progresso',completed:'Concluído',error:'Erro',model_changed:'Modelo alterado'},assignment:'Tarefa',model:'Modelo',reasoning:'Raciocínio',last:'Última atividade',unknown:'Não registrado',stale:'A última atualização tem mais de 5 minutos',snapshot:'Dados recebidos',past:'Agentes concluídos e inativos',reasoningValue:{low:'Baixo',medium:'Médio',high:'Alto',unknown:'Desconhecido'}},
+} as const;
+
+function formatTime(value:number|undefined,lang:Language){
+ if(!value||!Number.isFinite(value))return null;
+ return new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeStyle:'short'}).format(value);
+}
+function dateTime(value:number|undefined){return value&&Number.isFinite(value)?new Date(value).toISOString():undefined;}
+
+export function AgentActivity({lang}:{lang:Language}){
+ const snapshot=useQuery(api.agentActivity.snapshot,{});
+ const [now,setNow]=useState<number>();
+ useEffect(()=>{const initial=window.setTimeout(()=>setNow(Date.now()),0);const timer=window.setInterval(()=>setNow(Date.now()),60_000);return()=>{window.clearTimeout(initial);window.clearInterval(timer);};},[]);
+ const t=copy[lang];
+ const agents=snapshot?.agents??[];
+ const activeAgents=agents.filter(agent=>agent.status==='running'||agent.status==='blocked'||agent.status==='error');
+ const pastAgents=agents.filter(agent=>agent.status==='completed'||agent.status==='idle');
+ const events=[...(snapshot?.events??[])].sort((a,b)=>b.occurredAt-a.occurredAt).slice(0,10);
+ const names=new Map(agents.map(agent=>[agent.key,agent.name]));
+ function agentCard(agent:(typeof agents)[number]){
+  const status=agent.status as Status;
+  const lastTime=agent.lastActivityAt||agent.updatedAt;
+  const stale=Boolean(now&&lastTime&&now-lastTime>300_000);
+  const reasoningKey=agent.reasoning?.toLowerCase() as keyof typeof t.reasoningValue;
+  const reasoning=t.reasoningValue[reasoningKey]||agent.reasoning||t.reasoningValue.unknown;
+  return <article className="agent-activity-card" key={agent.key}>
+   <div className="agent-activity-card-top"><div><span className="agent-activity-team">{t.team[agent.team]}</span><h3>{agent.name}</h3></div><span className={`agent-activity-status agent-activity-status-${status}`}><span aria-hidden="true"/>{t.status[status]}</span></div>
+   <p className="agent-activity-assignment"><span>{t.assignment}</span>{agent.assignment?.[lang]||t.unknown}</p>
+   <dl className="agent-activity-meta"><div><dt>{t.model}</dt><dd>{agent.model||t.unknown}</dd></div><div><dt>{t.reasoning}</dt><dd>{reasoning}</dd></div><div><dt>{t.last}</dt><dd><time dateTime={dateTime(lastTime)}>{formatTime(lastTime,lang)||t.unknown}</time></dd></div></dl>
+   {stale&&<p className="agent-activity-stale"><Clock3 size={13} aria-hidden="true"/>{t.stale}</p>}
+  </article>;
+ }
+ return <section className="agent-activity" aria-labelledby="agent-activity-title">
+  <header className="agent-activity-head"><div className="agent-activity-heading"><Activity size={19} aria-hidden="true"/><div><h2 id="agent-activity-title">{t.title}</h2><p>{t.subtitle}</p></div></div>{snapshot?.receivedAt&&<span className="agent-activity-received"><Clock3 size={13} aria-hidden="true"/>{t.snapshot}: <time dateTime={dateTime(snapshot.receivedAt)}>{formatTime(snapshot.receivedAt,lang)}</time></span>}</header>
+  {!snapshot?<p className="agent-activity-empty" role="status">{t.loading}</p>:<>
+   {agents.length?<>{activeAgents.length>0&&<div className="agent-activity-grid">{activeAgents.map(agentCard)}</div>}{pastAgents.length>0&&<details className="agent-activity-past"><summary>{t.past} <span>{pastAgents.length}</span></summary><div className="agent-activity-grid">{pastAgents.map(agentCard)}</div></details>}</>:<p className="agent-activity-empty">{t.empty}</p>}
+   <div className="agent-activity-events"><h3>{t.recent}</h3>{events.length?<ol>{events.map((event,index)=><li key={`${event.agentKey}-${event.occurredAt}-${event.kind}-${index}`}><span className={`agent-activity-event-mark agent-activity-event-${event.kind as EventKind}`} aria-hidden="true"/><div><div className="agent-activity-event-line"><strong>{names.get(event.agentKey)||event.agentKey}</strong><span>{t.kind[event.kind as EventKind]}</span><time dateTime={dateTime(event.occurredAt)}>{formatTime(event.occurredAt,lang)||t.unknown}</time></div><p>{event.summary?.[lang]||t.unknown}</p></div></li>)}</ol>:<p className="agent-activity-empty">{t.noEvents}</p>}</div>
+  </>}
+ </section>;
+}

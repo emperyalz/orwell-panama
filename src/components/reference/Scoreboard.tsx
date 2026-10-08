@@ -4,6 +4,7 @@ import {useQuery} from 'convex/react';
 import {api} from '../../../convex/_generated/api';
 import {ArrowUpRight,Check,CheckCheck,ClipboardList,Clock3,Copy,FileCheck2,Flag,Globe2,History,Image,Languages,LayoutGrid,ListChecks,MessageSquare,Radio,Search,ShieldCheck,Users,Vote,Wrench} from 'lucide-react';
 import './scoreboard.css';
+import {AgentActivity} from './AgentActivity';
 
 const subscribe=(notify:()=>void)=>{window.addEventListener('storage',notify);return()=>window.removeEventListener('storage',notify);};
 const language=()=>localStorage.getItem('orwell-panama-language')||'es';
@@ -41,6 +42,7 @@ export function Scoreboard(){
   <header className="scoreboard-heading"><div><span className="scoreboard-kicker"><ListChecks size={17} aria-hidden="true"/>{t.live}</span><h1>{t.title}</h1><p>{t.intro}</p></div><button className="scoreboard-share" onClick={share}><Copy size={16} aria-hidden="true"/>{copyState==='idle'?t.share:t[copyState]}</button></header>
   {!tasks?<p role="status">{t.loading}</p>:<>
    <div className="scoreboard-overview" aria-live="polite"><div><CheckCheck aria-hidden="true"/><strong>{counts.done}</strong><span>{t.done}</span></div><div><Wrench aria-hidden="true"/><strong>{counts.doing}</strong><span>{t.doing}</span></div><div><Clock3 aria-hidden="true"/><strong>{counts.todo}</strong><span>{t.todo}</span></div>{counts.blocked>0&&<div><Flag aria-hidden="true"/><strong>{counts.blocked}</strong><span>{t.blocked}</span></div>}</div>
+   <AgentActivity lang={lang}/>
    <div className="scoreboard-board">{lane('doing')}{counts.blocked>0&&lane('blocked')}{lane('todo')}{lane('done')}</div>
    <footer className="scoreboard-foot"><span>{t.updated}: {latest?new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeStyle:'short'}).format(latest):'—'}</span><span>{t.new}</span></footer>
   </>}

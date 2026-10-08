@@ -6,7 +6,33 @@ Shared page: https://orwell-panama.vercel.app/scoreboard. Production database st
 
 ## Working now
 
-- [ ] Investigate stale social coverage. First finding: the daily import reads up to 500 Politics posts from ORWELL Monitor; it does not directly collect each politician’s current social account. The newest posts in this site’s archive are from April 2026. Upstream feed verified: the newest of its 500 returned posts is also from April 28, 2026. The freshness gap originates upstream; investigate the Monitor collector before changing account polling.
+- [x] Priority: live agent activity on the scoreboard.
+  - [x] Add restricted event storage and reactive query.
+  - [x] Connect a local collector to actual Orwell session events and model metadata.
+  - [x] Deploy team cards and recent activity in English, Spanish, and Portuguese.
+  - [x] Verify updates arrive without refreshing on desktop and mobile.
+  - [x] Verify stale updates and collector failures remain visible.
+- [ ] Complete missing profile facts across all 91 profiles.
+  - [x] Document Yarelis’s birthday, Herrera birthplace, and Panamanian citizenship basis with original sources.
+  - [ ] Audit remaining missing facts and verify language display and independent source review.
+
+- [ ] Independent social-account quality checks: separate reviewer reopens primary ownership evidence, rejects weak matches, reviews avatar/post attribution, and verifies accepted corrections live. Lower-cost research and QA agents reuse saved evidence. All batches retain unresolved ownership separately.
+
+- [ ] Verify every politician’s social accounts. Three research teams cover all 226 linked accounts for 88 people. Root research covers the three directory politicians without accounts. Yarelis Rodríguez’s Instagram is the first reported mismatch to investigate.
+  - [x] Inventory 91 politicians and 226 linked accounts; allocate separate research batches.
+  - [x] Correct Yarelis’s Instagram using official Vamos links accepted by independent QA.
+  - [ ] Verify each of the three research batches.
+  - [ ] Research politicians without linked accounts.
+  - [ ] Apply proven corrections and refresh actual account avatars.
+  - [ ] Reconcile corrected identities with Monitor and archived posts.
+  - [ ] Quality-check all results; keep unresolved ownership explicitly unresolved.
+- [ ] Restore social coverage.
+  - [x] Verify the published Monitor source and repair the importer connection.
+  - [x] Match through unique confirmed platform handles and reject mismatched source links.
+  - [x] Verify 145 newly imported posts and October coverage on the live site.
+  - [ ] Finish missing-avatar investigations.
+  - [ ] Resolve zero-post accounts against registration and collector history.
+  - [ ] Review polling cadence after ownership and technical health checks.
 
 ## Completed release
 

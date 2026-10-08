@@ -4,6 +4,16 @@ import { multiplayerTables } from "./multiplayerSchema";
 
 export default defineSchema({
   ...multiplayerTables,
+  projectAgents: defineTable({
+    key:v.string(),name:v.string(),team:v.union(v.literal('research'),v.literal('qa'),v.literal('implementation')),
+    model:v.string(),reasoning:v.string(),assignment:v.object({en:v.string(),es:v.string(),pt:v.string()}),
+    status:v.union(v.literal('running'),v.literal('completed'),v.literal('blocked'),v.literal('error'),v.literal('idle')),
+    lastActivityAt:v.number(),updatedAt:v.number(),
+  }).index('by_key',['key']),
+  projectAgentEvents:defineTable({
+    eventId:v.string(),agentKey:v.string(),kind:v.union(v.literal('assigned'),v.literal('progress'),v.literal('completed'),v.literal('error'),v.literal('model_changed')),
+    summary:v.object({en:v.string(),es:v.string(),pt:v.string()}),occurredAt:v.number(),receivedAt:v.number(),
+  }).index('by_event',['eventId']).index('by_time',['occurredAt']),
   projectTasks: defineTable({
     checklist: v.optional(v.array(v.object({key:v.string(),label:v.object({en:v.string(),es:v.string(),pt:v.string()}),done:v.boolean(),evidence:v.optional(v.string())}))),
     key: v.string(),

@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-08",
+  "review": "Independent QA reread original ownership sources before application.",
+  "corrections": [
+    {
+      "name": "Jorge Bloise",
+      "platform": "facebook",
+      "handle": "JorgeIsaacIglesiasBloise",
+      "url": "https://www.facebook.com/JorgeIsaacIglesiasBloise/",
+      "source": "https://linktr.ee/jorgebloisei"
+    },
+    {
+      "name": "Luis Duke",
+      "platform": "tiktok",
+      "handle": "dukelucho",
+      "url": "https://www.tiktok.com/@dukelucho",
+      "source": "https://linktr.ee/luchoduke"
+    },
+    {
+      "name": "Paulette Thomas",
+      "platform": "facebook",
+      "handle": "100063583178088",
+      "url": "https://www.facebook.com/profile.php?id=100063583178088",
+      "source": "https://linktr.ee/thomas_paulette"
+    }
+  ],
+  "removed": {
+    "person": "Ricardo Martinelli",
+    "platform": "youtube",
+    "url": "https://www.youtube.com/user/RicardoRMartinelli",
+    "reason": "Actual channel describes Portuguese photographer; independent research and QA reject politician association.",
+    "replacement": null
+  },
+  "notes": [
+    "Old Facebook profiles were not declared impersonations; preferred owner-linked professional pages selected.",
+    "Old avatars cleared; only actual replacement account avatars may be displayed.",
+    "Prior post attribution and Monitor reconciliation remain open."
+  ]
+}

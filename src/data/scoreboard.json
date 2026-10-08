@@ -1168,5 +1168,335 @@
       }
     ],
     "evidence": "Production verified: 16 tasks, 89 explicit steps, all completed-task boxes checked; completion/evidence guards rejected invalid writes; desktop/mobile and three languages checked."
+  },
+  {
+    "key": "social-identity-audit",
+    "title": {
+      "en": "Verify every politician’s social accounts",
+      "es": "Verificar las cuentas sociales de todos los políticos",
+      "pt": "Verificar as contas sociais de todos os políticos"
+    },
+    "detail": {
+      "en": "Review all 226 linked accounts for 88 people and check missing accounts across the full directory. Three research teams check ownership; corrections require source evidence and independent quality checks.",
+      "es": "Revisar las 226 cuentas vinculadas de 88 personas y comprobar cuentas faltantes en todo el directorio. Tres equipos verifican la identidad; las correcciones requieren fuentes y revisión.",
+      "pt": "Revisar as 226 contas vinculadas de 88 pessoas e conferir contas ausentes em todo o diretório. Três equipes verificam a identidade; correções exigem fontes e revisão."
+    },
+    "status": "doing",
+    "icon": "users",
+    "order": 10.1,
+    "href": "/metodologia",
+    "checklist": [
+      {
+        "key": "inventory",
+        "label": {
+          "en": "Inventory all profiles and linked accounts",
+          "es": "Inventariar perfiles y cuentas vinculadas",
+          "pt": "Inventariar perfis e contas vinculadas"
+        },
+        "done": true,
+        "evidence": "Production inventory October 8: 91 politicians, 226 linked accounts, 88 people with accounts; snapshot saved for non-overlapping research batches."
+      },
+      {
+        "key": "yarelis",
+        "label": {
+          "en": "Correct Yarelis’s Instagram with ownership evidence",
+          "es": "Corregir Instagram de Yarelis con pruebas de identidad",
+          "pt": "Corrigir o Instagram de Yarelis com provas de identidade"
+        },
+        "done": true,
+        "evidence": "Official Vamos deputy page and current caucus roster both link Instagram @doctorayarelisrodriguez. Production directory corrected October 8; old avatar cleared to prevent false attribution. https://vamosporpanama.org/san-miguelito/diputado-yarelis-rodrguez-circuito-82-san-miguelito"
+      },
+      {
+        "key": "batch-a",
+        "label": {
+          "en": "Verify accounts for the first 30 politicians",
+          "es": "Verificar cuentas de los primeros 30 políticos",
+          "pt": "Verificar contas dos primeiros 30 políticos"
+        },
+        "done": false
+      },
+      {
+        "key": "batch-b",
+        "label": {
+          "en": "Verify accounts for the next 30 politicians",
+          "es": "Verificar cuentas de los siguientes 30 políticos",
+          "pt": "Verificar contas dos próximos 30 políticos"
+        },
+        "done": false
+      },
+      {
+        "key": "batch-c",
+        "label": {
+          "en": "Verify accounts for the remaining 28 politicians",
+          "es": "Verificar cuentas de los 28 políticos restantes",
+          "pt": "Verificar contas dos 28 políticos restantes"
+        },
+        "done": false
+      },
+      {
+        "key": "missing",
+        "label": {
+          "en": "Research politicians with no linked accounts",
+          "es": "Investigar políticos sin cuentas vinculadas",
+          "pt": "Investigar políticos sem contas vinculadas"
+        },
+        "done": false
+      },
+      {
+        "key": "correct",
+        "label": {
+          "en": "Apply proven corrections and refresh real account avatars",
+          "es": "Aplicar correcciones comprobadas y actualizar avatares reales",
+          "pt": "Aplicar correções comprovadas e atualizar avatares reais"
+        },
+        "done": false
+      },
+      {
+        "key": "monitor",
+        "label": {
+          "en": "Reconcile corrected identities with Monitor and archived posts",
+          "es": "Conciliar identidades corregidas con Monitor y publicaciones",
+          "pt": "Conciliar identidades corrigidas com Monitor e publicações"
+        },
+        "done": false
+      },
+      {
+        "key": "qc",
+        "label": {
+          "en": "Quality-check every result and record unresolved identities",
+          "es": "Revisar cada resultado y registrar identidades sin resolver",
+          "pt": "Revisar cada resultado e registrar identidades não resolvidas"
+        },
+        "done": false
+      }
+    ]
+  },
+  {
+    "key": "social-identity-qa",
+    "title": {
+      "en": "Independent social-account quality checks",
+      "es": "Revisión independiente de cuentas sociales",
+      "pt": "Revisão independente de contas sociais"
+    },
+    "detail": {
+      "en": "Separate reviewer checks original ownership sources and can reject research findings. A matching name or badge alone cannot establish identity.",
+      "es": "Un revisor separado comprueba las fuentes originales y puede rechazar resultados. El nombre o la insignia no bastan.",
+      "pt": "Um revisor separado confere as fontes originais e pode rejeitar resultados. Nome ou selo não bastam."
+    },
+    "status": "doing",
+    "icon": "users",
+    "order": 10.2,
+    "checklist": [
+      {
+        "key": "sources",
+        "label": {
+          "en": "Independently verify ownership sources",
+          "es": "Verificar fuentes de identidad de forma independiente",
+          "pt": "Verificar fontes de identidade independentemente"
+        },
+        "done": true,
+        "evidence": "Independent original-source review ledger covers all226accounts:58accepted167unresolved1rejected0pending. Inaccessible and conflicting sources explicitly recorded unresolved; audit does not imply every account is owned by intended politician. See docs/social-identity-audit-qa-2026-10-08.md."
+      },
+      {
+        "key": "yarelis",
+        "label": {
+          "en": "Review Yarelis’s corrected Instagram",
+          "es": "Revisar Instagram corregido de Yarelis",
+          "pt": "Revisar o Instagram corrigido de Yarelis"
+        },
+        "done": true,
+        "evidence": "Independent reviewer reread official Vamos individual page and current roster; exact inbound Instagram link doctorayarelisrodriguez confirmed. Corrected public profile verified after fresh navigation."
+      },
+      {
+        "key": "batches",
+        "label": {
+          "en": "Review every account in all research batches",
+          "es": "Revisar cada cuenta de todos los grupos",
+          "pt": "Revisar cada conta de todos os grupos"
+        },
+        "done": true,
+        "evidence": "Independent original-source review ledger covers all226accounts:58accepted167unresolved1rejected0pending. Inaccessible and conflicting sources explicitly recorded unresolved; audit does not imply every account is owned by intended politician. See docs/social-identity-audit-qa-2026-10-08.md."
+      },
+      {
+        "key": "reject",
+        "label": {
+          "en": "Reject weak matches and resolve conflicting identities",
+          "es": "Rechazar coincidencias débiles y resolver conflictos",
+          "pt": "Rejeitar correspondências fracas e resolver conflitos"
+        },
+        "done": false
+      },
+      {
+        "key": "avatars",
+        "label": {
+          "en": "Check replacement avatars and post attribution",
+          "es": "Comprobar avatares y atribución de publicaciones",
+          "pt": "Conferir avatares e atribuição de publicações"
+        },
+        "done": false
+      },
+      {
+        "key": "live",
+        "label": {
+          "en": "Verify accepted corrections in live profiles",
+          "es": "Verificar correcciones aceptadas en perfiles públicos",
+          "pt": "Verificar correções aceitas nos perfis públicos"
+        },
+        "done": false
+      }
+    ]
+  },
+  {
+    "key": "profile-facts-audit",
+    "title": {
+      "en": "Complete missing profile facts",
+      "es": "Completar datos de los perfiles",
+      "pt": "Completar dados dos perfis"
+    },
+    "detail": {
+      "en": "Research the directory’s missing biography facts, retain source links, and verify selected-language display. Begin with Yarelis; do not treat an unresearched blank as unavailable evidence.",
+      "es": "Investigar datos biográficos faltantes, conservar fuentes y comprobar el idioma seleccionado. Comenzar con Yarelis; un campo sin investigar no demuestra falta de información.",
+      "pt": "Pesquisar dados biográficos ausentes, conservar fontes e conferir o idioma selecionado. Começar por Yarelis; um campo sem pesquisa não comprova ausência de informação."
+    },
+    "status": "doing",
+    "icon": "users",
+    "order": 10.3,
+    "checklist": [
+      {
+        "key": "yarelis-date",
+        "label": {
+          "en": "Document Yarelis’s birthday",
+          "es": "Documentar nacimiento de Yarelis",
+          "pt": "Documentar nascimento de Yarelis"
+        },
+        "done": true,
+        "evidence": "Candidate-submitted Espacio Cívico page lists July19,1975; independent reviewer reread it and accepted. Fresh public profile displays date."
+      },
+      {
+        "key": "yarelis-place",
+        "label": {
+          "en": "Document Yarelis’s birthplace",
+          "es": "Documentar lugar de nacimiento de Yarelis",
+          "pt": "Documentar local de nascimento de Yarelis"
+        },
+        "done": true,
+        "evidence": "Ellas interview explicitly identifies birth and childhood in Herrera province. Source link saved; fresh public profile shows Herrera, Panamá."
+      },
+      {
+        "key": "yarelis-citizenship",
+        "label": {
+          "en": "Document Yarelis’s Panamanian citizenship basis",
+          "es": "Documentar base de ciudadanía panameña de Yarelis",
+          "pt": "Documentar base da cidadania panamenha de Yarelis"
+        },
+        "done": true,
+        "evidence": "Documented birth in Herrera, Panama, constitutional article9 nationality by birth and official elected deputy record establish basis. Constitution source saved; public profile shows Panameña. No passport review claimed."
+      },
+      {
+        "key": "directory",
+        "label": {
+          "en": "Audit missing facts across all 91 profiles",
+          "es": "Revisar datos faltantes en los 91 perfiles",
+          "pt": "Revisar dados ausentes nos 91 perfis"
+        },
+        "done": false
+      },
+      {
+        "key": "source-links",
+        "label": {
+          "en": "Fill supported facts with their original sources",
+          "es": "Completar datos respaldados con fuentes originales",
+          "pt": "Completar dados comprovados com fontes originais"
+        },
+        "done": false
+      },
+      {
+        "key": "languages",
+        "label": {
+          "en": "Verify full biographies and labels in English, Spanish and Portuguese",
+          "es": "Verificar biografías y etiquetas en inglés, español y portugués",
+          "pt": "Verificar biografias e rótulos em inglês, espanhol e português"
+        },
+        "done": false
+      },
+      {
+        "key": "review",
+        "label": {
+          "en": "Independently review facts and verify live profiles",
+          "es": "Revisar datos independientemente y comprobar perfiles públicos",
+          "pt": "Revisar dados independentemente e conferir perfis públicos"
+        },
+        "done": false
+      }
+    ]
+  },
+  {
+    "key": "live-agent-scoreboard",
+    "title": {
+      "en": "Live agent activity",
+      "es": "Actividad de agentes en vivo",
+      "pt": "Atividade dos agentes ao vivo"
+    },
+    "detail": {
+      "en": "Connect real agent events to the shared board. Show actual assignments, models, research and QA states, last activity and stale connections. Verify updates without refresh.",
+      "es": "Conectar eventos reales de agentes al tablero. Mostrar tareas, modelos, investigación, revisión, última actividad y conexiones desactualizadas. Verificar sin recargar.",
+      "pt": "Conectar eventos reais dos agentes ao painel. Mostrar tarefas, modelos, pesquisa, revisão, última atividade e conexões desatualizadas. Verificar sem recarregar."
+    },
+    "status": "done",
+    "icon": "radio",
+    "order": -1,
+    "checklist": [
+      {
+        "key": "events",
+        "label": {
+          "en": "Capture actual agent status and model changes",
+          "es": "Capturar estados y cambios de modelo reales",
+          "pt": "Capturar estados e mudanças de modelo reais"
+        },
+        "done": true,
+        "evidence": "Actual scoped Codex lifecycle and model metadata collected by local LaunchAgent; duplicate write returned duplicate:true; out-of-order state protected."
+      },
+      {
+        "key": "teams",
+        "label": {
+          "en": "Show research and independent QA teams",
+          "es": "Mostrar equipos de investigación y revisión independiente",
+          "pt": "Mostrar equipes de pesquisa e revisão independente"
+        },
+        "done": true,
+        "evidence": "Live browser shows research, independent QA and implementation cards; completed agents expandable and actual lower-cost models visible."
+      },
+      {
+        "key": "heartbeat",
+        "label": {
+          "en": "Show latest activity and stale connection indicators",
+          "es": "Mostrar última actividad y conexiones desactualizadas",
+          "pt": "Mostrar última atividade e conexões desatualizadas"
+        },
+        "done": true,
+        "evidence": "Per-agent timestamps and older-than-five-minutes warning visibly verified; collector polls actual events sequentially every15seconds without model calls or synthetic activity."
+      },
+      {
+        "key": "stream",
+        "label": {
+          "en": "Stream updates without refreshing",
+          "es": "Transmitir actualizaciones sin recargar",
+          "pt": "Transmitir atualizações sem recarregar"
+        },
+        "done": true,
+        "evidence": "Recorded release and mobile-verification events appeared in already-open browser without reload; query subscription updates task and activity data."
+      },
+      {
+        "key": "verify",
+        "label": {
+          "en": "Verify live desktop and mobile updates",
+          "es": "Verificar actualizaciones en escritorio y móvil",
+          "pt": "Verificar atualizações no computador e celular"
+        },
+        "done": true,
+        "evidence": "Production desktop1272px and phone382px fit viewport; English Spanish Portuguese headings, assignments and reasoning labels verified. Screenshots saved .impeccable/review/live-agent-scoreboard-desktop.png and mobile.png."
+      }
+    ],
+    "evidence": "Deployed to orwell-panama.vercel.app/scoreboard. Actual event collector active; live no-refresh event updates, duplicate protection, mobile desktop and EN/ES/PT verified. Local machine/network required for fresh collection; ended turns do not mark project deliverables done."
   }
 ]

@@ -15,6 +15,7 @@ import type * as activity from "../activity.js";
 import type * as activityActions from "../activityActions.js";
 import type * as activityMedia from "../activityMedia.js";
 import type * as activityMediaActions from "../activityMediaActions.js";
+import type * as agentActivity from "../agentActivity.js";
 import type * as billActions from "../billActions.js";
 import type * as bills from "../bills.js";
 import type * as comments from "../comments.js";
@@ -67,6 +68,7 @@ declare const fullApi: ApiFromModules<{
   activityActions: typeof activityActions;
   activityMedia: typeof activityMedia;
   activityMediaActions: typeof activityMediaActions;
+  agentActivity: typeof agentActivity;
   billActions: typeof billActions;
   bills: typeof bills;
   comments: typeof comments;
