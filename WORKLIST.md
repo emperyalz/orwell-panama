@@ -23,4 +23,4 @@ Updated October 8, 2026. Voice questions and new requests add to this list; they
 
 ## New requests
 
-- [ ] Develop six distinct homepage concepts, using established design references from The Index and Mobbin. Address hierarchy, structure, visual identification, discovery, comparison, and repeat browsing. Deliver six flat PNG mockups for visual review. Eric explicitly requested image concepts only, with no coded or functional homepage implementations.
+- [x] Develop six distinct homepage concepts, using established design references from The Index and Mobbin. Address hierarchy, structure, visual identification, discovery, comparison, and repeat browsing. Deliver six flat PNG mockups for visual review. Eric explicitly requested image concepts only, with no coded or functional homepage implementations.
