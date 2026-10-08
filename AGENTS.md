@@ -3,7 +3,8 @@
 - Maintain the public `/scoreboard` page as the shared task record for Eric and the team. New requests add to existing work unless Eric explicitly cancels or replaces a task.
 - The production `projectTasks` table is the live status source. Update it using trusted internal `scoreboard:setTask` calls; do not expose public task-write mutations. Keep `WORKLIST.md` aligned as the local readable summary.
 - Mark tasks done only after the requested result is delivered and relevant verification succeeds. Record completion evidence. A successful dispatch or build alone is not completion of a deployment or live feature.
-- Keep task titles short and visual, with green completion checks. Put technical explanations in expandable details. Use the selected English, Spanish, or Portuguese language.
+- MANDATORY CHECKLIST POLICY: Every task, including completed tasks, must contain explicit, independently checkable steps. Never use a paragraph in place of a checklist. Keep short labels and visible checked/total counts. A task cannot move to Completed while any step remains unchecked; every checked step needs verification evidence. Voice questions and new requests do not cancel prior work.
+- Keep task titles short and visual, with green completion checks. Use the selected English, Spanish, or Portuguese language.
 - Do not reset recorded status during deployments. The seed only adds missing tasks. Add new requests promptly, retain completed work, and accurately distinguish current work from queued scope.
 
 # Visual identity in ORWELL

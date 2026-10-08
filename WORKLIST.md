@@ -40,3 +40,7 @@ New requests are appended here. An item is checked only after its result is deli
 - [x] Reconnect 24 election profiles: reconcile official names with verified directory identities, restore portraits and profile links, and add clickable Tribunal/INED branding on the Profile tab plus official record links in Career.
 
 Election identity correction verified live October 8, 2026: 71 deputy portraits/profile links, seven mayor links, and branded Tribunal/INED source links on matched Profile and Career views. The remaining 74 mayor results are outside the current directory.
+
+- [ ] Redesign the scoreboard: reviewing the current live view with Eric; preserve all statuses and requests.
+
+- Scoreboard redesign deployed and verified: 16 tasks, 89 visible checklist steps, completion guards, desktop/mobile and EN/ES/PT. Remaining backlog remains active.

@@ -5,6 +5,7 @@ import { multiplayerTables } from "./multiplayerSchema";
 export default defineSchema({
   ...multiplayerTables,
   projectTasks: defineTable({
+    checklist: v.optional(v.array(v.object({key:v.string(),label:v.object({en:v.string(),es:v.string(),pt:v.string()}),done:v.boolean(),evidence:v.optional(v.string())}))),
     key: v.string(),
     title: v.object({en:v.string(),es:v.string(),pt:v.string()}),
     detail: v.object({en:v.string(),es:v.string(),pt:v.string()}),

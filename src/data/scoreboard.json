@@ -15,7 +15,89 @@
     "icon": "users",
     "order": 0,
     "href": "/comparar",
-    "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+    "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site.",
+    "checklist": [
+      {
+        "key": "portrait-columns",
+        "label": {
+          "en": "Portrait columns",
+          "es": "Columnas con retratos",
+          "pt": "Colunas com retratos"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "compare-up-to-eight-people",
+        "label": {
+          "en": "Compare up to eight people",
+          "es": "Comparar hasta ocho personas",
+          "pt": "Comparar até oito pessoas"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "search-and-select-profiles",
+        "label": {
+          "en": "Search and select profiles",
+          "es": "Buscar y seleccionar perfiles",
+          "pt": "Buscar e selecionar perfis"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "organize-category-tabs",
+        "label": {
+          "en": "Organize category tabs",
+          "es": "Organizar categorías",
+          "pt": "Organizar categorias"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "highlight-differences",
+        "label": {
+          "en": "Highlight differences",
+          "es": "Resaltar diferencias",
+          "pt": "Destacar diferenças"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "show-shared-votes",
+        "label": {
+          "en": "Show shared votes",
+          "es": "Mostrar votos compartidos",
+          "pt": "Mostrar votos compartilhados"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "export-csv",
+        "label": {
+          "en": "Export CSV",
+          "es": "Exportar CSV",
+          "pt": "Exportar CSV"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      },
+      {
+        "key": "link-original-sources",
+        "label": {
+          "en": "Link original sources",
+          "es": "Enlazar fuentes originales",
+          "pt": "Vincular fontes originais"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+      }
+    ]
   },
   {
     "key": "social-intelligence",
@@ -33,7 +115,59 @@
     "icon": "radio",
     "order": 1,
     "href": "/inteligencia",
-    "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+    "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity.",
+    "checklist": [
+      {
+        "key": "monthly-activity",
+        "label": {
+          "en": "Monthly activity",
+          "es": "Actividad mensual",
+          "pt": "Atividade mensal"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+      },
+      {
+        "key": "platform-filters",
+        "label": {
+          "en": "Platform filters",
+          "es": "Filtros por plataforma",
+          "pt": "Filtros por plataforma"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+      },
+      {
+        "key": "communication-formats",
+        "label": {
+          "en": "Communication formats",
+          "es": "Formatos de comunicación",
+          "pt": "Formatos de comunicação"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+      },
+      {
+        "key": "links-to-original-posts",
+        "label": {
+          "en": "Links to original posts",
+          "es": "Enlaces a publicaciones originales",
+          "pt": "Links para posts originais"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+      },
+      {
+        "key": "show-archive-coverage-dates",
+        "label": {
+          "en": "Show archive coverage dates",
+          "es": "Mostrar fechas de cobertura",
+          "pt": "Mostrar datas de cobertura"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+      }
+    ]
   },
   {
     "key": "elections-2024",
@@ -51,7 +185,49 @@
     "icon": "votes",
     "order": 2,
     "href": "/elecciones",
-    "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified."
+    "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified.",
+    "checklist": [
+      {
+        "key": "validate-71-deputy-results",
+        "label": {
+          "en": "Validate 71 deputy results",
+          "es": "Validar 71 resultados de diputados",
+          "pt": "Validar 71 resultados de deputados"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified."
+      },
+      {
+        "key": "validate-81-mayor-results",
+        "label": {
+          "en": "Validate 81 mayor results",
+          "es": "Validar 81 resultados de alcaldes",
+          "pt": "Validar 81 resultados de prefeitos"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified."
+      },
+      {
+        "key": "search-names-and-territories",
+        "label": {
+          "en": "Search names and territories",
+          "es": "Buscar nombres y territorios",
+          "pt": "Buscar nomes e territórios"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified."
+      },
+      {
+        "key": "link-official-source-files",
+        "label": {
+          "en": "Link official source files",
+          "es": "Enlazar archivos oficiales",
+          "pt": "Vincular arquivos oficiais"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified."
+      }
+    ]
   },
   {
     "key": "career-election-links",
@@ -69,7 +245,39 @@
     "icon": "history",
     "order": 3,
     "href": "/politician/DEP-018",
-    "evidence": "Delivered and verified October 8, 2026: Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding."
+    "evidence": "Delivered and verified October 8, 2026: Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding.",
+    "checklist": [
+      {
+        "key": "show-matched-2024-results",
+        "label": {
+          "en": "Show matched 2024 results",
+          "es": "Mostrar resultados vinculados de 2024",
+          "pt": "Mostrar resultados vinculados de 2024"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding."
+      },
+      {
+        "key": "link-official-election-sources",
+        "label": {
+          "en": "Link official election sources",
+          "es": "Enlazar fuentes electorales oficiales",
+          "pt": "Vincular fontes eleitorais oficiais"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding."
+      },
+      {
+        "key": "label-missing-earlier-history",
+        "label": {
+          "en": "Label missing earlier history",
+          "es": "Indicar historia anterior faltante",
+          "pt": "Indicar histórico anterior ausente"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding."
+      }
+    ]
   },
   {
     "key": "release-review",
@@ -86,7 +294,49 @@
     "status": "done",
     "icon": "shield",
     "order": 4,
-    "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked."
+    "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked.",
+    "checklist": [
+      {
+        "key": "review-desktop-screens",
+        "label": {
+          "en": "Review desktop screens",
+          "es": "Revisar pantallas de escritorio",
+          "pt": "Revisar telas de desktop"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked."
+      },
+      {
+        "key": "review-mobile-screens",
+        "label": {
+          "en": "Review mobile screens",
+          "es": "Revisar pantallas móviles",
+          "pt": "Revisar telas móveis"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked."
+      },
+      {
+        "key": "resolve-seven-review-fixes",
+        "label": {
+          "en": "Resolve seven review fixes",
+          "es": "Resolver siete correcciones",
+          "pt": "Resolver sete correções"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked."
+      },
+      {
+        "key": "resolve-two-layout-regressions",
+        "label": {
+          "en": "Resolve two layout regressions",
+          "es": "Resolver dos regresiones visuales",
+          "pt": "Resolver duas regressões visuais"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked."
+      }
+    ]
   },
   {
     "key": "production-release",
@@ -104,7 +354,69 @@
     "icon": "flag",
     "order": 5,
     "href": "/",
-    "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+    "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment.",
+    "checklist": [
+      {
+        "key": "pass-production-build",
+        "label": {
+          "en": "Pass production build",
+          "es": "Aprobar compilación de producción",
+          "pt": "Aprovar build de produção"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+      },
+      {
+        "key": "publish-the-release",
+        "label": {
+          "en": "Publish the release",
+          "es": "Publicar la versión",
+          "pt": "Publicar a versão"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+      },
+      {
+        "key": "verify-live-comparison",
+        "label": {
+          "en": "Verify live comparison",
+          "es": "Verificar comparación publicada",
+          "pt": "Verificar comparação publicada"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+      },
+      {
+        "key": "verify-live-elections",
+        "label": {
+          "en": "Verify live elections",
+          "es": "Verificar elecciones publicadas",
+          "pt": "Verificar eleições publicadas"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+      },
+      {
+        "key": "verify-live-social-archive",
+        "label": {
+          "en": "Verify live social archive",
+          "es": "Verificar archivo social publicado",
+          "pt": "Verificar arquivo social publicado"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+      },
+      {
+        "key": "verify-profile-career-results",
+        "label": {
+          "en": "Verify profile career results",
+          "es": "Verificar resultados en trayectoria",
+          "pt": "Verificar resultados na carreira"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+      }
+    ]
   },
   {
     "key": "homepage-concepts",
@@ -121,7 +433,69 @@
     "status": "done",
     "icon": "image",
     "order": 6,
-    "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+    "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them.",
+    "checklist": [
+      {
+        "key": "portrait-browsing-png",
+        "label": {
+          "en": "Portrait browsing PNG",
+          "es": "PNG de navegación por retratos",
+          "pt": "PNG de navegação por retratos"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+      },
+      {
+        "key": "comparison-png",
+        "label": {
+          "en": "Comparison PNG",
+          "es": "PNG de comparación",
+          "pt": "PNG de comparação"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+      },
+      {
+        "key": "editorial-index-png",
+        "label": {
+          "en": "Editorial index PNG",
+          "es": "PNG de índice editorial",
+          "pt": "PNG de índice editorial"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+      },
+      {
+        "key": "territory-discovery-png",
+        "label": {
+          "en": "Territory discovery PNG",
+          "es": "PNG de territorios",
+          "pt": "PNG de territórios"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+      },
+      {
+        "key": "career-timeline-png",
+        "label": {
+          "en": "Career timeline PNG",
+          "es": "PNG de trayectoria",
+          "pt": "PNG de trajetória"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+      },
+      {
+        "key": "social-intelligence-png",
+        "label": {
+          "en": "Social intelligence PNG",
+          "es": "PNG de inteligencia social",
+          "pt": "PNG de inteligência social"
+        },
+        "done": true,
+        "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+      }
+    ]
   },
   {
     "key": "shared-scoreboard",
@@ -139,7 +513,99 @@
     "icon": "layout",
     "order": 7,
     "href": "/scoreboard",
-    "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+    "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested.",
+    "checklist": [
+      {
+        "key": "publish-the-scoreboard-page",
+        "label": {
+          "en": "Publish the scoreboard page",
+          "es": "Publicar página del tablero",
+          "pt": "Publicar página do painel"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "sync-shared-database-status",
+        "label": {
+          "en": "Sync shared database status",
+          "es": "Sincronizar estados compartidos",
+          "pt": "Sincronizar status compartilhados"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "show-green-completion-checks",
+        "label": {
+          "en": "Show green completion checks",
+          "es": "Mostrar marcas verdes",
+          "pt": "Mostrar marcas verdes"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "support-english",
+        "label": {
+          "en": "Support English",
+          "es": "Admitir inglés",
+          "pt": "Suportar inglês"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "support-spanish",
+        "label": {
+          "en": "Support Spanish",
+          "es": "Admitir español",
+          "pt": "Suportar espanhol"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "support-portuguese",
+        "label": {
+          "en": "Support Portuguese",
+          "es": "Admitir portugués",
+          "pt": "Suportar português"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "link-six-homepage-pngs",
+        "label": {
+          "en": "Link six homepage PNGs",
+          "es": "Enlazar seis PNG de inicio",
+          "pt": "Vincular seis PNGs de início"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "verify-mobile-access",
+        "label": {
+          "en": "Verify mobile access",
+          "es": "Verificar acceso móvil",
+          "pt": "Verificar acesso móvel"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      },
+      {
+        "key": "add-header-navigation-link",
+        "label": {
+          "en": "Add header navigation link",
+          "es": "Añadir enlace en navegación",
+          "pt": "Adicionar link na navegação"
+        },
+        "done": true,
+        "evidence": "Production route verified October 8, 2026; desktop and mobile layouts, language switching, copy link and six PNG links tested."
+      }
+    ]
   },
   {
     "key": "social-freshness",
@@ -155,7 +621,64 @@
     },
     "status": "doing",
     "icon": "radio",
-    "order": 8
+    "order": 8,
+    "checklist": [
+      {
+        "key": "investigate-upstream-collection",
+        "label": {
+          "en": "Investigate upstream collection",
+          "es": "Investigar recopilación de origen",
+          "pt": "Investigar coleta de origem"
+        },
+        "done": true,
+        "evidence": "Read-only checks October 8: original production feed ends April 28; active Monitor deployment has October 7 Politics posts and October 8 collection jobs. Connection repair remains open."
+      },
+      {
+        "key": "connect-the-current-monitor-feed",
+        "label": {
+          "en": "Connect the current Monitor feed",
+          "es": "Conectar fuente Monitor actual",
+          "pt": "Conectar feed Monitor atual"
+        },
+        "done": false
+      },
+      {
+        "key": "verify-missing-account-avatars",
+        "label": {
+          "en": "Verify missing account avatars",
+          "es": "Verificar avatares faltantes",
+          "pt": "Verificar avatares ausentes"
+        },
+        "done": false
+      },
+      {
+        "key": "investigate-zero-post-accounts",
+        "label": {
+          "en": "Investigate zero-post accounts",
+          "es": "Investigar cuentas sin publicaciones",
+          "pt": "Investigar contas sem posts"
+        },
+        "done": false
+      },
+      {
+        "key": "adjust-polling-frequency",
+        "label": {
+          "en": "Adjust polling frequency",
+          "es": "Ajustar frecuencia de recopilación",
+          "pt": "Ajustar frequência de coleta"
+        },
+        "done": false
+      },
+      {
+        "key": "verify-current-posts-on-the-live-site",
+        "label": {
+          "en": "Verify current posts on the live site",
+          "es": "Verificar publicaciones actuales en vivo",
+          "pt": "Verificar posts atuais no site"
+        },
+        "done": false
+      }
+    ]
   },
   {
     "key": "career-history",
@@ -171,7 +694,45 @@
     },
     "status": "todo",
     "icon": "history",
-    "order": 9
+    "order": 9,
+    "checklist": [
+      {
+        "key": "verify-earlier-offices",
+        "label": {
+          "en": "Verify earlier offices",
+          "es": "Verificar cargos anteriores",
+          "pt": "Verificar cargos anteriores"
+        },
+        "done": false
+      },
+      {
+        "key": "document-tenure-dates",
+        "label": {
+          "en": "Document tenure dates",
+          "es": "Documentar fechas de mandatos",
+          "pt": "Documentar datas de mandatos"
+        },
+        "done": false
+      },
+      {
+        "key": "document-party-changes",
+        "label": {
+          "en": "Document party changes",
+          "es": "Documentar cambios de partido",
+          "pt": "Documentar mudanças de partido"
+        },
+        "done": false
+      },
+      {
+        "key": "link-original-sources",
+        "label": {
+          "en": "Link original sources",
+          "es": "Enlazar fuentes originales",
+          "pt": "Vincular fontes originais"
+        },
+        "done": false
+      }
+    ]
   },
   {
     "key": "earlier-elections",
@@ -187,7 +748,54 @@
     },
     "status": "todo",
     "icon": "votes",
-    "order": 10
+    "order": 10,
+    "checklist": [
+      {
+        "key": "find-earlier-official-results",
+        "label": {
+          "en": "Find earlier official results",
+          "es": "Buscar resultados oficiales anteriores",
+          "pt": "Buscar resultados oficiais anteriores"
+        },
+        "done": false
+      },
+      {
+        "key": "include-candidate-records",
+        "label": {
+          "en": "Include candidate records",
+          "es": "Incluir registros de candidatos",
+          "pt": "Incluir registros de candidatos"
+        },
+        "done": false
+      },
+      {
+        "key": "reconcile-candidate-identities",
+        "label": {
+          "en": "Reconcile candidate identities",
+          "es": "Conciliar identidades de candidatos",
+          "pt": "Conciliar identidades de candidatos"
+        },
+        "done": false
+      },
+      {
+        "key": "connect-records-to-profiles",
+        "label": {
+          "en": "Connect records to profiles",
+          "es": "Conectar registros a perfiles",
+          "pt": "Conectar registros aos perfis"
+        },
+        "done": false
+      },
+      {
+        "key": "verify-source-links",
+        "label": {
+          "en": "Verify source links",
+          "es": "Verificar enlaces de fuentes",
+          "pt": "Verificar links de fontes"
+        },
+        "done": false
+      }
+    ]
   },
   {
     "key": "statements-actions",
@@ -203,7 +811,54 @@
     },
     "status": "todo",
     "icon": "message",
-    "order": 11
+    "order": 11,
+    "checklist": [
+      {
+        "key": "collect-dated-public-statements",
+        "label": {
+          "en": "Collect dated public statements",
+          "es": "Recopilar declaraciones fechadas",
+          "pt": "Coletar declarações datadas"
+        },
+        "done": false
+      },
+      {
+        "key": "connect-documented-votes",
+        "label": {
+          "en": "Connect documented votes",
+          "es": "Conectar votos documentados",
+          "pt": "Conectar votos documentados"
+        },
+        "done": false
+      },
+      {
+        "key": "connect-bills-and-proposals",
+        "label": {
+          "en": "Connect bills and proposals",
+          "es": "Conectar proyectos y propuestas",
+          "pt": "Conectar projetos e propostas"
+        },
+        "done": false
+      },
+      {
+        "key": "connect-actions-in-office",
+        "label": {
+          "en": "Connect actions in office",
+          "es": "Conectar acciones en el cargo",
+          "pt": "Conectar ações no cargo"
+        },
+        "done": false
+      },
+      {
+        "key": "show-original-evidence",
+        "label": {
+          "en": "Show original evidence",
+          "es": "Mostrar evidencia original",
+          "pt": "Mostrar evidência original"
+        },
+        "done": false
+      }
+    ]
   },
   {
     "key": "communication-trends",
@@ -219,7 +874,54 @@
     },
     "status": "todo",
     "icon": "radio",
-    "order": 12
+    "order": 12,
+    "checklist": [
+      {
+        "key": "establish-sufficient-coverage",
+        "label": {
+          "en": "Establish sufficient coverage",
+          "es": "Establecer cobertura suficiente",
+          "pt": "Estabelecer cobertura suficiente"
+        },
+        "done": false
+      },
+      {
+        "key": "document-analysis-methods",
+        "label": {
+          "en": "Document analysis methods",
+          "es": "Documentar métodos de análisis",
+          "pt": "Documentar métodos de análise"
+        },
+        "done": false
+      },
+      {
+        "key": "track-communication-changes",
+        "label": {
+          "en": "Track communication changes",
+          "es": "Seguir cambios de comunicación",
+          "pt": "Acompanhar mudanças de comunicação"
+        },
+        "done": false
+      },
+      {
+        "key": "show-dated-supporting-posts",
+        "label": {
+          "en": "Show dated supporting posts",
+          "es": "Mostrar publicaciones de respaldo",
+          "pt": "Mostrar posts de apoio datados"
+        },
+        "done": false
+      },
+      {
+        "key": "label-uncertainty-and-archive-gaps",
+        "label": {
+          "en": "Label uncertainty and archive gaps",
+          "es": "Indicar incertidumbre y vacíos",
+          "pt": "Indicar incerteza e lacunas"
+        },
+        "done": false
+      }
+    ]
   },
   {
     "key": "country-expansion",
@@ -235,7 +937,45 @@
     },
     "status": "todo",
     "icon": "globe",
-    "order": 13
+    "order": 13,
+    "checklist": [
+      {
+        "key": "validate-the-panama-history-model",
+        "label": {
+          "en": "Validate the Panama history model",
+          "es": "Validar modelo histórico de Panamá",
+          "pt": "Validar modelo histórico do Panamá"
+        },
+        "done": false
+      },
+      {
+        "key": "select-additional-country-sources",
+        "label": {
+          "en": "Select additional country sources",
+          "es": "Seleccionar fuentes de otros países",
+          "pt": "Selecionar fontes de outros países"
+        },
+        "done": false
+      },
+      {
+        "key": "reconcile-offices-and-identities",
+        "label": {
+          "en": "Reconcile offices and identities",
+          "es": "Conciliar cargos e identidades",
+          "pt": "Conciliar cargos e identidades"
+        },
+        "done": false
+      },
+      {
+        "key": "verify-country-specific-records",
+        "label": {
+          "en": "Verify country-specific records",
+          "es": "Verificar registros por país",
+          "pt": "Verificar registros por país"
+        },
+        "done": false
+      }
+    ]
   },
   {
     "key": "election-profile-mapping",
@@ -253,6 +993,178 @@
     "icon": "users",
     "order": 14,
     "href": "/elecciones",
-    "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+    "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed.",
+    "checklist": [
+      {
+        "key": "review-all-24-missing-identities",
+        "label": {
+          "en": "Review all 24 missing identities",
+          "es": "Revisar 24 identidades faltantes",
+          "pt": "Revisar 24 identidades ausentes"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "connect-all-71-deputies",
+        "label": {
+          "en": "Connect all 71 deputies",
+          "es": "Conectar los 71 diputados",
+          "pt": "Conectar os 71 deputados"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "connect-seven-directory-mayors",
+        "label": {
+          "en": "Connect seven directory mayors",
+          "es": "Conectar siete alcaldes del directorio",
+          "pt": "Conectar sete prefeitos do diretório"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "restore-portraits-and-profile-links",
+        "label": {
+          "en": "Restore portraits and profile links",
+          "es": "Restaurar retratos y enlaces",
+          "pt": "Restaurar retratos e links"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "add-tribunal-logo-to-profile",
+        "label": {
+          "en": "Add Tribunal logo to Profile",
+          "es": "Añadir logo del Tribunal en Perfil",
+          "pt": "Adicionar logo do Tribunal em Perfil"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "link-official-results-page",
+        "label": {
+          "en": "Link official results page",
+          "es": "Enlazar página oficial de resultados",
+          "pt": "Vincular página oficial de resultados"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "link-pdf-and-csv-sources",
+        "label": {
+          "en": "Link PDF and CSV sources",
+          "es": "Enlazar fuentes PDF y CSV",
+          "pt": "Vincular fontes PDF e CSV"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      },
+      {
+        "key": "verify-connections-live",
+        "label": {
+          "en": "Verify connections live",
+          "es": "Verificar conexiones publicadas",
+          "pt": "Verificar conexões publicadas"
+        },
+        "done": true,
+        "evidence": "Verified live October 8, 2026: 71 deputy portraits/profile links, 7 mayor portraits/profile links; Yarelis workshop Profile has loaded authentic Tribunal/INED logo and canonical results link; Career has official record name, votes, PDF and CSV sources. Identity regression checks and production build passed."
+      }
+    ]
+  },
+  {
+    "key": "scoreboard-redesign",
+    "title": {
+      "en": "Redesign the scoreboard",
+      "es": "Rediseñar el tablero",
+      "pt": "Redesenhar o painel"
+    },
+    "detail": {
+      "en": "Review the current live board with Eric and redesign its visual structure and task cards. Preserve shared live statuses and all existing requests.",
+      "es": "Revisar el tablero actual con Eric y rediseñar su estructura visual y tarjetas. Conservar los estados compartidos y todas las solicitudes.",
+      "pt": "Revisar o painel atual com Eric e redesenhar a estrutura visual e os cartões. Preservar os status compartilhados e todas as solicitações."
+    },
+    "status": "done",
+    "icon": "layout",
+    "order": 15,
+    "href": "/scoreboard",
+    "checklist": [
+      {
+        "key": "save-the-checklist-mandate",
+        "label": {
+          "en": "Save the checklist mandate",
+          "es": "Guardar política de listas",
+          "pt": "Salvar política de listas"
+        },
+        "done": true,
+        "evidence": "AGENTS.md records the mandatory granular checklist and completion policy."
+      },
+      {
+        "key": "break-every-task-into-checkboxes",
+        "label": {
+          "en": "Break every task into checkboxes",
+          "es": "Dividir tareas en casillas",
+          "pt": "Dividir tarefas em caixas"
+        },
+        "done": true,
+        "evidence": "All 16 production tasks migrated with 89 explicit localized checklist steps."
+      },
+      {
+        "key": "block-incomplete-task-completion",
+        "label": {
+          "en": "Block incomplete task completion",
+          "es": "Impedir cierre de tareas incompletas",
+          "pt": "Impedir conclusão incompleta"
+        },
+        "done": true,
+        "evidence": "Production mutation rejected incomplete completion and checked steps without evidence."
+      },
+      {
+        "key": "replace-paragraph-cards",
+        "label": {
+          "en": "Replace paragraph cards",
+          "es": "Reemplazar tarjetas con párrafos",
+          "pt": "Substituir cartões com parágrafos"
+        },
+        "done": true,
+        "evidence": "Desktop preview verified visible checkbox rows, progress counts, three lanes, and completed green checks."
+      },
+      {
+        "key": "verify-shared-live-updates",
+        "label": {
+          "en": "Verify shared live updates",
+          "es": "Verificar actualizaciones compartidas",
+          "pt": "Verificar atualizações compartilhadas"
+        },
+        "done": true,
+        "evidence": "Live production shows 16 shared tasks and all 89 checklist steps; database progress updates appeared in the browser."
+      },
+      {
+        "key": "verify-mobile-and-three-languages",
+        "label": {
+          "en": "Verify mobile and three languages",
+          "es": "Verificar móvil y tres idiomas",
+          "pt": "Verificar celular e três idiomas"
+        },
+        "done": true,
+        "evidence": "English, Spanish, Portuguese labels checked; production desktop three lanes and 390px mobile single lane verified without overflow."
+      },
+      {
+        "key": "researched-board-pattern",
+        "label": {
+          "en": "Use researched task-board patterns",
+          "es": "Aplicar patrones de tableros investigados",
+          "pt": "Aplicar padrões de painéis pesquisados"
+        },
+        "done": true,
+        "evidence": "Inspected Mobbin Linear screen fc208a44-dbf9-4f79-b9b0-db57f9840964 and Trello checklist d6f92345-a559-4d4b-8c3c-ec0dec5d2c24: aligned status lanes and visible checkbox progress."
+      }
+    ],
+    "evidence": "Production verified: 16 tasks, 89 explicit steps, all completed-task boxes checked; completion/evidence guards rejected invalid writes; desktop/mobile and three languages checked."
   }
 ]
