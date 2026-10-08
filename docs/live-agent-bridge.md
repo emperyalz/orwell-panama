@@ -11,3 +11,7 @@ The bridge runs only while this machine can read Codex logs and has network and 
 ## Workstation availability
 
 At Eric’s request, the user LaunchAgent `com.orwell.keep-awake` runs `/usr/bin/caffeinate -i -s`, with RunAtLoad and KeepAlive. System assertions were verified active. It prevents idle system sleep and sleep while on AC without asserting display wakefulness. Display timeout remains fifteen minutes; other apps may hold their own display assertions. It starts after user login. Leave the Mac connected to power with its lid open for unattended work. This does not override intentional shutdown, power loss or normal closed-lid sleep. Keep-awake is separate from the event collector and does not synthesize agent activity.
+
+## Understandable failures
+
+Every failure card must show a plain-language cause and its recovery status. Record the actual replacement agent when work transfers. Keep the original failed runtime status as history, display a recovered badge only after verified recovery, and clear that diagnosis if a later failure occurs. If the cause is unknown, say so explicitly. Never publish raw credentials, prompts or diagnostic payloads.

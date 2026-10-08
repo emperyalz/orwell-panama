@@ -16,6 +16,11 @@ const copy={
  pt:{title:'Atividade dos agentes',subtitle:'Tarefas atuais e atualizações registradas',recent:'Atualizações recentes',empty:'Nenhum agente registrado ainda.',noEvents:'Nenhuma atualização registrada ainda.',loading:'Carregando atividade dos agentes…',team:{research:'Pesquisa',qa:'Controle de qualidade',implementation:'Implementação'},status:{running:'Em andamento',completed:'Concluído',blocked:'Bloqueado',error:'Erro',idle:'Inativo'},kind:{assigned:'Atribuído',progress:'Progresso',completed:'Concluído',error:'Erro',model_changed:'Modelo alterado'},assignment:'Tarefa',model:'Modelo',reasoning:'Raciocínio',last:'Última atividade',unknown:'Não registrado',stale:'A última atualização tem mais de 5 minutos',snapshot:'Dados recebidos',past:'Agentes concluídos e inativos',reasoningValue:{low:'Baixo',medium:'Médio',high:'Alto',unknown:'Desconhecido'}},
 } as const;
 
+const issueCopy={
+ en:{cause:'What happened',recovery:'Recovery',recovered:'Recovered',replacement:'Replacement',unknown:'The cause has not been recorded yet.',past:'Completed, idle and recovered agents'},
+ es:{cause:'Qué ocurrió',recovery:'Recuperación',recovered:'Recuperado',replacement:'Reemplazo',unknown:'La causa aún no se ha registrado.',past:'Agentes completados, inactivos y recuperados'},
+ pt:{cause:'O que aconteceu',recovery:'Recuperação',recovered:'Recuperado',replacement:'Substituto',unknown:'A causa ainda não foi registrada.',past:'Agentes concluídos, inativos e recuperados'},
+};
 function formatTime(value:number|undefined,lang:Language){
  if(!value||!Number.isFinite(value))return null;
  return new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeStyle:'short'}).format(value);
@@ -28,19 +33,23 @@ export function AgentActivity({lang}:{lang:Language}){
  useEffect(()=>{const initial=window.setTimeout(()=>setNow(Date.now()),0);const timer=window.setInterval(()=>setNow(Date.now()),60_000);return()=>{window.clearTimeout(initial);window.clearInterval(timer);};},[]);
  const t=copy[lang];
  const agents=snapshot?.agents??[];
- const activeAgents=agents.filter(agent=>agent.status==='running'||agent.status==='blocked'||agent.status==='error');
- const pastAgents=agents.filter(agent=>agent.status==='completed'||agent.status==='idle');
+ const activeAgents=agents.filter(agent=>agent.status==='running'||agent.status==='blocked'||(agent.status==='error'&&!agent.issue?.resolvedAt));
+ const pastAgents=agents.filter(agent=>agent.status==='completed'||agent.status==='idle'||(agent.status==='error'&&Boolean(agent.issue?.resolvedAt)));
  const events=[...(snapshot?.events??[])].sort((a,b)=>b.occurredAt-a.occurredAt).slice(0,10);
  const names=new Map(agents.map(agent=>[agent.key,agent.name]));
  function agentCard(agent:(typeof agents)[number]){
   const status=agent.status as Status;
   const lastTime=agent.lastActivityAt||agent.updatedAt;
-  const stale=Boolean(now&&lastTime&&now-lastTime>300_000);
+  const recovered=Boolean(agent.issue?.resolvedAt);
+  const stale=Boolean(now&&lastTime&&now-lastTime>300_000&&(status==='running'||status==='blocked'||(status==='error'&&!recovered)));
+  const issueLabels=issueCopy[lang];
+  const replacement=agents.find(row=>row.key===agent.issue?.replacementKey);
   const reasoningKey=agent.reasoning?.toLowerCase() as keyof typeof t.reasoningValue;
   const reasoning=t.reasoningValue[reasoningKey]||agent.reasoning||t.reasoningValue.unknown;
   return <article className="agent-activity-card" key={agent.key}>
-   <div className="agent-activity-card-top"><div><span className="agent-activity-team">{t.team[agent.team]}</span><h3>{agent.name}</h3></div><span className={`agent-activity-status agent-activity-status-${status}`}><span aria-hidden="true"/>{t.status[status]}</span></div>
+   <div className="agent-activity-card-top"><div><span className="agent-activity-team">{t.team[agent.team]}</span><h3>{agent.name}</h3></div><span className={`agent-activity-status agent-activity-status-${recovered?'completed':status}`}><span aria-hidden="true"/>{recovered?issueLabels.recovered:t.status[status]}</span></div>
    <p className="agent-activity-assignment"><span>{t.assignment}</span>{agent.assignment?.[lang]||t.unknown}</p>
+   {status==='error'&&<div className={`agent-activity-issue ${recovered?'is-recovered':''}`}><strong>{issueLabels.cause}</strong><p>{agent.issue?.message[lang]||issueLabels.unknown}</p>{agent.issue&&<><strong>{issueLabels.recovery}</strong><p>{agent.issue.recovery[lang]}</p>{replacement&&<p className="agent-activity-replacement">{issueLabels.replacement}: <b>{replacement.name}</b> · {t.status[replacement.status as Status]}</p>}</>}</div>}
    <dl className="agent-activity-meta"><div><dt>{t.model}</dt><dd>{agent.model||t.unknown}</dd></div><div><dt>{t.reasoning}</dt><dd>{reasoning}</dd></div><div><dt>{t.last}</dt><dd><time dateTime={dateTime(lastTime)}>{formatTime(lastTime,lang)||t.unknown}</time></dd></div></dl>
    {stale&&<p className="agent-activity-stale"><Clock3 size={13} aria-hidden="true"/>{t.stale}</p>}
   </article>;
@@ -48,7 +57,7 @@ export function AgentActivity({lang}:{lang:Language}){
  return <section className="agent-activity" aria-labelledby="agent-activity-title">
   <header className="agent-activity-head"><div className="agent-activity-heading"><Activity size={19} aria-hidden="true"/><div><h2 id="agent-activity-title">{t.title}</h2><p>{t.subtitle}</p></div></div>{snapshot?.receivedAt&&<span className="agent-activity-received"><Clock3 size={13} aria-hidden="true"/>{t.snapshot}: <time dateTime={dateTime(snapshot.receivedAt)}>{formatTime(snapshot.receivedAt,lang)}</time></span>}</header>
   {!snapshot?<p className="agent-activity-empty" role="status">{t.loading}</p>:<>
-   {agents.length?<>{activeAgents.length>0&&<div className="agent-activity-grid">{activeAgents.map(agentCard)}</div>}{pastAgents.length>0&&<details className="agent-activity-past"><summary>{t.past} <span>{pastAgents.length}</span></summary><div className="agent-activity-grid">{pastAgents.map(agentCard)}</div></details>}</>:<p className="agent-activity-empty">{t.empty}</p>}
+   {agents.length?<>{activeAgents.length>0&&<div className="agent-activity-grid">{activeAgents.map(agentCard)}</div>}{pastAgents.length>0&&<details className="agent-activity-past"><summary>{issueCopy[lang].past} <span>{pastAgents.length}</span></summary><div className="agent-activity-grid">{pastAgents.map(agentCard)}</div></details>}</>:<p className="agent-activity-empty">{t.empty}</p>}
    <div className="agent-activity-events"><h3>{t.recent}</h3>{events.length?<ol>{events.map((event,index)=><li key={`${event.agentKey}-${event.occurredAt}-${event.kind}-${index}`}><span className={`agent-activity-event-mark agent-activity-event-${event.kind as EventKind}`} aria-hidden="true"/><div><div className="agent-activity-event-line"><strong>{names.get(event.agentKey)||event.agentKey}</strong><span>{t.kind[event.kind as EventKind]}</span><time dateTime={dateTime(event.occurredAt)}>{formatTime(event.occurredAt,lang)||t.unknown}</time></div><p>{event.summary?.[lang]||t.unknown}</p></div></li>)}</ol>:<p className="agent-activity-empty">{t.noEvents}</p>}</div>
   </>}
  </section>;

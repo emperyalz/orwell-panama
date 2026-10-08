@@ -1547,5 +1547,54 @@
         "evidence": "Service has no display-sleep assertion; display timeout remains15minutes. Other active apps may independently keep display awake."
       }
     ]
+  },
+  {
+    "key": "explain-agent-errors",
+    "title": {
+      "en": "Explain agent errors and recovery",
+      "es": "Explicar errores y recuperación de agentes",
+      "pt": "Explicar erros e recuperação dos agentes"
+    },
+    "detail": {
+      "en": "Put cause, impact and actual recovery directly on each error card; distinguish recovered failures from active blockers.",
+      "es": "Mostrar causa, efecto y recuperación real en cada tarjeta; distinguir fallos recuperados de bloqueos actuales.",
+      "pt": "Mostrar causa, impacto e recuperação real em cada cartão; distinguir falhas recuperadas de bloqueios atuais."
+    },
+    "status": "done",
+    "icon": "shield",
+    "order": -2,
+    "checklist": [
+      {
+        "key": "cause",
+        "label": {
+          "en": "Show the cause on the agent card",
+          "es": "Mostrar causa en la tarjeta del agente",
+          "pt": "Mostrar causa no cartão do agente"
+        },
+        "done": true,
+        "evidence": "Live release verified: both capacity errors show causes, actual replacement status and recovered history; English, Spanish, Portuguese and 390px layout checked."
+      },
+      {
+        "key": "recovery",
+        "label": {
+          "en": "Link actual replacement and recovery status",
+          "es": "Vincular reemplazo y recuperación reales",
+          "pt": "Vincular substituto e recuperação reais"
+        },
+        "done": true,
+        "evidence": "Live release verified: both capacity errors show causes, actual replacement status and recovered history; English, Spanish, Portuguese and 390px layout checked."
+      },
+      {
+        "key": "verify",
+        "label": {
+          "en": "Verify live errors and recovered history in all languages",
+          "es": "Verificar errores e historial recuperado en todos los idiomas",
+          "pt": "Verificar erros e histórico recuperado em todos os idiomas"
+        },
+        "done": true,
+        "evidence": "Live release verified: both capacity errors show causes, actual replacement status and recovered history; English, Spanish, Portuguese and 390px layout checked."
+      }
+    ],
+    "evidence": "Live release verified: both capacity errors show causes, actual replacement status and recovered history; English, Spanish, Portuguese and 390px layout checked."
   }
 ]

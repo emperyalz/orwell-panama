@@ -5,6 +5,7 @@ import { multiplayerTables } from "./multiplayerSchema";
 export default defineSchema({
   ...multiplayerTables,
   projectAgents: defineTable({
+    issue:v.optional(v.object({message:v.object({en:v.string(),es:v.string(),pt:v.string()}),recovery:v.object({en:v.string(),es:v.string(),pt:v.string()}),replacementKey:v.optional(v.string()),resolvedAt:v.optional(v.number())})),
     key:v.string(),name:v.string(),team:v.union(v.literal('research'),v.literal('qa'),v.literal('implementation')),
     model:v.string(),reasoning:v.string(),assignment:v.object({en:v.string(),es:v.string(),pt:v.string()}),
     status:v.union(v.literal('running'),v.literal('completed'),v.literal('blocked'),v.literal('error'),v.literal('idle')),
