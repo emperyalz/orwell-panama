@@ -44,3 +44,5 @@ Election identity correction verified live October 8, 2026: 71 deputy portraits/
 - [ ] Redesign the scoreboard: reviewing the current live view with Eric; preserve all statuses and requests.
 
 - Scoreboard redesign deployed and verified: 16 tasks, 89 visible checklist steps, completion guards, desktop/mobile and EN/ES/PT. Remaining backlog remains active.
+
+- Social source correction deployed: 145 posts added through October 6, duplicate rerun clean. Manuel Cohen TikTok handle/avatar corrected from owner Linktree. Avatar, zero-account ownership/mapping and polling review remain open.

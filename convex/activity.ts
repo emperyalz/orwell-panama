@@ -27,6 +27,7 @@ export const list=query({args:{politicianId:v.optional(v.id('politicians')),kind
  const enriched=await Promise.all(rows.map(async r=>({...r,person:await ctx.db.get(r.politicianId)})));
  return diverse(enriched,limit,args.kind);
 }});
+export const accounts=internalQuery({args:{},handler:ctx=>ctx.db.query('accounts').collect()});
 export const people=internalQuery({args:{},handler:ctx=>ctx.db.query('politicians').collect()});
 export const ingest=internalMutation({args:{items:v.array(v.object({politicianId:v.id('politicians'),kind:v.union(v.literal('news'),v.literal('social')),sourceUrl:v.string(),sourceName:v.string(),title:v.string(),summary:v.optional(v.string()),platform:v.optional(v.string()),publishedAt:v.number(),imageUrl:v.optional(v.string()),sourceLogoUrl:v.optional(v.string()),mediaKind:v.optional(v.union(v.literal('image'),v.literal('video')))}))},handler:async(ctx,{items})=>{
  let inserted=0;for(const item of items){if(!/^https:\/\//.test(item.sourceUrl)||!Number.isFinite(item.publishedAt)||item.publishedAt>Date.now()+86400000)continue;const old=await ctx.db.query('activity').withIndex('by_politician_url',q=>q.eq('politicianId',item.politicianId).eq('sourceUrl',item.sourceUrl)).first();if(!old){await ctx.db.insert('activity',{...item,collectedAt:Date.now()});inserted++;}else if(item.imageUrl&&!old.imageUrl){await ctx.db.patch(old._id,{imageUrl:item.imageUrl,mediaKind:item.mediaKind});}}return inserted;

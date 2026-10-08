@@ -32,6 +32,7 @@ import type * as intelligence from "../intelligence.js";
 import type * as legislativeActions from "../legislativeActions.js";
 import type * as legislativeFeed from "../legislativeFeed.js";
 import type * as legislativeRefresh from "../legislativeRefresh.js";
+import type * as lib_monitorIdentity from "../lib/monitorIdentity.js";
 import type * as mediaSources from "../mediaSources.js";
 import type * as migrations from "../migrations.js";
 import type * as multiplayerSchema from "../multiplayerSchema.js";
@@ -83,6 +84,7 @@ declare const fullApi: ApiFromModules<{
   legislativeActions: typeof legislativeActions;
   legislativeFeed: typeof legislativeFeed;
   legislativeRefresh: typeof legislativeRefresh;
+  "lib/monitorIdentity": typeof lib_monitorIdentity;
   mediaSources: typeof mediaSources;
   migrations: typeof migrations;
   multiplayerSchema: typeof multiplayerSchema;

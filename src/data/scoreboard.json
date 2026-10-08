@@ -640,7 +640,8 @@
           "es": "Conectar fuente Monitor actual",
           "pt": "Conectar feed Monitor atual"
         },
-        "done": false
+        "done": true,
+        "evidence": "Verified the published Monitor app connects to combative-kiwi-307; corrected importer and imported 145 posts using confirmed handles."
       },
       {
         "key": "verify-missing-account-avatars",
@@ -676,7 +677,8 @@
           "es": "Verificar publicaciones actuales en vivo",
           "pt": "Verificar posts atuais no site"
         },
-        "done": false
+        "done": true,
+        "evidence": "Production intelligence page shows latest archived post October 6, 2026 and 145 new imported posts; second run inserted zero duplicates."
       }
     ]
   },

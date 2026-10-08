@@ -6,6 +6,7 @@ import {ConvexHttpClient} from 'convex/browser';
 import {makeFunctionReference} from 'convex/server';
 import type {Doc} from './_generated/dataModel';
 import {load} from 'cheerio';
+import {matchMonitorAccount,monitorPlatform} from './lib/monitorIdentity';
 const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
 export const primeNews=internalAction({args:{},handler:async(ctx):Promise<{scheduled:number}>=>{const people:Doc<'politicians'>[]=await ctx.runQuery(internal.activity.people,{});for(let i=0;i<people.length;i++)await ctx.scheduler.runAfter(i*1000,internal.activityActions.news,{externalId:people[i].externalId});return {scheduled:people.length};}});
 // No paid API calls or AI enrichment. Rotate six precise name searches per hour.
@@ -16,10 +17,25 @@ export const news=internalAction({args:{externalId:v.optional(v.string())},handl
   const response=await fetch(url,{signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error(`HTTP ${response.status}`);const xml=load(await response.text(),{xmlMode:true});const items=xml('item').toArray().slice(0,15).flatMap(node=>{const item=xml(node);const publishedAt=Date.parse(item.find('pubDate').text());const title=item.find('title').text();const text=normalize(title+' '+item.find('description').text());if(!Number.isFinite(publishedAt)||!aliases.some(alias=>text.includes(normalize(alias))))return [];return [{politicianId:p._id,kind:'news' as const,sourceUrl:item.find('link').text().trim(),sourceName:item.find('source').text()||'Google News',title,summary:load(item.find('description').text()).text().trim().slice(0,350),publishedAt}];});inserted+=await ctx.runMutation(internal.activity.ingest,{items});
  }catch(e){errors.push(`${p.externalId}: ${String(e)}`);}await ctx.runMutation(internal.activity.logRun,{kind:'news',inserted,errors});return {inserted,checked:selected.length,errors};
 }});
-// Reuse Monitor's collected posts, never rescrape or backfill its accounts here.
-export const socialArchive=internalAction({args:{},handler:async(ctx):Promise<{inserted:number;matched:number}>=>{
- const people:Doc<'politicians'>[]=await ctx.runQuery(internal.activity.people,{});const monitor=new ConvexHttpClient('https://graceful-perch-508.convex.cloud');const posts=await monitor.query(makeFunctionReference<'query',{limit:number;category:string},Array<{entityName:string;platform:string;postUrl:string;caption?:string;postedAt:number;thumbnailStorageId?:string;thumbnailUrl?:string}>>('queries:getFeed'),{limit:500,category:'Politics'}) as Array<{entityName:string;platform:string;postUrl:string;caption?:string;postedAt:number;thumbnailStorageId?:string;thumbnailUrl?:string}>;
- const items=posts.flatMap(post=>{const author=people.filter(p=>normalize(p.name)===normalize(post.entityName));const matches=author;return matches.length===1?[{politicianId:matches[0]._id,kind:'social' as const,sourceUrl:post.postUrl,sourceName:post.entityName,title:post.caption?Array.from(post.caption).slice(0,180).join(''):'Publicación',summary:post.caption?Array.from(post.caption).slice(0,700).join(''):undefined,platform:post.platform==='twitter'?'x_twitter':post.platform,publishedAt:post.postedAt,...(post.thumbnailUrl?.startsWith('https://')?{imageUrl:post.thumbnailUrl}:{})}]:[];});let inserted=0;for(let i=0;i<items.length;i+=50)inserted+=await ctx.runMutation(internal.activity.ingest,{items:items.slice(i,i+50)});await ctx.runMutation(internal.activity.logRun,{kind:'social-archive',inserted,errors:[]});return {inserted,matched:items.length};
+// Reuse the database used by the published Monitor app; never run a second social scraper.
+// Bounded per-platform reads prevent a busy news stream from hiding all political posts.
+export const socialArchive=internalAction({args:{},handler:async(ctx):Promise<{inserted:number;matched:number;errors:string[]}>=>{
+ const accounts=await ctx.runQuery(internal.activity.accounts,{});
+ const monitor=new ConvexHttpClient(process.env.MONITOR_ARCHIVE_URL||'https://combative-kiwi-307.convex.cloud');
+ type Post={entityName:string;platform:string;accountUsername?:string;postUrl:string;caption?:string;postedAt:number;thumbnailUrl?:string};
+ const errors:string[]=[];const items=[];
+ for(const platform of ['twitter','instagram','tiktok','facebook']){
+  try{
+   const posts=await monitor.query(makeFunctionReference<'query',{limit:number;platform:string;category:string},Post[]>('queries:getFeed'),{limit:200,platform,category:'Politics'});
+   if(posts.length===200)errors.push(`${platform}: bounded feed reached its limit; coverage is a recent sample, not the full account history`);
+   for(const post of posts){
+    const account=matchMonitorAccount(post,accounts);if(!account)continue;
+    items.push({politicianId:account.politicianId as Doc<'politicians'>['_id'],kind:'social' as const,sourceUrl:post.postUrl,sourceName:post.entityName,title:post.caption?Array.from(post.caption).slice(0,180).join(''):'Publicación',summary:post.caption?Array.from(post.caption).slice(0,700).join(''):undefined,platform:monitorPlatform(post.platform),publishedAt:post.postedAt,...(post.thumbnailUrl?.startsWith('https://')?{imageUrl:post.thumbnailUrl}:{})});
+   }
+  }catch(error){errors.push(`${platform}: ${String(error)}`);}
+ }
+ let inserted=0;for(let i=0;i<items.length;i+=50)inserted+=await ctx.runMutation(internal.activity.ingest,{items:items.slice(i,i+50)});
+ await ctx.runMutation(internal.activity.logRun,{kind:'social-archive',inserted,errors});return {inserted,matched:items.length,errors};
 }});
 /** Verified recent coverage missed by exact-title RSS matching; source pages contain Didiano Pinilla in their article text. */
 export const seedVerifiedDidianoNews=internalAction({args:{},handler:async(ctx):Promise<{inserted:number}>=>{const people:Doc<'politicians'>[]=await ctx.runQuery(internal.activity.people,{});const person=people.find(p=>p.externalId==='DEP-056');if(!person)throw Error('DEP-056 no encontrado');const items=[

@@ -1,0 +1,15 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),ts=require('typescript');
+const output=ts.transpileModule(fs.readFileSync('convex/lib/monitorIdentity.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
+const context={exports:{},URL};vm.runInNewContext(output,context);const {matchMonitorAccount}=context.exports;
+const account={politicianId:'profile-a',platform:'x_twitter',handle:'@Verified_Name',verdict:'CONFIRMED'};
+const post={platform:'twitter',accountUsername:'verified_name',postUrl:'https://x.com/Verified_Name/status/123'};
+assert.equal(matchMonitorAccount(post,[account]).politicianId,'profile-a');
+assert.equal(matchMonitorAccount(post,[{...account,verdict:'PROBABLE'}]),null);
+assert.equal(matchMonitorAccount(post,[account,{...account,politicianId:'profile-b'}]),null);
+assert.equal(matchMonitorAccount({...post,accountUsername:'unknown'},[account]),null);
+assert.equal(matchMonitorAccount({...post,postUrl:'https://x.com/other/status/123'},[account]),null);
+assert.equal(matchMonitorAccount({...post,postUrl:'https://example.com/verified_name/status/123'},[account]),null);
+assert.equal(matchMonitorAccount({...post,postUrl:'http://x.com/verified_name/status/123'},[account]),null);
+assert.equal(matchMonitorAccount({...post,platform:'instagram'},[account]),null);
+assert.equal(matchMonitorAccount({platform:'tiktok',accountUsername:'correct',postUrl:'https://www.tiktok.com/@old/video/123'},[{...account,platform:'tiktok',handle:'correct'}]),null);
+console.log('Verified unique confirmed handle matching, platform isolation, source host/protocol, duplicate rejection and corrected-account author protection.');
