@@ -3,27 +3,27 @@
     "name": "Orwell lead",
     "team": "implementation",
     "assignment": {
-      "en": "Connect and verify the live scoreboard; preserve the Orwell backlog",
-      "es": "Conectar y verificar el tablero en vivo; conservar pendientes de Orwell",
-      "pt": "Conectar e verificar o painel ao vivo; preservar tarefas pendentes do Orwell"
+      "en": "Add agent avatars, task owners, active steps and timestamps",
+      "es": "Añadir avatares, responsables, pasos activos y fechas",
+      "pt": "Adicionar avatares, responsáveis, etapas ativas e datas"
     }
   },
   "/root/identity_a_economy": {
     "name": "Social research A",
     "team": "research",
     "assignment": {
-      "en": "Resolve accepted correction leads and research politicians with no linked accounts",
-      "es": "Resolver correcciones respaldadas e investigar políticos sin cuentas vinculadas",
-      "pt": "Resolver correções comprovadas e pesquisar políticos sem contas vinculadas"
+      "en": "Diagnose Monitor collection gaps for ten researched accounts",
+      "es": "Diagnosticar fallos de recopilación de Monitor en diez cuentas investigadas",
+      "pt": "Diagnosticar falhas de coleta do Monitor em dez contas pesquisadas"
     }
   },
   "/root/identity_qa_economy": {
     "name": "Independent identity QA",
     "team": "qa",
     "assignment": {
-      "en": "Independently verify the remaining account ownership evidence",
-      "es": "Verificar independientemente las pruebas de titularidad pendientes",
-      "pt": "Verificar independentemente as provas de titularidade pendentes"
+      "en": "Independently review ownership and collection evidence for ten accounts",
+      "es": "Revisar de forma independiente titularidad y recopilación de diez cuentas",
+      "pt": "Revisar independentemente titularidade e coleta de dez contas"
     }
   },
   "/root/live_agent_ui": {

@@ -15,3 +15,7 @@ At Eric’s request, the user LaunchAgent `com.orwell.keep-awake` runs `/usr/bin
 ## Understandable failures
 
 Every failure card must show a plain-language cause and its recovery status. Record the actual replacement agent when work transfers. Keep the original failed runtime status as history, display a recovered badge only after verified recovery, and clear that diagnosis if a later failure occurs. If the cause is unknown, say so explicitly. Never publish raw credentials, prompts or diagnostic payloads.
+
+## Agent identities and task ownership
+
+Every recorded agent has a visible name and a stable illustrated avatar. Existing historical nicknames remain intact; role-based names have explicit display aliases. Task ownership and active checklist steps use explicit assignments in AgentIdentity.tsx, never guesses based on task wording. The lead must keep those assignments aligned with actual dispatches. An open task with no running owner says so. Completed agent turns remain separate from verified task completion. Task cards display recorded completion/update timestamps and elapsed time, updated locally without network calls.

@@ -1596,5 +1596,178 @@
       }
     ],
     "evidence": "Live release verified: both capacity errors show causes, actual replacement status and recovered history; English, Spanish, Portuguese and 390px layout checked."
+  },
+  {
+    "key": "agent-assignment-context",
+    "title": {
+      "en": "Explain each agent’s assignment and outcome",
+      "es": "Explicar asignación y resultado de cada agente",
+      "pt": "Explicar tarefa e resultado de cada agente"
+    },
+    "detail": {
+      "en": "Identify agents by role and assignment, distinguish ended turns from verified deliverables, and show documented outcomes.",
+      "es": "Identificar agentes por función y asignación, distinguir turnos terminados de entregas verificadas y mostrar resultados documentados.",
+      "pt": "Identificar agentes por função e tarefa, distinguir turnos encerrados de entregas verificadas e mostrar resultados documentados."
+    },
+    "status": "doing",
+    "icon": "users",
+    "order": -1,
+    "checklist": [
+      {
+        "key": "names",
+        "label": {
+          "en": "Show role and assignment beside agent names",
+          "es": "Mostrar función y asignación junto al nombre",
+          "pt": "Mostrar função e tarefa ao lado do nome"
+        },
+        "done": true,
+        "evidence": "Live agent and task cards show named avatars, recorded roles and explicit running assignments; ended turns are labeled separately from completed tasks."
+      },
+      {
+        "key": "running",
+        "label": {
+          "en": "Show what running agents are doing",
+          "es": "Mostrar qué hacen los agentes en curso",
+          "pt": "Mostrar o trabalho dos agentes em andamento"
+        },
+        "done": true,
+        "evidence": "Live agent and task cards show named avatars, recorded roles and explicit running assignments; ended turns are labeled separately from completed tasks."
+      },
+      {
+        "key": "outcomes",
+        "label": {
+          "en": "Show completed-turn outcomes and remaining work",
+          "es": "Mostrar resultados de turnos y trabajo pendiente",
+          "pt": "Mostrar resultados dos turnos e trabalho pendente"
+        },
+        "done": false
+      },
+      {
+        "key": "history",
+        "label": {
+          "en": "Recover historical assignments where evidence exists",
+          "es": "Recuperar asignaciones históricas con evidencia",
+          "pt": "Recuperar tarefas históricas com evidência"
+        },
+        "done": false
+      },
+      {
+        "key": "verify",
+        "label": {
+          "en": "Verify details against recorded activity",
+          "es": "Verificar detalles con actividad registrada",
+          "pt": "Verificar detalhes com atividade registrada"
+        },
+        "done": false
+      }
+    ]
+  },
+  {
+    "key": "task-timestamps",
+    "title": {
+      "en": "Show task update and completion times",
+      "es": "Mostrar fechas de actualización y finalización",
+      "pt": "Mostrar datas de atualização e conclusão"
+    },
+    "detail": {
+      "en": "Display recorded timestamps on each task card.",
+      "es": "Mostrar fechas registradas en cada tarjeta.",
+      "pt": "Mostrar datas registradas em cada cartão."
+    },
+    "status": "done",
+    "icon": "history",
+    "order": -3,
+    "checklist": [
+      {
+        "key": "updated",
+        "label": {
+          "en": "Show last update on open tasks",
+          "es": "Mostrar última actualización en tareas abiertas",
+          "pt": "Mostrar última atualização nas tarefas abertas"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      },
+      {
+        "key": "completed",
+        "label": {
+          "en": "Show recorded completion on finished tasks",
+          "es": "Mostrar finalización registrada en tareas terminadas",
+          "pt": "Mostrar conclusão registrada nas tarefas concluídas"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      },
+      {
+        "key": "verify",
+        "label": {
+          "en": "Verify live dates and language formatting",
+          "es": "Verificar fechas e idiomas en vivo",
+          "pt": "Verificar datas e idiomas ao vivo"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      }
+    ],
+    "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+  },
+  {
+    "key": "agent-visual-identities",
+    "title": {
+      "en": "Give agents faces and show active task steps",
+      "es": "Dar avatares a agentes y mostrar pasos activos",
+      "pt": "Dar avatares aos agentes e mostrar etapas ativas"
+    },
+    "detail": {
+      "en": "Names, distinctive avatars, actual running assignments and active checklist steps.",
+      "es": "Nombres, avatares distintos, asignaciones en curso y pasos activos.",
+      "pt": "Nomes, avatares distintos, tarefas em andamento e etapas ativas."
+    },
+    "status": "done",
+    "icon": "users",
+    "order": -4,
+    "checklist": [
+      {
+        "key": "avatars",
+        "label": {
+          "en": "Give every agent a name and avatar",
+          "es": "Dar nombre y avatar a cada agente",
+          "pt": "Dar nome e avatar a cada agente"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      },
+      {
+        "key": "assignments",
+        "label": {
+          "en": "Show assigned agents on task cards",
+          "es": "Mostrar agentes asignados en las tarjetas",
+          "pt": "Mostrar agentes atribuídos nos cartões"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      },
+      {
+        "key": "active-step",
+        "label": {
+          "en": "Show the current step and inactive work honestly",
+          "es": "Mostrar paso activo y tareas sin agente activo",
+          "pt": "Mostrar etapa atual e tarefas sem agente ativo"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      },
+      {
+        "key": "verify",
+        "label": {
+          "en": "Verify real-time activity and mobile layout",
+          "es": "Verificar actividad en vivo y diseño móvil",
+          "pt": "Verificar atividade ao vivo e layout móvel"
+        },
+        "done": true,
+        "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
+      }
+    ],
+    "evidence": "Production verified: named unique agent avatars, explicit task ownership and working-step markers, recorded dates and live elapsed time; desktop, 390px mobile, EN/ES/PT. Independent UI review passed."
   }
 ]

@@ -5,21 +5,22 @@ import {useQuery} from 'convex/react';
 import {Activity,Clock3} from 'lucide-react';
 import {api} from '../../../convex/_generated/api';
 import './agent-activity.css';
+import {AgentAvatar,agentName,RelativeTime} from './AgentIdentity';
 
 type Language='en'|'es'|'pt';
 type Status='running'|'completed'|'blocked'|'error'|'idle';
 type EventKind='assigned'|'progress'|'completed'|'error'|'model_changed';
 
 const copy={
- en:{title:'Agent activity',subtitle:'Current assignments and recorded updates',recent:'Recent updates',empty:'No agents recorded yet.',noEvents:'No updates recorded yet.',loading:'Loading agent activity…',team:{research:'Research',qa:'Quality assurance',implementation:'Implementation'},status:{running:'Running',completed:'Completed',blocked:'Blocked',error:'Error',idle:'Idle'},kind:{assigned:'Assigned',progress:'Progress',completed:'Completed',error:'Error',model_changed:'Model changed'},assignment:'Assignment',model:'Model',reasoning:'Reasoning',last:'Last activity',unknown:'Not recorded',stale:'Last update is over 5 minutes old',snapshot:'Snapshot received',past:'Completed and idle agents',reasoningValue:{low:'Low',medium:'Medium',high:'High',unknown:'Unknown'}},
- es:{title:'Actividad de agentes',subtitle:'Asignaciones actuales y actualizaciones registradas',recent:'Actualizaciones recientes',empty:'Aún no hay agentes registrados.',noEvents:'Aún no hay actualizaciones registradas.',loading:'Cargando actividad de agentes…',team:{research:'Investigación',qa:'Control de calidad',implementation:'Implementación'},status:{running:'En curso',completed:'Completado',blocked:'Bloqueado',error:'Error',idle:'Inactivo'},kind:{assigned:'Asignado',progress:'Avance',completed:'Completado',error:'Error',model_changed:'Cambio de modelo'},assignment:'Asignación',model:'Modelo',reasoning:'Razonamiento',last:'Última actividad',unknown:'Sin registrar',stale:'La última actualización tiene más de 5 minutos',snapshot:'Datos recibidos',past:'Agentes completados e inactivos',reasoningValue:{low:'Bajo',medium:'Medio',high:'Alto',unknown:'Desconocido'}},
- pt:{title:'Atividade dos agentes',subtitle:'Tarefas atuais e atualizações registradas',recent:'Atualizações recentes',empty:'Nenhum agente registrado ainda.',noEvents:'Nenhuma atualização registrada ainda.',loading:'Carregando atividade dos agentes…',team:{research:'Pesquisa',qa:'Controle de qualidade',implementation:'Implementação'},status:{running:'Em andamento',completed:'Concluído',blocked:'Bloqueado',error:'Erro',idle:'Inativo'},kind:{assigned:'Atribuído',progress:'Progresso',completed:'Concluído',error:'Erro',model_changed:'Modelo alterado'},assignment:'Tarefa',model:'Modelo',reasoning:'Raciocínio',last:'Última atividade',unknown:'Não registrado',stale:'A última atualização tem mais de 5 minutos',snapshot:'Dados recebidos',past:'Agentes concluídos e inativos',reasoningValue:{low:'Baixo',medium:'Médio',high:'Alto',unknown:'Desconhecido'}},
+ en:{title:'Agent activity',subtitle:'Current assignments and recorded updates',recent:'Recent updates',empty:'No agents recorded yet.',noEvents:'No updates recorded yet.',loading:'Loading agent activity…',team:{research:'Research',qa:'Quality assurance',implementation:'Implementation'},status:{running:'Running',completed:'Turn ended',blocked:'Blocked',error:'Error',idle:'Idle'},kind:{assigned:'Assigned',progress:'Progress',completed:'Turn ended',error:'Error',model_changed:'Model changed'},assignment:'Assignment',model:'Model',reasoning:'Reasoning',last:'Last activity',unknown:'Not recorded',stale:'Last update is over 5 minutes old',snapshot:'Snapshot received',past:'Completed and idle agents',reasoningValue:{low:'Low',medium:'Medium',high:'High',unknown:'Unknown'}},
+ es:{title:'Actividad de agentes',subtitle:'Asignaciones actuales y actualizaciones registradas',recent:'Actualizaciones recientes',empty:'Aún no hay agentes registrados.',noEvents:'Aún no hay actualizaciones registradas.',loading:'Cargando actividad de agentes…',team:{research:'Investigación',qa:'Control de calidad',implementation:'Implementación'},status:{running:'En curso',completed:'Turno terminado',blocked:'Bloqueado',error:'Error',idle:'Inactivo'},kind:{assigned:'Asignado',progress:'Avance',completed:'Turno terminado',error:'Error',model_changed:'Cambio de modelo'},assignment:'Asignación',model:'Modelo',reasoning:'Razonamiento',last:'Última actividad',unknown:'Sin registrar',stale:'La última actualización tiene más de 5 minutos',snapshot:'Datos recibidos',past:'Agentes completados e inactivos',reasoningValue:{low:'Bajo',medium:'Medio',high:'Alto',unknown:'Desconocido'}},
+ pt:{title:'Atividade dos agentes',subtitle:'Tarefas atuais e atualizações registradas',recent:'Atualizações recentes',empty:'Nenhum agente registrado ainda.',noEvents:'Nenhuma atualização registrada ainda.',loading:'Carregando atividade dos agentes…',team:{research:'Pesquisa',qa:'Controle de qualidade',implementation:'Implementação'},status:{running:'Em andamento',completed:'Turno encerrado',blocked:'Bloqueado',error:'Erro',idle:'Inativo'},kind:{assigned:'Atribuído',progress:'Progresso',completed:'Turno encerrado',error:'Erro',model_changed:'Modelo alterado'},assignment:'Tarefa',model:'Modelo',reasoning:'Raciocínio',last:'Última atividade',unknown:'Não registrado',stale:'A última atualização tem mais de 5 minutos',snapshot:'Dados recebidos',past:'Agentes concluídos e inativos',reasoningValue:{low:'Baixo',medium:'Médio',high:'Alto',unknown:'Desconhecido'}},
 } as const;
 
 const issueCopy={
- en:{cause:'What happened',recovery:'Recovery',recovered:'Recovered',replacement:'Replacement',unknown:'The cause has not been recorded yet.',past:'Completed, idle and recovered agents'},
- es:{cause:'Qué ocurrió',recovery:'Recuperación',recovered:'Recuperado',replacement:'Reemplazo',unknown:'La causa aún no se ha registrado.',past:'Agentes completados, inactivos y recuperados'},
- pt:{cause:'O que aconteceu',recovery:'Recuperação',recovered:'Recuperado',replacement:'Substituto',unknown:'A causa ainda não foi registrada.',past:'Agentes concluídos, inativos e recuperados'},
+ en:{cause:'What happened',recovery:'Recovery',recovered:'Recovered',replacement:'Replacement',unknown:'The cause has not been recorded yet.',past:'Ended turns, idle and recovered agents'},
+ es:{cause:'Qué ocurrió',recovery:'Recuperación',recovered:'Recuperado',replacement:'Reemplazo',unknown:'La causa aún no se ha registrado.',past:'Turnos terminados, agentes inactivos y recuperados'},
+ pt:{cause:'O que aconteceu',recovery:'Recuperação',recovered:'Recuperado',replacement:'Substituto',unknown:'A causa ainda não foi registrada.',past:'Turnos encerrados, agentes inativos e recuperados'},
 };
 function formatTime(value:number|undefined,lang:Language){
  if(!value||!Number.isFinite(value))return null;
@@ -36,7 +37,7 @@ export function AgentActivity({lang}:{lang:Language}){
  const activeAgents=agents.filter(agent=>agent.status==='running'||agent.status==='blocked'||(agent.status==='error'&&!agent.issue?.resolvedAt));
  const pastAgents=agents.filter(agent=>agent.status==='completed'||agent.status==='idle'||(agent.status==='error'&&Boolean(agent.issue?.resolvedAt)));
  const events=[...(snapshot?.events??[])].sort((a,b)=>b.occurredAt-a.occurredAt).slice(0,10);
- const names=new Map(agents.map(agent=>[agent.key,agent.name]));
+ const names=new Map(agents.map(agent=>[agent.key,agentName(agent.name)]));
  function agentCard(agent:(typeof agents)[number]){
   const status=agent.status as Status;
   const lastTime=agent.lastActivityAt||agent.updatedAt;
@@ -47,10 +48,10 @@ export function AgentActivity({lang}:{lang:Language}){
   const reasoningKey=agent.reasoning?.toLowerCase() as keyof typeof t.reasoningValue;
   const reasoning=t.reasoningValue[reasoningKey]||agent.reasoning||t.reasoningValue.unknown;
   return <article className="agent-activity-card" key={agent.key}>
-   <div className="agent-activity-card-top"><div><span className="agent-activity-team">{t.team[agent.team]}</span><h3>{agent.name}</h3></div><span className={`agent-activity-status agent-activity-status-${recovered?'completed':status}`}><span aria-hidden="true"/>{recovered?issueLabels.recovered:t.status[status]}</span></div>
+   <div className="agent-activity-card-top"><AgentAvatar name={agentName(agent.name)}/><div><span className="agent-activity-team">{t.team[agent.team]}</span><h3>{agentName(agent.name)}</h3></div><span className={`agent-activity-status agent-activity-status-${recovered?'completed':status}`}><span aria-hidden="true"/>{recovered?issueLabels.recovered:t.status[status]}</span></div>
    <p className="agent-activity-assignment"><span>{t.assignment}</span>{agent.assignment?.[lang]||t.unknown}</p>
-   {status==='error'&&<div className={`agent-activity-issue ${recovered?'is-recovered':''}`}><strong>{issueLabels.cause}</strong><p>{agent.issue?.message[lang]||issueLabels.unknown}</p>{agent.issue&&<><strong>{issueLabels.recovery}</strong><p>{agent.issue.recovery[lang]}</p>{replacement&&<p className="agent-activity-replacement">{issueLabels.replacement}: <b>{replacement.name}</b> · {t.status[replacement.status as Status]}</p>}</>}</div>}
-   <dl className="agent-activity-meta"><div><dt>{t.model}</dt><dd>{agent.model||t.unknown}</dd></div><div><dt>{t.reasoning}</dt><dd>{reasoning}</dd></div><div><dt>{t.last}</dt><dd><time dateTime={dateTime(lastTime)}>{formatTime(lastTime,lang)||t.unknown}</time></dd></div></dl>
+   {status==='error'&&<div className={`agent-activity-issue ${recovered?'is-recovered':''}`}><strong>{issueLabels.cause}</strong><p>{agent.issue?.message[lang]||issueLabels.unknown}</p>{agent.issue&&<><strong>{issueLabels.recovery}</strong><p>{agent.issue.recovery[lang]}</p>{replacement&&<p className="agent-activity-replacement">{issueLabels.replacement}: <b>{agentName(replacement.name)}</b> · {t.status[replacement.status as Status]}</p>}</>}</div>}
+   <dl className="agent-activity-meta"><div><dt>{t.model}</dt><dd>{agent.model||t.unknown}</dd></div><div><dt>{t.reasoning}</dt><dd>{reasoning}</dd></div><div><dt>{t.last}</dt><dd><time dateTime={dateTime(lastTime)}>{formatTime(lastTime,lang)||t.unknown}</time><RelativeTime value={lastTime} lang={lang}/></dd></div></dl>
    {stale&&<p className="agent-activity-stale"><Clock3 size={13} aria-hidden="true"/>{t.stale}</p>}
   </article>;
  }
