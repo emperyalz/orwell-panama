@@ -1,0 +1,238 @@
+[
+  {
+    "key": "comparison",
+    "title": {
+      "en": "Eight-person comparison",
+      "es": "Comparación de ocho personas",
+      "pt": "Comparação de oito pessoas"
+    },
+    "detail": {
+      "en": "Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site.",
+      "es": "Retratos, categorías, búsqueda, diferencias, votos compartidos, CSV y fuentes. Verificado en el sitio.",
+      "pt": "Retratos, categorias, busca, diferenças, votos compartilhados, CSV e fontes. Verificado no site."
+    },
+    "status": "done",
+    "icon": "users",
+    "order": 0,
+    "href": "/comparar",
+    "evidence": "Delivered and verified October 8, 2026: Portraits, category tabs, searchable selection, differences, shared votes, CSV export and source links. Verified on the live site."
+  },
+  {
+    "key": "social-intelligence",
+    "title": {
+      "en": "Social intelligence archive",
+      "es": "Archivo de inteligencia social",
+      "pt": "Arquivo de inteligência social"
+    },
+    "detail": {
+      "en": "Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity.",
+      "es": "Actividad mensual, plataformas, formatos, publicaciones originales y cobertura explícita. Es un archivo histórico.",
+      "pt": "Atividade mensal, plataformas, formatos, posts originais e cobertura explícita. É um arquivo histórico."
+    },
+    "status": "done",
+    "icon": "radio",
+    "order": 1,
+    "href": "/inteligencia",
+    "evidence": "Delivered and verified October 8, 2026: Monthly activity, platform filters, formats, original posts and explicit archive coverage. This is historical coverage, not real-time activity."
+  },
+  {
+    "key": "elections-2024",
+    "title": {
+      "en": "Official 2024 elections",
+      "es": "Elecciones oficiales de 2024",
+      "pt": "Eleições oficiais de 2024"
+    },
+    "detail": {
+      "en": "Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified.",
+      "es": "Registros del Tribunal Electoral validados: 71 diputados y 81 alcaldes proclamados. Búsqueda y fuentes verificadas.",
+      "pt": "Registros do Tribunal Eleitoral validados: 71 deputados e 81 prefeitos proclamados. Busca e fontes verificadas."
+    },
+    "status": "done",
+    "icon": "votes",
+    "order": 2,
+    "href": "/elecciones",
+    "evidence": "Delivered and verified October 8, 2026: Validated official Electoral Tribunal records: 71 proclaimed deputies and 81 proclaimed mayors. Search and source links verified."
+  },
+  {
+    "key": "career-election-links",
+    "title": {
+      "en": "Election results on profiles",
+      "es": "Resultados electorales en perfiles",
+      "pt": "Resultados eleitorais nos perfis"
+    },
+    "detail": {
+      "en": "Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding.",
+      "es": "Resultados oficiales de 2024 vinculados a trayectoria cuando la identidad coincide. La historia anterior queda pendiente.",
+      "pt": "Resultados oficiais de 2024 vinculados à carreira quando a identidade coincide. O histórico anterior está pendente."
+    },
+    "status": "done",
+    "icon": "history",
+    "order": 3,
+    "href": "/politician/DEP-018",
+    "evidence": "Delivered and verified October 8, 2026: Official 2024 results link to career tabs where identity matches exactly. Earlier history remains outstanding."
+  },
+  {
+    "key": "release-review",
+    "title": {
+      "en": "Desktop & mobile review",
+      "es": "Revisión en escritorio y móvil",
+      "pt": "Revisão em desktop e celular"
+    },
+    "detail": {
+      "en": "Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked.",
+      "es": "Revisión independiente completada. Siete correcciones y dos regresiones resueltas; diseño móvil verificado.",
+      "pt": "Revisão independente concluída. Sete correções e duas regressões resolvidas; layout móvel verificado."
+    },
+    "status": "done",
+    "icon": "shield",
+    "order": 4,
+    "evidence": "Delivered and verified October 8, 2026: Independent design review completed. Seven fixes and two layout regressions resolved; mobile layouts checked."
+  },
+  {
+    "key": "production-release",
+    "title": {
+      "en": "Published & verified",
+      "es": "Publicado y verificado",
+      "pt": "Publicado e verificado"
+    },
+    "detail": {
+      "en": "Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment.",
+      "es": "Compilación de producción aprobada. Comparación, elecciones, archivo y trayectoria verificados en el sitio publicado.",
+      "pt": "Build de produção aprovado. Comparação, eleições, arquivo e carreira verificados no site publicado."
+    },
+    "status": "done",
+    "icon": "flag",
+    "order": 5,
+    "href": "/",
+    "evidence": "Delivered and verified October 8, 2026: Production build passed. The comparison, election explorer, archive and profile career results were checked on the live deployment."
+  },
+  {
+    "key": "homepage-concepts",
+    "title": {
+      "en": "Six homepage PNGs",
+      "es": "Seis PNG de inicio",
+      "pt": "Seis PNGs da página inicial"
+    },
+    "detail": {
+      "en": "Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them.",
+      "es": "Seis conceptos visuales distintos entregados. La página de inicio publicada no se ha reemplazado. Revisa los PNG.",
+      "pt": "Seis conceitos visuais distintos entregues. A página inicial publicada não foi substituída. Revise os PNGs."
+    },
+    "status": "done",
+    "icon": "image",
+    "order": 6,
+    "evidence": "Delivered and verified October 8, 2026: Six distinct flat image concepts delivered. The live homepage has not been replaced. Open the PNG links to review them."
+  },
+  {
+    "key": "shared-scoreboard",
+    "title": {
+      "en": "Shareable project scoreboard",
+      "es": "Tablero compartido del proyecto",
+      "pt": "Painel compartilhado do projeto"
+    },
+    "detail": {
+      "en": "A visual page with live database status, large completion checks and a shareable link. Production verification is underway.",
+      "es": "Página visual con estado compartido en la base de datos, marcas de finalización y enlace. Verificación en curso.",
+      "pt": "Página visual com status no banco de dados, marcas de conclusão e link. Verificação em andamento."
+    },
+    "status": "doing",
+    "icon": "layout",
+    "order": 7
+  },
+  {
+    "key": "social-freshness",
+    "title": {
+      "en": "Restore social coverage",
+      "es": "Restaurar cobertura social",
+      "pt": "Restaurar cobertura social"
+    },
+    "detail": {
+      "en": "The upstream Monitor feed also ends on April 28, 2026. Investigate collection upstream, then missing avatars, zero-post accounts and polling frequency.",
+      "es": "La fuente Monitor también termina el 28 de abril de 2026. Investigar recopilación, avatares faltantes, cuentas sin publicaciones y frecuencia.",
+      "pt": "O feed Monitor também termina em 28 de abril de 2026. Investigar coleta, avatares ausentes, contas sem posts e frequência."
+    },
+    "status": "doing",
+    "icon": "radio",
+    "order": 8
+  },
+  {
+    "key": "career-history",
+    "title": {
+      "en": "Complete career histories",
+      "es": "Completar trayectorias",
+      "pt": "Completar históricos de carreira"
+    },
+    "detail": {
+      "en": "Earlier offices, dated tenures, party changes and supporting original sources.",
+      "es": "Cargos anteriores, fechas de mandatos, cambios de partido y fuentes originales.",
+      "pt": "Cargos anteriores, datas de mandatos, mudanças de partido e fontes originais."
+    },
+    "status": "todo",
+    "icon": "history",
+    "order": 9
+  },
+  {
+    "key": "earlier-elections",
+    "title": {
+      "en": "Earlier elections & candidates",
+      "es": "Elecciones anteriores y candidatos",
+      "pt": "Eleições anteriores e candidatos"
+    },
+    "detail": {
+      "en": "Earlier elections and candidate-level context beyond proclaimed 2024 winners.",
+      "es": "Elecciones anteriores y contexto de candidatos además de ganadores proclamados de 2024.",
+      "pt": "Eleições anteriores e contexto dos candidatos além dos vencedores proclamados de 2024."
+    },
+    "status": "todo",
+    "icon": "votes",
+    "order": 10
+  },
+  {
+    "key": "statements-actions",
+    "title": {
+      "en": "Statements → actions",
+      "es": "Declaraciones → acciones",
+      "pt": "Declarações → ações"
+    },
+    "detail": {
+      "en": "Connect dated public statements to documented votes, bills and actions in office.",
+      "es": "Conectar declaraciones fechadas con votos, proyectos y acciones documentadas.",
+      "pt": "Conectar declarações datadas a votos, projetos e ações documentadas."
+    },
+    "status": "todo",
+    "icon": "message",
+    "order": 11
+  },
+  {
+    "key": "communication-trends",
+    "title": {
+      "en": "Communication trends",
+      "es": "Tendencias de comunicación",
+      "pt": "Tendências de comunicação"
+    },
+    "detail": {
+      "en": "Expand communication trends using sufficient evidence and explicit methods. Activity and format counts do not measure tone or ideology.",
+      "es": "Ampliar tendencias con evidencia y métodos explícitos. Cantidades y formatos no miden tono ni ideología.",
+      "pt": "Ampliar tendências com evidências e métodos explícitos. Contagens e formatos não medem tom nem ideologia."
+    },
+    "status": "todo",
+    "icon": "radio",
+    "order": 12
+  },
+  {
+    "key": "country-expansion",
+    "title": {
+      "en": "Expand beyond Panama",
+      "es": "Ampliar más allá de Panamá",
+      "pt": "Expandir além do Panamá"
+    },
+    "detail": {
+      "en": "Extend country coverage after the Panama model has adequate verified historical data.",
+      "es": "Ampliar cobertura tras contar con suficientes datos históricos verificados en Panamá.",
+      "pt": "Ampliar cobertura após obter dados históricos verificados suficientes no Panamá."
+    },
+    "status": "todo",
+    "icon": "globe",
+    "order": 13
+  }
+]

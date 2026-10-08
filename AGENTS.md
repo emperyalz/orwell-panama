@@ -1,3 +1,11 @@
+# Shared project scoreboard
+
+- Maintain the public `/scoreboard` page as the shared task record for Eric and the team. New requests add to existing work unless Eric explicitly cancels or replaces a task.
+- The production `projectTasks` table is the live status source. Update it using trusted internal `scoreboard:setTask` calls; do not expose public task-write mutations. Keep `WORKLIST.md` aligned as the local readable summary.
+- Mark tasks done only after the requested result is delivered and relevant verification succeeds. Record completion evidence. A successful dispatch or build alone is not completion of a deployment or live feature.
+- Keep task titles short and visual, with green completion checks. Put technical explanations in expandable details. Use the selected English, Spanish, or Portuguese language.
+- Do not reset recorded status during deployments. The seed only adds missing tasks. Add new requests promptly, retain completed work, and accurately distinguish current work from queued scope.
+
 # Visual identity in ORWELL
 
 - In visual lists of publishers, parties, companies, organizations, and platforms, show their authentic logos or icons. Pair publisher marks with the actual publisher name. In compact platform columns, the icon can carry the visible identity with its name in `alt`, accessible labels, and tooltips. A typed name alone is not a substitute for an available mark.

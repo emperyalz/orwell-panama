@@ -265,3 +265,9 @@ The election surface pairs the authentic Tribunal Electoral / INED mark with the
 - Don't describe global expansion, earlier careers or dated party changes as shipped coverage.
 - Don't treat gendered office labels as substantive comparison differences.
 - Don't turn archived volume into popularity, performance or voting-intention scores.
+
+## Shared project scoreboard
+
+`/scoreboard` is a project progress page, distinct from the public political records. Mobbin's Bonsai project task board informed the status lanes. The shipped page retains the Orwell header, canonical mark, IndexDisplay title and Inter body. It uses a soft neutral canvas, white task cards, amber in-progress treatment, and large green circular checks for completed work. Two columns align current/next work with completed work; mobile stacks them. Titles stay short and details expand on demand. Counts are numbers of requests, not a weighted completion percentage.
+
+Task status comes from the production `projectTasks` table through a public read-only reactive query. Trusted internal updates require evidence for completed tasks. Seeding only inserts missing tasks, preserving previous status. English, Spanish, and Portuguese are stored for each title and detail. The share action copies the page URL; the six homepage concepts are accessible through unchanged PNG assets.

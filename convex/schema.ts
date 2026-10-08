@@ -4,6 +4,18 @@ import { multiplayerTables } from "./multiplayerSchema";
 
 export default defineSchema({
   ...multiplayerTables,
+  projectTasks: defineTable({
+    key: v.string(),
+    title: v.object({en:v.string(),es:v.string(),pt:v.string()}),
+    detail: v.object({en:v.string(),es:v.string(),pt:v.string()}),
+    status: v.union(v.literal('todo'),v.literal('doing'),v.literal('done'),v.literal('blocked')),
+    icon: v.string(),
+    order: v.number(),
+    href: v.optional(v.string()),
+    evidence: v.optional(v.string()),
+    updatedAt: v.number(),
+    completedAt: v.optional(v.number()),
+  }).index('by_key',['key']).index('by_order',['order']),
   portraitReviewReferences: defineTable({
     externalId: v.string(),
     kind: v.union(v.literal('source'), v.literal('upload')),

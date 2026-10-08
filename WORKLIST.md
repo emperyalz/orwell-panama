@@ -1,8 +1,14 @@
-# Orwell Politics worklist
+# Orwell Politics scoreboard
 
 Updated October 8, 2026. Voice questions and new requests add to this list; they do not cancel existing work unless Eric explicitly changes the scope.
 
-## Current release
+Shared page: https://orwell-panama.vercel.app/scoreboard. Production database status is authoritative; this file is the local summary.
+
+## Working now
+
+- [ ] Investigate stale social coverage. First finding: the daily import reads up to 500 Politics posts from ORWELL Monitor; it does not directly collect each politician’s current social account. The newest posts in this site’s archive are from April 2026. Upstream feed verified: the newest of its 500 returned posts is also from April 28, 2026. The freshness gap originates upstream; investigate the Monitor collector before changing account polling.
+
+## Completed release
 
 - [x] Compare up to eight people with portraits, category tabs, searchable selection, difference highlighting, shared votes, and source links.
 - [x] Social intelligence from the existing archive with monthly activity, platform filters, format counts, original post links, and explicit coverage dates.
@@ -12,7 +18,7 @@ Updated October 8, 2026. Voice questions and new requests add to this list; they
 - [x] Correct deployment packaging for the election snapshot.
 - [x] Verify production deployment and live page behavior: eight-profile comparison, official election search, social archive coverage, and source-linked profile career tab.
 
-## Remaining direction
+## Still outstanding
 
 - [ ] Expand verified career history: earlier offices, dates of tenure, party changes, and supporting sources.
 - [ ] Add earlier election records and candidate-level context beyond proclaimed 2024 winners.
@@ -21,6 +27,12 @@ Updated October 8, 2026. Voice questions and new requests add to this list; they
 - [ ] Extend communication trends with sufficient evidence and explicit methods. Existing format and activity counts do not measure tone or ideology.
 - [ ] Expand country coverage after the Panama model has adequate verified historical data.
 
-## New requests
+## Additional requests
+
+- [ ] Publish and verify the styled shareable scoreboard, with live status, icons, large green completion checks, and mobile access.
 
 - [x] Develop six distinct homepage concepts, using established design references from The Index and Mobbin. Address hierarchy, structure, visual identification, discovery, comparison, and repeat browsing. Deliver six flat PNG mockups for visual review. Eric explicitly requested image concepts only, with no coded or functional homepage implementations.
+
+## Updating this scoreboard
+
+New requests are appended here. An item is checked only after its result is delivered and the relevant verification is complete. The working-now section names the actual active task. Completed requests stay visible.

@@ -40,6 +40,7 @@ import type * as politicianFacts from "../politicianFacts.js";
 import type * as politicians from "../politicians.js";
 import type * as portraitReview from "../portraitReview.js";
 import type * as presence from "../presence.js";
+import type * as scoreboard from "../scoreboard.js";
 import type * as seed from "../seed.js";
 import type * as sessions from "../sessions.js";
 import type * as sourceRegistry from "../sourceRegistry.js";
@@ -90,6 +91,7 @@ declare const fullApi: ApiFromModules<{
   politicians: typeof politicians;
   portraitReview: typeof portraitReview;
   presence: typeof presence;
+  scoreboard: typeof scoreboard;
   seed: typeof seed;
   sessions: typeof sessions;
   sourceRegistry: typeof sourceRegistry;
