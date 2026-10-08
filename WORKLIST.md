@@ -72,3 +72,17 @@ Election identity correction verified live October 8, 2026: 71 deputy portraits/
 - Scoreboard redesign deployed and verified: 16 tasks, 89 visible checklist steps, completion guards, desktop/mobile and EN/ES/PT. Remaining backlog remains active.
 
 - Social source correction deployed: 145 posts added through October 6, duplicate rerun clean. Manuel Cohen TikTok handle/avatar corrected from owner Linktree. Avatar, zero-account ownership/mapping and polling review remain open.
+
+## Checkbox accountability extension
+
+- [x] Track every checklist step on the live Orwell board.
+  - [x] Record completion time and live elapsed time per step.
+  - [x] Show circular contributor avatars, including multiple reviewers.
+  - [x] Show actual assignments and bounded remaining-time estimates.
+  - [x] Independently verify the final release on desktop, phone, and all three languages.
+- [x] Explain each agent's recorded outcome and recover supported historical assignments.
+  - [x] Recover seven historical handoffs and preserve their review scope.
+  - [x] Distinguish prior-assignment results from current work.
+  - [x] Complete final live verification.
+
+Collection QA has accepted Ernesto and Jorge ownership chains. Standard Monitor registration/activation schedules immediate work, so a controlled inactive registration and future scheduling path remains required before collection changes. No paid runs were started.

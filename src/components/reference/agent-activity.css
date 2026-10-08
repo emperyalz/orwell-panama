@@ -4,3 +4,7 @@
 .agent-activity-issue{margin:0 0 14px;padding:12px;border-left:3px solid #a14031;background:#fff3ee;border-radius:4px;font-size:12px;line-height:1.5}.agent-activity-issue strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#843e30}.agent-activity-issue p{margin:4px 0 10px}.agent-activity-issue p:last-child{margin-bottom:0}.agent-activity-issue.is-recovered{border-color:#277d4e;background:#eef7ef}.agent-activity-issue.is-recovered strong{color:#277d4e}.agent-activity-replacement{border-top:1px solid #cfdfd1;padding-top:8px}
 
 .agent-avatar{flex-shrink:0}.agent-activity-card-top>div{flex:1;min-width:0}.agent-activity-meta .scoreboard-relative-time{display:block;color:#6c7d70;font-size:10px;margin-top:3px}
+
+.agent-activity-report{border-top:1px solid #e1e8de;margin-top:14px;padding-top:12px}.agent-activity-report strong{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#526458}.agent-activity-report p{font-size:12px;line-height:1.55;margin:4px 0 10px;color:#415348}.agent-activity-report small{font-size:10px;color:#78847b;display:block}
+
+.agent-activity-estimate{display:grid;gap:4px;font-size:11px;line-height:1.5;margin:12px 0;color:#5c6c61}.agent-activity-estimate strong{font-size:10px;text-transform:uppercase;letter-spacing:.03em}

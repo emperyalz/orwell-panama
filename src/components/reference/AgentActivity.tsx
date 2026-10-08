@@ -22,6 +22,7 @@ const issueCopy={
  es:{cause:'Qué ocurrió',recovery:'Recuperación',recovered:'Recuperado',replacement:'Reemplazo',unknown:'La causa aún no se ha registrado.',past:'Turnos terminados, agentes inactivos y recuperados'},
  pt:{cause:'O que aconteceu',recovery:'Recuperação',recovered:'Recuperado',replacement:'Substituto',unknown:'A causa ainda não foi registrada.',past:'Turnos encerrados, agentes inativos e recuperados'},
 };
+const reportCopy={en:{result:'Recorded result',remaining:'Still open',recorded:'Checkpoint recorded',estimate:'Estimated remaining',unknownEstimate:'Estimate not recorded'},es:{result:'Resultado registrado',remaining:'Pendiente',recorded:'Avance registrado',estimate:'Tiempo restante estimado',unknownEstimate:'Estimación sin registrar'},pt:{result:'Resultado registrado',remaining:'Pendente',recorded:'Avanço registrado',estimate:'Tempo restante estimado',unknownEstimate:'Estimativa não registrada'}};
 function formatTime(value:number|undefined,lang:Language){
  if(!value||!Number.isFinite(value))return null;
  return new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeStyle:'short'}).format(value);
@@ -51,6 +52,8 @@ export function AgentActivity({lang}:{lang:Language}){
    <div className="agent-activity-card-top"><AgentAvatar name={agentName(agent.name)}/><div><span className="agent-activity-team">{t.team[agent.team]}</span><h3>{agentName(agent.name)}</h3></div><span className={`agent-activity-status agent-activity-status-${recovered?'completed':status}`}><span aria-hidden="true"/>{recovered?issueLabels.recovered:t.status[status]}</span></div>
    <p className="agent-activity-assignment"><span>{t.assignment}</span>{agent.assignment?.[lang]||t.unknown}</p>
    {status==='error'&&<div className={`agent-activity-issue ${recovered?'is-recovered':''}`}><strong>{issueLabels.cause}</strong><p>{agent.issue?.message[lang]||issueLabels.unknown}</p>{agent.issue&&<><strong>{issueLabels.recovery}</strong><p>{agent.issue.recovery[lang]}</p>{replacement&&<p className="agent-activity-replacement">{issueLabels.replacement}: <b>{agentName(replacement.name)}</b> · {t.status[replacement.status as Status]}</p>}</>}</div>}
+   {status==='running'&&<p className="agent-activity-estimate"><strong>{reportCopy[lang].estimate}</strong><span>{agent.estimate?.assignmentEn===agent.assignment.en?agent.estimate.label[lang]:reportCopy[lang].unknownEstimate}</span></p>}
+   {agent.report&&<div className="agent-activity-report"><strong>{agent.report.assignmentEn===agent.assignment.en?reportCopy[lang].result:(lang==='en'?'Prior assignment result':lang==='es'?'Resultado de asignación anterior':'Resultado da tarefa anterior')}</strong><p>{agent.report.result[lang]}</p><strong>{reportCopy[lang].remaining}</strong><p>{agent.report.remaining[lang]}</p><small>{reportCopy[lang].recorded}: <time dateTime={dateTime(agent.report.recordedAt)}>{formatTime(agent.report.recordedAt,lang)}</time></small></div>}
    <dl className="agent-activity-meta"><div><dt>{t.model}</dt><dd>{agent.model||t.unknown}</dd></div><div><dt>{t.reasoning}</dt><dd>{reasoning}</dd></div><div><dt>{t.last}</dt><dd><time dateTime={dateTime(lastTime)}>{formatTime(lastTime,lang)||t.unknown}</time><RelativeTime value={lastTime} lang={lang}/></dd></div></dl>
    {stale&&<p className="agent-activity-stale"><Clock3 size={13} aria-hidden="true"/>{t.stale}</p>}
   </article>;

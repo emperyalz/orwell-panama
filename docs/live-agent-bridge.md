@@ -19,3 +19,9 @@ Every failure card must show a plain-language cause and its recovery status. Rec
 ## Agent identities and task ownership
 
 Every recorded agent has a visible name and a stable illustrated avatar. Existing historical nicknames remain intact; role-based names have explicit display aliases. Task ownership and active checklist steps use explicit assignments in AgentIdentity.tsx, never guesses based on task wording. The lead must keep those assignments aligned with actual dispatches. An open task with no running owner says so. Completed agent turns remain separate from verified task completion. Task cards display recorded completion/update timestamps and elapsed time, updated locally without network calls.
+
+## Checkbox-level accountability
+
+Each completed checklist line carries its own recorded completion timestamp and contributing agent names, rendered as circular avatars. Multiple contributors remain visible. Newly checked steps require evidence and named contributors; completion time is recorded at the transition. Reopening clears the step history. Preserve existing history during later updates. Recover older attribution only from recorded handoffs or checkpoints. Missing historical timestamps remain explicitly unknown; do not copy a task date onto unrelated steps.
+
+Running agents show actual assignments and a scoped remaining-time estimate when one has been assessed. Bind estimates and checkpoint reports to the assignment, so a later assignment cannot silently inherit a deadline or outcome. Prior reports are identified as prior-assignment results. Research estimates describe the bounded dossier, with source-access uncertainty, rather than promise completion of every unresolved identity. The current dashboard scopes agent activity to Orwell.

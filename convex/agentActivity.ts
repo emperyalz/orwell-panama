@@ -17,7 +17,7 @@ export const snapshot=query({args:{},handler:async ctx=>{
   if(seen.has(key))return false;
   seen.add(key);return true;
  }).slice(0,30);
- return {agents:agents.sort((a,b)=>b.lastActivityAt-a.lastActivityAt).map(({key,name,team,model,reasoning,assignment,status,lastActivityAt,updatedAt,issue})=>({key,name,team,model,reasoning,assignment,status,lastActivityAt,updatedAt,issue})),events:events.map(({agentKey,summary,kind,occurredAt})=>({agentKey,summary,kind,occurredAt})),receivedAt:recent.reduce((latest,event)=>Math.max(latest,event.receivedAt),0)};
+ return {agents:agents.sort((a,b)=>b.lastActivityAt-a.lastActivityAt).map(({key,name,team,model,reasoning,assignment,status,lastActivityAt,updatedAt,issue,report,estimate})=>({key,name,team,model,reasoning,assignment,status,lastActivityAt,updatedAt,issue,report,estimate})),events:events.map(({agentKey,summary,kind,occurredAt})=>({agentKey,summary,kind,occurredAt})),receivedAt:recent.reduce((latest,event)=>Math.max(latest,event.receivedAt),0)};
 }});
 
 /** Retain a plain-language diagnosis separately from the agent's raw runtime status. */
@@ -46,4 +46,13 @@ export const record=internalMutation({args:{key:v.string(),name:v.string(),team,
  }
  await ctx.db.insert('projectAgentEvents',{eventId,agentKey:args.key,kind,summary,occurredAt:args.lastActivityAt,receivedAt:Date.now()});
  return {duplicate:false};
+}});
+
+/** A reviewed, sanitized checkpoint is distinct from a completed runtime turn. */
+export const saveContext=internalMutation({args:{key:v.string(),assignment:v.optional(text),estimate:v.optional(text),result:text,remaining:text,evidence:v.string()},handler:async(ctx,args)=>{
+ const agent=await ctx.db.query('projectAgents').withIndex('by_key',q=>q.eq('key',args.key)).unique();
+ if(!agent)throw Error('Agent not found');
+ if(!args.evidence.trim())throw Error('Record source evidence for agent outcomes');
+ await ctx.db.patch(agent._id,{...(args.assignment?{assignment:args.assignment}:{}),...(args.estimate?{estimate:{label:args.estimate,assignmentEn:args.assignment?.en??agent.assignment.en,recordedAt:Date.now()}}:{}),report:{assignmentEn:args.assignment?.en??agent.assignment.en,result:args.result,remaining:args.remaining,evidence:args.evidence,recordedAt:Date.now()},updatedAt:Date.now()});
+ return {saved:true};
 }});

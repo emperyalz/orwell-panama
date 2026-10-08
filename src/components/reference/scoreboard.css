@@ -5,3 +5,7 @@
 .scoreboard-relative-time{display:block;color:#718076;font-size:10px;margin-top:2px}.scoreboard-assigned-agents{display:flex;gap:12px;flex-wrap:wrap;margin-top:15px}.scoreboard-assigned-agent{display:flex;align-items:center;gap:6px;font-size:11px;color:#3f5145}.scoreboard-assigned-agent small{display:block;color:#718076;font-size:9px;margin-top:2px}.scoreboard-assigned-agent.is-running small{color:#168345}.agent-avatar{border-radius:9px}
 
 .scoreboard-working-step{display:flex;gap:5px;align-items:center;color:#936715;font-size:10px;margin-top:4px}.scoreboard-checklist .is-working{background:#fbf6e9;border-radius:4px;padding:6px;margin:-6px}.scoreboard-no-agent{color:#7b827a;font-size:11px;margin:15px 0 0}
+
+.scoreboard-step-history{display:flex;gap:8px;align-items:flex-start;margin-top:5px;color:#6a7c70;font-size:10px}.scoreboard-step-contributors{display:flex;gap:3px;flex-wrap:wrap;align-items:center}.scoreboard-step-contributors .agent-avatar{border-radius:50%}.scoreboard-step-history small{font-size:10px}.scoreboard-step-history .scoreboard-relative-time{font-size:9px;margin-top:0}.scoreboard-step-history time{font-size:10px}.scoreboard-step-history .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+
+.scoreboard-owner-estimate{font-size:11px;line-height:1.5;color:#69756c;margin:14px 0 0}

@@ -5,6 +5,8 @@ import { multiplayerTables } from "./multiplayerSchema";
 export default defineSchema({
   ...multiplayerTables,
   projectAgents: defineTable({
+    estimate:v.optional(v.object({label:v.object({en:v.string(),es:v.string(),pt:v.string()}),assignmentEn:v.string(),recordedAt:v.number()})),
+    report:v.optional(v.object({assignmentEn:v.optional(v.string()),result:v.object({en:v.string(),es:v.string(),pt:v.string()}),remaining:v.object({en:v.string(),es:v.string(),pt:v.string()}),evidence:v.string(),recordedAt:v.number()})),
     issue:v.optional(v.object({message:v.object({en:v.string(),es:v.string(),pt:v.string()}),recovery:v.object({en:v.string(),es:v.string(),pt:v.string()}),replacementKey:v.optional(v.string()),resolvedAt:v.optional(v.number())})),
     key:v.string(),name:v.string(),team:v.union(v.literal('research'),v.literal('qa'),v.literal('implementation')),
     model:v.string(),reasoning:v.string(),assignment:v.object({en:v.string(),es:v.string(),pt:v.string()}),
@@ -16,7 +18,7 @@ export default defineSchema({
     summary:v.object({en:v.string(),es:v.string(),pt:v.string()}),occurredAt:v.number(),receivedAt:v.number(),
   }).index('by_event',['eventId']).index('by_time',['occurredAt']),
   projectTasks: defineTable({
-    checklist: v.optional(v.array(v.object({key:v.string(),label:v.object({en:v.string(),es:v.string(),pt:v.string()}),done:v.boolean(),evidence:v.optional(v.string())}))),
+    checklist: v.optional(v.array(v.object({key:v.string(),label:v.object({en:v.string(),es:v.string(),pt:v.string()}),done:v.boolean(),evidence:v.optional(v.string()),completedAt:v.optional(v.number()),completedBy:v.optional(v.array(v.string()))}))),
     key: v.string(),
     title: v.object({en:v.string(),es:v.string(),pt:v.string()}),
     detail: v.object({en:v.string(),es:v.string(),pt:v.string()}),

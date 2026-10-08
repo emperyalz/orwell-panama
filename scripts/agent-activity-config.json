@@ -3,36 +3,36 @@
     "name": "Orwell lead",
     "team": "implementation",
     "assignment": {
-      "en": "Add agent avatars, task owners, active steps and timestamps",
-      "es": "Añadir avatares, responsables, pasos activos y fechas",
-      "pt": "Adicionar avatares, responsáveis, etapas ativas e datas"
+      "en": "Record per-step completion history, contributors and estimates",
+      "es": "Registrar historial por paso, responsables y estimaciones",
+      "pt": "Registrar histórico por etapa, responsáveis e estimativas"
     }
   },
   "/root/identity_a_economy": {
     "name": "Social research A",
     "team": "research",
     "assignment": {
-      "en": "Diagnose Monitor collection gaps for ten researched accounts",
-      "es": "Diagnosticar fallos de recopilación de Monitor en diez cuentas investigadas",
-      "pt": "Diagnosticar falhas de coleta do Monitor em dez contas pesquisadas"
+      "en": "Verify owner-site links and propose safe collection repairs",
+      "es": "Verificar enlaces oficiales y proponer reparaciones seguras de recopilación",
+      "pt": "Verificar links oficiais e propor reparos seguros de coleta"
     }
   },
   "/root/identity_qa_economy": {
     "name": "Independent identity QA",
     "team": "qa",
     "assignment": {
-      "en": "Independently review ownership and collection evidence for ten accounts",
-      "es": "Revisar de forma independiente titularidad y recopilación de diez cuentas",
-      "pt": "Revisar independentemente titularidade e coleta de dez contas"
+      "en": "Verify ownership links and safe Monitor repair scheduling",
+      "es": "Verificar enlaces de titularidad y programación segura de reparaciones",
+      "pt": "Verificar links de titularidade e agendamento seguro de reparos"
     }
   },
   "/root/live_agent_ui": {
     "name": "Scoreboard interface",
     "team": "implementation",
     "assignment": {
-      "en": "Live team cards and activity timeline in three languages",
-      "es": "Tarjetas de equipos y actividad en vivo en tres idiomas",
-      "pt": "Cartões de equipes e atividade ao vivo em três idiomas"
+      "en": "Independently verify per-step history, contributor avatars and estimates",
+      "es": "Verificar independientemente historial por paso, avatares y estimaciones",
+      "pt": "Verificar independentemente histórico por etapa, avatares e estimativas"
     }
   },
   "/root/live_agent_bridge": {
@@ -78,6 +78,69 @@
       "en": "Independent ownership review; continued by lower-cost QA",
       "es": "Revisión independiente; continuada por revisión de menor costo",
       "pt": "Revisão independente; continuada por revisão de menor custo"
+    }
+  },
+  "/root/activity_media": {
+    "name": "Peirce",
+    "team": "implementation",
+    "assignment": {
+      "en": "Activity feeds, duplicate suppression and social media previews",
+      "es": "Fuentes de actividad, supresión de duplicados y vistas previas sociales",
+      "pt": "Feeds de atividade, supressão de duplicatas e prévias sociais"
+    }
+  },
+  "/root/biography_research": {
+    "name": "Archimedes",
+    "team": "implementation",
+    "assignment": {
+      "en": "Research documented facts across ninety-one biographies",
+      "es": "Investigar datos documentados en noventa y una biografías",
+      "pt": "Pesquisar fatos documentados em noventa e uma biografias"
+    }
+  },
+  "/root/directory_fixes": {
+    "name": "Ptolemy",
+    "team": "implementation",
+    "assignment": {
+      "en": "Directory interface and source registry",
+      "es": "Interfaz del directorio y registro de fuentes",
+      "pt": "Interface do diretório e registro de fontes"
+    }
+  },
+  "/root/profile_document": {
+    "name": "Popper",
+    "team": "implementation",
+    "assignment": {
+      "en": "Document the delivered profile design system",
+      "es": "Documentar sistema visual de perfiles entregados",
+      "pt": "Documentar sistema visual dos perfis entregues"
+    }
+  },
+  "/root/profile_finish_review": {
+    "name": "Mill",
+    "team": "qa",
+    "assignment": {
+      "en": "Independent profile finish review",
+      "es": "Revisión independiente de acabado de perfiles",
+      "pt": "Revisão independente do acabamento dos perfis"
+    }
+  },
+  "/root/orwell_workspaces_document": {
+    "name": "Sagan",
+    "team": "implementation",
+    "assignment": {
+      "en": "Document comparison, election and archive workspaces",
+      "es": "Documentar espacios de comparación, elecciones y archivo",
+      "pt": "Documentar áreas de comparação, eleições e arquivo"
+    }
+  },
+  "/root/orwell_workspaces_review": {
+    "name": "Goodall",
+    "team": "qa",
+    "assignment": {
+      "en": "Independent comparison and election interface review",
+      "es": "Revisión independiente de comparación e interfaz electoral",
+      "pt": "Revisão independente da comparação e interface eleitoral"
     }
   }
 }

@@ -2,10 +2,10 @@
 import {useEffect,useState} from 'react';
 
 export const agentProfiles:Record<string,{name:string;tasks:string[]}>= {
- 'Orwell lead':{name:'Atlas',tasks:['task-timestamps','agent-assignment-context','agent-visual-identities']},
+ 'Orwell lead':{name:'Atlas',tasks:['task-timestamps','agent-assignment-context','agent-visual-identities','step-accountability']},
  'Social research A':{name:'Iris',tasks:['social-identity-audit','social-freshness']},
- 'Independent identity QA':{name:'Ada',tasks:['social-identity-qa']},
- 'Scoreboard interface':{name:'Lin',tasks:['live-agent-scoreboard']},
+ 'Independent identity QA':{name:'Ada',tasks:['social-identity-qa','social-freshness']},
+ 'Scoreboard interface':{name:'Lin',tasks:['live-agent-scoreboard','step-accountability']},
  'Activity collector':{name:'Echo',tasks:['live-agent-scoreboard']},
  'Original research A':{name:'Scout',tasks:['social-identity-audit']},
  'Original identity QA':{name:'Bram',tasks:['social-identity-qa']},
@@ -13,9 +13,10 @@ export const agentProfiles:Record<string,{name:string;tasks:string[]}>= {
  'Social research C':{name:'Kepler',tasks:['social-identity-audit']},
 };
 export const currentAgentSteps:Record<string,Record<string,string[]>>={
- 'Orwell lead':{'task-timestamps':['verify'],'agent-assignment-context':['names','running'],'agent-visual-identities':['verify']},
- 'Social research A':{'social-freshness':['verify-missing-account-avatars','investigate-zero-post-accounts'],'social-identity-audit':['qc']},
- 'Independent identity QA':{'social-identity-qa':['avatars','live']},
+ 'Orwell lead':{'step-accountability':['history','contributors','estimates','verify'],'task-timestamps':['verify'],'agent-assignment-context':['history','outcomes','verify'],'agent-visual-identities':['verify']},
+ 'Social research A':{'social-freshness':['investigate-zero-post-accounts'],'social-identity-audit':['monitor']},
+ 'Independent identity QA':{'social-freshness':['investigate-zero-post-accounts']},
+ 'Scoreboard interface':{'step-accountability':['verify']},
 };
 export const agentName=(name:string)=>agentProfiles[name]?.name||name;
 export function AgentAvatar({name,size=42}:{name:string;size?:number}){
