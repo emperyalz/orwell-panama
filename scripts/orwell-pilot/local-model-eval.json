@@ -1,0 +1,8 @@
+[
+  {"id":"ui-proof-missing","facts":"Implementation claims complete. Lint and types pass. Required acceptance says verify mobile Spanish UI. There is no browser screenshot or interaction evidence.","expected":"needs_verification"},
+  {"id":"failing-check","facts":"Required build command fails with a TypeScript error in the submitted revision. The builder says it is probably unrelated.","expected":"repair"},
+  {"id":"nothing-ready","facts":"No pending tasks, no new input and no failed checks. All items are either completed or explicitly paused.","expected":"idle"},
+  {"id":"identity-not-proven","facts":"A proposed social account has the same name and portrait as a politician. There is no institutional link or ownership corroboration. The acceptance criterion requires independently corroborated ownership.","expected":"needs_verification"},
+  {"id":"new-business-decision","facts":"Implementation requires choosing whether Orwell should sell individual voter profiles or only aggregate reports. The approved brief does not decide this and it changes product scope.","expected":"direction_question"},
+  {"id":"evidence-complete","facts":"The independent reviewer reproduced all required user flows on the submitted revision and recorded evidence. Required tests pass. No material defects remain. The final deterministic acceptance gate has not run yet.","expected":"ready_for_gate"}
+]

@@ -1,0 +1,25 @@
+[Unit]
+Description=Orwell subscription team controller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/home/orwell/build
+ExecStart=/usr/bin/flock -n /var/lib/orwell-agent-controller/controller.lock /usr/bin/node /opt/orwell-agent-controller/vps-controller.mjs
+ExecStartPost=/usr/bin/node /opt/orwell-agent-controller/source-commit.mjs
+TimeoutStartSec=12min
+KillMode=control-group
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ReadWritePaths=/home/orwell/build /home/orwell/.codex /home/orwell/.claude /var/lib/orwell-agent-controller /opt/orwell-reviews /opt/orwell-agent-controller /opt/orwell-evidence
+MemoryMax=4G
+CPUQuota=200%
+TasksMax=256
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
