@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /** Root-owned control plane. Model processes run as the unprivileged Orwell UID. */
 import {spawn} from 'node:child_process';
-import {readFile,writeFile,mkdir,readdir,lstat,cp,chmod,symlink,copyFile} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,readdir,lstat,cp,chmod,symlink,copyFile,rm} from 'node:fs/promises';
 import {join,relative} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 import {admitSubscription,reconcileShortWindows,normalizeCodexUsage} from './budget.mjs';
 import {writeAtomicJson} from './admission.mjs';
 import {legalOutcome,finiteModelCeiling} from './receipts.mjs';
 import {selectAffinity} from './selection.mjs';
+import {classifyFailure,retryDecision} from './retry-policy.mjs';
 import {acceptanceProof} from './acceptance-proof.mjs';
 import {commitReviewedSource} from './source-commit.mjs';
 import {statusObservation} from './status.mjs';
@@ -125,7 +126,9 @@ async function runModel(job) {
  if(qa&&before!==job.item.submissionRevision)throw Error('Workspace differs from submitted revision; QA cannot review');
  const cwd=qa?await freeze(job.leaseId):workspace;
  const schema={type:'object',additionalProperties:false,required:['result','detail','evidence','team'],properties:{result:{type:'string',enum:['submitted','changes_requested','accepted','needs_input','failed']},detail:{type:'string'},evidence:{type:'string'},team:{type:'string',enum:['implementation','research','none']}}};
- let args,model=qa?'sonnet':job.item.attempt>0?'gpt-6.1-sol':'gpt-6-luna';
+ let retryModel=null;
+ if(!qa){try{const retry=JSON.parse(await readFile(join(state,'retry-model.json'),'utf8'));if(retry.itemKey===job.item.key)retryModel=retry.model;}catch(error){if(error.code!=='ENOENT')throw error;}}
+ let args,model=qa?'sonnet':retryModel??(job.item.attempt>0?'gpt-6.1-sol':'gpt-6-luna');
  // A concrete failed submission justifies Sol for bounded repair; fresh work
  // stays on Luna. Both execute at low effort and retain the same quota guard.
  if(qa)args=['-p','--model','sonnet','--effort','low','--output-format','stream-json','--verbose','--max-turns','24','--permission-mode','dontAsk','--setting-sources','','--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--tools','Read,Grep,Glob,Bash','--allowedTools','Read,Grep,Glob,Bash','--json-schema',JSON.stringify(schema)];
@@ -191,7 +194,9 @@ async function runModel(job) {
  const finishArgs={itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:streamError?'failed':answer.result,detail:(streamError?.message??answer.detail).slice(0,2800),evidence:streamError?undefined:answer.evidence.slice(0,2800),sessionId,provider,artifactRevision:after,...(qa?{reviewerKey:person.key}:{contributorKey:person.key})};
  const receipt={job,provider,model,sessionId,usage,usagePersisted,exit,before,after,answer,finishArgs,finishedAt:Date.now(),finish:null};
  await writeAtomicJson(join(dir,'receipt.json'),receipt);
- const finish=await api('dispatch:finish',finishArgs);await writeAtomicJson(join(dir,'receipt.json'),{...receipt,finish});
+ const finish=await api('dispatch:finish',finishArgs);
+ if(!streamError&&job.phase==='work'){await rm(join(state,'retry-model.json'),{force:true}).catch(()=>{});}
+ await writeAtomicJson(join(dir,'receipt.json'),{...receipt,finish});
  log({item:job.item.key,phase:job.phase,provider,sessionId,model,usage,finish});return finish;
 }
 async function activateReviewedSource(job,current) {
@@ -282,7 +287,18 @@ async function main() {
    const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent providers, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider} worker ${job.item.workerSessionId}; ${job.item.qaProvider} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; all pilot tests, dispatch live-contract/acceptance/pause and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted')await writeAtomicJson(join(state,'affinity.json'),null);return log({item:job.item.key,phase:'accept',finish});
   }
   const finish=await runModel(job);await publishStatus('ready',`${job.item.label}: ${finish.state}. Awaiting the next verified handoff.`);
- }catch(error){await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:'failed',detail:error.message.slice(0,2800)}).catch(()=>{});throw error;}
+ }catch(error){
+  if(job.phase!=='triage'&&job.phase!=='accept'){
+   const failureClass=classifyFailure(error.message),failurePath=join(state,'failures',`${job.item.key.replace(/[^a-zA-Z0-9-]/g,'_')}.json`);let record={itemKey:job.item.key,counts:{},lastFailure:null};
+   try{record=JSON.parse(await readFile(failurePath,'utf8'));}catch(readError){if(readError.code!=='ENOENT')throw readError;}
+   const decision=retryDecision({failureCounts:record.counts,failureClass});record.counts[failureClass]=decision.count;record.lastFailure={at:Date.now(),failureClass,detail:error.message,blocked:decision.blocked};await mkdir(join(state,'failures'),{recursive:true,mode:0o700});await writeAtomicJson(failurePath,record);
+   if(job.phase==='work'&&job.item.attempt===0&&decision.model)await writeAtomicJson(join(state,'retry-model.json'),{itemKey:job.item.key,model:decision.model,failureClass,reason:error.message,at:Date.now()});
+   if(decision.blocked){await api('dispatch:stopPilot',{reason:`Repeated ${failureClass} failure for pinned ${job.item.key}: ${error.message}`,modelOnly:false});}
+   await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:'failed',detail:decision.blocked?`Repeated ${failureClass} failure blocked after ${decision.count} occurrences: ${error.message}`:error.message.slice(0,2800)}).catch(()=>{});
+   if(decision.blocked)error=Error(`Repeated ${failureClass} failure blocked after ${decision.count} occurrences; repair ownership remains pinned`);
+  }
+  throw error;
+ }
 }
 try{await main();await publishStatus();await writeAtomicJson(join(state,'health.json'),{state:controllerState,at:Date.now(),reason:controllerReason});}
 catch(error){log({state:'held',reason:error.message});await publishStatus('held',error.message).catch(e=>log({telemetryError:e.message}));await writeAtomicJson(join(state,'health.json'),{state:'held',at:Date.now(),reason:error.message});process.exitCode=2;}
