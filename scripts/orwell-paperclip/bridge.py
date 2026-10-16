@@ -544,14 +544,26 @@ class Bridge:
                         and route.get("allowed") is False and route.get("reason")):
                     item = {**item, "state": "blocked", "blockedReason": clean(route["reason"]),
                             "nextAction": "Restore admitted author and independent QA capacity under the existing budget. " + clean(route["reason"])}
-                status = issue_status(item, step, key in allowed)
+                preparation = read_json(self.controller / "parallel-preparation.json", {})
+                prep_job = next((j for j in preparation.get("jobs", []) if j.get("itemKey") == key), None)
+                prep_runs = [read_json(p, {}) for p in (self.controller / "runs").glob("*/execution.json")] if prep_job else []
+                prep_execution = next((r for r in prep_runs if r.get("batchId") == preparation.get("batchId") and r.get("job", {}).get("item", {}).get("key") == key), {})
+                prep_result = next((r for r in preparation.get("results", []) if r.get("job", {}).get("itemKey") == key), {})
+                prep_receipt = prep_result.get("receipt", {})
+                prep_running = bool(prep_job and preparation.get("state") in {"preparation_running", "qa_running"})
+                status = "in_progress" if prep_running else issue_status(item, step, key in allowed)
                 role = self.item_phase_role(item)[1] if item else "orion"
                 desired = {
                     "title": clean(f"{english(task['title'])}: {english(step['label'])}", 230),
                     "description": (f"<!-- orwell:{key} -->\n"
                         f"Original checklist: {key}\n\n{clean(english(task.get('detail')), 2500)}\n\n"
                         f"Acceptance: {clean(criteria.get(key) or english(step['label']), 7000)}\n\n"
-                        f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
+                        + (f"Actual parallel PREPARATION: {clean(preparation.get('state'))}; batch {clean(preparation.get('batchId'))}; "
+                           f"roster identity {clean(prep_job.get('positionKey'))}; execution {clean(prep_execution.get('leaseId') or 'not yet recorded')}; "
+                           f"requested model {clean(prep_execution.get('provider') or 'unknown')}/{clean(prep_execution.get('model') or 'unknown')}; "
+                           f"observed session {clean(prep_receipt.get('sessionId') or 'awaiting native receipt')}. "
+                           "Read-only research/QA; no product implementation or checkbox acceptance.\n" if prep_job else "")
+                        + f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
                         + (f"Observed native worker: {clean(active[key].get('owner'), 160)}. Model: {clean(active[key].get('model'), 160)}.\n" if key in active else "")
                         +
                         f"Guarded phase owner: {role or 'pending root provider selection'}. Paperclip process agent: {self.config['agents'].get(role, 'not selected')}.\n\n"
@@ -644,6 +656,8 @@ class Bridge:
             item.get("attempt"), item.get("qaAttempt"), item.get("acceptAttempt"), self.item_phase_role(item)[1]]).encode()).hexdigest()
 
     def wake_ready(self, snapshot, tasks, health):
+        if read_json(self.controller / "parallel-preparation.json", {}).get("state") in {"preparation_running", "qa_running"}:
+            return
         if self.run_lock.locked() or self.request_path.exists():
             return
         steps = self.product_steps(tasks)

@@ -454,6 +454,16 @@ class BridgeTests(unittest.TestCase):
         bridge.atomic_json(self.b.scope_path, {"serverPlanning": True, "itemKeys": ["social-identity-audit/missing"]})
         self.assertEqual(self.b.scope(), {"social-identity-audit/missing"})
 
+    def test_real_parallel_preparation_links_task_without_acceptance_or_wake(self):
+        bridge.atomic_json(self.b.controller / "parallel-preparation.json", {"state": "preparation_running", "batchId": "actual-batch",
+            "jobs": [{"itemKey": KEY, "positionKey": "position:research-02"}], "productAccepted": False})
+        self.b.sync()
+        self.assertEqual(self.http.issues[0]["status"], "in_progress")
+        self.assertIn("position:research-02", self.http.issues[0]["description"])
+        self.assertIn("no product implementation or checkbox acceptance", self.http.issues[0]["description"])
+        self.assertFalse(any(c[0].endswith("/wakeup") for c in self.http.calls))
+        self.assertFalse(self.http.tasks[0]["checklist"][0]["done"])
+
     def test_real_blocker_remains_visible_outside_execution_scope(self):
         self.assertEqual(bridge.issue_status({"state": "blocked"}, {"done": False}, False), "blocked")
 
