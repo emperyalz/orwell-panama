@@ -16,7 +16,7 @@ vm.runInNewContext(source,{module:moduleRef,exports:moduleRef.exports,Date,requi
 const finish=moduleRef.exports.finish.handler;
 const revision='sha256:'+'a'.repeat(64),other='sha256:'+'b'.repeat(64);
 const now=Date.now();
-const item={_id:'item',key:'task/step',taskKey:'task',stepKey:'step',state:'qa_running',activeSessionId:'review-real',leaseId:'lease-123456789012',leaseUntil:now+60000,workerSessionId:'worker-real',contributorKey:'author',workerProvider:'codex',submissionRevision:revision,qaAttempt:0,acceptAttempt:0,attempt:0,team:'implementation'};
+const item={_id:'item',key:'task/step',taskKey:'task',stepKey:'step',state:'qa_running',lead:'Rowan',activeSessionId:'review-real',leaseId:'lease-123456789012',leaseUntil:now+60000,workerSessionId:'worker-real',contributorKey:'author',workerProvider:'codex',submissionRevision:revision,qaAttempt:0,acceptAttempt:0,attempt:0,team:'implementation'};
 const reviewer={key:'qa',team:'qa',name:'Reviewer',status:'running',lastActivityAt:now,binding:{taskKey:'task',stepKey:'step',rosterKey:'qa',observedAt:now-100,evidence:'Actual claude CLI session review-real; lease lease-123456789012'}};
 function context(data=item,review=reviewer,events=[{kind:'checkpoint',leaseId:item.leaseId,actor:'Reviewer',detail:'Actual QA session (run review-real)'}]){return {db:{query:table=>{let selected;return ({withIndex:(_index,callback)=>{if(callback)callback({eq(_field,value){selected=value;return this}});return ({unique:async()=>table==='projectDispatchItems'?data:table==='projectAgents'?(selected==='review-real'?{...review,key:'review-real',status:'completed'}:review):null,collect:async()=>table==='runtimeTeamPositions'?[{tier:'worker',team:'qa',runKeys:['qa']}]:table==='projectDispatchEvents'?events:[]})},collect:async()=>table==='runtimeTeamPositions'?[{tier:'worker',team:'qa',runKeys:['qa']}]:[]})},patch:async()=>{},insert:async()=>{}}};}
 const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted',detail:'Reviewed source',evidence:'Actual checks',sessionId:'review-real',reviewerKey:'qa',provider:'claude',artifactRevision:revision};
@@ -29,6 +29,14 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  await assert.rejects(()=>finish(context(item,{...reviewer,binding:{...reviewer.binding,evidence:'unrelated'}}),args),/fresh observed session/);
  await assert.rejects(()=>finish(context(item,reviewer,[]),args),/event history/);
  await assert.rejects(()=>finish(context(item,{...reviewer,lastActivityAt:now-600000}),args),/fresh observed session/);
+ const rejectionPatches=[];const rejectedContext=context();rejectedContext.db.patch=async(id,patch)=>rejectionPatches.push({id,patch});
+ const rejection={...args,result:'changes_requested',detail:'Please correct the gap',evidence:'Add the missing stale-revision assertion and verify it fails before approval'};
+ assert.equal((await finish(rejectedContext,rejection)).state,'ready');
+ const returned=rejectionPatches.find(p=>p.id==='item').patch;
+ assert.equal(returned.lead,'Rowan','QA rejection must preserve the original implementation owner');
+ assert.match(returned.nextAction,/stale-revision assertion/,'Actionable QA findings must be returned to the owner');
+ assert.match(returned.checkpoint,/return to Rowan/);
+ await assert.rejects(()=>finish(context(),{...rejection,evidence:'Needs changes'}),/actionable findings/,'Vague rejection must not return work without actionable findings');
  assert.equal((await finish(context(),args)).state,'accept_ready');
  const replayed=await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args);
  assert.equal(replayed.replayed,true);
@@ -75,5 +83,5 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  monitor={...monitor,pauseReason:{en:'Eric paused dispatch',es:'Eric paused dispatch',pt:'Eric paused dispatch'}};
  await stop(stopCtx,{reason:'deadline reached',modelOnly:false});assert.ok(monitor.pauseReason.en.startsWith('Eric paused dispatch'));
  assert.equal((await claim(claimCtx,{leaseId:'fixture-lease-123456',reviewedAcceptanceOnly:true})).state,'paused');
- console.log('PASS idempotent finish replay; contradictory replay, expired/reassigned leases, self-review, wrong provider, stale revision, unknown/stale/unobserved reviewer and stale executive acceptance rejected; fresh exact-revision QA allowed');
+ console.log('PASS independent different-provider QA, exact revision and observed reviewer; actionable rejection returns to Rowan; vague rejection, stale acceptance, replay conflicts and unobserved review rejected');
 })().catch(error=>{console.error(error);process.exitCode=1;});
