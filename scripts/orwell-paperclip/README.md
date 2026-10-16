@@ -114,6 +114,12 @@ active-state ownership requirement while suppressing implicit agent wakes from
 board comments. State/description patches occur only on changes. `assignAgents:true`
 is reserved for a future version with verified implicit-wake suppression.
 
+Blocked mirrors include a board-owned `unblockDescriptor` containing the real
+Convex next action or blocker. Paperclip rejects a transition to `blocked` without
+an unresolved dependency/interaction or this descriptor (HTTP422). Reopening the
+Convex step clears the descriptor in the same status update. This records who must
+resolve the source blocker; it does not authorize inference or checklist changes.
+
 The root-only mapping is atomic `/var/lib/orwell-paperclip/mapping.json`. Stable
 source markers and create idempotency keys recover create-before-save crashes.
 Real Convex events become bounded comments with content hashes, a saved dedup

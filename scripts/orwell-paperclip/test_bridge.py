@@ -329,6 +329,29 @@ class BridgeTests(unittest.TestCase):
         self.assertEqual(self.http.issues[0]["status"], "done")
         self.assertIn("Historical recorded completion, no new controller acceptance", self.http.issues[0]["description"])
 
+    def test_blocked_transition_meets_paperclip_unblock_contract_and_clears_on_ready(self):
+        self.b.sync(wake=False)
+        self.http.calls.clear()
+        self.http.snapshot["items"][0].update(state="blocked", blockedReason="Independent QA found an uncovered selected month", nextAction="Repair the selected-month coverage condition and repeat independent QA")
+        self.b.sync(wake=False)
+        issue = self.http.issues[0]
+        self.assertEqual(issue["status"], "blocked")
+        self.assertEqual(issue["unblockDescriptor"], {"owner": "board", "action": "Repair the selected-month coverage condition and repeat independent QA"})
+        self.http.snapshot["items"][0].update(state="ready")
+        self.http.calls.clear()
+        self.b.sync(wake=False)
+        patch = next(call[2] for call in self.http.calls if call[1] == "PATCH")
+        self.assertEqual(patch["status"], "todo")
+        self.assertIsNone(patch["unblockDescriptor"])
+
+    def test_blocked_descriptor_is_bounded_sanitized_and_reconciles_fact_mismatch(self):
+        descriptor = bridge.unblock_descriptor({"state": "blocked", "blockedReason": "api_key=private " + "x" * 3000}, {"done": False}, "blocked")
+        self.assertEqual(descriptor["owner"], "board")
+        self.assertLessEqual(len(descriptor["action"]), 2000)
+        self.assertNotIn("private", descriptor["action"])
+        descriptor = bridge.unblock_descriptor({"state": "accepted"}, {"done": False}, "blocked")
+        self.assertIn("Reconcile", descriptor["action"])
+
     def test_observations_redact_and_never_serialize_config(self):
         self.http.snapshot["items"][0]["checkpoint"] = "Authorization=abc api_key=secret Bearer hiddenvalue"
         observation = self.b.observed(self.http.snapshot["items"][0], self.http.snapshot)

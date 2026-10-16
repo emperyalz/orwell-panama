@@ -153,6 +153,16 @@ def issue_status(item, step, in_scope):
     return "todo"
 
 
+def unblock_descriptor(item, step, status):
+    if status != "blocked":
+        return None
+    if step.get("done") or item.get("state") == "accepted":
+        action = "Reconcile the Convex dispatch acceptance and original checkbox facts before resuming this step."
+    else:
+        action = item.get("nextAction") or item.get("blockedReason") or "Root must inspect the recorded Convex blocker and explicitly release this step before execution."
+    return {"owner": "board", "action": clean(action, 2000).strip() or "Root must inspect and resolve the recorded Convex blocker before execution."}
+
+
 def event_id(event):
     raw = json.dumps({key: event.get(key) for key in ("itemKey", "kind", "actor", "at", "detail")}, sort_keys=True)
     return hashlib.sha256(raw.encode()).hexdigest()
@@ -494,6 +504,9 @@ class Bridge:
                     # avoid phantom process runs; active issues require an owner.
                     "status": status, "assigneeAgentId": self.config["agents"][role] if self.config.get("assignAgents", False) and role else None,
                     "assigneeUserId": None if self.config.get("assignAgents", False) and role else self.config.get("boardUserId", "local-board"),
+                    # Pinned Paperclip rejects entering blocked without a named
+                    # unblock owner/action. Clear the descriptor when Convex reopens.
+                    "unblockDescriptor": unblock_descriptor(item, step, status),
                 }
                 marker = f"<!-- orwell:{key} -->"
                 with self.mapping_lock:
