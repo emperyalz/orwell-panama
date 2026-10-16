@@ -132,7 +132,7 @@ async function runModel(job) {
  else args=['-a','never','exec','--json','--strict-config','--skip-git-repo-check','-m',model,'-c','forced_login_method="chatgpt"','-c','model_reasoning_effort="low"','-c','features.multi_agent=false','--sandbox','danger-full-access','-C',cwd,'-'];
  await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,before,startedAt:Date.now()});
  const child=spawn(`${tools}/${provider}`,args,{cwd,env,uid,gid,detached:true,stdio:['pipe','pipe','pipe']});
- let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve();
+ let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve(),lastCheckpointAt=0,checkpointCount=0;
  const kill=()=>{try{process.kill(-child.pid,'SIGTERM');}catch{}};
  const processEvent=line=>{
   let e;try{e=JSON.parse(line);}catch{return;}
@@ -140,6 +140,25 @@ async function runModel(job) {
    sessionId=provider==='codex'?e.thread_id:e.session_id;model=e.model??model;
    serial=serial.then(()=>observe(job,sessionId,person,provider,model,'assigned',`Actual ${provider} ${job.phase} session started`)).catch(error=>{streamError=error;kill();});
   }
+ // Save bounded, substantive progress only when the native CLI reports a
+ // completed assistant/tool event. Timer renewals below never claim progress.
+ let progress;
+ if(provider==='codex'&&e.type==='item.completed'){
+  const item=e.item??{};
+  if(item.type==='agent_message'&&typeof item.text==='string')progress=`Assistant update: ${item.text}`;
+  else if(item.type==='command_execution'&&typeof item.command==='string')progress=`Tool completed: ${item.command.slice(0,350)}${item.exit_code===0?' (exit 0)':` (exit ${item.exit_code??'unknown'})`}`;
+  else if(item.type==='file_change')progress=`File changes completed: ${(item.changes??[]).map(c=>c.path).filter(Boolean).slice(0,12).join(', ')||'reported by Codex'}`;
+ }
+ if(provider==='claude'&&e.type==='user'&&Array.isArray(e.message?.content)){
+  const results=e.message.content.filter(b=>b.type==='tool_result');
+  if(results.length)progress=`Claude tool completed: ${results.slice(0,5).map(b=>`${b.name??'tool'}${b.is_error?' (reported error)':''}`).join(', ')}`;
+ }
+ else if(provider==='claude'&&e.type==='assistant'&&Array.isArray(e.message?.content)){
+  const blocks=e.message.content;const text=blocks.filter(b=>b.type==='text'&&b.text?.trim()).map(b=>b.text).join(' ').slice(0,800);
+  const toolsUsed=blocks.filter(b=>b.type==='tool_use').map(b=>b.name).slice(0,6);
+  if(text||toolsUsed.length)progress=`Assistant update${toolsUsed.length?`; requested tools: ${toolsUsed.join(', ')}`:''}${text?`: ${text}`:''}`;
+ }
+ if(progress&&sessionId&&checkpointCount<60&&Date.now()-lastCheckpointAt>=5_000){checkpointCount++;lastCheckpointAt=Date.now();serial=serial.then(()=>api('dispatch:checkpoint',{itemKey:job.item.key,leaseId:job.leaseId,sessionId,actorName:person.name,actorKey:person.key,checkpoint:progress})).catch(error=>{streamError=error;kill();});}
   if(provider==='codex'&&e.type==='turn.completed'){completed=true;const next=normalizeCodexUsage(e.usage);usage=usage&&next?normalizeCodexUsage({input_tokens:usage.input_tokens+next.input_tokens,cached_input_tokens:usage.cached_input_tokens+next.cached_input_tokens,output_tokens:usage.output_tokens+next.output_tokens}):next;}
   if(provider==='codex'&&e.type==='item.completed'&&e.item?.type==='agent_message')answerText=e.item.text;
   if(provider==='claude'&&e.type==='result'){

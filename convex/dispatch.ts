@@ -5,6 +5,7 @@ import {compareDispatchPriority} from './dispatchPriority';
 
 const ROOT='01a09321-0212-73f0-b32b-c3045945d6c6';
 const LEASE_MS=5*60_000;
+const STALL_MS=2*60_000;
 const MAX_RETRIES=3;
 const phase=v.union(v.literal('triage'),v.literal('work'),v.literal('qa'),v.literal('accept'));
 const result=v.union(v.literal('submitted'),v.literal('changes_requested'),v.literal('accepted'),v.literal('needs_input'),v.literal('failed'));
@@ -70,6 +71,7 @@ export const claimNext=internalMutation({args:{leaseId:v.string(),smokeItemKey:v
 export const checkpoint=internalMutation({args:{itemKey:v.string(),leaseId:v.string(),checkpoint:v.string(),sessionId:v.optional(v.string()),actorName:v.optional(v.string()),actorKey:v.optional(v.string())},handler:async(ctx,args)=>{
  const item=await ctx.db.query('projectDispatchItems').withIndex('by_key',q=>q.eq('key',args.itemKey)).unique();
  if(!item||item.leaseId!==args.leaseId||!item.leaseUntil||item.leaseUntil<=Date.now()||!['running','qa_running','accept_running'].includes(item.state))throw Error('Lease no longer owns this step');
+ if(!args.checkpoint.trim())throw Error('Substantive checkpoint required');
  const now=Date.now();await ctx.db.patch(item._id,{checkpoint:brief(args.checkpoint),...(args.sessionId?{activeSessionId:args.sessionId}:{}),...(item.state==='running'&&item.lead!=='Orion'&&args.sessionId?{workerSessionId:args.sessionId}:{}),...(args.actorName?{activeActorName:args.actorName}:{}),...(args.actorKey?{activeActorKey:args.actorKey}:{}),leaseUntil:now+LEASE_MS,lastProgressAt:now,updatedAt:now});
  await event(ctx,item.key,'checkpoint',args.actorName??'runner',`${args.checkpoint}${args.sessionId?` (run ${args.sessionId})`:''}`,args.leaseId);return {leaseUntil:now+LEASE_MS};
 }});
@@ -162,10 +164,10 @@ export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(
 /** A watchdog changes only expired leases, so a late result cannot overwrite reassigned work. */
 export const recoverExpired=internalMutation({args:{},handler:async ctx=>{
  const now=Date.now(),items=await ctx.db.query('projectDispatchItems').collect();let recovered=0;
- for(const item of items.filter(i=>i.leaseId&&i.leaseUntil&&i.leaseUntil<=now)){
+ for(const item of items.filter(i=>i.leaseId&&i.leaseUntil&&(i.leaseUntil<=now||now-(i.lastProgressAt??i.updatedAt??i.leaseUntil!)>=STALL_MS))){
   const state=item.state==='qa_running'?'qa_ready':item.state==='accept_running'?'accept_ready':item.lead==='Orion'?'triage_ready':'ready';
-  const detail=`Lease expired after ${new Date(item.leaseUntil!).toISOString()}; ${item.checkpoint??'no saved checkpoint'}`;
-  await ctx.db.patch(item._id,{state,leaseId:undefined,leaseUntil:undefined,activeActorName:undefined,activeActorKey:undefined,activeSessionId:undefined,checkpoint:brief(detail),retryAt:now+60_000,updatedAt:now});await event(ctx,item.key,'lease_expired','watchdog',detail,item.leaseId);recovered++;
+  const runEvidence=item.activeSessionId?` (run ${item.activeSessionId})`:'';const stalled=now<item.leaseUntil!;const detail=stalled?`Run stalled: no substantive checkpoint for ${Math.floor((now-(item.lastProgressAt??item.updatedAt??item.leaseUntil!))/1000)}s; lease renewed only for process liveness. Preserved: ${item.checkpoint??'no saved checkpoint'}${runEvidence}`:`Lease expired after ${new Date(item.leaseUntil!).toISOString()}; preserved: ${item.checkpoint??'no saved checkpoint'}${runEvidence}`;
+  await ctx.db.patch(item._id,{state,leaseId:undefined,leaseUntil:undefined,activeActorName:undefined,activeActorKey:undefined,activeSessionId:undefined,checkpoint:brief(detail),retryAt:now+60_000,updatedAt:now});await event(ctx,item.key,stalled?'run_stalled':'lease_expired','watchdog',detail,item.leaseId);recovered++;
  }
  return {recovered};
 }});
