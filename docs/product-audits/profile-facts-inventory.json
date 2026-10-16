@@ -1,0 +1,3756 @@
+{
+  "observedAt": "2026-10-16T02:31:47.194Z",
+  "total": 91,
+  "uniqueIDs": 91,
+  "fieldTotals": {
+    "birthDate": {
+      "missing": 59,
+      "unsourced": 2,
+      "sourced": 30,
+      "conflicting": 0
+    },
+    "birthPlace": {
+      "missing": 72,
+      "unsourced": 1,
+      "sourced": 18,
+      "conflicting": 0
+    },
+    "citizenship": {
+      "missing": 89,
+      "unsourced": 1,
+      "sourced": 1,
+      "conflicting": 0
+    },
+    "biography": {
+      "missing": 14,
+      "unsourced": 0,
+      "sourced": 76,
+      "conflicting": 1
+    }
+  },
+  "rawObservation": {
+    "file": "docs/product-audits/profile-facts-raw-observations.json",
+    "sha256": "636059fe56d3eef9d716d0a47449ec90def9e000965f1e8ca55d4cd269112139"
+  },
+  "records": [
+    {
+      "externalId": "GOV-006",
+      "name": "Aixa Santamaría Muñoz",
+      "fields": {
+        "birthDate": {
+          "value": "1965-03-05",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://static.tvn-2.com/tvn/public/content/file/original/2024/0321/22/aixa-santamaria-hoja-de-vida-pdf.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1965-03-05",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "David, Chiriquí",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://static.tvn-2.com/tvn/public/content/file/original/2024/0321/22/aixa-santamaria-hoja-de-vida-pdf.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Su hoja de vida electoral registra una licenciatura en Economía y una gestión anterior como gobernadora entre 2009 y 2014. Fue juramentada gobernadora de Chiriquí el 3 de julio de 2024.",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.mingob.gob.pa/presidente-mulino-juramenta-a-gobernadores/"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-050",
+      "name": "Alaín Cedeño",
+      "fields": {
+        "birthDate": {
+          "value": "1960-04-21",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/76/publicacion_76_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1960-04-21",
+            "dashboard": "21 de abril de 1960"
+          }
+        },
+        "birthPlace": {
+          "value": "Los Santos",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/76/publicacion_76_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una licenciatura en Ingeniería en Sistemas de la Universidad Latina, Ingenería Eléctrica de la Universidad Tecnológica de Panamá y una maestría en Administración de Negocio de la Universidad Latina. En su trayectoria profesional, ha sido gerente de operaciones de Electra Noreste, gerente en Grupo Melo y gerente de operaciones de ETESA.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/alain-cedeno"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-031",
+      "name": "Alexandra Brenes",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con experiencia en recursos humanos y administración en diversas industrias, incluyendo la farmacéutica, textil, bancaria y hotelera, destacándose en la negociación comercial, gestión y desarrollo de personal, planificación estratégica, análisis financiero y liderazgo en programas de responsabilidad social empresarial.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/alexandra-brenes"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-018",
+      "name": "Ariana Coba",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciada en Derecho de la Universidad Latina, cuenta con experiencia como abogada litigante independiente y notaria pública.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/ariana-coba"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-048",
+      "name": "Ariel Vallarino",
+      "fields": {
+        "birthDate": {
+          "value": "1981-05-16",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/107/publicacion_107_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1981-05-16",
+            "dashboard": "16/05/1981"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una licenciatura en Sistemas de Información de la Universidad Santa María la Antígua. En su trayectoria profesional, se ha destacado como gerente de Syncdata, Power Pos y Comunica Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/ariel-vallarino"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "GOV-009",
+      "name": "Arnulfo Díaz de León",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-058",
+      "name": "Arquesio Arias",
+      "fields": {
+        "birthDate": {
+          "value": "1981-06-19",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/75/publicacion_75_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1981-06-19",
+            "dashboard": "19 de junio de 1981"
+          }
+        },
+        "birthPlace": {
+          "value": "Achutupu, Guna Yala",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/75/publicacion_75_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Su formación académica es Doctor en Medicina General, graduado en la Escuela Latinoamericana de Medicina en La Habana, Cuba, ha participado en giras médicas, en el Programa de unidad básica de atención (UBAS) en la Comarca Kuna Yala, Coordinador de PAISS+N (Programa de Atención de servicio de salud + nutrición).",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/arquesio-arias"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-013",
+      "name": "Augusto Palacios",
+      "fields": {
+        "birthDate": {
+          "value": "1990-04-05",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/79/publicacion_79_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1990-04-05",
+            "dashboard": "05 de abril de 1990"
+          }
+        },
+        "birthPlace": {
+          "value": "David, Chiriquí",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/79/publicacion_79_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con más de 10 años de experiencia en el Banco Nacional como calificador jurídico y abogado de jurisdicción ordinaria, con formación en Derecho y Ciencias Políticas, además de postgrados y maestrías en Derecho Procesal, Administración de Justicia y Docencia Superior.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/augusto-palacios"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-PRD",
+      "name": "Balbina Herrera",
+      "fields": {
+        "birthDate": {
+          "value": "1954-11-24",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1954-11-24",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "Ciudad de Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Ingeniera agrónoma. Fue alcaldesa de San Miguelito, diputada en tres períodos y ministra de Vivienda.",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-002",
+      "name": "Benicio Robinson",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Empresario en el sector de transporte. Se encuentra actualmente ejerciendo su cuarto periodo como diputado del circuito 1-1 en la Asamblea Nacional. Además, preside el Partido Revolucionario Democrático.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/benicio-robinson"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-049",
+      "name": "Betserai Richards",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Periodismo de la Universidad de Panamá, una Maestría en Docencia Superior de la Universidad Latina de Panamá y un MBA en curso en Eseune Business School, además de formación ejecutiva en Georgetown. Con experiencia como jefe de contenidos en el Sistema Estatal de Radio y Televisión, ha sido locutor, periodista y jefe de asignaciones en varios medios panameños, destacándose en la dirección editorial, análisis y conducción de noticias, y cobertura internacional en zonas de conflicto.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/betserai-richards"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-082",
+      "name": "Carlos Afú",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios en el Colegio Belisario Porras y completó la educación secundaria en el Colegio San Agustín. Inició su vida pública desempeñándose como diputado, cargo que ocupó desde 1994 hasta 2019. Durante este periodo participó en las funciones propias del órgano legislativo, así como en la atención de los temas y requerimientos propios de su papel como representante electo.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/carlos-afu"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-014",
+      "name": "Carlos Saldaña",
+      "fields": {
+        "birthDate": {
+          "value": "1990-01-08",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/83/publicacion_83_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1990-01-08",
+            "dashboard": "8 de enero de 1990"
+          }
+        },
+        "birthPlace": {
+          "value": "Villa Mercedes, David, Chiriquí",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/83/publicacion_83_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios y secundarios en el Colegio San Agustín, en David, Chiriquí. Posteriormente obtuvo un título de técnico superior como piloto comercial en HeliPan Flight School, desempeñándose como piloto comercial de helicópteros.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/carlos-saldana"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-PP",
+      "name": "Cirilo Salas",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-037",
+      "name": "Crispiano Adames",
+      "fields": {
+        "birthDate": {
+          "value": "1961-08-18",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/7/publicacion_7_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1961-08-18",
+            "dashboard": "18 de agosto de 1961"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": "Panameña",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/7/publicacion_7_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Doctor en Medicina por OCDESA en Ucrania. Cuenta con una maestría en Gerencia en Salud del INCAE. En el ámbito profesional, ha sido médico general y director médico en el Ministerio de Salud, y trabajó en urgencias del Hospital San Miguel Arcangel.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/crispiano-adames"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-004",
+      "name": "Dana Castañeda",
+      "fields": {
+        "birthDate": {
+          "value": "1968-02-08",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/78/publicacion_78_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1968-02-08",
+            "dashboard": "8 de febrero de 1968"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Derecho y Ciencias Políticas de la Universidad de Panamá, una Maestría en Docencia Superior de la Universidad Latina y una Maestría en Derecho Procesal de la Universidad de Salamanca. Fue abogada en la Corporación Chino Panameña (2003-2008) y Diputada de la Asamblea Nacional (2009-2014, 2014-2019).",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/dana-castaneda"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-056",
+      "name": "Didiano Pinilla",
+      "fields": {
+        "birthDate": {
+          "value": "1976-07-11",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/125/publicacion_125_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1976-07-11",
+            "dashboard": "11 de julio de 1976"
+          }
+        },
+        "birthPlace": {
+          "value": "Santiago, Veraguas",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/125/publicacion_125_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Fue alcalde de Río de Jesús en Veraguas (2019-2024) y asistente administrativo en la Asamblea Nacional (2016-2019). Es licenciado en Derecho por la Universidad ISAE.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/125/publicacion_125_0.pdf",
+            "https://espaciocivico.org/diputados/didiano-pinilla"
+          ],
+          "status": "conflicting",
+          "alternativeConflictingStoredValues": [
+            "Licenciado en Derecho y Ciencias Políticas. Fue alcalde de Río de Jesús entre 2019 y 2024 y cuenta con experiencia previa en administración pública y mecánica."
+          ]
+        }
+      }
+    },
+    {
+      "externalId": "ALC-004",
+      "name": "Diógenes Galván",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-029",
+      "name": "Eduardo Gaitán",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Marketing de la Universidad Santa María La Antigua y está completando una Maestría en Comercio Internacional en la UIBE de Beijing, China. Ha emprendido con Fruit Truck PTY, vendiendo jugos de fruta, y Wash Panama, ofreciendo servicios de limpieza y pisos industriales.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/eduardo-gaitan"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-062",
+      "name": "Eduardo Vásquez",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con licenciatura en Ingeniería de Sistemas de la Universidad Latina. En su trayectoria profesional, se ha desarrollado como gerente de ventas en ED Supplies y Zulpa S.A.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/eduardo-vasquez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-063",
+      "name": "Edwin Vergara",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios en la Escuela Rafael Maduro, y culminó la educación secundaria entre el Colegio Harmodio Arias Madrid y el Instituto Jesús Nazareno de Atalaya. Posteriormente cursó estudios universitarios en la Universidad Veracruzana, en la carrera de Medicina Veterinaria.\nEn el ámbito laboral, ha ocupado diversos cargos, entre ellos gerente de la división agrícola en Carnes de Coclé, S.A.; director de Agroindustria del MIDA; y gerente general de Agropecuaria El Guásimo.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/edwin-vergara"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "GOV-005",
+      "name": "Elías Corro Cano",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-021",
+      "name": "Eliécer Castrellón",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Egresado del Instituto Barlú, culminó sus estudios superiores en la Universidad Nacional de Veraguas, donde obtuvo una licenciatura en Administración Pública dentro de la Facultad de Administración.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/eliecer-castrellon"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "ALC-005",
+      "name": "Eloy Chong",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "ALC-010",
+      "name": "Eric Jaén",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-043",
+      "name": "Ernesto Cedeño",
+      "fields": {
+        "birthDate": {
+          "value": "1962-10-20",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/131/publicacion_131_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1962-10-20",
+            "dashboard": "20 de octubre de 1962"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Derecho y Ciencias Políticas de la Universidad de Panamá, una Maestría en Derecho Procesal de la Universidad Latina de Panamá, y un Doctorado en Derecho de la Universidad del Rosario de Argentina. Tiene amplia experiencia como Curador Ad Litem, Defensor de Ausentes, asesor legal en la Contraloría General de la República, y profesor de derecho en diversas universidades panameñas. Ha sido Magistrado Suplente en el Tribunal de Contrataciones Públicas y actualmente es abogado litigante.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/ernesto-cedeno"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-080",
+      "name": "Flor Brenes",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios en el Colegio Rodolfo Chiari. Inició la educación secundaria en el Colegio Félix Esteban Oller y posteriormente la culminó en el Colegio Ángel María Herrera. Continuó su formación profesional en la UNADP, donde obtuvo un profesorado en Educación Primaria.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/flor-brenes"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-MOLIRENA",
+      "name": "Francisco Alemán",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-055",
+      "name": "Francisco Brea",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Administración de Negocios de Towson University y está cursando una Maestría en Mercadeo y Transformación Digital en INCAE Business School. Ha sido Encargado de Operaciones en Máquinas Centenario, S.A. (2017-2019) y actualmente es Gerente de Finanzas en F&M Investments en Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/francisco-brea"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-081",
+      "name": "Gertrudis Rodríguez",
+      "fields": {
+        "birthDate": {
+          "value": "1972-05-13",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/129/publicacion_129_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1972-05-13",
+            "dashboard": "13 de mayo de 1972"
+          }
+        },
+        "birthPlace": {
+          "value": "Chichica, Muná, Comarca Ngäbe-Buglé",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/129/publicacion_129_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con un Doctorado en Educación de la Universidad Autónoma de Chiriquí (UNACHI), una Maestría en Docencia de UNIEDPA, un Postgrado en Administración de la Universidad de Panamá, y una Licenciatura en Educación de UNACHI. Ha sido Profesor en OTEIMA y en la Universidad Autónoma de Chiriquí , además de Director Regional en MEDUCA.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/gertrudis-rodriguez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-044",
+      "name": "Grace Hernández",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Arquitectura de la Universidad de Panamá y actualmente trabaja como Arquitecta Independiente y Gerente Comercial en ITESA.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/graciela-hernandez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "ALC-002",
+      "name": "Irma Hernández Berrío",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-022",
+      "name": "Isaac Mosquera",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Derecho de la Universidad de La Paz.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/isaac-mosquera"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-023",
+      "name": "Jaime Vargas",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Educación Física por la Universidad de Panamá. Dentro de su carrera profeisonal, ha sido genente de ventas en Business Print, entre otros.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jaime-vargas"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-009",
+      "name": "Jairo Salazar",
+      "fields": {
+        "birthDate": {
+          "value": "1975-04-13",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/56/publicacion_56_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1975-04-13",
+            "dashboard": "13 de abril de 1975"
+          }
+        },
+        "birthPlace": {
+          "value": "Colón",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/56/publicacion_56_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Administración Pública Aduanera por la Universidad de Panamá. Cuenta con una maestría en Estrategia Logística del Negocio Marítimo de la ULACEX. Ha sido docente por más de 15 años. En cuantro a su trayectoria política, Salazar ha sido representante de corregimiento de Barrio Norte en dos ocasiones(2009-2014) (2014-2019), presidente del Consejo Provincial, entre otras.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jairo-salazar"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-015",
+      "name": "Jamis Acosta",
+      "fields": {
+        "birthDate": {
+          "value": "1984-12-15",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/100/publicacion_100_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1984-12-15",
+            "dashboard": "15 de diciembre de 1984"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Derecho y Ciencias Políticas, con maestría en Derecho Penal y Derecho Procesal.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jamis-acosta"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-064",
+      "name": "Janine Prado",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Enfermería de la Universidad de Vigo y una Licenciatura en Derecho y Ciencias Políticas de la Universidad del Istmo, además de un Máster en Dirección de Marketing y Comunicación Política y un Programa de Liderazgo en Gestión Pública de Uniandes Bogotá. Ha trabajado como enfermera ad honorem en el Hospital de Ourense, ejecutiva de ventas en Consúltenos Panamá y Su Linda Casa, y actualmente es copropietaria y gerente general de Grupo Ecocasa. Fue presidenta de APROVIVE (2017-2023).",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/janine-prado"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-045",
+      "name": "Javier Sucre",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una licenciatura en Administración de Empresas y es técnico en Contabilidad y Mercadeo. En cuanto a su trayectoria política, fue representante de Juan Díaz de 2009 a 2018.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/javier-sucre"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-020",
+      "name": "Jhonathan Vega",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Ingeniería en Sistemas Informáticos, una Licenciatura en Arquitectura, y Postgrados en Evaluación, Gestión y Formulación de Proyectos y en Sistemas Tecnológicos de Información Empresarial. Es Técnico Post Medio en Investigación Criminal y Bachiller en Ciencias. Su experiencia profesional incluye roles como Ingeniero de Operaciones y Mantenimiento en Huawei y Claro Panamá, Detective de la Policía Técnica Judicial, y actualmente es Gerente y Propietario de Intelcom Business And Solution S.A.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jhonatan-vega"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "ALC-006",
+      "name": "Joaquín De León",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-073",
+      "name": "Jony Guevara",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios en el Colegio San Agustín. Continuó su formación secundaria en el Colegio Internacional SEK y posteriormente en el Colegio Santa María la Antigua. Actualmente cursa su educación universitaria en la Escuela Libre de Derecho en Costa Rica, donde se encuentra próximo a completar su formación.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/joan-guevara"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-042",
+      "name": "Jorge Bloise",
+      "fields": {
+        "birthDate": {
+          "value": "1998-06-14",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/92/publicacion_92_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1998-06-14",
+            "dashboard": "14/junio/1998"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Maestría en Análisis Económico de Quality Leadership University, diplomados en micro y macroeconomía aplicada, gobernabilidad, innovación pública y gestión de proyectos, y una Licenciatura en Derecho y Ciencias Políticas. Ha trabajado como consultor en proyectos educativos, investigador y gestor de proyectos, y asistente legal. Es miembro activo de varias organizaciones educativas y juveniles, y ha recibido múltiples premios y reconocimientos, incluyendo la representación de Panamá en el Campamento Ubuntú de Naciones Unidas y el Premio a los Valores Éticos y Morales de Banco General.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jorge-bloise-iglesias"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-076",
+      "name": "Jorge González López",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Maestría en Derecho Privado con énfasis en Derecho Civil (2022) y una Licenciatura en Derecho y Ciencias Políticas (2019) de la Universidad de Panamá. Es Abogado Litigante independiente en Ciudad de Panamá y ha trabajado en el Consultorio Jurídico de la Universidad de Panamá y el Juzgado Tercero del Circuito Civil de San Miguelito.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jorge-gonzalez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-005",
+      "name": "Jorge Herrera",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Geografía e Historia de la Universidad de Panamá y una Licenciatura en Derecho y Ciencias Políticas de la Universidad Latina de Panamá. Es miembro del Partido Panameñista y actual Vicepresidente del mismo. Con experiencia en descentralización municipal y liderazgo de campañas políticas, fue alcalde y es diputado de Aguadulce. Ha presidido asociaciones municipales a nivel nacional y regional, además de impulsar el desarrollo del fútbol en Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jorge-herrera"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-025",
+      "name": "José Luis Varela",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Administración y Finanzas del Georgia Institute of Technology. Ha sido diputado de la Asamblea Nacional de 1994-2019.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jose-luis-varela"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-ALZ",
+      "name": "José Muñoz Molina",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Exdiputado y presidente de la Asamblea Nacional durante el período 2010–2011.",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://asamblea.gob.pa/Uploads/DocumentosCompartidos/69/Documento_COMPENDIO_DE_DISCURSOS_DE_LOS_PRESIDENTES.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-039",
+      "name": "José Pérez Barboni",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "José Pérez Barboni es internacionalista, locutor y piloto privado, con una Licenciatura en Relaciones Internacionales de la Universidad Estatal de Florida y certificaciones de FEMA, la Universidad del Istmo de Panamá y la Academia ECHO VICTOR en Argentina. Ha trabajado como gerente de hotel en Australia, oficial de relaciones públicas en la Embajada de Catar en Panamá, gestor de proyectos para ACNUR, panelista en TVN Media, y oficial de asuntos económicos en la Embajada Británica en Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/jose-perez-barboni"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "PRES-001",
+      "name": "José Raúl Mulino",
+      "fields": {
+        "birthDate": {
+          "value": "1959-06-13",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.presidencia.gob.pa/pagina/presidente-de-la-republica-de-panama"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1959-06-13",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "David, Chiriquí, República de Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.presidencia.gob.pa/pagina/presidente-de-la-republica-de-panama"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-008",
+      "name": "Julio De La Guardia",
+      "fields": {
+        "birthDate": {
+          "value": "1970-11-07",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/127/publicacion_127_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1970-11-07",
+            "dashboard": "7 noviembre de 1970"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cursó sus estudios primarios en el Colegio La Salle y continuó la educación secundaria en Camden Military Academy, en los Estados Unidos. Ha obtenido dos títulos universitarios en el área de negocios: uno en Administración por la Universidad Anderson y otro en Administración por The Citadel. Asimismo, completó estudios en Derecho y en Ingeniería Industrial en UTEL, México, y obtuvo una maestría en Finanzas Corporativas por la Universidad de Barcelona.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/julio-de-la-guardia"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-066",
+      "name": "Lenin Ulate",
+      "fields": {
+        "birthDate": {
+          "value": "1983-04-23",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/84/publicacion_84_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1983-04-23",
+            "dashboard": "23/04/1983"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "En su trayectoria profesional, se ha desempeñado como Embajador de Panamá en la India y como asesor de la Policía Nacional.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/lenin-alberto-ulate"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-070",
+      "name": "Lilia Batista",
+      "fields": {
+        "birthDate": {
+          "value": "1963-05-03",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/77/publicacion_77_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1963-05-03",
+            "dashboard": "03 de mayo de 1963"
+          }
+        },
+        "birthPlace": {
+          "value": "La Mitra, La Chorrera",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/77/publicacion_77_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Es Licenciada en Español, Técnico en Contabilidad Superior y actualmente cursa el tercer año en Derecho y Ciencias Políticas. En su trayectoria política, ha sido Representante del Corregimiento de Playa Leona (2014-2019) y miembro principal del Comité Político Nacional del Partido CD.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/lilia-batista"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-030",
+      "name": "Luis Duke",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Maestría en Dirección de Negocios con Especialización en Estrategia Gerencial, un Postgrado en Alta Gerencia y una Licenciatura en Ingeniería en Sistemas y Computación de la Universidad Tecnológica de Panamá, además de una Especialización en Políticas Públicas de George Washington University y ADEN. Actualmente es Gerente de Tecnología (Recursos Humanos) en Nestlé para Centroamérica y Ecuador, y ha trabajado en Pan-American Life Insurance Group, Copa Airlines Panamá y Cable & Wireless Panamá. También ha sido mentor del PMI y presentador en la Jornada Mundial de la Juventud 2019.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/luis-duke"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-033",
+      "name": "Luis Eduardo Camacho",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Inició su formación primaria en la Escuela Presidente Remón Cantera y posteriormente continuó en el Primer Ciclo Panamá. Realizó sus estudios secundarios en el Instituto Profesional IHD, donde obtuvo el título en Comercio con especialización en Contabilidad. Actualmente se encuentra en proceso de culminar la carrera de Administración de Empresas en la Universidad de Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/luis-camacho-castro"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-035",
+      "name": "Luis Omar Ortega",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cursó sus estudios primarios en la Escuela República Federal de Alemania y completó su formación secundaria en el Colegio Thomas Alva Edison.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/omar-ortega"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-068",
+      "name": "Manuel Cheng",
+      "fields": {
+        "birthDate": {
+          "value": "1964-06-21",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/85/publicacion_85_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1964-06-21",
+            "dashboard": "21 junio 1964"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Ingeniero civil de la UTP, cuenta con Maestría en Métodos Numéricos de la Politécnica de Catalunya. Ha trabajado como Ingeniero civil en la Universidad Tecnológica de Panamá y en la Autoridad del Canal de Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/manuel-cheng"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-024",
+      "name": "Manuel Cohen",
+      "fields": {
+        "birthDate": {
+          "value": "1958-06-09",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/124/publicacion_124_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1958-06-09",
+            "dashboard": "09 junio 1958"
+          }
+        },
+        "birthPlace": {
+          "value": "Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/124/publicacion_124_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Nacido en Panamá, posee una licenciatura en Administración de Negocios y actualmente compite en obteniendo la curul correspondientela circunscripción electoral 6-1, en Chitré, provincia de Herrera",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/manuel-cohen"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-051",
+      "name": "Manuel Samaniego",
+      "fields": {
+        "birthDate": {
+          "value": "1998-04-30",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/87/publicacion_87_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1998-04-30",
+            "dashboard": "30/04/1998"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Manuel Samaniego es un joven graduado de bachiller agropecuario. Fue ganador de una beca para estudiar agronomía en la Universidad Zamorano de Honduras. Ha trabajado como Director de Investigación de la Hacienda la Esmeralda, y Gerente de Operaciones en la Ganadera TAD.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/manuel-samaniego"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-026",
+      "name": "Marcos Castillero",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Administración de Empresas por el C.R.U.V. Además, cuenta con una maestría en Economía Agrícola del C.R.U.V. Dentro de su carrera profesional, ha trabajado en el Instituto de Investigación Agropecuaria de Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/marcos-castillero"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "GOV-002",
+      "name": "Marilyn Vallarino B. de Sellhorn",
+      "fields": {
+        "birthDate": {
+          "value": "1956-01-19",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1956-01-19",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "República de Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "ALC-001",
+      "name": "Mayer Mizrachi",
+      "fields": {
+        "birthDate": {
+          "value": "1987-08-25",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://mupa.gob.pa/alcalde-de-panama/"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1987-08-25",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://mupa.gob.pa/alcalde-de-panama/"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Emprendedor y alcalde del distrito de Panamá. Su ficha municipal documenta su formación y trayectoria profesional.",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://mupa.gob.pa/alcalde-de-panama/"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-019",
+      "name": "Medín Jiménez",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Ha trabajado como Alcalde del municipio de Renacimiento de 2019-2024.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/medin-jimenez-pitti"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-065",
+      "name": "Miguel A. Campos",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Derecho y Ciencias Políticas por la Universidad ISAE, ha ejercido como Asesor Político desde 2023.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/miguel-angel-campos"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-046",
+      "name": "Neftalí Zamora",
+      "fields": {
+        "birthDate": {
+          "value": "1999-07-24",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/88/publicacion_88_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1999-07-24",
+            "dashboard": "24 de julio de 1999"
+          }
+        },
+        "birthPlace": {
+          "value": "Las Cumbres, Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/88/publicacion_88_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Negocios Internacionales por la Universidad Santa María la Antigua, con Diplomado en Economía por la Universidad de Guanajuato. Ha sido Coordinador de Marketing en Porta Norte, Analista de Políticas Públicas en la Fundación Friedrich Naumann, y Coordinador de Proyectos en la Fundación Libertad, además de experiencia en administración en Cransh Auto Sales y como Ejecutivo en Jezi.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/neftali-zamora"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-079",
+      "name": "Nelson Jackson Palma",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Además de ser licenciado en Finanzas por la Universidad Santa María la Antigua, cuenta con una licenciatura en Derecho y Ciencias Políticas de la Universidad Interamericana En su trayectoria política, ha sido alcalde del Municipio de Portobelo en tres ocasiones (1992-1993) (1994-1999) (1999-2004) y actualmente se encuentra en su quinto periodo consecutivo como diputado.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/nelson-jackson"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-007",
+      "name": "Néstor Guardia",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "En su trayectoria profesional, guardia es Gerente General de Grupo N. En cuanto a su experiencia política, lleva su segundo periodo como diputado del circuito 2-1 y a sido delegado principal al Congreso Nacional de PRD, entre otros cargos.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/nestor-guardia"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-072",
+      "name": "Nixon Andrade",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios escolares en el CEB Hato Juli y continuó su formación universitaria en la Universidad Autónoma de Chiriquí (UNACHI). Se desempeña como docente en diversas instituciones públicas, entre ellas el MIDES y el MEDUCA.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/nixon-andrade"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "GOV-001",
+      "name": "Omaira 'Mayín' Correa Delgado",
+      "fields": {
+        "birthDate": {
+          "value": "1935-10-23",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1935-10-23",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "Distrito de Macaracas, Los Santos, República de Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-003",
+      "name": "Orlando Carrasquilla",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Administración de la EOFAP y licenciado aeronáutico. En su experiencia profesional, fue Teniente de la Fuerza Aérea de Panamá 1989-1993, y comandante instructor de Copa Airlines de 1993 hasta la fecha.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/orlando-carrasquilla"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-016",
+      "name": "Osmán Gómez",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Finanzas de la Universidad Latina y un título en Alta Gerencia del ICAE. Fue diputado de la Asamblea Nacional de 1999 a 2014.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/osman-camilo-gomez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-071",
+      "name": "Patsy Lee Rentería",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios en el Instituto Episcopal San José y culminó la educación secundaria en el Instituto Hispanoamericano. Posteriormente ingresó a la Universidad Tecnológica de Panamá, donde cursó la carrera de Ingeniería en Sistemas Computacionales.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/patsy-lee-renteria"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-040",
+      "name": "Paulette Thomas",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Licenciatura en Historia del Arte de CASA LAMM, CDMX, y diversos diplomados en áreas como apreciación cinematográfica, arte egipcio, y política. Ha ocupado roles como Productora Asociada en MIDIMUSICA, socia de MEDICA MAGAZINE, comentarista en varios programas de radio, y presentadora y productora de \"Lo que Hay que Oír\" en RPC Radio y Radio Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/paulette-thomas"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-052",
+      "name": "Raphael Buchanan",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Piloto comercial, actualmente está cursando la carrera de Derecho en la Universidad Latina. Ha trabajado como Agente de Cobros en Star Contact y Coordinador Administrativo en el Municipio de Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/raphael-buchanan"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-034",
+      "name": "Raúl Pineda",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Derecho y Ciencias Políticas por Columbus University. Cuenta con maestría en Derecho Ambiental de Columbus University y Administración de Empresas por la Universidad Panamericana. Laboró por más de 10 años como asistente de presidencia en Grupo Melo. Es miembro de la Asociación del Deportivo de San Miguelito y voluntario del Cuerpo de Bomberos de Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/raul-pineda"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-MOCA",
+      "name": "Ricardo Lombana",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Abogado, candidato presidencial en 2019 y 2024 y dirigente del Movimiento Otro Camino.",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://sineisen.tribunal-electoral.gob.pa/portal/article?articleId=77358"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-RM",
+      "name": "Ricardo Martinelli",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-017",
+      "name": "Ricardo Vigil",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Derecho y Ciencias de la UNACHI, con experiencia como corregidor del municipio de Bugaba (2008-2009), coordinador de Justicia de Paz (2014-2019) y administrador de Frutas y Verduras Bugaba (2019-2023).",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/ricardo-vigil-lopez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-059",
+      "name": "Roberto Archibold",
+      "fields": {
+        "birthDate": {
+          "value": "1970-03-16",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/117/publicacion_117_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1970-03-16",
+            "dashboard": "16 de marzo de 1970"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Ingeniero Agrónomo de la Universidad de Panamá, cuenta con maestría en Gerencia General de la Universidad del Itsmo. Actualmente trabaja como oficial de crédito en el Banco Nacional.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/roberto-archibold"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-041",
+      "name": "Roberto Zúñiga",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Derecho y Ciencias Políticas por la USMA, con Maestrías en Relaciones Internacionales y Administración Pública por la Universidad de Nebrija y el Instituto Universitario Ortega y Gasset, respectivamente. Ha sido Gerente General en Atevo Law y CIEX Panamá, Agregado Diplomático en la Embajada de Panamá en España, y Asistente Legal en ARAMO.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/roberto-zuniga"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-012",
+      "name": "Rogelio Revello",
+      "fields": {
+        "birthDate": {
+          "value": "1961-02-04",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/102/publicacion_102_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1961-02-04",
+            "dashboard": "04 de febrero de 1961"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Licenciado en Administración y Contabilidad de la CRM en Colón, ha trabajado como presidente de Trucking Logistic Company desde el 2002.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/rogelio-revello"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-074",
+      "name": "Ronald De Gracia",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una Maestría en Administración de Negocios con énfasis en Banca y Finanzas y una Licenciatura en Administración de Negocios con el mismo énfasis de la Universidad Latina. Actualmente es gerente administrador de Ganadera ODG (2019-actualidad) y representante legal de Suministros DGM S.A.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/ronald-de-gracia"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-038",
+      "name": "Sergio Gálvez",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "En su trayectoria pública, ha sido coordinador de Ferias Libres del Instituto de Mercadeo Agrícola, así como Representante de Corregimiento y diputado de la república en varias ocasiones.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/sergio-galvez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-067",
+      "name": "Shirley Castañedas",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con una licenciatura en Derecho y Ciencias Políticas de la Universidad Latina, ha trabajado como abogada litigante hasta la fecha.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/shirley-castanedas"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "ALC-003",
+      "name": "Stefany Dayan Peñalba",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-077",
+      "name": "Tomás Benavides",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Médico veterinario de la Universidad Federal de Santa María. Ha trabajado como veterinario en el MINSA, y Director Nacional de Ganadería en el MIDA.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/tomas-benavides"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-078",
+      "name": "Victor Castillo",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Piloto comercial con un técnico en Aeronáutica de la Universidad de Panamá, ha trabajado en atención al cliente en PCCW en Panamá.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/victor-castillo"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-036",
+      "name": "Walkiria Chandler",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Abogada con studios avanzados en derecho, docencia superior, gestión ambiental, y liderazgo, egresada de la Universidad de Panamá, Universidad de Salamanca, Universidad Carlos III de Madrid, y Georgetown University. Ha desempeñado roles en el sector público y priado, como Directora Ejecutiva de la Fundación Nacional de Pesca, asesora legal, y Secretaria Legal del Centro de Estudios Afropanameños. Diputada Suplente electa, galardonada con el Premio Jóvenes Sobresalientes 2021 de JCI, y candidata a Diputada Independiente en el circuito 8-3.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/walkiria-chandler"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-011",
+      "name": "Yamireliz Chong",
+      "fields": {
+        "birthDate": {
+          "value": "agosto 1992",
+          "sourceLayer": "dashboard.bio.structuredData",
+          "sourceURLs": [],
+          "status": "unsourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": "agosto 1992"
+          }
+        },
+        "birthPlace": {
+          "value": "Colón",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.asamblea.gob.pa/Uploads/diputado/HojaDeVida/90/publicacion_90_0.pdf"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Cuenta con un Diplomado en Liderazgo y Gestión Pública de la Universidad Los Andes, una Maestría en Dirección de Cine, Radio y Televisión de la Universidad de Panamá y una Licenciatura en Periodismo con énfasis en producción de la Universidad Latina de Panamá. Actualmente, es Asesora de Comunicación y Asuntos Públicos en Cemento Bayano S.A.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/yamireliz-chong"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "LDR-CD",
+      "name": "Yanibel Ábrego",
+      "fields": {
+        "birthDate": {
+          "value": "1978-07-17",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1978-07-17",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "Provincia de Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Administradora y empresaria. Fue diputada de la Asamblea Nacional y ocupó responsabilidades de liderazgo legislativo.",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://repositorio.asamblea.gob.pa/bitstream/handle/001/1138/Mujeres%20que%20se%20atrevieron%20Parlamento%20Paname%C3%B1o.pdf?isAllowed=y&sequence=1"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-032",
+      "name": "Yarelis Rodríguez",
+      "fields": {
+        "birthDate": {
+          "value": "1975-07-19",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://voto2024.espaciocivico.org/es/candidatos/diputado/yarelis-rodriguez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": "1975-07-19",
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": "Herrera, Panamá",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://www.ellas.pa/mundo-ellas/entrevistas/una-mujer-lider-debe-mantenerse-informada-yarelis-rodriguez-diputada-de-san-miguelito/"
+          ],
+          "status": "unsourced",
+          "alternativeConflictingStoredValues": [],
+          "evidenceNote": "ELLAS reports that she grew up in Herrera; that supports childhood residence, not place of birth."
+        },
+        "citizenship": {
+          "value": "Panameña",
+          "sourceLayer": "politicianFacts",
+          "sourceURLs": [
+            "https://constitucion.te.gob.pa/constitucion-vigente/"
+          ],
+          "status": "unsourced",
+          "alternativeConflictingStoredValues": [],
+          "evidenceNote": "Linked constitutional text describes general citizenship law and does not establish this person’s citizenship."
+        },
+        "biography": {
+          "value": "Cuenta con una Doctora en Cirugía Dental de la Universidad de Panamá, una Maestría en Administración de Negocios con Énfasis en Mercadeo y un Postgrado en Alta Gerencia de la Universidad Latina de Panamá, además de una Maestría y Especialización en Odontología Pediátrica de ULACIT. Es Odontopediatra en la Caja de Seguro Social desde 2013 y ha sido asesora técnica de Bioseguridad. Anteriormente, fue Gerente General de Uniformes Médicos, S.A. y Gerente de Mercadeo en Dental Med, S.A.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/yarelis-rodriguez"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-001",
+      "name": "Yesica Romero",
+      "fields": {
+        "birthDate": {
+          "value": "15 de septiembre de 1973",
+          "sourceLayer": "dashboard.bio.structuredData",
+          "sourceURLs": [],
+          "status": "unsourced",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": "15 de septiembre de 1973"
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Ingeniera Industrial de la UTRC, ha trabajado como alcalde del municipio de Changuinola 2019-2024.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/yesica-romero"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    },
+    {
+      "externalId": "DEP-069",
+      "name": "Yuzaida Marín",
+      "fields": {
+        "birthDate": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": [],
+          "storedObservations": {
+            "politicianFacts": null,
+            "dashboard": null
+          }
+        },
+        "birthPlace": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "citizenship": {
+          "value": null,
+          "sourceLayer": null,
+          "sourceURLs": [],
+          "status": "missing",
+          "alternativeConflictingStoredValues": []
+        },
+        "biography": {
+          "value": "Realizó sus estudios primarios en el Colegio José María Barranco y posteriormente en el Colegio Victoriano Chacón. Continuó su formación en el Colegio Pedro Pablo Sánchez, donde cursó la educación secundaria. Más adelante obtuvo un técnico en Contabilidad y Comunicación en la Universidad de Panamá. Complementó su preparación académica con un postgrado en Administración en la Universidad Latina de Panamá, institución donde también alcanzó una maestría en Alta Gerencia.",
+          "sourceLayer": "dashboard.transparency",
+          "sourceURLs": [
+            "https://espaciocivico.org/diputados/yuzaida-marin"
+          ],
+          "status": "sourced",
+          "alternativeConflictingStoredValues": []
+        }
+      }
+    }
+  ]
+}
