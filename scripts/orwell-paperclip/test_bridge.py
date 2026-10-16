@@ -337,6 +337,155 @@ class BridgeTests(unittest.TestCase):
         self.assertNotIn("hiddenvalue", text)
         self.assertNotIn("paperclipUid", text)
 
+    def dynamic_route(self, phase="work", role="claude", allowed=True):
+        self.b.config["providerRouting"] = True
+        route = {"observedAt": NOW, "items": {KEY: {"phase": phase, "role": role, "allowed": allowed, "reason": "Native admission observed"}}}
+        bridge.atomic_json(self.b.routing_path, route)
+        return route
+
+    def planner_setup(self):
+        self.b.config["agents"]["planner"] = "00000000-0000-4000-8000-000000000006"
+        self.b.config.update(providerRouting=True, enablePlanningWakeups=True)
+        bridge.atomic_json(self.controller / "scope.json", {"serverPlanning": True, "itemKeys": []})
+        self.http.snapshot["items"][0]["state"] = "accepted"
+        self.http.tasks[0]["checklist"][0]["done"] = True
+        planner = {"state": "ready", "nextPlanAt": NOW, "lastPlanAt": NOW - 1800001,
+                   "lastBacklogHash": "backlog-42", "backlogHash": "backlog-42", "planningAllowed": True, "planCount": 1}
+        bridge.atomic_json(self.b.planner_path, planner)
+        bridge.atomic_json(self.b.routing_path, {"observedAt": NOW, "items": {}, "planner": {"allowed": True, "role": "claude"}})
+        return planner
+
+    def test_root_can_route_work_to_claude(self):
+        self.dynamic_route(role="claude")
+        self.assertIsNone(self.reason("claude"))
+        self.assertIn("Role", self.reason("codex"))
+        self.b.sync(wake=False)
+        self.assertIn("Guarded phase owner: claude", self.http.issues[0]["description"])
+
+    def test_dynamic_qa_requires_opposite_actual_author(self):
+        self.http.snapshot["items"][0].update(state="qa_ready", workerProvider="claude")
+        self.dynamic_route(phase="qa", role="codex")
+        self.assertIsNone(self.reason("codex"))
+        self.dynamic_route(phase="qa", role="claude")
+        self.assertIn("Independent QA", self.reason("claude"))
+        self.http.snapshot["items"][0].pop("workerProvider")
+        self.dynamic_route(phase="qa", role="codex")
+        self.assertIn("Independent QA", self.reason("codex"))
+
+    def test_qa_does_not_require_exhausted_author_provider(self):
+        self.http.snapshot["items"][0].update(state="qa_ready", workerProvider="codex")
+        self.dynamic_route(phase="qa", role="claude")
+        self.http.health["state"] = "held"
+        bridge.atomic_json(self.controller / "health.json", {"state": "held"})
+        bridge.atomic_json(self.b.usage_path, {"checks": {"codex": {"allowed": False}, "claude": {"allowed": True}}})
+        self.assertIsNone(self.reason("claude"))
+
+    def test_dynamic_routes_fail_closed_missing_stale_denied_or_phase_changed(self):
+        self.b.config["providerRouting"] = True
+        self.assertIn("held", self.reason("claude"))
+        route = self.dynamic_route()
+        route["observedAt"] = NOW - 120001
+        bridge.atomic_json(self.b.routing_path, route)
+        self.assertIn("held", self.reason("claude"))
+        self.dynamic_route(allowed=False)
+        self.assertIn("held", self.reason("claude"))
+        self.dynamic_route(phase="qa")
+        self.assertIn("held", self.reason("claude"))
+
+    def test_dynamic_provider_material_change_creates_new_wake(self):
+        self.dynamic_route(role="codex")
+        self.b.sync()
+        self.dynamic_route(role="claude")
+        self.b.sync()
+        wakes = [call for call in self.http.calls if call[0].endswith("/wakeup")]
+        self.assertEqual(len(wakes), 2)
+        self.assertIn(AGENTS["codex"], wakes[0][0])
+        self.assertIn(AGENTS["claude"], wakes[1][0])
+        self.assertNotEqual(wakes[0][2]["idempotencyKey"], wakes[1][2]["idempotencyKey"])
+
+    def test_follow_root_planned_scope_requires_explicit_authorization(self):
+        self.b.config["followControllerScope"] = True
+        with self.assertRaises(ValueError):
+            self.b.scope()
+        bridge.atomic_json(self.b.scope_path, {"serverPlanning": True, "itemKeys": ["social-identity-audit/missing"]})
+        self.assertEqual(self.b.scope(), {"social-identity-audit/missing"})
+
+    def test_planner_wakes_once_and_idle_polls_do_not_infer(self):
+        self.planner_setup()
+        self.b.sync()
+        self.b.sync()
+        wakes = [call for call in self.http.calls if call[0].endswith("/wakeup")]
+        self.assertEqual(len(wakes), 1)
+        self.assertIn(self.b.config["agents"]["planner"], wakes[0][0])
+        self.assertEqual(wakes[0][2]["reason"], "orwell_server_planning_ready")
+        self.assertNotIn("issueId", wakes[0][2]["payload"])
+
+    def test_planner_requires_root_scope_state_route_and_deadline(self):
+        planner = self.planner_setup()
+        self.assertIsNone(self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+        for field, value in [("planningAllowed", False), ("state", "planning"), ("state", "held"), ("nextPlanAt", NOW + 1)]:
+            bridge.atomic_json(self.b.planner_path, {**planner, field: value})
+            self.assertIsNotNone(self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+        bridge.atomic_json(self.b.planner_path, planner)
+        route = bridge.read_json(self.b.routing_path)
+        bridge.atomic_json(self.b.routing_path, {**route, "observedAt": NOW - 120001})
+        self.assertIn("held", self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+        bridge.atomic_json(self.b.routing_path, route)
+        policy = bridge.read_json(self.b.policy_path)
+        bridge.atomic_json(self.b.policy_path, {**policy, "endsAt": NOW})
+        self.assertIn("held", self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+
+    def test_planner_cooldown_only_material_backlog_change_can_bypass(self):
+        planner = self.planner_setup()
+        planner["lastPlanAt"] = NOW - 1000
+        bridge.atomic_json(self.b.planner_path, planner)
+        self.assertIn("cooldown", self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+        planner["backlogHash"] = "material-new-product-backlog"
+        bridge.atomic_json(self.b.planner_path, planner)
+        self.assertIsNone(self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+
+    def test_planner_daily_limit_cannot_expand_above_twenty_four(self):
+        self.planner_setup()
+        self.b.config["maxPlansPerDay"] = 500
+        self.b.mapping["plannerDaily"] = {"day": "1970-01-01", "count": 24}
+        self.assertIn("daily limit", self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+
+    def test_planner_does_not_replace_eligible_product_phase(self):
+        self.planner_setup()
+        bridge.atomic_json(self.b.scope_path, {"serverPlanning": True, "itemKeys": [KEY]})
+        self.http.snapshot["items"][0].update(state="ready")
+        self.http.tasks[0]["checklist"][0]["done"] = False
+        route = self.dynamic_route(role="claude")
+        route["planner"] = {"allowed": True, "role": "claude"}
+        bridge.atomic_json(self.b.routing_path, route)
+        self.assertIn("already eligible", self.b.planner_reason(self.http.snapshot, self.http.tasks, self.http.health))
+
+    def test_planner_request_has_no_product_key_and_streams_actual_state(self):
+        self.planner_setup()
+        self.b.sync()
+        messages, captured = [], []
+        unit = {"ActiveState": "inactive", "Result": "success", "ExecMainStatus": "0"}
+        def start(args, **kwargs):
+            captured.append(bridge.read_json(self.b.request_path))
+            state = bridge.read_json(self.b.planner_path)
+            bridge.atomic_json(self.b.planner_path, {**state, "state": "idle", "lastPlanAt": NOW, "planCount": 2})
+        with patch.object(self.b, "unit_state", return_value=unit), patch("bridge.subprocess.run", side_effect=start), patch("bridge.time.monotonic", side_effect=[0, 1, 3]):
+            self.b.run({"role": "planner"}, messages.append)
+        self.assertEqual(captured[0]["role"], "planner")
+        self.assertNotIn("itemKey", captured[0])
+        self.assertEqual(messages[-1]["status"], "complete")
+        self.assertEqual(messages[-1]["planCount"], 2)
+        self.assertFalse(self.b.request_path.exists())
+
+    def test_manual_planner_cannot_bypass_pending_wake_daily_guard(self):
+        self.planner_setup()
+        unit = {"ActiveState": "inactive"}
+        messages = []
+        with patch.object(self.b, "unit_state", return_value=unit), patch("bridge.subprocess.run", side_effect=AssertionError("no controller start")):
+            self.b.run({"role": "planner"}, messages.append)
+        self.assertEqual(messages[-1]["status"], "noop")
+        self.assertIn("trusted planner wake", messages[-1]["reason"])
+
 
 if __name__ == "__main__":
     unittest.main()

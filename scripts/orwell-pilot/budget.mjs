@@ -2,6 +2,13 @@
 export const WEEK_MINUTES = 7 * 24 * 60;
 const validPct = n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 100;
 const inactiveClaudeWindow=(snapshot,w)=>snapshot.provider==='claude'&&snapshot.source==='claude-code/native-oauth-usage'&&snapshot.authType==='claudeAi'&&snapshot.creditsEnabled===false&&w.id==='five_hour'&&w.durationMinutes===300&&w.inactive===true&&w.usedPercent===0&&w.resetsAt===null&&!w.reached;
+// Native Codex occasionally shifts the same weekly reset clock by a second.
+// Compare only verified ChatGPT measurements, never rewrite the saved baseline.
+const sameWeeklyCycle=(snapshot,baseline,current,prior,now)=>current.resetsAt===prior.resetsAt||(
+ snapshot.provider==='codex'&&baseline.provider==='codex'&&snapshot.source==='account/rateLimits/read'&&baseline.source==='account/rateLimits/read'&&snapshot.authType==='chatgpt'&&baseline.authType==='chatgpt'&&
+ current.durationMinutes===WEEK_MINUTES&&prior.durationMinutes===WEEK_MINUTES&&Number.isSafeInteger(current.resetsAt)&&Number.isSafeInteger(prior.resetsAt)&&
+ current.resetsAt*1000>now&&prior.resetsAt*1000>now&&Math.abs(current.resetsAt-prior.resetsAt)<=2);
+
 
 export function codexSnapshot(result, now = Date.now()) {
   const buckets = result?.rateLimitsByLimitId ?? (result?.rateLimits ? {legacy: result.rateLimits} : {});
@@ -68,7 +75,7 @@ export function admitSubscription({snapshot, baseline, policy, activeRuns, now =
   const weekly = baseline.windows.filter(w => w.durationMinutes === WEEK_MINUTES).map(prior => ({
     prior, current: snapshot.windows.find(w => w.id === prior.id),
   }));
-  if (!weekly.length || weekly.some(({current,prior}) => !current || current.resetsAt !== prior.resetsAt || current.usedPercent < prior.usedPercent))
+  if (!weekly.length || weekly.some(({current,prior}) => !current || !sameWeeklyCycle(snapshot,baseline,current,prior,now) || current.usedPercent < prior.usedPercent))
     return hold('Weekly usage reset, decreased or changed; reconcile before spending');
   for (const prior of baseline.windows) {
     const current = snapshot.windows.find(w => w.id === prior.id);
@@ -81,7 +88,7 @@ export function admitSubscription({snapshot, baseline, policy, activeRuns, now =
     if (current.durationMinutes === WEEK_MINUTES) {
       // A weekly reset ends the baseline's measurement window. Never roll the
       // allocation forward against the provider's new week.
-      if (current.resetsAt !== prior.resetsAt || current.usedPercent < prior.usedPercent)
+      if (!sameWeeklyCycle(snapshot,baseline,current,prior,now) || current.usedPercent < prior.usedPercent)
         return hold('Weekly usage reset or decreased; reconcile before spending');
     } else if (current.resetsAt !== prior.resetsAt || current.usedPercent < prior.usedPercent) {
       // Short-window usage is account-wide too. A reset is safe to reconcile

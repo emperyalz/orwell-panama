@@ -12,7 +12,11 @@ import {classifyFailure,retryDecision} from './retry-policy.mjs';
 import {acceptanceProof} from './acceptance-proof.mjs';
 import {commitReviewedSource} from './source-commit.mjs';
 import {statusObservation} from './status.mjs';
+import {planningState,runServerPlanner} from './server-planner.mjs';
+import {releaseFrontend,verifyFrontendLive} from './frontend-release.mjs';
+import {recoverBlockedWorkspace} from './workspace-recovery.mjs';
 import {paperclipRequest} from './paperclip-request.mjs';
+import {PROVIDERS,oppositeProvider,routeProvider,routingPolicyError,routingObservation,selectNativeModel,nativeRunSpec} from './provider-routing.mjs';
 import {sourceManifest,assertScopedChanges,verifyProductArtifact} from './product-release.mjs';
 
 const state='/var/lib/orwell-agent-controller',workspace='/home/orwell/build',tools='/home/orwell/agent-tools/node_modules/.bin';
@@ -23,9 +27,33 @@ const author={key:'01a11df1-1210-7cb3-b50c-fcc89984c864',name:'Lin'};
 const reviewer={key:'01a11e11-f35a-7011-bb49-515df644f97a',name:'Rawls'};
 const config=JSON.parse(await readFile('/etc/orwell-agent-controller/credentials.json','utf8'));
 const policy=JSON.parse(await readFile(join(state,'policy.json'),'utf8'));
-const scope=JSON.parse(await readFile(join(state,'scope.json'),'utf8'));
+let scope=JSON.parse(await readFile(join(state,'scope.json'),'utf8'));
 const log=value=>console.log(JSON.stringify({at:new Date().toISOString(),...value}));
-let lastMeters={},lastChecks={},controllerState='checking',controllerReason='Checking native subscription usage';
+let plannerPolicy=null,plannerState={},lastMeters={},lastChecks={},meterErrors={},routing={},controllerState='checking',controllerReason='Checking native subscription usage';
+async function refreshRouting(items){
+ let previous={};try{previous=JSON.parse(await readFile(join(state,'routing.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
+ const observed=items??(await api('dispatch:snapshot',{},'query')).items;
+ const board=scope.serverPlanning?await api('scoreboard:list',{},'query'):[];
+ const historicallyDone=new Set(board.flatMap(task=>task.checklist.filter(step=>step.done||task.status==='done').map(step=>`${task.key}/${step.key}`)));
+ routing=routingObservation({items:observed,itemKeys:scope.itemKeys,checks:lastChecks,policy,previous});
+ for(const [key,dependencies] of Object.entries(scope.dependencies??{})){
+  const missing=dependencies.filter(dependency=>!historicallyDone.has(dependency)&&!observed.some(item=>item.key===dependency&&item.state==='accepted'));
+  if(missing.length&&routing.items[key])Object.assign(routing.items[key],{allowed:false,reason:`Waiting for accepted dependencies: ${missing.join(', ')}`});
+ }
+ const globallyPaused=(await api('leadAccountability:snapshot',{},'query')).monitor?.dispatchPaused===true;
+ if(scope.serverPlanning===true){
+  plannerPolicy=JSON.parse(await readFile(join(state,'planner-policy.json'),'utf8'));
+  try{plannerState=JSON.parse(await readFile(join(state,'planner.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
+  let affinity=null;try{affinity=JSON.parse(await readFile(join(state,'affinity.json'),'utf8'));}catch{}
+  const backlog={scoreboard:board,dispatch:{items:observed}};
+  if(plannerState.state!=='planning')plannerState=planningState({backlog,authorized:plannerPolicy.itemKeys,scope,previous:plannerState,checks:lastChecks,policy,routing,affinity});
+  if(globallyPaused)plannerState={...plannerState,state:'held',planningAllowed:false,reason:'Dispatch is paused'};
+  routing.planner={allowed:plannerState.planningAllowed===true,role:plannerState.route?.provider??null,reason:plannerState.reason??plannerState.route?.reason};
+  await writeAtomicJson(join(state,'planner.json'),plannerState);
+ }
+ if(globallyPaused){for(const row of Object.values(routing.items))Object.assign(row,{allowed:false,reason:'Dispatch is paused'});}
+ await writeAtomicJson(join(state,'routing.json'),routing);return routing;
+}
 async function publishStatus(runtimeState=controllerState,reason=controllerReason){
  controllerState=runtimeState;controllerReason=reason;
  const receipts=[];for(const id of await readdir(join(state,'runs')).catch(()=>[])){
@@ -48,19 +76,23 @@ function command(command,args,options={}) {
  });
 }
 async function meters() {
- const result={};
- // These read native account usage; neither probe creates a model turn.
- for(const provider of ['codex','claude']) {
-  const probe=await command('/usr/bin/node',[`/opt/orwell-agent-controller/${provider}-meter.mjs`],{cwd:home,timeoutMs:25000});
-  if(probe.code!==0)throw Error(`${provider} usage unavailable: ${probe.err}`);
-  result[provider]=JSON.parse(probe.out);
+ const result={};meterErrors={};
+ // A provider-specific probe failure cannot authorize that provider or erase
+ // the other provider's measured eligibility. No probe creates a model turn.
+ for(const provider of PROVIDERS) {
+  try{
+   const probe=await command('/usr/bin/node',[`/opt/orwell-agent-controller/${provider}-meter.mjs`],{cwd:home,timeoutMs:25000});
+   if(probe.code!==0)throw Error(`usage unavailable: ${probe.err}`);
+   result[provider]=JSON.parse(probe.out);
+  }catch(error){meterErrors[provider]=error.message;}
  }
  return result;
 }
-async function admission(activeRuns=0) {
+async function admission(activeRuns=0,requiredProviders=[]) {
  const snapshots=await meters(),checks={};
  lastMeters=snapshots;
- for(const provider of ['codex','claude']) {
+ for(const provider of PROVIDERS) {
+  if(!snapshots[provider]){checks[provider]={allowed:false,state:'held',reason:meterErrors[provider]??'Native usage is unavailable'};continue;}
   const reconciled=reconcileShortWindows({snapshot:snapshots[provider],baseline:policy.baselines[provider],policy});
   if(reconciled.records.length){
    policy.baselines[provider]=reconciled.baseline;
@@ -71,9 +103,11 @@ async function admission(activeRuns=0) {
  }
  lastChecks=checks;
  await writeAtomicJson(join(state,'usage.json'),{at:Date.now(),snapshots,checks});
- await publishStatus();
- for(const provider of ['codex','claude'])if(!checks[provider].allowed)throw Error(`${provider} held: ${checks[provider].reason}`);
- const published='/opt/orwell-evidence/pilot.json';await writeAtomicJson(published,{policy,lastControllerAdmission:{at:Date.now(),snapshots,checks}});await chmod(published,0o444);return {snapshots,checks};
+ await refreshRouting();await publishStatus();
+ const published='/opt/orwell-evidence/pilot.json';await writeAtomicJson(published,{policy,lastControllerAdmission:{at:Date.now(),snapshots,checks}});await chmod(published,0o444);
+ const globalHold=routingPolicyError(policy);if(globalHold)throw Error(globalHold);
+ for(const provider of requiredProviders)if(!checks[provider]?.allowed)throw Error(`${provider} held: ${checks[provider]?.reason??'Native admission is unavailable'}`);
+ return {snapshots,checks};
 }
 const excluded=new Set(['node_modules','.git','.next','.vercel','.impeccable','artifacts','tmp','output']);
 async function sourceFiles(directory=workspace) {
@@ -119,25 +153,35 @@ function parseAnswer(text) {
  const block=text.match(/```(?:json)?\s*([\s\S]*?)```/);if(block)return JSON.parse(block[1]);
  throw Error('Model did not return a valid JSON outcome');
 }
-function prompt(job,qa) {
- return `You are ${qa?'Rawls, an independent Claude reviewer in Ada\'s QA team':job.item.team==='research'?'Mira, a Codex research worker under Iris':'Lin, a Codex implementation worker under Rowan'}. You are not alone in this codebase. Preserve other work. Do not spawn agents.\nActual Orwell task: ${job.item.taskTitle}. Context: ${job.item.taskDetail??''}. Step: ${job.item.key}: ${job.item.label}.\nAcceptance: ${scope.criteria[job.item.key]??job.item.acceptance}.\nPrior evidence: ${job.item.evidence??''}.\nPrior QA defects: ${job.item.qaEvidence??''}. Checkpoint: ${job.item.checkpoint??''}.\n${qa?'The source is a frozen read-only snapshot. Focus on the changed files named in prior evidence. Batch related file reads and test commands into a few Bash calls. Do not reread the full WORKLIST or re-audit completed pilot steps. Reserve turns for your final JSON outcome before the24-turn bound. Inspect relevant source and run focused meaningful tests. Do not edit source or accept merely because tests pass. Check missing edge cases and real production behavior if required. Reject material defects with exact repairs.':'Implement or research this bounded PRODUCT step. Exact writable paths are listed in /opt/orwell-evidence/product-scope.json under allowedPaths for this key; all other files belong to others and must be preserved. Use public query instructions in /opt/orwell-evidence/backlog.json. Do not repeat infrastructure qualification. Research must reopen primary sources and distinguish missing, unsourced, conflicting and inaccessible evidence; never invent facts or activate paid collection. Source changes are allowed only in your listed paths. Do not touch credentials, unrelated assets, task states or deployments. Controller handles publication and acceptance. Batch reads and commands; no commit or deployment yourself.'}\nUse subscription access only. Budget finite, one worker at a time. Finish within 8 minutes. Return one JSON object with required string fields result,detail,evidence,team. result=${qa?'accepted or changes_requested':'submitted or failed or needs_input'}. team=${qa?'implementation':job.item.team}. Evidence must give exact inspected files and commands. Turn ending does not complete the checklist.`;
+function prompt(job,qa,provider,person) {
+ return `You are ${person.name}, ${qa?`an independent ${provider} reviewer in Ada's QA team`:job.item.team==='research'?`a ${provider} research worker under Iris`:`a ${provider} implementation worker under Rowan`}. You are not alone in this codebase. Preserve other work. Do not spawn agents.\nActual Orwell task: ${job.item.taskTitle}. Context: ${job.item.taskDetail??''}. Step: ${job.item.key}: ${job.item.label}.\nAcceptance: ${scope.criteria[job.item.key]??job.item.acceptance}.\nPrior evidence: ${job.item.evidence??''}.\nPrior QA defects: ${job.item.qaEvidence??''}. Checkpoint: ${job.item.checkpoint??''}.\n${qa?'The source is a frozen read-only snapshot. Focus on the changed files named in prior evidence. Batch related file reads and test commands into a few Bash calls. Do not reread the full WORKLIST or re-audit completed pilot steps. Reserve turns for your final JSON outcome before the24-turn bound. Inspect relevant source and run focused meaningful tests. Do not edit source or accept merely because tests pass. Check missing edge cases and real production behavior if required. Reject material defects with exact repairs.':'Implement or research this bounded PRODUCT step. Exact writable paths are listed in /opt/orwell-evidence/product-scope.json under allowedPaths for this key; all other files belong to others and must be preserved. Use public query instructions in /opt/orwell-evidence/backlog.json. Do not repeat infrastructure qualification. Research must reopen primary sources and distinguish missing, unsourced, conflicting and inaccessible evidence; never invent facts or activate paid collection. Source changes are allowed only in your listed paths. Do not touch credentials, unrelated assets, task states or deployments. Controller handles publication and acceptance. Batch reads and commands; no commit or deployment yourself.'}\nUse subscription access only. Budget finite, one worker at a time. Finish within 8 minutes. Return one JSON object with required string fields result,detail,evidence,team. result=${qa?'accepted or changes_requested':'submitted or failed or needs_input'}. team=${qa?'implementation':job.item.team}. Evidence must give exact inspected files and commands. Turn ending does not complete the checklist.`;
 }
 async function runModel(job) {
- const qa=job.phase==='qa',provider=qa?'claude':'codex',person=qa?reviewer:job.item.team==='research'?researchAuthor:author;
+ const qa=job.phase==='qa',person=qa?reviewer:job.item.team==='research'?researchAuthor:author;
+ const measured=await admission();
+ const chosen=routeProvider({phase:job.phase,item:job.item,checks:measured.checks,policy,previousProvider:routing.heavyProvider,reservation:routing.reservations?.[job.item.key]});
+ if(!chosen.allowed)throw Error(chosen.reason);
+ const provider=chosen.provider;
+ if(job.requestRole&&job.requestRole!==provider)throw Error('Paperclip provider role differs from its current trusted reservation');
+ if(!qa){
+  routing.heavyProvider=provider;routing.reservations[job.item.key]={workerProvider:provider};
+  await writeAtomicJson(join(state,'routing.json'),routing);
+ }
  const dir=join(state,'runs',job.leaseId);await mkdir(dir,{recursive:true,mode:0o700});
  const before=await revision();
  const beforeManifest=!qa&&scope.allowedPaths?.[job.item.key]?await sourceManifest(workspace):null;
  if(qa&&before!==job.item.submissionRevision)throw Error('Workspace differs from submitted revision; QA cannot review');
+ const baselineDirectory=qa?null:await freeze(job.leaseId+'-baseline');
  const cwd=qa?await freeze(job.leaseId):workspace;
  const schema={type:'object',additionalProperties:false,required:['result','detail','evidence','team'],properties:{result:{type:'string',enum:['submitted','changes_requested','accepted','needs_input','failed']},detail:{type:'string'},evidence:{type:'string'},team:{type:'string',enum:['implementation','research','none']}}};
- let retryModel=null;
- if(!qa){try{const retry=JSON.parse(await readFile(join(state,'retry-model.json'),'utf8'));if(retry.itemKey===job.item.key)retryModel=retry.model;}catch(error){if(error.code!=='ENOENT')throw error;}}
- let args,model=qa?'sonnet':retryModel??(job.item.attempt>0?'gpt-6.1-sol':'gpt-6-luna');
- // A concrete failed submission justifies Sol for bounded repair; fresh work
- // stays on Luna. Both execute at low effort and retain the same quota guard.
- if(qa)args=['-p','--model','sonnet','--effort','low','--output-format','stream-json','--verbose','--max-turns','24','--permission-mode','dontAsk','--setting-sources','','--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--tools','Read,Grep,Glob,Bash','--allowedTools','Read,Grep,Glob,Bash','--json-schema',JSON.stringify(schema)];
- else args=['-a','never','exec','--json','--strict-config','--skip-git-repo-check','-m',model,'-c','forced_login_method="chatgpt"','-c','model_reasoning_effort="low"','-c','features.multi_agent=false','--sandbox','danger-full-access','-C',cwd,'-'];
- await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,before,startedAt:Date.now()});
+ let retry=null;
+ if(!qa){try{const saved=JSON.parse(await readFile(join(state,'retry-model.json'),'utf8'));if(saved.itemKey===job.item.key)retry=saved;}catch(error){if(error.code!=='ENOENT')throw error;}}
+ const repairReason=qa?'':job.item.qaEvidence?.trim()||retry?.reason||'';
+ const proposal=!qa&&provider==='claude'&&(job.item.qaAttempt??0)>=2&&repairReason?'opus':scope.modelProposals?.[job.item.key]?.[provider]??(provider==='codex'?retry?.model:null);
+ const selected=selectNativeModel({provider,phase:job.phase,proposal,repairReason,taskReason:scope.modelReasons?.[job.item.key]??'',qaFailures:job.item.qaAttempt??0});
+ let model=selected.model;
+ const {args}=nativeRunSpec({provider,phase:job.phase,model,cwd,schema});
+ await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,modelReason:selected.reason,routingReason:chosen.reason,before,baselineDirectory,beforeManifest,startedAt:Date.now()});
  const child=spawn(`${tools}/${provider}`,args,{cwd,env,uid,gid,detached:true,stdio:['pipe','pipe','pipe']});
  let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve(),lastCheckpointAt=0,checkpointCount=0;
  const kill=()=>{try{process.kill(-child.pid,'SIGTERM');}catch{}};
@@ -178,11 +222,11 @@ async function runModel(job) {
  };
  child.stdout.on('data',d=>{raw+=d;pending+=d;let at;while((at=pending.indexOf('\n'))>=0){processEvent(pending.slice(0,at));pending=pending.slice(at+1);}if(raw.length>8_000_000){streamError=Error('Run output bound exceeded');kill();}});
  child.stderr.on('data',d=>stderr+=d);
- child.stdin.on('error',()=>{});child.stdin.end(prompt(job,qa));
+ child.stdin.on('error',()=>{});child.stdin.end(prompt(job,qa,provider,person));
  let watchdogBusy=false;
  const watchdog=setInterval(async()=>{
   if(watchdogBusy)return;watchdogBusy=true;
-  try{await admission();const snapshot=await api('leadAccountability:snapshot',{},'query');if(snapshot.monitor?.dispatchPaused)throw Error('Dispatch was paused');await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});}
+  try{await admission(0,qa?[provider]:[provider,oppositeProvider(provider)]);const snapshot=await api('leadAccountability:snapshot',{},'query');if(snapshot.monitor?.dispatchPaused)throw Error('Dispatch was paused');await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});}
   catch(error){streamError=error;kill();}finally{watchdogBusy=false;}
  },45000);
  const timeout=setTimeout(()=>{streamError=Error('Eight-minute model time limit');kill();},8*60_000);
@@ -197,7 +241,7 @@ async function runModel(job) {
  if(sessionId&&usage){await api('dispatch:recordUsage',{itemKey:job.item.key,leaseId:job.leaseId,sessionId,model,inputTokens:usage.input_tokens,cachedInputTokens:usage.cached_input_tokens,outputTokens:usage.output_tokens,totalTokens:usage.total_tokens});usagePersisted=true;}
  if(sessionId)await observe(job,sessionId,person,provider,model,streamError?'error':'completed',streamError?streamError.message:'Model turn ended; acceptance remains separate');
  const finishArgs={itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:streamError?'failed':answer.result,detail:(streamError?.message??answer.detail).slice(0,2800),evidence:streamError?undefined:answer.evidence.slice(0,2800),sessionId,provider,artifactRevision:after,...(qa?{reviewerKey:person.key}:{contributorKey:person.key})};
- const receipt={job,provider,model,sessionId,usage,usagePersisted,exit,before,after,answer,finishArgs,finishedAt:Date.now(),finish:null};
+ const receipt={job,provider,model,sessionId,usage,usagePersisted,exit,before,after,afterManifest:await sourceManifest(workspace),answer,finishArgs,finishedAt:Date.now(),finish:null};
  await writeAtomicJson(join(dir,'receipt.json'),receipt);
  const finish=await api('dispatch:finish',finishArgs);
  if(!streamError&&job.phase==='work'){await rm(join(state,'retry-model.json'),{force:true}).catch(()=>{});}
@@ -249,21 +293,41 @@ async function receiptGuard() {
 async function main() {
  let spending;try{spending=await receiptGuard();}catch(error){await api('dispatch:stopPilot',{reason:error.message,modelOnly:false});throw error;}
  try{await admission();}catch(error){await api('dispatch:stopPilot',{reason:error.message,modelOnly:false});throw error;}
- if(spending.modelHeld)await api('dispatch:stopPilot',{reason:'Finite 64 runs / 12 since acceptance / 25,000,000 reported or observed tokens / 3,000,000 fresh tokens ceiling reached; reviewed non-model acceptance remains eligible',modelOnly:true});
+ if(spending.modelHeld)await api('dispatch:stopPilot',{reason:'Finite 192 runs / 12 since acceptance / 100,000,000 reported or observed tokens / 8,000,000 fresh tokens ceiling reached; reviewed non-model acceptance remains eligible',modelOnly:true});
  await api('dispatch:sync');await api('dispatch:recoverExpired');
  const snapshot=await api('dispatch:snapshot',{},'query');
- let requested=null;if(scope.paperclipManaged){let request;try{request=JSON.parse(await readFile(join(state,'paperclip-request.json'),'utf8'));}catch{}requested=paperclipRequest({request,scope,items:snapshot.items});if(!requested.allowed){await publishStatus('idle',requested.reason);return log(requested);}}
+ let savedAffinity=null;try{savedAffinity=JSON.parse(await readFile(join(state,'affinity.json'),'utf8'));}catch{}
+ const blocked=snapshot.items.find(i=>i.key===savedAffinity?.itemKey&&i.state==='blocked'&&!(i.leaseUntil>Date.now()));
+ if(blocked&&scope.serverPlanning){
+  const recovered=await recoverBlockedWorkspace({workspace,stateDir:state,item:blocked,allowedPaths:scope.allowedPaths?.[blocked.key],revision,sourceManifest});
+  if(recovered.state==='recovered'||recovered.state==='unchanged'){await writeAtomicJson(join(state,'affinity.json'),null);log({blocked:blocked.key,recovery:recovered});}else throw Error(`Blocked workspace recovery held: ${JSON.stringify(recovered)}`);
+ }
+ await refreshRouting(snapshot.items);
+ let requested=null;if(scope.paperclipManaged){let request;try{request=JSON.parse(await readFile(join(state,'paperclip-request.json'),'utf8'));}catch{}requested=paperclipRequest({request,scope,items:snapshot.items,routing});if(!requested.allowed){await publishStatus('idle',requested.reason);return log(requested);}}
  if(snapshot.items.some(i=>i.leaseUntil>Date.now()))return log({state:'busy'});
+ if(requested?.role==='planner'){
+  if(spending.modelHeld)throw Error('Finite model ceiling prohibits another planning turn');
+  const backlog={scoreboard:await api('scoreboard:list',{},'query'),dispatch:snapshot};
+  const result=await runServerPlanner({state,workspace,tools,env,uid,gid,backlog,plannerPolicy,scope,previous:plannerState,checks:lastChecks,policy,routing,freeze,revision,sourceManifest,admission,api,publishStatus,log});
+  scope=result.scope;plannerState=result.state;await refreshRouting();await publishStatus('ready',`VPS planner released ${scope.itemKeys.length} product steps for independent implementation and QA`);return;
+ }
  let affinity=null;try{affinity=JSON.parse(await readFile(join(state,'affinity.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
  const selection=selectAffinity({affinity,items:snapshot.items,itemKeys:scope.itemKeys,modelHeld:spending.modelHeld});
  await writeAtomicJson(join(state,'affinity.json'),selection.affinity);
- const eligible=selection.onlyItemKeys.filter(key=>!requested||key===requested.itemKey);
- if(!eligible.length){await publishStatus(selection.state,selection.reason??'No eligible step in the authorized backlog');return log({...selection,...spending});}
+ const eligible=selection.onlyItemKeys.filter(key=>(!requested||key===requested.itemKey)&&routing.items[key]?.allowed);
+ if(!eligible.length){const held=selection.onlyItemKeys.map(key=>routing.items[key]).find(row=>row&&!row.allowed);await publishStatus(held?'held':selection.state,held?.reason??selection.reason??'No eligible step in the authorized backlog');return log({...selection,...spending,routingHold:held?.reason});}
  const job=await api('dispatch:claimNext',{leaseId:randomUUID(),onlyItemKeys:eligible,reviewedAcceptanceOnly:spending.modelHeld});
  if(job.state!=='claimed'){const pinned=snapshot.items.find(i=>i.key===selection.affinity?.itemKey);const waiting=pinned?.retryAt>Date.now();await publishStatus(waiting?'ready':job.state,waiting?`Retry scheduled for ${pinned.label} at ${new Date(pinned.retryAt).toISOString()}; repair ownership remains pinned`:job.reason??'No eligible step in the authorized backlog');return log({...job,affinity:selection.affinity});}
  await publishStatus('working',`${job.phase}: ${job.item.label}`);
  await writeAtomicJson(join(state,'affinity.json'),{itemKey:job.item.key});
  try{
+  if(['work','qa'].includes(job.phase)){
+   const route=routeProvider({phase:job.phase,item:job.item,checks:lastChecks,policy,previousProvider:routing.heavyProvider,reservation:routing.reservations[job.item.key]});
+   if(!route.allowed)throw Error(route.reason);
+   if(requested&&requested.role!==route.provider)throw Error('Paperclip role does not match the current admitted provider');
+   job.requestRole=requested?.role;
+   if(job.phase==='work'){routing.reservations[job.item.key]={workerProvider:route.provider};await writeAtomicJson(join(state,'routing.json'),routing);}
+  }
   if(job.phase==='triage'){
    const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'triage',result:'submitted',team:'implementation',detail:'Trusted controller routed the explicitly authorized product step without a model call',evidence:scope.criteria[job.item.key]??job.item.acceptance});return log({item:job.item.key,phase:'triage',finish});
   }
@@ -273,25 +337,33 @@ async function main() {
    const tests=(await readdir(join(workspace,'scripts/orwell-pilot'))).filter(name=>name.endsWith('.test.mjs')).sort().map(name=>`scripts/orwell-pilot/${name}`);
    const commands=[['/usr/bin/node',['--test',...tests]],...['live-contract','acceptance','pause'].map(name=>['/usr/bin/node',[`scripts/test-dispatch-${name}.cjs`]]),[join(workspace,'node_modules/.bin/tsc'),['--noEmit','-p','convex/tsconfig.json']]];
    let evidence='';const checkRecords=[];
-   if(scope.productChecks?.[job.item.key]){try{const product=await verifyProductArtifact({workspace,itemKey:job.item.key,scope,runCommand:command});await writeAtomicJson(join(state,`product-checks-${job.leaseId}.json`),product);evidence+='Product acceptance checks: '+JSON.stringify(product)+'\n';}catch(error){await writeAtomicJson(join(state,`product-rejection-${job.leaseId}.json`),{itemKey:job.item.key,at:Date.now(),checks:error.checks??[],reason:error.message});const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'changes_requested',detail:'Independent deterministic product verification rejected this submission; repair and fresh Claude QA required',evidence:JSON.stringify(error.checks??error.message).slice(-2500)});await publishStatus('ready','Product defect returned to its original owner for repair');return log({item:job.item.key,phase:'accept',finish});}}
+   if(scope.productChecks?.[job.item.key]){try{const product=await verifyProductArtifact({workspace,itemKey:job.item.key,scope,runCommand:command});await writeAtomicJson(join(state,`product-checks-${job.leaseId}.json`),product);evidence+='Product acceptance checks: '+JSON.stringify(product)+'\n';}catch(error){await writeAtomicJson(join(state,`product-rejection-${job.leaseId}.json`),{itemKey:job.item.key,at:Date.now(),checks:error.checks??[],reason:error.message});const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'changes_requested',detail:'Independent deterministic product verification rejected this submission; repair and fresh opposite-provider QA required',evidence:JSON.stringify(error.checks??error.message).slice(-2500)});await publishStatus('ready','Product defect returned to its original owner for repair');return log({item:job.item.key,phase:'accept',finish});}}
    for(const [binary,args] of commands){const check=await command(binary,args,{timeoutMs:120000});checkRecords.push({name:args.includes('--test')?'pilot':args.some(a=>a.endsWith('live-contract.cjs'))?'live-contract':args.some(a=>a.endsWith('acceptance.cjs'))?'acceptance':args.some(a=>a.endsWith('pause.cjs'))?'pause':'typecheck',code:check.code});await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});evidence+=`${binary} ${args.join(' ')}\n${check.out}\n${check.err}\n`;if(check.code!==0)throw Error(`Final verification failed: ${binary} ${args.join(' ')}`);}
    await writeFile(join(state,`checks-${job.leaseId}.txt`),evidence,{mode:0o600});
    // Exercise candidate admission against the real original allocation, not
    // only synthetic fixtures. Run generated source without root privileges.
    const measured=await admission();
-   const realPolicy=await command('/usr/bin/node',['--input-type=module','-e',`import fs from 'node:fs';import {admitSubscription} from './scripts/orwell-pilot/budget.mjs';const {policy,lastControllerAdmission}=JSON.parse(fs.readFileSync('/opt/orwell-evidence/pilot.json','utf8'));for(const provider of ['codex','claude']){const result=admitSubscription({snapshot:lastControllerAdmission.snapshots[provider],baseline:policy.baselines[provider],policy,activeRuns:0,now:lastControllerAdmission.at});if(!result.allowed)throw Error(provider+': '+result.reason)}console.log('Original allocation admitted by candidate for both native providers')`],{timeoutMs:15000});
+   const realPolicy=await command('/usr/bin/node',['--input-type=module','-e',`import fs from 'node:fs';import {admitSubscription} from './scripts/orwell-pilot/budget.mjs';const {policy,lastControllerAdmission}=JSON.parse(fs.readFileSync('/opt/orwell-evidence/pilot.json','utf8'));for(const provider of ['codex','claude']){const result=admitSubscription({snapshot:lastControllerAdmission.snapshots[provider],baseline:policy.baselines[provider],policy,activeRuns:0,now:lastControllerAdmission.at});if(result.allowed!==lastControllerAdmission.checks[provider].allowed)throw Error(provider+': candidate admission differs from trusted original allocation')}console.log('Candidate agrees with original allocation admission/holds for both native providers')`],{timeoutMs:15000});
    await writeFile(join(state,`original-policy-${job.leaseId}.txt`),realPolicy.out+'\n'+realPolicy.err,{mode:0o600});
    if(realPolicy.code!==0){const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'changes_requested',detail:'Candidate failed the actual original-policy admission check; repair and fresh QA required',evidence:realPolicy.err.slice(-2500)});return log({item:job.item.key,phase:'accept',finish});}
-   if(!measured.checks.codex.allowed||!measured.checks.claude.allowed)throw Error('Native allowance held');
    checkRecords.push({name:'original-policy',code:realPolicy.code});
    const checksPath=join(state,`checks-${job.leaseId}.json`);
    await writeAtomicJson(checksPath,{itemKey:job.item.key,leaseId:job.leaseId,revision:current,commands:checkRecords,output:evidence,originalPolicy:realPolicy.out});
    await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});
    await activateReviewedSource(job,current);
    if(scope.productPostChecks?.[job.item.key]){try{const live=await verifyProductArtifact({workspace,itemKey:job.item.key,scope:{...scope,productChecks:scope.productPostChecks},runCommand:command});await writeAtomicJson(join(state,`product-live-${job.leaseId}.json`),live);evidence+='Production product checks: '+JSON.stringify(live)+'\n';await writeAtomicJson(checksPath,{itemKey:job.item.key,leaseId:job.leaseId,revision:current,commands:checkRecords,output:evidence,originalPolicy:realPolicy.out});}catch(error){const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'changes_requested',detail:'Production product verification failed; repair and fresh independent QA required',evidence:JSON.stringify(error.checks??error.message).slice(-2500)});await publishStatus('ready','Production product defect returned for repair');return log({item:job.item.key,phase:'accept',finish});}}
-   const proof=await acceptanceProof({checksPath,deploymentPath:join(state,'deployment.json'),itemKey:job.item.key,leaseId:job.leaseId,revision:current});
-   const sourceCommit=await commitReviewedSource({workspace,state,uid,gid,home,log:line=>console.log(line)});
+   let frontendConfig=null;try{frontendConfig=JSON.parse(await readFile('/etc/orwell-agent-controller/frontend.json','utf8'));}catch(error){if(scope.delivery?.[job.item.key]==='frontend')throw error;}
+   const sourceCommit=await commitReviewedSource({workspace,state,uid,gid,home,authorIdentity:frontendConfig?.authorIdentity,log:line=>console.log(line)});
    if(sourceCommit.state!=='committed')throw Error('Reviewed source must be committed before checklist completion');
+   if(scope.delivery?.[job.item.key]==='frontend'){
+    await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});
+    const {authorIdentity,...deployConfig}=frontendConfig;
+    const frontend=await releaseFrontend({workspace,stateDir:state,itemKey:job.item.key,leaseId:job.leaseId,revision:current,config:deployConfig,runCommand:command,verifyLive:args=>verifyFrontendLive({...args,stateDir:state})});
+    if(await revision()!==current)throw Error('Frontend deployment changed reviewed source');
+    evidence+='Verified frontend release: '+JSON.stringify(frontend)+'\n';
+    await writeAtomicJson(checksPath,{itemKey:job.item.key,leaseId:job.leaseId,revision:current,commands:checkRecords,output:evidence,originalPolicy:realPolicy.out});
+   }
+   const proof=await acceptanceProof({checksPath,deploymentPath:join(state,'deployment.json'),itemKey:job.item.key,leaseId:job.leaseId,revision:current});
    const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent providers, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider} worker ${job.item.workerSessionId}; ${job.item.qaProvider} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; product-specific checks where configured, controller regressions, dispatch acceptance guards and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted')await writeAtomicJson(join(state,'affinity.json'),null);await publishStatus('ready',`${job.item.label}: accepted with independent QA and product verification. Awaiting the next authorized product step.`);return log({item:job.item.key,phase:'accept',finish});
   }
   const finish=await runModel(job);await publishStatus('ready',`${job.item.label}: ${finish.state}. Awaiting the next verified handoff.`);

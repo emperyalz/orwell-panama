@@ -23,7 +23,8 @@ import uuid
 
 PUBLIC_QUEUE = "https://fleet-vole-527.convex.cloud"
 UNIT = "orwell-agent-controller.service"
-ROLES = {"codex", "claude", "orion"}
+BASE_ROLES = {"codex", "claude", "orion"}
+ROLES = BASE_ROLES | {"planner"}
 MAX_REQUEST = 4096
 MAX_RESPONSE = 8192
 MAX_HTTP = 8 * 1024 * 1024
@@ -115,12 +116,13 @@ def english(value):
 def phase_role(item):
     state = item.get("state")
     if state in {"qa_ready", "qa_running"}:
-        return "qa", "claude"
+        author = item.get("workerProvider")
+        return "qa", ("claude" if author == "codex" else "codex" if author == "claude" else item.get("qaProvider") or "claude")
     if state in {"accept_ready", "accept_running", "accepted"}:
         return "accept", "orion"
     if state == "triage_ready" or (state in {"ready", "running"} and item.get("lead") == "Orion"):
         return "triage", "orion"
-    return "work", "codex"
+    return "work", item.get("workerProvider") or "codex"
 
 
 def issue_status(item, step, in_scope):
@@ -170,6 +172,8 @@ class Bridge:
         self.scope_path = Path(config.get("scopePath", self.controller / "scope.json"))
         self.policy_path = Path(config.get("policyPath", self.controller / "policy.json"))
         self.usage_path = Path(config.get("usagePath", self.controller / "usage.json"))
+        self.routing_path = Path(config.get("routingPath", self.controller / "routing.json"))
+        self.planner_path = Path(config.get("plannerPath", self.controller / "planner.json"))
         self.request_path = self.controller / "paperclip-request.json"
         self.mapping_path = self.state / "mapping.json"
         self.mapping = read_json(self.mapping_path, {"version": 1, "items": {}, "wakes": {}})
@@ -183,7 +187,8 @@ class Bridge:
             raise ValueError("Paperclip must be a loopback HTTP origin")
         if not isinstance(config.get("paperclipUid"), int) or config["paperclipUid"] <= 0:
             raise ValueError("An isolated Paperclip UID is required")
-        if not UUID.fullmatch(config["companyId"]) or set(config["agents"]) != ROLES or any(not UUID.fullmatch(x) for x in config["agents"].values()):
+        if (not UUID.fullmatch(config["companyId"]) or not BASE_ROLES <= set(config["agents"])
+                or set(config["agents"]) - ROLES or any(not UUID.fullmatch(x) for x in config["agents"].values())):
             raise ValueError("Company and role agent UUIDs are required")
         self.company_path = f"/api/companies/{config['companyId']}"
 
@@ -228,6 +233,13 @@ class Bridge:
 
     def scope(self):
         actual = read_json(self.scope_path)
+        if self.config.get("followControllerScope", False):
+            if actual.get("serverPlanning") is not True:
+                raise ValueError("Following root-planned scope requires serverPlanning authorization")
+            keys = actual.get("itemKeys")
+            if not isinstance(keys, list) or not all(isinstance(k, str) and KEY.fullmatch(k) for k in keys):
+                raise ValueError("Explicit controller scope required")
+            return set(keys)
         configured = self.config["scope"]
         configured = configured.get("itemKeys") if isinstance(configured, dict) else configured
         actual = actual.get("itemKeys")
@@ -235,7 +247,32 @@ class Bridge:
             raise ValueError("Explicit controller scope required")
         return set(actual) & set(configured)
 
-    def budget_reason(self, health, now):
+    def routing_row(self, item, now=None):
+        now = now_ms() if now is None else now
+        routing = read_json(self.routing_path, {})
+        observed = routing.get("observedAt")
+        if not isinstance(observed, (int, float)) or not now - 120000 <= observed <= now + 5000:
+            return None
+        row = routing.get("items", {}).get(item.get("key"), {})
+        phase = phase_role(item)[0]
+        expected = {"orion"} if phase in {"triage", "accept"} else {"codex", "claude"}
+        if row.get("phase") != phase or row.get("role") not in expected:
+            return None
+        return row
+
+    def item_phase_role(self, item, now=None):
+        phase, legacy_role = phase_role(item)
+        if phase in {"triage", "accept"} or not self.config.get("providerRouting", False):
+            return phase, legacy_role
+        row = self.routing_row(item, now)
+        if row:
+            return phase, row.get("role")
+        actual = item.get("workerProvider") if phase == "work" else item.get("qaProvider")
+        if item.get("state") in {"running", "qa_running"} and actual in {"codex", "claude"}:
+            return phase, actual
+        return phase, None
+
+    def budget_reason(self, health, now, provider=None, authoritative=False):
         policy = read_json(self.policy_path)
         # Read only. Never reset baselines, extend deadlines, or expand allocation.
         if policy.get("subscriptionOnly") is not True or policy.get("allowPaidFallback") is not False:
@@ -245,6 +282,10 @@ class Bridge:
                 or not isinstance(policy.get("endsAt"), (int, float))
                 or not policy["startedAt"] <= now < policy["endsAt"]):
             return "Original allocation window held"
+        if authoritative:
+            # A fresh allowed root route includes the global pause and native
+            # admission checks. A generic old provider hold cannot veto its peer.
+            return None
         if not health or health.get("state") in {"held", "failed", "error", "paused", "checking"}:
             return "Controller health held"
         local_health = read_json(self.controller / "health.json", {})
@@ -252,7 +293,8 @@ class Bridge:
             return "Controller health held"
         usage = read_json(self.usage_path, {})
         # These are prior observed admissions. The controller always re-meters before a CLI.
-        if any(usage.get("checks", {}).get(role, {}).get("allowed") is not True for role in ("codex", "claude")):
+        needed = [provider] if provider in {"codex", "claude"} else ["codex", "claude"]
+        if any(usage.get("checks", {}).get(role, {}).get("allowed") is not True for role in needed):
             return "Observed native subscription admission held"
         return None
 
@@ -268,7 +310,15 @@ class Bridge:
             return "An active controller lease exists"
         if item.get("state") not in READY:
             return "Phase is not ready"
-        if phase_role(item)[1] != role:
+        phase, selected_role = self.item_phase_role(item, now)
+        dynamic = self.config.get("providerRouting", False)
+        if dynamic:
+            route = self.routing_row(item, now)
+            if not route or route.get("allowed") is not True:
+                return "Authoritative provider routing held"
+            if phase == "qa" and (item.get("workerProvider") not in {"codex", "claude"} or role == item["workerProvider"]):
+                return "Independent QA provider held"
+        if selected_role != role:
             return "Role does not own the observed phase"
         if (item.get("retryAt") or 0) > now:
             return "Recorded retry is not due"
@@ -277,7 +327,83 @@ class Bridge:
             owner = next((i for i in snapshot["items"] if i["key"] == affinity.get("itemKey")), None)
             if owner is None or owner.get("state") not in {"accepted", "superseded"}:
                 return "Workspace belongs to another checklist item"
-        return self.budget_reason(health, now)
+        return self.budget_reason(health, now, role if dynamic else None, authoritative=dynamic)
+
+    def planner_reason(self, snapshot, tasks, health, now=None, for_request=False):
+        now = now_ms() if now is None else now
+        if "planner" not in self.config["agents"] or not self.config.get("enablePlanningWakeups", False):
+            return "Server planner is not enabled"
+        scope = read_json(self.scope_path, {})
+        if scope.get("serverPlanning") is not True:
+            return "Server planning scope is not authorized"
+        if any((i.get("leaseUntil") or 0) > now for i in snapshot["items"]):
+            return "An active controller lease exists"
+        planner = read_json(self.planner_path, {})
+        if planner.get("planningAllowed") is not True or planner.get("state") in {"held", "planning"}:
+            return "Root planner held"
+        due = planner.get("nextPlanAt")
+        if not isinstance(due, (int, float)) or due > now:
+            return "Planner retry is not due"
+        routing = read_json(self.routing_path, {})
+        observed = routing.get("observedAt")
+        route = routing.get("planner", {})
+        if (not isinstance(observed, (int, float)) or not now - 120000 <= observed <= now + 5000
+                or route.get("allowed") is not True or route.get("role") not in {"codex", "claude"}):
+            return "Authoritative planner admission held"
+        policy_hold = self.budget_reason(health, now, authoritative=True)
+        if policy_hold:
+            return policy_hold
+        steps = self.product_steps(tasks)
+        for item in snapshot["items"]:
+            if item["key"] not in steps:
+                continue
+            role = self.item_phase_role(item, now)[1]
+            task, step = steps[item["key"]]
+            if role and not self.eligible(item, task, step, role, snapshot, health, now):
+                return "An authorized product phase is already eligible"
+        backlog_hash = planner.get("backlogHash")
+        if not isinstance(backlog_hash, str) or not backlog_hash or len(backlog_hash) > 200:
+            return "Planner backlog observation held"
+        with self.mapping_lock:
+            last_wake = self.mapping.get("plannerWake", {})
+            daily = self.mapping.get("plannerDaily", {})
+        pending = (last_wake.get("state") == "attempted" and last_wake.get("token") == self.planner_token(planner))
+        if for_request and not pending:
+            return "No trusted planner wake is pending"
+        previous_hash = last_wake.get("backlogHash") or planner.get("lastBacklogHash")
+        changed = previous_hash is not None and previous_hash != backlog_hash
+        last = max(planner.get("lastPlanAt") or 0, 0 if for_request else last_wake.get("at") or 0)
+        if last and now - last < 30 * 60 * 1000 and not changed:
+            return "Planner cooldown is not due"
+        day = time.strftime("%Y-%m-%d", time.gmtime(now / 1000))
+        limit = min(24, max(1, int(self.config.get("maxPlansPerDay", self.config.get("plannerDailyLimit", 24)))))
+        if not for_request and daily.get("day") == day and daily.get("count", 0) >= limit:
+            return "Planner daily limit held"
+        return None
+
+    @staticmethod
+    def planner_token(planner):
+        return hashlib.sha256(json.dumps([planner.get(key) for key in
+            ("backlogHash", "lastPlanAt", "nextPlanAt", "planCount")]).encode()).hexdigest()
+
+    def wake_planner(self, snapshot, tasks, health):
+        if self.planner_reason(snapshot, tasks, health):
+            return
+        planner = read_json(self.planner_path)
+        token = self.planner_token(planner)
+        with self.mapping_lock:
+            if self.mapping.get("plannerWake", {}).get("token") == token:
+                return
+            day = time.strftime("%Y-%m-%d", time.gmtime(now_ms() / 1000))
+            daily = self.mapping.get("plannerDaily", {})
+            count = daily.get("count", 0) if daily.get("day") == day else 0
+            self.mapping["plannerDaily"] = {"day": day, "count": count + 1}
+            self.mapping["plannerWake"] = {"token": token, "backlogHash": planner["backlogHash"], "at": now_ms(), "state": "attempted"}
+            self.save()
+        self.pc(f"/api/agents/{self.config['agents']['planner']}/wakeup", "POST", {
+            "source": "automation", "triggerDetail": "system", "reason": "orwell_server_planning_ready",
+            "payload": {"orwellPlannerToken": token}, "idempotencyKey": "orwell-planner:" + token,
+        })
 
     @staticmethod
     def product_steps(tasks):
@@ -332,7 +458,7 @@ class Bridge:
             for key, (task, step) in steps.items():
                 item = items.get(key, {})
                 status = issue_status(item, step, key in allowed)
-                role = phase_role(item)[1] if item else "orion"
+                role = self.item_phase_role(item)[1] if item else "orion"
                 desired = {
                     "title": clean(f"{english(task['title'])}: {english(step['label'])}", 230),
                     "description": (f"<!-- orwell:{key} -->\n"
@@ -341,15 +467,15 @@ class Bridge:
                         f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
                         + (f"Observed native worker: {clean(active[key].get('owner'), 160)}. Model: {clean(active[key].get('model'), 160)}.\n" if key in active else "")
                         +
-                        f"Guarded phase owner: {role}. Paperclip process agent: {self.config['agents'][role]}.\n\n"
+                        f"Guarded phase owner: {role or 'pending root provider selection'}. Paperclip process agent: {self.config['agents'].get(role, 'not selected')}.\n\n"
                         "Convex owns acceptance and checkbox facts. Only the guarded root controller may execute this issue."
                         + ("\nHistorical recorded completion, no new controller acceptance." if step.get("done") is True and not item.get("state") else "")
                         + ("\nOutside the current authorized execution scope." if key not in allowed else "")),
                     # Pinned Paperclip unconditionally wakes assigned agents for
                     # board comments. Board-managed issues plus explicit wakes
                     # avoid phantom process runs; active issues require an owner.
-                    "status": status, "assigneeAgentId": self.config["agents"][role] if self.config.get("assignAgents", False) else None,
-                    "assigneeUserId": None if self.config.get("assignAgents", False) else self.config.get("boardUserId", "local-board"),
+                    "status": status, "assigneeAgentId": self.config["agents"][role] if self.config.get("assignAgents", False) and role else None,
+                    "assigneeUserId": None if self.config.get("assignAgents", False) and role else self.config.get("boardUserId", "local-board"),
                 }
                 marker = f"<!-- orwell:{key} -->"
                 with self.mapping_lock:
@@ -405,12 +531,13 @@ class Bridge:
     def priority(self, key):
         configured = self.config.get("scope", {})
         ordered = self.config.get("priorityItemKeys", configured.get("itemKeys", []) if isinstance(configured, dict) else configured)
+        if self.config.get("followControllerScope", False):
+            ordered = list(dict.fromkeys([*ordered, *read_json(self.scope_path, {}).get("itemKeys", [])]))
         return ordered.index(key) if key in ordered else len(ordered)
 
-    @staticmethod
-    def wake_token(item):
+    def wake_token(self, item):
         return hashlib.sha256(json.dumps([item["key"], item.get("state"), item.get("updatedAt"), item.get("retryAt"),
-            item.get("attempt"), item.get("qaAttempt"), item.get("acceptAttempt")]).encode()).hexdigest()
+            item.get("attempt"), item.get("qaAttempt"), item.get("acceptAttempt"), self.item_phase_role(item)[1]]).encode()).hexdigest()
 
     def wake_ready(self, snapshot, tasks, health):
         if self.run_lock.locked() or self.request_path.exists():
@@ -428,7 +555,9 @@ class Bridge:
             if key not in steps:
                 continue
             task, step = steps[key]
-            role = phase_role(item)[1]
+            role = self.item_phase_role(item)[1]
+            if not role:
+                continue
             if self.eligible(item, task, step, role, snapshot, health):
                 continue
             with self.mapping_lock:
@@ -448,6 +577,7 @@ class Bridge:
                 "payload": {"orwellIssueId": row["issueId"], "orwellItemKey": key}, "idempotencyKey": "orwell:" + token,
             })
             return
+        self.wake_planner(snapshot, tasks, health)
 
     @staticmethod
     def unit_state():
@@ -455,9 +585,8 @@ class Bridge:
             "--property=ActiveState,SubState,Result,ExecMainStatus"], capture_output=True, text=True, timeout=10, check=True).stdout
         return dict(line.split("=", 1) for line in output.splitlines() if "=" in line)
 
-    @staticmethod
-    def observed(item, snapshot):
-        phase, role = phase_role(item)
+    def observed(self, item, snapshot):
+        phase, role = self.item_phase_role(item)
         events = [{k: (clean(e.get(k), 1800) if k in {"detail", "actor", "kind"} else e.get(k))
                    for k in ("at", "kind", "actor", "detail")}
                   for e in snapshot.get("events", []) if e.get("itemKey") == item["key"]][:3]
@@ -467,11 +596,25 @@ class Bridge:
                 "checkpoint": clean(item.get("checkpoint") or "", 1800),
                 "leaseUntil": item.get("leaseUntil"), "events": events}
 
+    def observed_planner(self):
+        planner = read_json(self.planner_path, {})
+        return {"phase": "planning", "role": "planner", "state": clean(planner.get("state") or "unknown", 100),
+                "sessionId": clean(planner.get("activeSessionId") or "", 160),
+                "provider": clean(planner.get("activeProvider") or "", 50),
+                "model": clean(planner.get("activeModel") or "", 160),
+                "checkpoint": clean(planner.get("checkpoint") or planner.get("lastError") or "", 1800),
+                "lastPlanAt": planner.get("lastPlanAt"), "nextPlanAt": planner.get("nextPlanAt"),
+                "planCount": planner.get("planCount"), "backlogHash": clean(planner.get("backlogHash") or "", 200)}
+
     def run(self, request, emit):
         if not isinstance(request, dict) or set(request) - {"role", "itemKey"} or request.get("role") not in ROLES:
             emit({"status": "error", "reason": "Invalid request"})
             return
         requested = request.get("itemKey")
+        is_planner = request["role"] == "planner"
+        if is_planner and requested is not None:
+            emit({"status": "error", "reason": "Planner request cannot identify a product item"})
+            return
         if requested is not None and (not isinstance(requested, str) or not (KEY.fullmatch(requested) or UUID.fullmatch(requested))):
             emit({"status": "error", "reason": "Invalid item identifier"})
             return
@@ -493,21 +636,27 @@ class Bridge:
                 emit({"status": "noop", "reason": "Controller unit is active"})
                 return
             snapshot, tasks, health = self.facts()
-            item, reason = self.resolve(requested, request["role"], snapshot, tasks, health)
-            if not item:
+            item = None
+            if is_planner:
+                reason = self.planner_reason(snapshot, tasks, health, for_request=True)
+                before_planner = self.observed_planner()
+            else:
+                item, reason = self.resolve(requested, request["role"], snapshot, tasks, health)
+            if reason:
                 emit({"status": "held" if "held" in reason.lower() else "noop", "reason": reason})
                 return
             prior = read_json(self.request_path, {})
             if prior:
                 emit({"status": "noop", "reason": "An existing controller request is pending"})
                 return
+            selection = {} if is_planner else {"itemKey": item["key"]}
             with self.mapping_lock:
-                self.mapping["activeRequest"] = {"requestId": own_id, "itemKey": item["key"], "role": request["role"]}
+                self.mapping["activeRequest"] = {"requestId": own_id, **selection, "role": request["role"]}
                 self.save()
-            atomic_json(self.request_path, {"requestId": own_id, "itemKey": item["key"], "role": request["role"], "requestedAt": now_ms()})
+            atomic_json(self.request_path, {"requestId": own_id, **selection, "role": request["role"], "requestedAt": now_ms()})
             with self.mapping_lock:
-                wake = self.mapping["wakes"].get(item["key"])
-                if wake and wake.get("role") == request["role"]:
+                wake = self.mapping.get("plannerWake") if is_planner else self.mapping["wakes"].get(item["key"])
+                if wake and (is_planner or wake.get("role") == request["role"]):
                     wake["state"] = "dispatched"
                     self.save()
             # No shell and no CLI launched here; systemd invokes the existing root controller.
@@ -516,8 +665,8 @@ class Bridge:
             previous = None
             while time.monotonic() - started < TIMEOUT and not STOP.is_set():
                 snapshot, _, health = self.facts()
-                current = next((i for i in snapshot["items"] if i["key"] == item["key"]), item)
-                observation = self.observed(current, snapshot)
+                current = None if is_planner else next((i for i in snapshot["items"] if i["key"] == item["key"]), item)
+                observation = self.observed_planner() if is_planner else self.observed(current, snapshot)
                 serial = json.dumps(observation, sort_keys=True)
                 if serial != previous:
                     emit({"status": "observed", **observation})
@@ -525,9 +674,16 @@ class Bridge:
                 unit = self.unit_state()
                 if unit.get("ActiveState") not in {"active", "activating", "reloading", "deactivating"} and time.monotonic() - started >= 2:
                     succeeded = (unit.get("Result") == "success" and unit.get("ExecMainStatus") == "0")
-                    held = not health or health.get("state") in {"held", "error", "failed", "paused"}
-                    changed = current.get("state") != item.get("state") or current.get("updatedAt") != item.get("updatedAt")
-                    status = "complete" if succeeded and not held and changed and current.get("state") != "blocked" else "held" if succeeded else "failed"
+                    if is_planner:
+                        held = observation["state"] == "held"
+                        changed = observation.get("lastPlanAt") != before_planner.get("lastPlanAt") or observation.get("planCount") != before_planner.get("planCount")
+                        blocked = False
+                    else:
+                        held = (not self.config.get("providerRouting", False)
+                                and (not health or health.get("state") in {"held", "error", "failed", "paused"}))
+                        changed = current.get("state") != item.get("state") or current.get("updatedAt") != item.get("updatedAt")
+                        blocked = current.get("state") == "blocked"
+                    status = "complete" if succeeded and not held and changed and not blocked else "held" if succeeded else "failed"
                     emit({"status": status, "unitResult": unit.get("Result"), **observation})
                     return
                 STOP.wait(2)

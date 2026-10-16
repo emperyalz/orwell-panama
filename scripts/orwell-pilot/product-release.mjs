@@ -5,7 +5,7 @@ import {lstat,open,readdir} from 'node:fs/promises';
 import {join,relative,resolve} from 'node:path';
 
 const excluded=new Set(['.git','node_modules','.next','.vercel','.impeccable','artifacts','tmp','output']);
-const ignored=name=>excluded.has(name)||name.startsWith('.env');
+const ignored=name=>excluded.has(name)||name.startsWith('.env')||name.endsWith('.tsbuildinfo');
 
 /** A whole-source snapshot, including untracked files, deletions and permission changes. */
 export async function sourceManifest(workspace){

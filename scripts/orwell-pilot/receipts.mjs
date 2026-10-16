@@ -1,10 +1,12 @@
 import {readdir,stat,readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {normalizeCodexUsage} from './budget.mjs';
-/** Secondary ceilings only; native percentages remain the spending authority. */
+/** Secondary ceilings cover 42 bounded backlog steps plus QA/planning. Native
+ * original +30-point allocations and 3-point reserves remain authoritative;
+ * 12 runs without an acceptance still stops an unproductive repair loop. */
 export function finiteModelCeiling({runs,tokens,freshTokens,withoutAcceptance}) {
  if(![runs,tokens,freshTokens,withoutAcceptance].every(n=>Number.isSafeInteger(n)&&n>=0)||freshTokens>tokens)return true;
- return runs>=64||tokens>=25_000_000||freshTokens>=3_000_000||withoutAcceptance>=12;
+ return runs>=192||tokens>=100_000_000||freshTokens>=8_000_000||withoutAcceptance>=12;
 }
 export async function receiptBudget(directory,now=Date.now()) {
  const recent=[];

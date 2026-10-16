@@ -12,12 +12,12 @@ SOCKET = "/run/orwell-paperclip/control.sock"
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--role", choices=("codex", "claude", "orion"), required=True)
+    parser.add_argument("--role", choices=("codex", "claude", "orion", "planner"), required=True)
     parser.add_argument("--item-key")
     parser.add_argument("--socket", default=SOCKET)
     args = parser.parse_args()
     # These identify a mirrored issue; neither is trusted as execution authority.
-    item = args.item_key or os.environ.get("PAPERCLIP_ISSUE_ID") or os.environ.get("PAPERCLIP_TASK_ID")
+    item = args.item_key or (None if args.role == "planner" else os.environ.get("PAPERCLIP_ISSUE_ID") or os.environ.get("PAPERCLIP_TASK_ID"))
     request = {"role": args.role}
     if item:
         request["itemKey"] = item

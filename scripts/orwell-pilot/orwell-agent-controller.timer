@@ -1,10 +1,10 @@
 [Unit]
-Description=Resume Orwell bounded team work without idle model calls
+Description=Refresh Orwell native meters and VPS planning readiness without idle model calls
 
 [Timer]
-OnBootSec=30s
-OnUnitInactiveSec=30s
-AccuracySec=5s
+OnBootSec=1min
+OnUnitInactiveSec=1min
+AccuracySec=10s
 Unit=orwell-agent-controller.service
 
 [Install]

@@ -1,7 +1,7 @@
 /** Preserve every reviewed VPS release in local Git; never push or include secrets. */
 import {spawn} from 'node:child_process';
 import {readFile,readdir,lstat,writeFile,rename} from 'node:fs/promises';
-import {join,relative,resolve} from 'node:path';
+import {dirname,join,relative,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 
@@ -45,7 +45,17 @@ export async function sourceRevision(workspace) {
  }
  await visit(workspace);return `sha256:${hash.digest('hex')}`;
 }
-export async function commitReviewedSource({workspace,state,uid,gid,home,log=console.log}) {
+export function validateReleaseAuthor(authorIdentity){
+ if(!authorIdentity||typeof authorIdentity.name!=='string'||authorIdentity.name!==authorIdentity.name.trim()||!authorIdentity.name||authorIdentity.name.length>120||/[<>\x00-\x1f\x7f]/.test(authorIdentity.name)||typeof authorIdentity.email!=='string'||authorIdentity.email.length>200||!/^[^\s<>@\x00-\x1f]+@[^\s<>@\x00-\x1f]+$/.test(authorIdentity.email))throw Error('Invalid trusted release author identity');
+ return {name:authorIdentity.name,email:authorIdentity.email};
+}
+export async function loadReleaseAuthor({path='/etc/orwell-agent-controller/frontend.json',ownerUid=0}={}){
+ const info=await lstat(path),directory=await lstat(dirname(path));
+ if(!directory.isDirectory()||directory.isSymbolicLink()||directory.uid!==ownerUid||(directory.mode&0o022)||!info.isFile()||info.isSymbolicLink()||info.uid!==ownerUid||(info.mode&0o777)!==0o600)throw Error('Untrusted canonical release author configuration');
+ return validateReleaseAuthor(JSON.parse(await readFile(path,'utf8')).authorIdentity);
+}
+export async function commitReviewedSource({workspace,state,uid,gid,home,authorIdentity,log=console.log}) {
+ const author=validateReleaseAuthor(authorIdentity??{name:'Orwell Controller',email:'orwell@localhost'});
  let deployment;
  try{deployment=JSON.parse(await readFile(join(state,'deployment.json'),'utf8'));}catch{return {state:'no_release'};}
  if(await sourceRevision(workspace)!==deployment.revision)return {state:'unreleased_work_preserved'};
@@ -63,14 +73,14 @@ export async function commitReviewedSource({workspace,state,uid,gid,home,log=con
  log(JSON.stringify(checklist)); // Mandatory task-to-file checklist precedes every commit.
  if(files.length){
   await run(['add','--',...files]);
-  await run(['-c','user.name=Orwell Controller','-c','user.email=orwell@localhost','commit','--only','-m',`fix(orwell): deliver ${deployment.itemKey}`,'-m',`Reviewed revision ${deployment.revision}\nWorker ${deployment.worker}\nIndependent QA ${deployment.reviewer}\n\n${files.map(path=>`${deployment.itemKey} -> ${path}`).join('\n')}`,'--',...files]);
+  await run(['-c',`user.name=${author.name}`,'-c',`user.email=${author.email}`,'commit','--only','-m',`fix(orwell): deliver ${deployment.itemKey}`,'-m',`Reviewed revision ${deployment.revision}\nWorker ${deployment.worker}\nIndependent QA ${deployment.reviewer}\n\n${files.map(path=>`${deployment.itemKey} -> ${path}`).join('\n')}\n\nAutomation: Orwell Controller\nOrwell-Task: ${deployment.itemKey}\nWorker-Session: ${String(deployment.worker).replace(/[\r\n]/g,' ')}\nIndependent-QA-Session: ${String(deployment.reviewer).replace(/[\r\n]/g,' ')}`,'--',...files]);
  }
  const commit=(await run(['rev-parse','HEAD'])).trim();
  if(await sourceRevision(workspace)!==deployment.revision)throw Error('Source changed during release commit');
- const record={state:'committed',commit,revision:deployment.revision,itemKey:deployment.itemKey,at:Date.now(),files};
+ const record={state:'committed',commit,revision:deployment.revision,itemKey:deployment.itemKey,at:Date.now(),files,authorIdentity:author,automation:'Orwell Controller'};
  const path=join(state,'source-commit.json'),temporary=path+'.tmp';await writeFile(temporary,JSON.stringify(record,null,2),{mode:0o600});await rename(temporary,path);return record;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- try{console.log(JSON.stringify(await commitReviewedSource({workspace:'/home/orwell/build',state:'/var/lib/orwell-agent-controller',uid:1001,gid:1001,home:'/home/orwell'})));}
+ try{const authorIdentity=await loadReleaseAuthor();console.log(JSON.stringify(await commitReviewedSource({workspace:'/home/orwell/build',state:'/var/lib/orwell-agent-controller',uid:1001,gid:1001,home:'/home/orwell',authorIdentity})));}
  catch(error){console.error(error.message);process.exitCode=1;}
 }

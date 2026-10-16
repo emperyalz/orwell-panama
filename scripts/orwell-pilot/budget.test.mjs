@@ -71,3 +71,30 @@ test('subscription environment excludes API and cloud-provider fallbacks', () =>
   const cleaned=subscriptionEnvironment({PATH:'/bin',HOME:'/home/test',OPENAI_API_KEY:'secret',CODEX_API_KEY:'secret',FUTURE_API_KEY:'secret',ANTHROPIC_AUTH_TOKEN:'secret',CLAUDE_CODE_USE_VERTEX:'1',AWS_SECRET_ACCESS_KEY:'secret'});
   assert.deepEqual(cleaned,{PATH:'/bin',HOME:'/home/test'});
 });
+
+
+test('verified native Codex tolerates at most two seconds of same-cycle clock jitter without changing its original allocation',()=>{
+ const native=used=>({...snapshot(used),source:'account/rateLimits/read',authType:'chatgpt'});
+ const baseline=native(22);baseline.windows[0].resetsAt=1792668152;
+ const saved=structuredClone(baseline);
+ for(const jitter of [-2,-1,1,2]){
+  const current=native(45);current.windows[0].resetsAt=baseline.windows[0].resetsAt+jitter;
+  const result=run({snapshot:current,baseline});assert.equal(result.allowed,true);assert.equal(result.remaining[0].usedPercentagePoints,23);assert.equal(result.remaining[0].availablePercentagePoints,4);
+ }
+ assert.deepEqual(baseline,saved);
+ for(const jitter of [-3,3,604800]){const current=native(45);current.windows[0].resetsAt=baseline.windows[0].resetsAt+jitter;assert.equal(run({snapshot:current,baseline}).allowed,false);}
+ const decreased=native(21);decreased.windows[0].resetsAt=baseline.windows[0].resetsAt+1;assert.equal(run({snapshot:decreased,baseline}).allowed,false);
+ for(const resetsAt of [undefined,null,now/1000-1]){const current=native(45);current.windows[0].resetsAt=resetsAt;assert.equal(run({snapshot:current,baseline}).allowed,false);}
+ const expired=native(22),next=native(45);expired.windows[0].resetsAt=now/1000-1;next.windows[0].resetsAt=now/1000+1;assert.equal(run({snapshot:next,baseline:expired}).allowed,false);
+});
+
+test('clock jitter tolerance cannot apply to other providers, sources or authentication methods',()=>{
+ const baseline={...snapshot(22),source:'account/rateLimits/read',authType:'chatgpt'},current={...snapshot(45),source:'account/rateLimits/read',authType:'chatgpt'};current.windows[0].resetsAt++;
+ for(const patch of [{provider:'claude'},{source:'unverified'},{source:undefined},{authType:'apiKey'},{authType:undefined}]){
+  assert.equal(run({snapshot:{...current,...patch},baseline}).allowed,false);
+  assert.equal(run({snapshot:current,baseline:{...baseline,...patch}}).allowed,false);
+ }
+ const shortBase=structuredClone(baseline),shortCurrent=structuredClone(current);
+ for(const value of [shortBase,shortCurrent])value.windows.push({id:'short',durationMinutes:300,usedPercent:10,resetsAt:now/1000+5000});shortCurrent.windows[1].resetsAt++;
+ assert.equal(run({snapshot:shortCurrent,baseline:shortBase}).allowed,false);
+});
