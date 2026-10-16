@@ -548,10 +548,11 @@ class Bridge:
                 prep_job = next((j for j in preparation.get("jobs", []) if j.get("itemKey") == key), None)
                 prep_runs = [read_json(p, {}) for p in (self.controller / "runs").glob("*/execution.json")] if prep_job else []
                 prep_execution = next((r for r in prep_runs if r.get("batchId") == preparation.get("batchId") and r.get("job", {}).get("item", {}).get("key") == key), {})
+                prep_decision = next((d for d in preparation.get("qaDecisions", []) if d.get("itemKey") == key), {})
                 prep_result = next((r for r in preparation.get("results", []) if r.get("job", {}).get("itemKey") == key), {})
                 prep_receipt = prep_result.get("receipt", {})
                 prep_running = bool(prep_job and preparation.get("state") in {"preparation_running", "qa_running"})
-                status = "in_progress" if prep_running else "in_review" if prep_job and preparation.get("state") == "awaiting_independent_preparation_qa" else issue_status(item, step, key in allowed)
+                status = "in_progress" if prep_running else "in_review" if prep_job and preparation.get("state") in {"awaiting_independent_preparation_qa", "inreview", "preparation_review_returned", "prepared-awaiting-integration"} else issue_status(item, step, key in allowed)
                 role = self.item_phase_role(item)[1] if item else "orion"
                 desired = {
                     "title": clean(f"{english(task['title'])}: {english(step['label'])}", 230),
@@ -562,7 +563,8 @@ class Bridge:
                            f"roster identity {clean(prep_job.get('positionKey'))}; execution {clean(prep_execution.get('leaseId') or 'not yet recorded')}; "
                            f"native execution model {clean(prep_execution.get('provider') or 'unknown')}/{clean(prep_execution.get('model') or 'unknown')}; "
                            f"observed session {clean(prep_execution.get('sessionId') or prep_receipt.get('sessionId') or 'awaiting native receipt')}. "
-                           "Read-only research/QA; no product implementation or checkbox acceptance.\n" if prep_job else "")
+                           "Read-only research/QA; no product implementation or checkbox acceptance.\n"
+                           + (f"Independent preparation QA: {clean(prep_decision.get('result'))}. {clean(prep_decision.get('detail'))}\n" if prep_decision else "") if prep_job else "")
                         + f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
                         + (f"Observed native worker: {clean(active[key].get('owner'), 160)}. Model: {clean(active[key].get('model'), 160)}.\n" if key in active else "")
                         +
