@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /** Root-owned control plane. Model processes run as the unprivileged Orwell UID. */
 import {spawn} from 'node:child_process';
-import {readFile,writeFile,mkdir,readdir,lstat,cp,chmod,symlink,copyFile} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,readdir,lstat,cp,chmod,symlink,copyFile,rm} from 'node:fs/promises';
 import {join,relative} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 import {admitSubscription,reconcileShortWindows,normalizeCodexUsage} from './budget.mjs';
 import {writeAtomicJson} from './admission.mjs';
 import {legalOutcome,finiteModelCeiling} from './receipts.mjs';
 import {selectAffinity} from './selection.mjs';
+import {classifyFailure,retryDecision} from './retry-policy.mjs';
 import {acceptanceProof} from './acceptance-proof.mjs';
 import {commitReviewedSource} from './source-commit.mjs';
 import {statusObservation} from './status.mjs';
@@ -125,14 +126,16 @@ async function runModel(job) {
  if(qa&&before!==job.item.submissionRevision)throw Error('Workspace differs from submitted revision; QA cannot review');
  const cwd=qa?await freeze(job.leaseId):workspace;
  const schema={type:'object',additionalProperties:false,required:['result','detail','evidence','team'],properties:{result:{type:'string',enum:['submitted','changes_requested','accepted','needs_input','failed']},detail:{type:'string'},evidence:{type:'string'},team:{type:'string',enum:['implementation','research','none']}}};
- let args,model=qa?'sonnet':job.item.attempt>0?'gpt-6.1-sol':'gpt-6-luna';
+ let retryModel=null;
+ if(!qa){try{const retry=JSON.parse(await readFile(join(state,'retry-model.json'),'utf8'));if(retry.itemKey===job.item.key)retryModel=retry.model;}catch(error){if(error.code!=='ENOENT')throw error;}}
+ let args,model=qa?'sonnet':retryModel??(job.item.attempt>0?'gpt-6.1-sol':'gpt-6-luna');
  // A concrete failed submission justifies Sol for bounded repair; fresh work
  // stays on Luna. Both execute at low effort and retain the same quota guard.
  if(qa)args=['-p','--model','sonnet','--effort','low','--output-format','stream-json','--verbose','--max-turns','24','--permission-mode','dontAsk','--setting-sources','','--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--tools','Read,Grep,Glob,Bash','--allowedTools','Read,Grep,Glob,Bash','--json-schema',JSON.stringify(schema)];
  else args=['-a','never','exec','--json','--strict-config','--skip-git-repo-check','-m',model,'-c','forced_login_method="chatgpt"','-c','model_reasoning_effort="low"','-c','features.multi_agent=false','--sandbox','danger-full-access','-C',cwd,'-'];
  await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,before,startedAt:Date.now()});
  const child=spawn(`${tools}/${provider}`,args,{cwd,env,uid,gid,detached:true,stdio:['pipe','pipe','pipe']});
- let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve();
+ let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve(),lastCheckpointAt=0,checkpointCount=0;
  const kill=()=>{try{process.kill(-child.pid,'SIGTERM');}catch{}};
  const processEvent=line=>{
   let e;try{e=JSON.parse(line);}catch{return;}
@@ -140,6 +143,25 @@ async function runModel(job) {
    sessionId=provider==='codex'?e.thread_id:e.session_id;model=e.model??model;
    serial=serial.then(()=>observe(job,sessionId,person,provider,model,'assigned',`Actual ${provider} ${job.phase} session started`)).catch(error=>{streamError=error;kill();});
   }
+ // Save bounded, substantive progress only when the native CLI reports a
+ // completed assistant/tool event. Timer renewals below never claim progress.
+ let progress;
+ if(provider==='codex'&&e.type==='item.completed'){
+  const item=e.item??{};
+  if(item.type==='agent_message'&&typeof item.text==='string')progress=`Assistant update: ${item.text}`;
+  else if(item.type==='command_execution'&&typeof item.command==='string')progress=`Tool completed: ${item.command.slice(0,350)}${item.exit_code===0?' (exit 0)':` (exit ${item.exit_code??'unknown'})`}`;
+  else if(item.type==='file_change')progress=`File changes completed: ${(item.changes??[]).map(c=>c.path).filter(Boolean).slice(0,12).join(', ')||'reported by Codex'}`;
+ }
+ if(provider==='claude'&&e.type==='user'&&Array.isArray(e.message?.content)){
+  const results=e.message.content.filter(b=>b.type==='tool_result');
+  if(results.length)progress=`Claude tool completed: ${results.slice(0,5).map(b=>`${b.name??'tool'}${b.is_error?' (reported error)':''}`).join(', ')}`;
+ }
+ else if(provider==='claude'&&e.type==='assistant'&&Array.isArray(e.message?.content)){
+  const blocks=e.message.content;const text=blocks.filter(b=>b.type==='text'&&b.text?.trim()).map(b=>b.text).join(' ').slice(0,800);
+  const toolsUsed=blocks.filter(b=>b.type==='tool_use').map(b=>b.name).slice(0,6);
+  if(text||toolsUsed.length)progress=`Assistant update${toolsUsed.length?`; requested tools: ${toolsUsed.join(', ')}`:''}${text?`: ${text}`:''}`;
+ }
+ if(progress&&sessionId&&checkpointCount<60&&Date.now()-lastCheckpointAt>=5_000){checkpointCount++;lastCheckpointAt=Date.now();serial=serial.then(()=>api('dispatch:checkpoint',{itemKey:job.item.key,leaseId:job.leaseId,sessionId,actorName:person.name,actorKey:person.key,checkpoint:progress})).catch(error=>{streamError=error;kill();});}
   if(provider==='codex'&&e.type==='turn.completed'){completed=true;const next=normalizeCodexUsage(e.usage);usage=usage&&next?normalizeCodexUsage({input_tokens:usage.input_tokens+next.input_tokens,cached_input_tokens:usage.cached_input_tokens+next.cached_input_tokens,output_tokens:usage.output_tokens+next.output_tokens}):next;}
   if(provider==='codex'&&e.type==='item.completed'&&e.item?.type==='agent_message')answerText=e.item.text;
   if(provider==='claude'&&e.type==='result'){
@@ -172,7 +194,9 @@ async function runModel(job) {
  const finishArgs={itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:streamError?'failed':answer.result,detail:(streamError?.message??answer.detail).slice(0,2800),evidence:streamError?undefined:answer.evidence.slice(0,2800),sessionId,provider,artifactRevision:after,...(qa?{reviewerKey:person.key}:{contributorKey:person.key})};
  const receipt={job,provider,model,sessionId,usage,usagePersisted,exit,before,after,answer,finishArgs,finishedAt:Date.now(),finish:null};
  await writeAtomicJson(join(dir,'receipt.json'),receipt);
- const finish=await api('dispatch:finish',finishArgs);await writeAtomicJson(join(dir,'receipt.json'),{...receipt,finish});
+ const finish=await api('dispatch:finish',finishArgs);
+ if(!streamError&&job.phase==='work'){await rm(join(state,'retry-model.json'),{force:true}).catch(()=>{});}
+ await writeAtomicJson(join(dir,'receipt.json'),{...receipt,finish});
  log({item:job.item.key,phase:job.phase,provider,sessionId,model,usage,finish});return finish;
 }
 async function activateReviewedSource(job,current) {
@@ -263,7 +287,18 @@ async function main() {
    const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent providers, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider} worker ${job.item.workerSessionId}; ${job.item.qaProvider} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; all pilot tests, dispatch live-contract/acceptance/pause and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted')await writeAtomicJson(join(state,'affinity.json'),null);return log({item:job.item.key,phase:'accept',finish});
   }
   const finish=await runModel(job);await publishStatus('ready',`${job.item.label}: ${finish.state}. Awaiting the next verified handoff.`);
- }catch(error){await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:'failed',detail:error.message.slice(0,2800)}).catch(()=>{});throw error;}
+ }catch(error){
+  if(job.phase!=='triage'&&job.phase!=='accept'){
+   const failureClass=classifyFailure(error.message),failurePath=join(state,'failures',`${job.item.key.replace(/[^a-zA-Z0-9-]/g,'_')}.json`);let record={itemKey:job.item.key,counts:{},lastFailure:null};
+   try{record=JSON.parse(await readFile(failurePath,'utf8'));}catch(readError){if(readError.code!=='ENOENT')throw readError;}
+   const decision=retryDecision({failureCounts:record.counts,failureClass});record.counts[failureClass]=decision.count;record.lastFailure={at:Date.now(),failureClass,detail:error.message,blocked:decision.blocked};await mkdir(join(state,'failures'),{recursive:true,mode:0o700});await writeAtomicJson(failurePath,record);
+   if(job.phase==='work'&&job.item.attempt===0&&decision.model)await writeAtomicJson(join(state,'retry-model.json'),{itemKey:job.item.key,model:decision.model,failureClass,reason:error.message,at:Date.now()});
+   if(decision.blocked){await api('dispatch:stopPilot',{reason:`Repeated ${failureClass} failure for pinned ${job.item.key}: ${error.message}`,modelOnly:false});}
+   await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:'failed',detail:decision.blocked?`Repeated ${failureClass} failure blocked after ${decision.count} occurrences: ${error.message}`:error.message.slice(0,2800)}).catch(()=>{});
+   if(decision.blocked)error=Error(`Repeated ${failureClass} failure blocked after ${decision.count} occurrences; repair ownership remains pinned`);
+  }
+  throw error;
+ }
 }
 try{await main();await publishStatus();await writeAtomicJson(join(state,'health.json'),{state:controllerState,at:Date.now(),reason:controllerReason});}
 catch(error){log({state:'held',reason:error.message});await publishStatus('held',error.message).catch(e=>log({telemetryError:e.message}));await writeAtomicJson(join(state,'health.json'),{state:'held',at:Date.now(),reason:error.message});process.exitCode=2;}

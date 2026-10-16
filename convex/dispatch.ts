@@ -5,6 +5,7 @@ import {compareDispatchPriority} from './dispatchPriority';
 
 const ROOT='01a09321-0212-73f0-b32b-c3045945d6c6';
 const LEASE_MS=5*60_000;
+const STALL_MS=2*60_000;
 const MAX_RETRIES=3;
 const phase=v.union(v.literal('triage'),v.literal('work'),v.literal('qa'),v.literal('accept'));
 const result=v.union(v.literal('submitted'),v.literal('changes_requested'),v.literal('accepted'),v.literal('needs_input'),v.literal('failed'));
@@ -70,6 +71,7 @@ export const claimNext=internalMutation({args:{leaseId:v.string(),smokeItemKey:v
 export const checkpoint=internalMutation({args:{itemKey:v.string(),leaseId:v.string(),checkpoint:v.string(),sessionId:v.optional(v.string()),actorName:v.optional(v.string()),actorKey:v.optional(v.string())},handler:async(ctx,args)=>{
  const item=await ctx.db.query('projectDispatchItems').withIndex('by_key',q=>q.eq('key',args.itemKey)).unique();
  if(!item||item.leaseId!==args.leaseId||!item.leaseUntil||item.leaseUntil<=Date.now()||!['running','qa_running','accept_running'].includes(item.state))throw Error('Lease no longer owns this step');
+ if(!args.checkpoint.trim())throw Error('Substantive checkpoint required');
  const now=Date.now();await ctx.db.patch(item._id,{checkpoint:brief(args.checkpoint),...(args.sessionId?{activeSessionId:args.sessionId}:{}),...(item.state==='running'&&item.lead!=='Orion'&&args.sessionId?{workerSessionId:args.sessionId}:{}),...(args.actorName?{activeActorName:args.actorName}:{}),...(args.actorKey?{activeActorKey:args.actorKey}:{}),leaseUntil:now+LEASE_MS,lastProgressAt:now,updatedAt:now});
  await event(ctx,item.key,'checkpoint',args.actorName??'runner',`${args.checkpoint}${args.sessionId?` (run ${args.sessionId})`:''}`,args.leaseId);return {leaseUntil:now+LEASE_MS};
 }});
@@ -134,7 +136,14 @@ export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(
   if(!reviewer||!position||reviewer.team!=='qa'||!reviewer.name.trim()||args.reviewerKey===item.contributorKey||!session||session.key!==args.sessionId||session.name!==reviewer.name||session.team!=='qa'||!['running','completed'].includes(session.status)||session.lastActivityAt<now-LEASE_MS||session.lastActivityAt>now||session.binding?.taskKey!==item.taskKey||session.binding?.stepKey!==item.stepKey||session.binding?.rosterKey!==args.reviewerKey||session.binding.observedAt>now||session.binding.observedAt<now-LEASE_MS||!session.binding.evidence.includes(args.sessionId!)||!session.binding.evidence.includes(args.leaseId))throw Error('QA must have a fresh observed session bound to this exact checklist step');
   const observed=await ctx.db.query('projectDispatchEvents').withIndex('by_item_time',q=>q.eq('itemKey',item.key)).collect();
   if(!observed.some(e=>e.kind==='checkpoint'&&e.leaseId===args.leaseId&&e.actor===reviewer.name&&e.detail.includes(`(run ${args.sessionId})`)))throw Error('QA session must appear in this lease event history');
-  if(args.result==='changes_requested'){const exhausted=item.qaAttempt+1>=MAX_RETRIES;await ctx.db.patch(item._id,{...base,state:exhausted?'blocked':'ready',blockedReason:exhausted?'Three independent QA rejections; lead must choose a concrete next approach':undefined,qaAttempt:item.qaAttempt+1,checkpoint:brief(args.detail),qaEvidence:brief(args.evidence??args.detail),qaReviewerKey:args.reviewerKey,qaSessionId:args.sessionId,qaProvider:args.provider,qaRevision:undefined});await event(ctx,item.key,'changes_requested',args.reviewerKey,`${args.detail} (run ${args.sessionId})`,args.leaseId);return {state:exhausted?'blocked':'ready'};}
+  if(args.result==='changes_requested'){
+   const findings=brief(args.evidence??args.detail);
+   if(!findings.trim()||findings.length<20)throw Error('QA rejection must include actionable findings for the implementation owner');
+   const exhausted=item.qaAttempt+1>=MAX_RETRIES;
+   const owner=item.lead==='Orion'||!item.lead?(item.team==='research'?'Iris':'Rowan'):item.lead;
+   await ctx.db.patch(item._id,{...base,state:exhausted?'blocked':'ready',lead:owner,blockedReason:exhausted?brief(`Three independent QA rejections. ${findings}`):undefined,nextAction:exhausted?brief(`Orion: review findings and explicitly release to ${owner}. ${findings}`):findings,qaAttempt:item.qaAttempt+1,checkpoint:brief(`QA changes requested; return to ${owner}. ${findings}`),qaEvidence:findings,qaReviewerKey:args.reviewerKey,qaSessionId:args.sessionId,qaProvider:args.provider,qaRevision:undefined});
+   await event(ctx,item.key,'changes_requested',args.reviewerKey,`${owner}: ${findings} (run ${args.sessionId})`,args.leaseId);return {state:exhausted?'blocked':'ready'};
+  }
   if(args.result!=='accepted'||!args.evidence?.trim())throw Error('QA must accept with evidence or request changes');
   await ctx.db.patch(item._id,{...base,state:'accept_ready',qaAttempt:item.qaAttempt+1,qaEvidence:brief(args.evidence),qaReviewerKey:args.reviewerKey,qaSessionId:args.sessionId,qaProvider:args.provider,qaRevision:args.result==='accepted'?args.artifactRevision:undefined});await event(ctx,item.key,'qa_accepted',args.reviewerKey,`${args.detail} (run ${args.sessionId})`,args.leaseId);return {state:'accept_ready'};
  }
@@ -162,10 +171,10 @@ export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(
 /** A watchdog changes only expired leases, so a late result cannot overwrite reassigned work. */
 export const recoverExpired=internalMutation({args:{},handler:async ctx=>{
  const now=Date.now(),items=await ctx.db.query('projectDispatchItems').collect();let recovered=0;
- for(const item of items.filter(i=>i.leaseId&&i.leaseUntil&&i.leaseUntil<=now)){
+ for(const item of items.filter(i=>i.leaseId&&i.leaseUntil&&(i.leaseUntil<=now||now-(i.lastProgressAt??i.updatedAt??i.leaseUntil!)>=STALL_MS))){
   const state=item.state==='qa_running'?'qa_ready':item.state==='accept_running'?'accept_ready':item.lead==='Orion'?'triage_ready':'ready';
-  const detail=`Lease expired after ${new Date(item.leaseUntil!).toISOString()}; ${item.checkpoint??'no saved checkpoint'}`;
-  await ctx.db.patch(item._id,{state,leaseId:undefined,leaseUntil:undefined,activeActorName:undefined,activeActorKey:undefined,activeSessionId:undefined,checkpoint:brief(detail),retryAt:now+60_000,updatedAt:now});await event(ctx,item.key,'lease_expired','watchdog',detail,item.leaseId);recovered++;
+  const runEvidence=item.activeSessionId?` (run ${item.activeSessionId})`:'';const stalled=now<item.leaseUntil!;const detail=stalled?`Run stalled: no substantive checkpoint for ${Math.floor((now-(item.lastProgressAt??item.updatedAt??item.leaseUntil!))/1000)}s; lease renewed only for process liveness. Preserved: ${item.checkpoint??'no saved checkpoint'}${runEvidence}`:`Lease expired after ${new Date(item.leaseUntil!).toISOString()}; preserved: ${item.checkpoint??'no saved checkpoint'}${runEvidence}`;
+  await ctx.db.patch(item._id,{state,leaseId:undefined,leaseUntil:undefined,activeActorName:undefined,activeActorKey:undefined,activeSessionId:undefined,checkpoint:brief(detail),retryAt:now+60_000,updatedAt:now});await event(ctx,item.key,stalled?'run_stalled':'lease_expired','watchdog',detail,item.leaseId);recovered++;
  }
  return {recovered};
 }});
