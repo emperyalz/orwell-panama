@@ -69,6 +69,7 @@ test('native command permissions follow work versus QA and keep subscription-onl
  const work=nativeRunSpec({...input,provider:'claude',phase:'work'}),qa=nativeRunSpec({...input,provider:'claude',phase:'qa'});
  assert.match(work.args[work.args.indexOf('--tools')+1],/Write,Edit/);assert.doesNotMatch(qa.args[qa.args.indexOf('--tools')+1],/Write|Edit/);
  assert.equal(work.sourceWritable,true);assert.equal(qa.sourceWritable,false);assert.equal(qa.args[qa.args.indexOf('--max-turns')+1],'24');
+ assert.equal(work.args.includes('--json-schema'),false);assert.equal(qa.args.includes('--json-schema'),false);
  const codex=nativeRunSpec({...input,model:'gpt-6-luna',provider:'codex',phase:'qa'});
  assert.equal(codex.sourceWritable,false);assert.equal(codex.args[codex.args.indexOf('-C')+1],'/opt/orwell-reviews/frozen');assert.ok(codex.args.includes('forced_login_method="chatgpt"'));assert.ok(codex.args.includes('features.multi_agent=false'));
  assert.throws(()=>nativeRunSpec({...input,provider:'claude',phase:'qa',model:'gpt-6-luna'}),/Invalid native run model/);

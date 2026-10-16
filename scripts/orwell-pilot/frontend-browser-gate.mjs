@@ -14,6 +14,12 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
    const result=await response.json();if(!response.ok||result.status!=='success')throw Error('Live archive unavailable');
    const data=result.value,account=data.accounts.find(a=>a.posts===0),person=data.people.find(p=>p.id===account?.person);
    if(!person)throw Error('No actual zero-post account available for the live gap scenario');
+   const latestMonth=data.buckets.map(b=>b.month).sort().at(-1);
+   const positive=data.accounts.find(a=>a.posts>0&&data.accounts.filter(b=>b.person===a.person&&b.platform===a.platform).every(b=>b.posts>0)&&!data.buckets.some(b=>b.person===a.person&&b.platform===a.platform&&b.month===latestMonth));
+   const positivePerson=data.people.find(p=>p.id===positive?.person),covered=data.buckets.find(b=>b.person===positive?.person&&b.platform===positive?.platform&&b.count>0);
+   if(!positivePerson||!covered||data.buckets.some(b=>b.month==='1900-01'))throw Error('Actual covered-month and empty-month fixtures are required');
+   const platformIndex=[...new Set(data.buckets.map(b=>b.platform))].sort().indexOf(positive.platform)+1;
+   const importDate=new Date(data.lastSocialImport?.date??0).getTime(),freshImport=Number.isFinite(importDate)&&Date.now()-importDate<=30*86400000;
    const expected={en:'Archive gap:',es:'Brecha de archivo:',pt:'Falha no arquivo:'};
    for(const [language,prefix] of Object.entries(expected)){
     const context=await browser.newContext({viewport:language==='pt'?{width:390,height:844}:{width:1440,height:1000}});
@@ -27,7 +33,27 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
     if(!(await page.locator('.intelligence-health').innerText()).includes(person.name))throw Error('Live gap scenario shows the wrong person');
     const screenshot=join(directory,`${language}.png`);await page.screenshot({path:screenshot,fullPage:true});
     if(errors.length)throw Error(`Product browser runtime error: ${errors.join('; ')}`);
-    checks.push({language,text,person:person.externalId,account:account.url,zeroPosts:account.posts,screenshot,runtimeErrors:errors});await context.close();
+    checks.push({language,scenario:'zero-post-account',text,person:person.externalId,account:account.url,zeroPosts:account.posts,screenshot});
+    await page.goto(`${productionUrl}/inteligencia?person=${encodeURIComponent(positivePerson.externalId)}`,{waitUntil:'domcontentloaded',timeout:60000});
+    await page.locator('.intelligence-health tbody tr').first().waitFor({state:'visible',timeout:60000});
+    await page.locator('.intelligence-platforms button').nth(platformIndex).click();
+    const dates=page.locator('.intelligence-filters input[type="month"]');
+    await dates.nth(0).fill(covered.month);await dates.nth(1).fill(covered.month);
+    await page.waitForFunction(()=>Number(document.querySelector('.intelligence-metrics div:first-child strong')?.textContent?.replace(/\D/g,''))>0,{},{timeout:10000});
+    if(freshImport&&await label.isVisible())throw Error('A covered month with positive accounts and a fresh import is falsely labeled as a gap');
+    checks.push({language,scenario:'covered-month',person:positivePerson.externalId,platform:positive.platform,month:covered.month,freshImport,gapVisible:await label.isVisible()});
+    await dates.nth(0).fill(latestMonth);await dates.nth(1).fill('');
+    await page.waitForFunction(()=>document.querySelector('.intelligence-metrics div:first-child strong')?.textContent?.trim()==='0',{},{timeout:10000});
+    await label.waitFor({state:'visible',timeout:10000});
+    if(!(await label.innerText()).startsWith(prefix))throw Error('Implicit-end monthly gap translation missing');
+    checks.push({language,scenario:'month-gap-with-implicit-end',person:positivePerson.externalId,platform:positive.platform,month:latestMonth,gapVisible:true});
+    await dates.nth(0).fill('1900-01');await dates.nth(1).fill('1900-01');
+    await page.waitForFunction(()=>document.querySelector('.intelligence-metrics div:first-child strong')?.textContent?.trim()==='0',{},{timeout:10000});
+    await label.waitFor({state:'visible',timeout:10000});
+    if(!(await label.innerText()).startsWith(prefix)||await page.locator('.intelligence-examples article').count())throw Error('Selected-month gap behavior is incorrect');
+    const gapScreenshot=join(directory,`${language}-month-gap.png`);await page.screenshot({path:gapScreenshot,fullPage:true});
+    if(errors.length)throw Error(`Product browser runtime error: ${errors.join('; ')}`);
+    checks.push({language,scenario:'selected-month-gap',person:positivePerson.externalId,platform:positive.platform,accountHasPosts:positive.posts,month:'1900-01',screenshot:gapScreenshot,runtimeErrors:errors});await context.close();
    }
   }else{
    const page=await browser.newPage();const response=await page.goto(productionUrl,{waitUntil:'domcontentloaded',timeout:60000});

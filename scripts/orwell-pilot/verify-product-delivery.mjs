@@ -12,4 +12,13 @@ if(!Number.isFinite(Date.parse(artifact.observedAt))&&!Number.isFinite(artifact.
 for(const source of artifact.sources){if(typeof source.url!=='string'||!source.url.length||typeof source.claim!=='string'||source.claim.length<10)throw Error('Every source must identify its supported claim');if(!/^https:\/\//.test(source.url)&&!/^((src|convex|scripts)\/)[^\0\r\n]+$/.test(source.url))throw Error('Source must be original HTTPS evidence or exact repository code path');}
 if((await readFile(join(workspace,paths.report),'utf8')).length<300)throw Error('Inspectable product report required');
 if((await readFile(join(workspace,paths.test),'utf8')).length<200)throw Error('Meaningful product checks required');
+if(key==='communication-trends/label-uncertainty-and-archive-gaps'){
+ const source=await readFile(join(workspace,'src/components/reference/IntelligenceWorkspace.tsx'),'utf8');
+ const copy=source.split('gapNote:',2)[1]?.split('],',1)[0];
+ if(!copy||!/selectedMonthGap/.test(source))throw Error('Selected-month gap must be wired in product source');
+ // Root found a real contradiction: a monthly gap can coexist with positive
+ // lifetime posts and a fresh import. The translated message must allow that.
+ const strings=[...copy.matchAll(/'((?:\\.|[^'\\])*)'/g)].map(m=>m[1]);
+ if(strings.length!==3||!/(?:mes|per[ií]odo|selecci[oó]n|filtros|rango)/i.test(strings[0])||!/(?:month|period|selected|selection|filter|range)/i.test(strings[1])||!/(?:m[eê]s|per[ií]odo|sele[cç][aã]o|filtros|intervalo)/i.test(strings[2]))throw Error('Gap wording must describe the selected period in Spanish, English and Portuguese; it cannot imply zero lifetime posts or stale imports are the only causes');
+}
 console.log(JSON.stringify({itemKey:key,wholeStep:true,sourceCount:artifact.sources.length,limitations:artifact.limitations,minimumEvidenceGate:'passed; separate native QA remains mandatory'}));

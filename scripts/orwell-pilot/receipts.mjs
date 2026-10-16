@@ -37,7 +37,7 @@ export async function receiptBudget(directory,now=Date.now()) {
 export function legalOutcome(phase,answer) {
  const results={triage:['submitted','needs_input','failed'],work:['submitted','needs_input','failed'],
   qa:['accepted','changes_requested','needs_input','failed'],accept:['accepted','changes_requested','needs_input','failed']};
- return Boolean(answer&&results[phase]?.includes(answer.result)&&typeof answer.detail==='string'&&answer.detail.trim()&&
+ return Boolean(answer&&typeof answer==='object'&&!Array.isArray(answer)&&Object.keys(answer).length===4&&Object.keys(answer).every(key=>['result','detail','evidence','team'].includes(key))&&results[phase]?.includes(answer.result)&&typeof answer.detail==='string'&&answer.detail.trim()&&
   typeof answer.evidence==='string'&&['research','implementation','none'].includes(answer.team)&&
   (phase!=='triage'||answer.result!=='submitted'||answer.team!=='none'));
 }

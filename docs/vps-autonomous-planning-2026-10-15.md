@@ -19,3 +19,16 @@ Frontend publication uses root-only native Vercel authentication, the fixed Orwe
 Private runtime state lives under `/var/lib/orwell-agent-controller`; Paperclip bridge state under `/var/lib/orwell-paperclip`. The optional Mac UI tunnel is for viewing Paperclip, not execution. The former Mac planning heartbeat is paused. The public scoreboard remains available at https://orwell-panama.vercel.app/scoreboard#live-operations.
 
 Planning may stop with unfinished items if the original deadline, budget reserve, prerequisite, recovery or QA guard prevents safe completion. That is reported as held or blocked, never as a finished backlog.
+
+
+## Observed delivery and current execution
+
+The first native Claude planner selected methods documentation and archive-gap labels. The methods step completed actual Claude implementation, Codex rejections, author-pinned repairs, fresh accepted Codex review,37 source/line checks, deployment and root acceptance. VPS commit d515c4ffcde45989fd26d85f112ebb6b05a5e4a6 was merged locally. This closes one of the original42 steps;41 remained at that acceptance.
+
+Archive-gap labels are being repaired on the VPS after independent QA found missing selected-month behavior. Root additionally identified contradictory translated wording and installed a pre-release semantic check. The fixed native Vercel wrapper runs real browser scenarios for zero-post accounts, covered months, implicit-end monthly gaps and explicit empty months in ES/EN/PT, including mobile. Its negative probe rejected old production lacking the feature. No frontend release is claimed until the positive deployed checks pass.
+
+Optional native Claude StructuredOutput serialization failed on a real Opus turn. Usage and edits were preserved, and a fresh economical Sonnet session validated and resubmitted the37-check artifact before independent QA accepted it. Future Claude turns return plain JSON in the native stream; root still requires the exact four-field outcome or strict planning schema. This removes the failing optional tool without weakening outcome, source, budget or independent-review checks.
+
+Operator-installed root runtime updates are separate from product source. Product activation no longer overwrites those updates from an older workspace snapshot. Runtime hashes are recorded privately in controller-runtime.json; product source retains its own exact independent-review revision. Models cannot modify root runtime files or release configuration.
+
+At the last live observation Codex was+26 and Claude+2 from original weekly baselines, leaving1 and25 usable points before the three-point reserves. These measurements include other account activity. The VPS continues without desktop monitoring; new work holds if independent review cannot be reserved. Original expiry is October16 at3:50:25p.m. Detroit. No allocation was renewed.

@@ -62,13 +62,15 @@ export function selectNativeModel({provider,phase='work',proposal,repairReason='
 }
 
 /** CLI permissions follow phase; provider never changes identity or QA ownership. */
-export function nativeRunSpec({provider,phase,model,cwd,schema}){
+export function nativeRunSpec({provider,phase,model,cwd}){
  if(!known(provider)||!['work','qa','planner'].includes(phase))throw Error('Invalid native run phase');
  const permitted=provider==='codex'?['gpt-6-luna','gpt-6.1-sol']:['sonnet','opus'];
  if(!permitted.includes(model))throw Error('Invalid native run model');
  if(provider==='claude'){
   const tools=phase==='work'?'Read,Grep,Glob,Bash,Write,Edit':'Read,Grep,Glob,Bash';
-  return {provider,model,sourceWritable:phase==='work',args:['-p','--model',model,'--effort','low','--output-format','stream-json','--verbose','--max-turns','24','--permission-mode','dontAsk','--setting-sources','','--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--tools',tools,'--allowedTools',tools,'--json-schema',JSON.stringify(schema)]};
+  // Root parses and validates the final JSON. The optional native StructuredOutput
+  // tool has produced malformed XML-in-JSON inputs and five charged retries.
+  return {provider,model,sourceWritable:phase==='work',args:['-p','--model',model,'--effort','low','--output-format','stream-json','--verbose','--max-turns','24','--permission-mode','dontAsk','--setting-sources','','--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--tools',tools,'--allowedTools',tools]};
  }
  // Hostinger cannot run Codex's nested network namespace. The OS still owns
  // frozen QA files (0444) and directories (0755); native sandbox is unchanged.
