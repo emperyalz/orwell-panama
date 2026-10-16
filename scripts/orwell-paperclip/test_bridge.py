@@ -64,7 +64,7 @@ class BridgeTests(unittest.TestCase):
             "allocationPercentagePoints": 30, "reservePercentagePoints": 3,
             "subscriptionOnly": True, "allowPaidFallback": False})
         bridge.atomic_json(self.controller / "usage.json", {"checks": {"codex": {"allowed": True}, "claude": {"allowed": True}}})
-        self.config = {"paperclipUrl": "http://127.0.0.1:3100", "companyId": COMPANY, "agents": AGENTS,
+        self.config = {"paperclipUrl": "http://127.0.0.1:3100", "companyId": COMPANY, "agents": dict(AGENTS),
             "paperclipUid": 1002, "controllerStateDirectory": str(self.controller),
             "stateDirectory": str(self.base / "bridge"), "scope": {"itemKeys": [KEY]}, "enableWakeups": True, "assignAgents": True}
         self.http = FakeHTTP()
