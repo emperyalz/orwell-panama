@@ -1,0 +1,11 @@
+[Unit]
+Description=Poll the bounded Groq Free source-audit queue
+
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=60s
+Persistent=true
+Unit=orwell-groq-free-preparation.service
+
+[Install]
+WantedBy=timers.target

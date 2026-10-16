@@ -169,7 +169,7 @@ def read_free_preparation(path):
 
 def free_preparation_overlay(view, item_key, step, observed_now):
     """Expose verified free-lane preparation without granting checklist authority."""
-    if step.get("done") or not isinstance(view, dict):
+    if step.get("done") or not isinstance(view, dict) or view.get("paused") is True:
         return None
     jobs = view.get("jobs", [])
     job = next((row for row in jobs if isinstance(row, dict)

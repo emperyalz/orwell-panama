@@ -27,6 +27,11 @@ class FreePreparationTests(unittest.TestCase):
         self.assertEqual(result['status'], 'in_review')
         self.assertIsNone(bridge.free_preparation_overlay(self.view(state='accepted_preparation'), KEY, {}, NOW))
 
+    def test_paused_envelope_cannot_show_working(self):
+        view = self.view()
+        view['paused'] = True
+        self.assertIsNone(bridge.free_preparation_overlay(view,KEY,{},NOW))
+
     def test_six_batch_coverage_requires_all_six_independent_reviews(self):
         result = bridge.free_preparation_overlay(self.view(state='accepted_preparation', batchCount=6, authorBatchCount=6, qaBatchCount=6),KEY,{},NOW)
         self.assertEqual(result['status'],'in_review')
