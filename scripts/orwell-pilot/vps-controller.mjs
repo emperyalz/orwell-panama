@@ -158,6 +158,11 @@ function prompt(job,qa,provider,person) {
 }
 async function runModel(job) {
  const qa=job.phase==='qa',person=qa?reviewer:job.item.team==='research'?researchAuthor:author;
+ if(!qa&&job.item.qaAttempt>0){
+  const prior=[];for(const id of await readdir(join(state,'runs'))){try{const receipt=JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8'));if(receipt.job?.item?.key===job.item.key&&receipt.job.phase==='qa')prior.push(receipt);}catch{}}
+  const latest=prior.sort((a,b)=>b.finishedAt-a.finishedAt)[0];
+  if(latest?.answer?.result==='changes_requested')job.item.qaEvidence=`Required repairs: ${latest.answer.detail}\nInspection evidence: ${latest.answer.evidence}`;
+ }
  const measured=await admission();
  const chosen=routeProvider({phase:job.phase,item:job.item,checks:measured.checks,policy,previousProvider:routing.heavyProvider,reservation:routing.reservations?.[job.item.key]});
  if(!chosen.allowed)throw Error(chosen.reason);
@@ -240,7 +245,7 @@ async function runModel(job) {
  let usagePersisted=false;
  if(sessionId&&usage){await api('dispatch:recordUsage',{itemKey:job.item.key,leaseId:job.leaseId,sessionId,model,inputTokens:usage.input_tokens,cachedInputTokens:usage.cached_input_tokens,outputTokens:usage.output_tokens,totalTokens:usage.total_tokens});usagePersisted=true;}
  if(sessionId)await observe(job,sessionId,person,provider,model,streamError?'error':'completed',streamError?streamError.message:'Model turn ended; acceptance remains separate');
- const finishArgs={itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:streamError?'failed':answer.result,detail:(streamError?.message??answer.detail).slice(0,2800),evidence:streamError?undefined:answer.evidence.slice(0,2800),sessionId,provider,artifactRevision:after,...(qa?{reviewerKey:person.key}:{contributorKey:person.key})};
+ const finishArgs={itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:streamError?'failed':answer.result,detail:(streamError?.message??answer.detail).slice(0,2800),evidence:streamError?undefined:(qa&&answer.result==='changes_requested'?`Required repairs: ${answer.detail}\nInspection evidence: ${answer.evidence}`:answer.evidence).slice(0,2800),sessionId,provider,artifactRevision:after,...(qa?{reviewerKey:person.key}:{contributorKey:person.key})};
  const receipt={job,provider,model,sessionId,usage,usagePersisted,exit,before,after,afterManifest:await sourceManifest(workspace),answer,finishArgs,finishedAt:Date.now(),finish:null};
  await writeAtomicJson(join(dir,'receipt.json'),receipt);
  const finish=await api('dispatch:finish',finishArgs);

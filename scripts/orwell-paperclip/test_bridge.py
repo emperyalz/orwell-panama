@@ -486,6 +486,21 @@ class BridgeTests(unittest.TestCase):
         self.assertEqual(messages[-1]["status"], "noop")
         self.assertIn("trusted planner wake", messages[-1]["reason"])
 
+    def test_meter_tick_race_waits_without_losing_the_pending_wake(self):
+        self.planner_setup()
+        self.b.sync()
+        messages = []
+        idle = {"ActiveState": "inactive", "Result": "success", "ExecMainStatus": "0"}
+        states = iter([{"ActiveState": "activating"}, idle, idle])
+        def start(*args, **kwargs):
+            state = bridge.read_json(self.b.planner_path)
+            bridge.atomic_json(self.b.planner_path, {**state, "state": "held", "lastError": None, "lastPlanAt": NOW, "planCount": 2})
+        with patch.object(self.b, "unit_state", side_effect=lambda: next(states, idle)), patch.object(bridge.STOP, "wait", return_value=False) as wait, patch("bridge.subprocess.run", side_effect=start), patch("bridge.time.monotonic", side_effect=[0, 1, 3]):
+            self.b.run({"role": "planner"}, messages.append)
+        wait.assert_called_once_with(1)
+        self.assertEqual(messages[-1]["status"], "complete")
+        self.assertEqual(messages[-1]["state"], "held")
+
 
 if __name__ == "__main__":
     unittest.main()

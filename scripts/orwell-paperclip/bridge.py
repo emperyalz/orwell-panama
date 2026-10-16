@@ -603,6 +603,7 @@ class Bridge:
                 "provider": clean(planner.get("activeProvider") or "", 50),
                 "model": clean(planner.get("activeModel") or "", 160),
                 "checkpoint": clean(planner.get("checkpoint") or planner.get("lastError") or "", 1800),
+                "lastError": clean(planner.get("lastError") or "", 1800),
                 "lastPlanAt": planner.get("lastPlanAt"), "nextPlanAt": planner.get("nextPlanAt"),
                 "planCount": planner.get("planCount"), "backlogHash": clean(planner.get("backlogHash") or "", 200)}
 
@@ -632,6 +633,13 @@ class Bridge:
                 emit({"status": "noop", "reason": "Controller bridge busy"})
                 return
             unit = self.unit_state()
+            # A read-only meter tick can win the unit race after a wake was
+            # persisted. Wait for it rather than consuming the sole wake as a noop.
+            for _ in range(55):
+                if unit.get("ActiveState") in {"inactive", "failed"} or STOP.is_set():
+                    break
+                STOP.wait(1)
+                unit = self.unit_state()
             if unit.get("ActiveState") not in {"inactive", "failed"}:
                 emit({"status": "noop", "reason": "Controller unit is active"})
                 return
@@ -675,8 +683,8 @@ class Bridge:
                 if unit.get("ActiveState") not in {"active", "activating", "reloading", "deactivating"} and time.monotonic() - started >= 2:
                     succeeded = (unit.get("Result") == "success" and unit.get("ExecMainStatus") == "0")
                     if is_planner:
-                        held = observation["state"] == "held"
                         changed = observation.get("lastPlanAt") != before_planner.get("lastPlanAt") or observation.get("planCount") != before_planner.get("planCount")
+                        held = bool(observation.get("lastError")) or not changed
                         blocked = False
                     else:
                         held = (not self.config.get("providerRouting", False)
