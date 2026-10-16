@@ -57,6 +57,7 @@ async function refreshRouting(items){
 }
 async function publishStatus(runtimeState=controllerState,reason=controllerReason){
  controllerState=runtimeState;controllerReason=reason;
+ await writeAtomicJson(join(state,'health.json'),{state:runtimeState,at:Date.now(),reason});
  const receipts=[];for(const id of await readdir(join(state,'runs')).catch(()=>[])){
   try{receipts.push(JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8')));}catch{}
  }
@@ -147,6 +148,7 @@ async function freeze(id) {
 async function observe(job,sessionId,person,provider,model,kind,detail) {
  const at=Date.now(),localized=en=>({en,es:en,pt:en});
  await api('agentActivity:record',{key:sessionId,name:person.name,team:job.phase==='qa'?'qa':job.item.team,model,reasoning:'low',assignment:localized(`${job.item.label} (${job.item.key}; ${job.phase})`),status:kind==='completed'?'completed':kind==='error'?'error':'running',lastActivityAt:at,eventId:`vps:${job.leaseId}:${kind}:${at}`,kind,summary:localized(detail),binding:{taskKey:job.item.taskKey,stepKey:job.item.stepKey,rosterKey:person.key,observedAt:at,evidence:`Actual ${provider} CLI session ${sessionId}; lease ${job.leaseId}; immutable source review required`}});
+ if(kind==='assigned')await publishStatus('working',`Actual ${provider} ${model} session ${sessionId} is running ${job.item.key} (${job.phase}).`);
  if(kind==='assigned')await api('dispatch:checkpoint',{itemKey:job.item.key,leaseId:job.leaseId,checkpoint:detail,sessionId,actorName:person.name,actorKey:person.key});
 }
 function parseAnswer(text) {
@@ -193,6 +195,7 @@ async function runModel(job) {
  const {args}=nativeRunSpec({provider,phase:handoff?'planner':job.phase,model,cwd,schema});
  if(handoff&&provider==='claude')args[args.indexOf('--max-turns')+1]='8';
  await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,modelReason:selected.reason,routingReason:chosen.reason,before,baselineDirectory,beforeManifest,startedAt:Date.now()});
+ await publishStatus('working',`Starting ${provider} ${model} for ${job.item.key} (${job.phase}); native session identity pending.`);
  const child=spawn(`${tools}/${provider}`,args,{cwd,env,uid,gid,detached:true,stdio:['pipe','pipe','pipe']});
  let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve(),lastCheckpointAt=0,checkpointCount=0;
  const kill=()=>{try{process.kill(-child.pid,'SIGTERM');}catch{}};
