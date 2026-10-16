@@ -18,7 +18,9 @@ export const archive=query({args:{},handler:async ctx=>{
   const key=[person,platform,month,format].join(':');
   const old=buckets.get(key)||{person,platform,month,format,count:0,latest:0};
   old.count++;old.latest=Math.max(old.latest,post.publishedAt);buckets.set(key,old);
-  const exampleKey=[person,platform,format].join(':');
+  // Keep one representative for each displayed month so the workspace's date
+  // filters can still find older archive buckets. Bounded by people × platforms × months × formats.
+  const exampleKey=[person,platform,month,format].join(':');
   if(!examples.has(exampleKey)||examples.get(exampleKey)!.date<post.publishedAt)examples.set(exampleKey,{person,platform,format,url:post.sourceUrl,title:post.title,date:post.publishedAt});
  }
  return {people:people.map(p=>({id:String(p._id),externalId:p.externalId,name:p.name,portrait:p.headshot,party:p.party,province:p.province})),

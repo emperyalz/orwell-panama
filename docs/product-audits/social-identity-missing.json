@@ -1,0 +1,70 @@
+{
+  "observedAt": "2026-10-16",
+  "scope": "Exactly DEP-082 Carlos Afú, DEP-081 Gertrudis Rodríguez, and DEP-079 Nelson Jackson Palma; no assertion that any unproven account is registered.",
+  "profileSnapshot": {
+    "file": "docs/product-audits/profile-facts-raw-observations.json",
+    "sha256": "636059fe56d3eef9d716d0a47449ec90def9e000965f1e8ca55d4cd269112139",
+    "observationTimestamp": "2026-10-16T02:31:47.194Z"
+  },
+  "candidates": [
+    {
+      "externalId": "DEP-082",
+      "name": "Carlos Afú",
+      "identityContext": "Assembly directory identifies him as deputy for Los Santos; Voto Informado candidate profile identifies Tito Afú, circuit 7-1, Los Santos, districts Guararé, Las Tablas, Pedasí, Pocrí, and Cambio Democrático.",
+      "officialInstitutionURL": "https://www.asamblea.gob.pa/Diputados/CARLOS_TITO_AFU",
+      "originalProofURL": "https://voto2024.espaciocivico.org/es/candidatos/diputado/tito-afu",
+      "examinedDate": "2026-10-16",
+      "evidencePassage": "Voto Informado page: ‘Tito Afú’; ‘Circuito 7-1’; ‘Los Santos’; ‘Guararé, Las Tablas, Pedasí, Pocrí’; lists Cambio Democrático and the Panameñista party as postulants. The page exposes no personal account links. Espacio Cívico's deputy directory page names Carlos Afú and lists Cambio Democrático, 7-1, Los Santos; its Instagram/Facebook/Twitter links are the directory publisher's general social channels, not Afú's accounts. The institutional Assembly URL is recorded in the production profile but the page was inaccessible to direct open during this examination. Search surfaced X URL https://x.com/TitoAfu; only a third-party mirror linked the name/location and blog, without official or owner cross-link evidence. That lead is unresolved, not attributed.",
+      "candidateURLs": [
+        "https://x.com/TitoAfu"
+      ],
+      "outcome": "unresolved",
+      "outcomeReason": "No exact personal profile URL is supported by first-party owner or institutional evidence. The X lead lacks a corroborating cross-link, and its current profile could not be established from primary evidence. No account is asserted as registered or owned by Afú.",
+      "additionalSources": [
+        "https://espaciocivico.org/diputados/carlos-afu",
+        "https://twstalker.com/TitoAfu",
+        "https://titoafu.blogspot.com/"
+      ]
+    },
+    {
+      "externalId": "DEP-081",
+      "name": "Gertrudis Rodríguez",
+      "identityContext": "Assembly profile search result identifies Gertrudis Tule Rodríguez, circuit 12-3, Comarcas indígenas, Partido Cambio Democrático; independent electoral result identifies Gertrudis ‘Tule’ Rodriguez as elected in circuit 12.3.",
+      "officialInstitutionURL": "https://www.asamblea.gob.pa/Diputados/GERTRUDIS_TULE_RODRIGUEZ",
+      "originalProofURL": "https://www.datosabiertos.gob.pa/dataset/8c4c4aef-f154-4f83-86a8-ed261afab29a/resource/a1b5d88e-ee06-4549-86f4-b62cd272ff45/download/cuadro-06-diputado-proclamados.pdf",
+      "examinedDate": "2026-10-16",
+      "evidencePassage": "Tribunal Electoral election-results PDF names ‘Gertrudis “Tule” Rodriguez’ in circuit 12.3, with 11,429 votes and party CD. Assembly search result for the official profile lists circuit 12-3, suplente César Pineda, ‘Bancada: Partido Cambio Democrático’, and institutional email grodriguez@asamblea.gob.pa. The Espacio Cívico candidate guide record was previously reviewed and contains only Espacio Cívico's own platform links; direct reopen timed out. Focused platform searches produced no owner- or institution-linked candidate URL. Assembly direct open returned 502 during this review.",
+      "candidateURLs": [],
+      "outcome": "unresolved",
+      "outcomeReason": "No attributable personal profile URL was identified. Institutional/candidate pages provide identity and party context but no personal social account; the direct Assembly page and candidate guide had access failures on reopen. Absence of a located link does not establish that no account exists.",
+      "additionalSources": [
+        "https://www.asamblea.gob.pa/Diputados/GERTRUDIS_TULE_RODRIGUEZ",
+        "https://candidatos.espaciocivico.org/profile/gertrudis-tule-rodriguez/",
+        "https://espaciocivico.org/diputados/gertrudis-rodriguez"
+      ]
+    },
+    {
+      "externalId": "DEP-079",
+      "name": "Nelson Jackson Palma",
+      "identityContext": "Assembly and Panama Canal Authority records identify him as Nelson Jackson Palma, deputy; Voto Informado identifies circuit 3-2, Colón, and the districts served.",
+      "officialInstitutionURL": "https://www.asamblea.gob.pa/Diputados/NELSON_JACKSON",
+      "originalProofURL": "https://pancanal.com/board-of-directors/nelson-jackson-palma/",
+      "examinedDate": "2026-10-16",
+      "evidencePassage": "Panama Canal Authority biography: ‘Nelson Jackson Palma’; says he has served as legislator/deputy and was elected for periods through 2029. Voto Informado identifies ‘Nelson Jackson Palma’, circuit 3-2, Colón, and districts Chagres, Donoso, Omar Torrijos Herrera, Portobelo, Santa Isabel; lists the nominating parties MOLIRENA, PRD and RM. Neither opened profile lists a personal social URL. Assembly direct open returned 502 in this review. Search did not identify a primary source linking a specific personal account to him.",
+      "candidateURLs": [],
+      "outcome": "unresolved",
+      "outcomeReason": "No exact candidate-owned or institutionally linked social profile URL was located. The official ACP biography verifies identity and public role, not social-account ownership. Search results referencing social posts did not identify an account belonging to Jackson Palma.",
+      "additionalSources": [
+        "https://www.asamblea.gob.pa/Diputados/NELSON_JACKSON",
+        "https://voto2024.espaciocivico.org/es/candidatos/diputado/nelson-jackson-palma",
+        "https://www.laestrella.com.pa/panama/nacional/boyd-galindo-evalua-convertir-el-antiguo-hospital-amador-guerrero-en-un-centro-de-urgencias-para-colon-DH25550641"
+      ]
+    }
+  ],
+  "limitations": [
+    "The official Assembly profiles for all three are recorded in production directory data; direct page retrieval failed for Carlos (tool reported inaccessible URL) and returned 502 for Gertrudis and Nelson.",
+    "A zero-account production profile means no account is currently linked in the inspected production snapshot, not that the person has no social account.",
+    "No paid scraping was activated. No accounts were registered or added. No politician portrait was used as an account avatar.",
+    "Independent Claude review must reopen the cited original sources and assess the unresolved distinctions before any correction or account linkage."
+  ]
+}
