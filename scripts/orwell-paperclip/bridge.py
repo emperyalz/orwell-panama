@@ -560,8 +560,8 @@ class Bridge:
                         f"Acceptance: {clean(criteria.get(key) or english(step['label']), 7000)}\n\n"
                         + (f"Actual parallel PREPARATION: {clean(preparation.get('state'))}; batch {clean(preparation.get('batchId'))}; "
                            f"roster identity {clean(prep_job.get('positionKey'))}; execution {clean(prep_execution.get('leaseId') or 'not yet recorded')}; "
-                           f"requested model {clean(prep_execution.get('provider') or 'unknown')}/{clean(prep_execution.get('model') or 'unknown')}; "
-                           f"observed session {clean(prep_receipt.get('sessionId') or 'awaiting native receipt')}. "
+                           f"native execution model {clean(prep_execution.get('provider') or 'unknown')}/{clean(prep_execution.get('model') or 'unknown')}; "
+                           f"observed session {clean(prep_execution.get('sessionId') or prep_receipt.get('sessionId') or 'awaiting native receipt')}. "
                            "Read-only research/QA; no product implementation or checkbox acceptance.\n" if prep_job else "")
                         + f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
                         + (f"Observed native worker: {clean(active[key].get('owner'), 160)}. Model: {clean(active[key].get('model'), 160)}.\n" if key in active else "")
