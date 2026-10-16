@@ -434,7 +434,10 @@ class Bridge:
             return None
         planner = read_json(self.planner_path, {})
         running = planner.get("state") == "planning" and bool(planner.get("activeSessionId"))
-        reason = clean(planner.get("lastError") or planner.get("reason") or "Awaiting the next admitted planning cycle")
+        health = read_json(self.controller / "health.json", {})
+        runtime_hold = health.get("state") in {"held", "error", "failed", "paused"} and bool(health.get("reason"))
+        reason = clean(health["reason"] if runtime_hold else planner.get("reason") or planner.get("lastError") or "Awaiting the next admitted planning cycle")
+        planner_blocked = runtime_hold or planner.get("state") in {"held", "failed"} and bool(planner.get("lastError"))
         desired = {"title": "Plan the next authorized Orwell product batch",
             "description": "<!-- orwell:server-planning -->\nNative subscription planning; this is orchestration, not a completed product checkbox.\n"
                 + f"Observed state: {clean(planner.get('state') or 'unknown')}. Remaining: {planner.get('remaining', 'unknown')}.\n"
@@ -443,9 +446,9 @@ class Bridge:
                 + f"{clean(planner.get('activeModel') or planner.get('lastModel') or 'unknown')}.\n"
                 + f"Checkpoint/blocker: {reason}. Next eligible time: {planner.get('nextPlanAt', 'unknown')}.\n"
                 + "Paperclip dollar accounting is not the native subscription quota meter.",
-            "status": "in_progress" if running else "blocked" if planner.get("state") in {"held", "failed"} and planner.get("lastError") else "backlog",
+            "status": "in_progress" if running else "blocked" if planner_blocked else "backlog",
             "assigneeAgentId": self.config["agents"]["planner"], "assigneeUserId": None,
-            "unblockDescriptor": {"owner": "board", "action": reason} if not running and planner.get("state") in {"held", "failed"} and planner.get("lastError") else None}
+            "unblockDescriptor": {"owner": "board", "action": "Investigate and reconcile the recorded native accounting prerequisite without changing the original quota or interrupted-run allowance. " + reason if runtime_hold else reason} if not running and planner_blocked else None}
         issue_id = self.mapping.get("plannerIssueId")
         remote = self.pc(self.company_path + "/issues")
         issue = next((i for i in remote if i["id"] == issue_id or "<!-- orwell:server-planning -->" in (i.get("description") or "")), None)
