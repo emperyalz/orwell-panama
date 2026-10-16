@@ -53,7 +53,11 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
     if(!(await label.innerText()).startsWith(prefix)||await page.locator('.intelligence-examples article').count())throw Error('Selected-month gap behavior is incorrect');
     const gapScreenshot=join(directory,`${language}-month-gap.png`);await page.screenshot({path:gapScreenshot,fullPage:true});
     if(errors.length)throw Error(`Product browser runtime error: ${errors.join('; ')}`);
-    checks.push({language,scenario:'selected-month-gap',person:positivePerson.externalId,platform:positive.platform,accountHasPosts:positive.posts,month:'1900-01',screenshot:gapScreenshot,runtimeErrors:errors});await context.close();
+    checks.push({language,scenario:'selected-month-gap',person:positivePerson.externalId,platform:positive.platform,accountHasPosts:positive.posts,month:'1900-01',screenshot:gapScreenshot,runtimeErrors:errors});
+    await dates.nth(1).fill('1900-02');
+    await label.waitFor({state:'visible',timeout:10000});
+    if(!(await label.innerText()).startsWith(prefix)||await page.locator('.intelligence-examples article').count())throw Error('Selected multi-month empty-range gap behavior is incorrect');
+    checks.push({language,scenario:'selected-empty-range-gap',person:positivePerson.externalId,platform:positive.platform,from:'1900-01',to:'1900-02',gapVisible:true});await context.close();
    }
   }else{
    const page=await browser.newPage();const response=await page.goto(productionUrl,{waitUntil:'domcontentloaded',timeout:60000});
