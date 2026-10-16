@@ -40,7 +40,8 @@ async function refreshRouting(items){
   const missing=dependencies.filter(dependency=>!historicallyDone.has(dependency)&&!observed.some(item=>item.key===dependency&&item.state==='accepted'));
   if(missing.length&&routing.items[key])Object.assign(routing.items[key],{allowed:false,reason:`Waiting for accepted dependencies: ${missing.join(', ')}`});
  }
- const globallyPaused=(await api('leadAccountability:snapshot',{},'query')).monitor?.dispatchPaused===true;
+ const monitor=(await api('leadAccountability:snapshot',{},'query')).monitor;
+ const globallyPaused=monitor?.dispatchPaused===true,modelCeilingPause=globallyPaused&&monitor.pauseReason?.en?.startsWith('Pilot model ceiling:');
  if(scope.serverPlanning===true){
   plannerPolicy=JSON.parse(await readFile(join(state,'planner-policy.json'),'utf8'));
   try{plannerState=JSON.parse(await readFile(join(state,'planner.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
@@ -51,7 +52,7 @@ async function refreshRouting(items){
   routing.planner={allowed:plannerState.planningAllowed===true,role:plannerState.route?.provider??null,reason:plannerState.reason??plannerState.route?.reason};
   await writeAtomicJson(join(state,'planner.json'),plannerState);
  }
- if(globallyPaused){for(const row of Object.values(routing.items))Object.assign(row,{allowed:false,reason:'Dispatch is paused'});}
+ if(globallyPaused){for(const row of Object.values(routing.items))if(!(modelCeilingPause&&row.phase==='accept'))Object.assign(row,{allowed:false,reason:'Dispatch is paused'});}
  await writeAtomicJson(join(state,'routing.json'),routing);return routing;
 }
 async function publishStatus(runtimeState=controllerState,reason=controllerReason){
@@ -375,7 +376,14 @@ async function main() {
     await writeAtomicJson(checksPath,{itemKey:job.item.key,leaseId:job.leaseId,revision:current,commands:checkRecords,output:evidence,originalPolicy:realPolicy.out});
    }
    const proof=await acceptanceProof({checksPath,deploymentPath:join(state,'deployment.json'),itemKey:job.item.key,leaseId:job.leaseId,revision:current});
-   const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',...(policy.reviewMode==='claude-cross-model'?{reviewMode:'claude-cross-model'}:{}),acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent reviewer models and sessions, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider}/${job.item.workerModel??'recorded native model'} worker ${job.item.workerSessionId}; ${job.item.qaProvider}/${job.item.qaModel??'recorded native model'} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; product-specific checks where configured, controller regressions, dispatch acceptance guards and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted')await writeAtomicJson(join(state,'affinity.json'),null);await publishStatus('ready',`${job.item.label}: accepted with independent QA and product verification. Awaiting the next authorized product step.`);return log({item:job.item.key,phase:'accept',finish});
+   const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',...(policy.reviewMode==='claude-cross-model'?{reviewMode:'claude-cross-model'}:{}),acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent reviewer models and sessions, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider}/${job.item.workerModel??'recorded native model'} worker ${job.item.workerSessionId}; ${job.item.qaProvider}/${job.item.qaModel??'recorded native model'} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; product-specific checks where configured, controller regressions, dispatch acceptance guards and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted'){
+    await writeAtomicJson(join(state,'affinity.json'),null);
+    const remaining=await receiptGuard(),monitor=(await api('leadAccountability:snapshot',{},'query')).monitor;
+    if(!remaining.modelHeld&&monitor?.dispatchPaused&&monitor.pauseReason?.en?.startsWith('Pilot model ceiling:')){
+     const reason='A real reviewed product release reset the12-runs-without-acceptance ceiling; original subscription/reserve/deadline and absolute run/token guards remain active';
+     await api('leadAccountability:configure',{dispatchPaused:false,reason:{en:reason,es:reason,pt:reason}});
+    }
+   }await publishStatus('ready',`${job.item.label}: accepted with independent QA and product verification. Awaiting the next authorized product step.`);return log({item:job.item.key,phase:'accept',finish});
   }
   const finish=await runModel(job);await publishStatus('ready',`${job.item.label}: ${finish.state}. Awaiting the next verified handoff.`);
  }catch(error){
