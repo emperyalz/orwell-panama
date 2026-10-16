@@ -4,7 +4,7 @@ import {mkdtemp,mkdir,writeFile,rm,readFile,chmod,symlink} from 'node:fs/promise
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {sourceRevision,commitReviewedSource} from './source-commit.mjs';
+import {sourceRevision,commitReviewedSource,validateReleaseAuthor,loadReleaseAuthor} from './source-commit.mjs';
 
 test('release Git records only reviewed runtime changes after a task/file checklist',async()=>{
  const dir=await mkdtemp(join(tmpdir(),'orwell-release-git-')),workspace=join(dir,'work'),state=join(dir,'state');
@@ -99,4 +99,25 @@ test('a broad approved directory cannot accidentally include credential files',a
   await release({allowedPaths:{[itemKey]:['docs/product-audits/']}});
   await assert.rejects(commitReviewedSource({workspace,state,home:dir}),/Credential or dangerous release path refused/);
  });
+});
+test('new automated commits use the supplied canonical author and transparent controller/session trailers',async()=>{
+ await releaseFixture(async({dir,workspace,state,git,itemKey,release})=>{
+  await writeFile(join(workspace,'docs/product-audits/author.md'),'Reviewed author fixture\n');
+  await release({allowedPaths:{[itemKey]:['docs/product-audits/']}});
+  const previous=git(['rev-parse','HEAD']),authorIdentity={name:'Canonical Member',email:'member@example.invalid'};
+  const record=await commitReviewedSource({workspace,state,home:dir,authorIdentity,log:()=>{}});
+  assert.equal(git(['show','-s','--format=%an <%ae> / %cn <%ce>','HEAD']),'Canonical Member <member@example.invalid> / Canonical Member <member@example.invalid>');
+  assert.equal(git(['rev-parse','HEAD^']),previous);
+  const body=git(['show','-s','--format=%B','HEAD']);assert.match(body,/Automation: Orwell Controller/);assert.match(body,/Worker-Session: product-author-session/);assert.match(body,/Independent-QA-Session: independent-review-session/);
+  assert.deepEqual(record.authorIdentity,authorIdentity);
+ });
+ for(const identity of [{name:'Injected\nAuthor',email:'a@b'},{name:'Member',email:'a@b\nExtra'},{name:'Member',email:'bad email'},{name:'<Member>',email:'a@b'}])assert.throws(()=>validateReleaseAuthor(identity),/Invalid trusted/);
+});
+test('standalone release author comes only from protected native root configuration',async t=>{
+ const dir=await mkdtemp(join(tmpdir(),'release-author-'));t.after(()=>rm(dir,{recursive:true,force:true}));
+ const path=join(dir,'frontend.json'),authorIdentity={name:'Canonical Member',email:'member@example.invalid'},ownerUid=process.getuid?.()??0;
+ await chmod(dir,0o700);await writeFile(path,JSON.stringify({authorIdentity}),{mode:0o600});assert.deepEqual(await loadReleaseAuthor({path,ownerUid}),authorIdentity);
+ await chmod(path,0o644);await assert.rejects(loadReleaseAuthor({path,ownerUid}),/Untrusted/);await chmod(path,0o600);
+ const alias=join(dir,'linked.json');await symlink(path,alias);await assert.rejects(loadReleaseAuthor({path:alias,ownerUid}),/Untrusted/);
+ await writeFile(path,'{}');await assert.rejects(loadReleaseAuthor({path,ownerUid}),/Invalid trusted/);
 });

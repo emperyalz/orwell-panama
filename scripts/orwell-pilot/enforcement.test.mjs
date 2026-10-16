@@ -84,16 +84,17 @@ test('cache-aware receipt ceilings allow cached history but stop fresh spending'
  await mkdir(join(directory,'run'));
  const put=async(input,cached)=>writeFile(join(directory,'run','receipt.json'),JSON.stringify({usage:{input_tokens:input,cached_input_tokens:cached,output_tokens:0},finish:{state:'qa_ready'},usagePersisted:true}));
  await put(6_000_000,5_900_000);assert.equal((await receiptBudget(directory)).exceeded,false);
- await put(25_000_000,24_900_000);assert.equal((await receiptBudget(directory)).exceeded,true);
- await put(3_100_000,100_000);assert.equal((await receiptBudget(directory)).exceeded,true);
+ await put(25_000_000,24_900_000);assert.equal((await receiptBudget(directory)).exceeded,false);
+ await put(100_000_000,99_900_000);assert.equal((await receiptBudget(directory)).exceeded,true);
+ await put(8_100_000,100_000);assert.equal((await receiptBudget(directory)).exceeded,true);
 }));
 
 
 test('finite run and since-acceptance limits remain independent of caching',()=>{
- const base={runs:63,tokens:24_999_999,freshTokens:2_999_999,withoutAcceptance:11};
+ const base={runs:191,tokens:99_999_999,freshTokens:7_999_999,withoutAcceptance:11};
  assert.equal(finiteModelCeiling(base),false);
  for(const tokens of [undefined,NaN,-1])assert.equal(finiteModelCeiling({...base,tokens}),true);
- for(const change of [{runs:64},{tokens:25_000_000},{freshTokens:3_000_000},{withoutAcceptance:12}])assert.equal(finiteModelCeiling({...base,...change}),true);
+ for(const change of [{runs:192},{tokens:100_000_000},{freshTokens:8_000_000},{withoutAcceptance:12}])assert.equal(finiteModelCeiling({...base,...change}),true);
 });
 
 test('failed preflight without an execution marker does not count as model spend',async()=>fixture(async directory=>{await mkdir(join(directory,'preflight'));const result=await receiptBudget(directory);assert.equal(result.runs,0);assert.equal(result.exceeded,false);await writeFile(join(directory,'preflight','execution.json'),'corrupt');assert.equal((await receiptBudget(directory)).exceeded,true);}));

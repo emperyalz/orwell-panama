@@ -41,7 +41,7 @@ test('directory boundary, traversal and excluded directories cannot widen the sc
 
 test('source permission changes count while build output and credentials remain excluded',async t=>{
  const workspace=await fixture(t);await chmod(join(workspace,'outside.txt'),0o644);const before=await sourceManifest(workspace);
- await mkdir(join(workspace,'node_modules'));await writeFile(join(workspace,'node_modules/generated'),'ignored');await writeFile(join(workspace,'.env.local'),'ignored');
+ await mkdir(join(workspace,'node_modules'));await writeFile(join(workspace,'node_modules/generated'),'ignored');await writeFile(join(workspace,'.env.local'),'ignored');await writeFile(join(workspace,'tsconfig.tsbuildinfo'),'compiler cache');
  assert.equal((await sourceManifest(workspace)).revision,before.revision);
  await chmod(join(workspace,'outside.txt'),0o755);
  const after=await sourceManifest(workspace);assert.throws(()=>assertScopedChanges({before,after,itemKey,scope}),/outside/);
