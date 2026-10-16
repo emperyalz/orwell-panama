@@ -185,7 +185,7 @@ async function runModel(job) {
  const repairReason=qa?'':job.item.qaEvidence?.trim()||retry?.reason||'';
  const proposal=!qa&&provider==='claude'&&structuredHandoffRecovery?'sonnet':!qa&&provider==='claude'&&(job.item.qaAttempt??0)>=2&&repairReason?'opus':scope.modelProposals?.[job.item.key]?.[provider]??(provider==='codex'?retry?.model:null);
  const selected=selectNativeModel({provider,phase:job.phase,proposal,repairReason,taskReason:scope.modelReasons?.[job.item.key]??'',qaFailures:job.item.qaAttempt??0,policy,workerModel:job.item.workerModel,workerProvider:job.item.workerProvider});
- let model=selected.model;
+ let model=selected.model,modelUsage;
  const {args}=nativeRunSpec({provider,phase:job.phase,model,cwd,schema});
  await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,modelReason:selected.reason,routingReason:chosen.reason,before,baselineDirectory,beforeManifest,startedAt:Date.now()});
  const child=spawn(`${tools}/${provider}`,args,{cwd,env,uid,gid,detached:true,stdio:['pipe','pipe','pipe']});
@@ -225,7 +225,8 @@ async function runModel(job) {
    if(e.is_error)streamError=Error(`Claude ${e.subtype??'run error'}: ${(e.errors??[]).join('; ')}`);
    const u=e.usage;
    if(u){const input=u.input_tokens+u.cache_creation_input_tokens+u.cache_read_input_tokens;usage=normalizeCodexUsage({input_tokens:input,cached_input_tokens:u.cache_read_input_tokens,output_tokens:u.output_tokens});}
-   model=Object.keys(e.modelUsage??{}).join(',')||model;
+   // Auxiliary Haiku usage is accounting metadata, not the actual session model.
+   modelUsage=e.modelUsage??null;
   }
  };
  child.stdout.on('data',d=>{raw+=d;pending+=d;let at;while((at=pending.indexOf('\n'))>=0){processEvent(pending.slice(0,at));pending=pending.slice(at+1);}if(raw.length>8_000_000){streamError=Error('Run output bound exceeded');kill();}});
@@ -249,7 +250,7 @@ async function runModel(job) {
  if(sessionId&&usage){await api('dispatch:recordUsage',{itemKey:job.item.key,leaseId:job.leaseId,sessionId,model,inputTokens:usage.input_tokens,cachedInputTokens:usage.cached_input_tokens,outputTokens:usage.output_tokens,totalTokens:usage.total_tokens});usagePersisted=true;}
  if(sessionId)await observe(job,sessionId,person,provider,model,streamError?'error':'completed',streamError?streamError.message:'Model turn ended; acceptance remains separate');
  const finishArgs={itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:streamError?'failed':answer.result,detail:(streamError?.message??answer.detail).slice(0,2800),evidence:streamError?undefined:(qa&&answer.result==='changes_requested'?`Required repairs: ${answer.detail}\nInspection evidence: ${answer.evidence}`:answer.evidence).slice(0,2800),sessionId,provider,artifactRevision:after,...(policy.reviewMode==='claude-cross-model'?{reviewMode:'claude-cross-model'}:{}),...(qa?{reviewerKey:person.key}:{contributorKey:person.key})};
- const receipt={job,provider,model,sessionId,usage,usagePersisted,exit,before,after,afterManifest:await sourceManifest(workspace),answer,finishArgs,finishedAt:Date.now(),finish:null};
+ const receipt={job,provider,model,modelUsage,sessionId,usage,usagePersisted,exit,before,after,afterManifest:await sourceManifest(workspace),answer,finishArgs,finishedAt:Date.now(),finish:null};
  await writeAtomicJson(join(dir,'receipt.json'),receipt);
  const finish=await api('dispatch:finish',finishArgs);
  if(!streamError&&job.phase==='work'){await rm(join(state,'retry-model.json'),{force:true}).catch(()=>{});}
