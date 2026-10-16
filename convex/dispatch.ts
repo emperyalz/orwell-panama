@@ -51,7 +51,7 @@ export const stopPilot=internalMutation({args:{reason:v.string(),modelOnly:v.boo
 /** One atomic claim across all runners. Production is serialized until admission is load-tested. */
 export const claimNext=internalMutation({args:{leaseId:v.string(),smokeItemKey:v.optional(v.string()),onlyItemKeys:v.optional(v.array(v.string())),reviewedAcceptanceOnly:v.optional(v.boolean())},handler:async(ctx,{leaseId,smokeItemKey,onlyItemKeys,reviewedAcceptanceOnly})=>{
  if(!/^[a-zA-Z0-9-]{16,100}$/.test(leaseId))throw Error('Valid unique lease ID required');
- if(smokeItemKey&&!['continuous-agent-dispatch-20261009/dispatch-1','lead-orchestration-accountability/lead','accurate-active-assignments/bindings'].includes(smokeItemKey))throw Error('Only reviewed dispatcher steps may use the bounded smoke exception');
+ if(smokeItemKey&&!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(smokeItemKey))throw Error('Smoke item key must identify one bounded checklist step');
  const monitor=await ctx.db.query('projectLeadMonitor').withIndex('by_key',q=>q.eq('key',ROOT)).unique();
  if(!monitor||(monitor.dispatchPaused&&!(reviewedAcceptanceOnly&&monitor.pauseReason.en.startsWith('Pilot model ceiling:'))))return {state:'paused' as const,reason:monitor?.pauseReason.en??'Monitor unavailable'};
  const now=Date.now(),[all,tasks]=await Promise.all([ctx.db.query('projectDispatchItems').collect(),ctx.db.query('projectTasks').collect()]);

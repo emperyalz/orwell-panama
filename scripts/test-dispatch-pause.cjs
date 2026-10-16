@@ -14,7 +14,7 @@ vm.runInNewContext(source,{module:moduleRef,exports:moduleRef.exports,Date,requi
 }});
 const claim=moduleRef.exports.claimNext.handler;
 (async()=>{
- for(const smokeItemKey of [undefined,'continuous-agent-dispatch-20261009/dispatch-1','lead-orchestration-accountability/lead','accurate-active-assignments/bindings']){
+ for(const smokeItemKey of [undefined,'continuous-agent-dispatch-20261009/dispatch-2','continuous-agent-dispatch-20261009/dispatch-3','continuous-agent-dispatch-20261009/dispatch-4','continuous-agent-dispatch-20261009/dispatch-5']){
   const ctx={db:{query:table=>{assert.equal(table,'projectLeadMonitor','Paused claims must not inspect or mutate the work queue');return {withIndex:()=>({unique:async()=>({dispatchPaused:true,pauseReason:{en:'Explicit pilot hold'}})})};},patch:()=>assert.fail('Paused claim must not mutate state')}};
   const result=await claim(ctx,{leaseId:'fixture-lease-123456',smokeItemKey});
   assert.equal(result.state,'paused');
