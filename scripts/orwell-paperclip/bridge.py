@@ -401,7 +401,7 @@ class Bridge:
         pending = (last_wake.get("state") == "attempted" and last_wake.get("token") == self.planner_token(planner))
         if for_request and not pending:
             return "No trusted planner wake is pending"
-        previous_hash = last_wake.get("backlogHash") or planner.get("lastBacklogHash")
+        previous_hash = planner.get("lastBacklogHash") or last_wake.get("backlogHash")
         changed = previous_hash is not None and previous_hash != backlog_hash
         last = max(planner.get("lastPlanAt") or 0, 0 if for_request else last_wake.get("at") or 0)
         if last and now - last < 30 * 60 * 1000 and not changed:
