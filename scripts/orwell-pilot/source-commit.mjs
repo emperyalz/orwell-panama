@@ -6,7 +6,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 
 const excluded=new Set(['node_modules','.git','.next','.vercel','.impeccable','artifacts','tmp','output']);
-const controlPaths=['scripts/orwell-pilot','scripts/orwell-dispatcher.mjs','scripts/test-dispatch-acceptance.cjs','scripts/test-dispatch-live-contract.cjs','scripts/test-dispatch-pause.cjs','convex/dispatch.ts','convex/dispatchPriority.ts','convex/schema.ts','convex/scoreboard.ts','convex/agentActivity.ts','convex/leadAccountability.ts','convex/leadMetrics.ts','convex/controllerStatus.ts','convex/controllerStatusData.ts','docs/subscription-agent-pilot-2026-10-15.md','docs/vps-team-execution-2026-10-15.md','docs/vps-backlog-execution-2026-10-15.md'];
+const controlPaths=['src/components/reference/ControllerStatus.tsx','convex/controllerStatusData.ts','convex/_generated/api.d.ts','scripts/orwell-pilot','scripts/orwell-dispatcher.mjs','scripts/test-dispatch-acceptance.cjs','scripts/test-dispatch-live-contract.cjs','scripts/test-dispatch-pause.cjs','convex/dispatch.ts','convex/dispatchPriority.ts','convex/schema.ts','convex/scoreboard.ts','convex/agentActivity.ts','convex/leadAccountability.ts','convex/leadMetrics.ts','convex/controllerStatus.ts','convex/controllerStatusData.ts','docs/subscription-agent-pilot-2026-10-15.md','docs/vps-team-execution-2026-10-15.md','docs/vps-backlog-execution-2026-10-15.md'];
 
 function reviewedPath(value){
  if(typeof value!=='string'||!value||value!==value.trim()||value.length>500||/[\\:*?\[\]\x00-\x1f\x7f]/.test(value)||value.startsWith('/'))throw Error('Unsafe release path refused');
