@@ -40,3 +40,22 @@ test('native inactive five-hour window retains original weekly allocation and ad
  const active=normalizeClaudeMeter(p,later), reconciled=reconcileShortWindows({snapshot:active,baseline,policy,now:later});
  assert.equal(reconciled.records.length,1);assert.equal(reconciled.baseline.windows[1],baseline.windows[1]);assert.equal(check(active,reconciled.baseline).allowed,true);
 });
+
+test('expired native credential refresh rotates securely without changing subscription metadata',async()=>{
+ const {mkdtemp,writeFile,readFile,stat,rm}=await import('node:fs/promises');
+ const {tmpdir}=await import('node:os');const {join}=await import('node:path');
+ const {refreshClaudeCredentials}=await import('./claude-meter.mjs');
+ const dir=await mkdtemp(join(tmpdir(),'claude-meter-')),path=join(dir,'credentials.json');
+ const credentials={claudeAiOauth:{accessToken:'old',refreshToken:'old-refresh',subscriptionType:'max'},other:'preserved'};
+ try{
+  await writeFile(path,JSON.stringify(credentials),{mode:0o600});
+  const updated=await refreshClaudeCredentials({credentials,path,now:1000,fetchImpl:async(url,options)=>{
+   assert.equal(url,'https://api.anthropic.com/v1/oauth/token');assert.equal(JSON.parse(options.body).grant_type,'refresh_token');
+   return {ok:true,json:async()=>({access_token:'new',refresh_token:'rotated',expires_in:3600})};
+  }});
+  assert.equal(updated.claudeAiOauth.subscriptionType,'max');assert.equal(updated.other,'preserved');
+  assert.equal(updated.claudeAiOauth.expiresAt,3601000);assert.equal(JSON.parse(await readFile(path,'utf8')).claudeAiOauth.refreshToken,'rotated');assert.equal((await stat(path)).mode&0o777,0o600);
+  await assert.rejects(refreshClaudeCredentials({credentials,path,fetchImpl:async()=>({ok:false,status:400})}),/refresh unavailable \(400\)/);
+  assert.equal(JSON.parse(await readFile(path,'utf8')).claudeAiOauth.accessToken,'new');
+ }finally{await rm(dir,{recursive:true,force:true});}
+});

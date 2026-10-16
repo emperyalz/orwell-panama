@@ -488,6 +488,16 @@ class Bridge:
             by_id = {i["id"]: i for i in remote}
             for key, (task, step) in steps.items():
                 item = items.get(key, {})
+                # Admission holds are real execution blockers, even when the
+                # product itself remains ready. Never manufacture activity.
+                routing = read_json(self.routing_path, {})
+                route = routing.get("items", {}).get(key, {})
+                observed = routing.get("observedAt", 0)
+                if (key in allowed and item.get("state") in READY
+                        and now_ms() - 120000 <= observed <= now_ms() + 5000
+                        and route.get("allowed") is False and route.get("reason")):
+                    item = {**item, "state": "blocked", "blockedReason": clean(route["reason"]),
+                            "nextAction": "Restore admitted author and independent QA capacity under the existing budget. " + clean(route["reason"])}
                 status = issue_status(item, step, key in allowed)
                 role = self.item_phase_role(item)[1] if item else "orion"
                 desired = {

@@ -1,4 +1,4 @@
-import {readFile} from 'node:fs/promises';
+import {readFile,writeFile,rename,stat,chmod,chown} from 'node:fs/promises';
 import {join, resolve} from 'node:path';
 import {homedir} from 'node:os';
 import {fileURLToPath} from 'node:url';
@@ -17,8 +17,25 @@ export function normalizeClaudeMeter(payload, now=Date.now()) {
   if(!windows.some(w=>w.id==='seven_day'))throw Error('Claude weekly allowance is unavailable');
   return {provider:'claude',source:'claude-code/native-oauth-usage',observedAt:now,windows,authType:'claudeAi',creditsEnabled:false};
 }
+export async function refreshClaudeCredentials({credentials,path,fetchImpl=fetch,now=Date.now()}) {
+  const oauth=credentials.claudeAiOauth;
+  if(!oauth?.refreshToken)throw Error('Claude native login refresh unavailable; new work held');
+  const response=await fetchImpl('https://api.anthropic.com/v1/oauth/token',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({grant_type:'refresh_token',refresh_token:oauth.refreshToken,client_id:'9d1c250a-e61b-44d9-88ed-5944d1962f5e'}),signal:AbortSignal.timeout(15000)});
+  if(!response.ok)throw Error(`Claude native login refresh unavailable (${response.status}); new work held`);
+  const data=await response.json();
+  if(!data.access_token||!Number.isFinite(data.expires_in)||data.expires_in<=0)throw Error('Invalid Claude native login refresh response; new work held');
+  const updated={...credentials,claudeAiOauth:{...oauth,accessToken:data.access_token,refreshToken:data.refresh_token||oauth.refreshToken,expiresAt:now+data.expires_in*1000,...(data.scope?{scopes:data.scope.split(' ')}:{})}};
+  const original=await stat(path),temporary=path+'.refresh-'+process.pid;
+  await writeFile(temporary,JSON.stringify(updated),{mode:0o600});
+  await chmod(temporary,0o600);await chown(temporary,original.uid,original.gid);await rename(temporary,path);
+  return updated;
+}
 export async function readClaudeMeter({directory=join(homedir(),'.claude')}={}) {
-  const credentials=JSON.parse(await readFile(join(directory,'.credentials.json'),'utf8'));
+  const path=join(directory,'.credentials.json');
+  let credentials=JSON.parse(await readFile(path,'utf8'));
+  if(Number.isFinite(credentials.claudeAiOauth?.expiresAt)&&credentials.claudeAiOauth.expiresAt<=Date.now()+60000)credentials=await refreshClaudeCredentials({credentials,path});
   const oauth=credentials.claudeAiOauth;
   if(!oauth?.accessToken || !['max','pro','team','enterprise'].includes(oauth.subscriptionType))
     throw Error('Claude requires an included subscription login');
