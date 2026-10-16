@@ -84,8 +84,10 @@ test('cache-aware receipt ceilings allow cached history but stop fresh spending'
 
 
 test('finite run and since-acceptance limits remain independent of caching',()=>{
- const base={runs:23,tokens:14_999_999,freshTokens:999_999,withoutAcceptance:11};
+ const base={runs:31,tokens:14_999_999,freshTokens:999_999,withoutAcceptance:11};
  assert.equal(finiteModelCeiling(base),false);
  for(const tokens of [undefined,NaN,-1])assert.equal(finiteModelCeiling({...base,tokens}),true);
- for(const change of [{runs:24},{tokens:15_000_000},{freshTokens:1_000_000},{withoutAcceptance:12}])assert.equal(finiteModelCeiling({...base,...change}),true);
+ for(const change of [{runs:32},{tokens:15_000_000},{freshTokens:1_000_000},{withoutAcceptance:12}])assert.equal(finiteModelCeiling({...base,...change}),true);
 });
+
+test('failed preflight without an execution marker does not count as model spend',async()=>fixture(async directory=>{await mkdir(join(directory,'preflight'));const result=await receiptBudget(directory);assert.equal(result.runs,0);assert.equal(result.exceeded,false);await writeFile(join(directory,'preflight','execution.json'),'corrupt');assert.equal((await receiptBudget(directory)).exceeded,true);}));

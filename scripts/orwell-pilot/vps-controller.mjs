@@ -7,6 +7,8 @@ import {createHash,randomUUID} from 'node:crypto';
 import {admitSubscription,reconcileShortWindows,normalizeCodexUsage} from './budget.mjs';
 import {writeAtomicJson} from './admission.mjs';
 import {legalOutcome,finiteModelCeiling} from './receipts.mjs';
+import {selectAffinity} from './selection.mjs';
+import {acceptanceProof} from './acceptance-proof.mjs';
 import {commitReviewedSource} from './source-commit.mjs';
 
 const state='/var/lib/orwell-agent-controller',workspace='/home/orwell/build',tools='/home/orwell/agent-tools/node_modules/.bin';
@@ -175,14 +177,19 @@ async function activateReviewedSource(job,current) {
   if(!(await lstat(from)).isFile())throw Error('Only regular reviewed controller files may activate');
   await copyFile(from,to);await chmod(to,0o644);
  }
- await writeAtomicJson(join(state,'deployment.json'),{at:Date.now(),itemKey:job.item.key,revision:current,deployment:config.url,worker:job.item.workerSessionId,reviewer:job.item.qaSessionId});
+ await writeAtomicJson(join(state,'deployment.json'),{at:Date.now(),itemKey:job.item.key,leaseId:job.leaseId,code:deployment.code,revision:current,deployment:config.url,worker:job.item.workerSessionId,reviewer:job.item.qaSessionId});
 }
 async function receiptGuard() {
  const root=join(state,'runs');await mkdir(root,{recursive:true,mode:0o700});
  const receipts=[];
  for(const id of await readdir(root)){
   const dir=join(root,id);let receipt;
-  try{receipt=JSON.parse(await readFile(join(dir,'receipt.json'),'utf8'));}catch{throw Error(`Unreconciled model execution ${id}; no additional spend`);}
+  try{receipt=JSON.parse(await readFile(join(dir,'receipt.json'),'utf8'));}catch(error){
+   if(error.code==='ENOENT'){
+    try{await lstat(join(dir,'execution.json'));}catch(markerError){if(markerError.code==='ENOENT')continue;}
+   }
+   throw Error(`Unreconciled model execution ${id}; no additional spend`);
+  }
   if(!receipt.usage||!receipt.usagePersisted){
    const r=receipt.quotaReconciliation;
    if(!r||r.method!=='fresh-native-account-quota'||r.sessionId!==receipt.sessionId||r.policyStartedAt!==policy.startedAt||r.exactFinalTotalKnown!==false||!r.observedUsage)throw Error(`Unknown or unpersisted usage in ${id}`);
@@ -200,24 +207,29 @@ async function receiptGuard() {
 async function main() {
  let spending;try{spending=await receiptGuard();}catch(error){await api('dispatch:stopPilot',{reason:error.message,modelOnly:false});throw error;}
  try{await admission();}catch(error){await api('dispatch:stopPilot',{reason:error.message,modelOnly:false});throw error;}
- if(spending.modelHeld)await api('dispatch:stopPilot',{reason:'Finite 24 runs / 12 since acceptance / 15,000,000 reported or observed tokens / 1,000,000 fresh tokens ceiling reached; reviewed non-model acceptance remains eligible',modelOnly:true});
+ if(spending.modelHeld)await api('dispatch:stopPilot',{reason:'Finite 32 runs / 12 since acceptance / 15,000,000 reported or observed tokens / 1,000,000 fresh tokens ceiling reached; reviewed non-model acceptance remains eligible',modelOnly:true});
  await api('dispatch:sync');await api('dispatch:recoverExpired');
  const snapshot=await api('dispatch:snapshot',{},'query');
  if(snapshot.items.some(i=>i.leaseUntil>Date.now()))return log({state:'busy'});
- const eligible=spending.modelHeld?scope.itemKeys.filter(key=>snapshot.items.some(item=>item.key===key&&item.state==='accept_ready')):scope.itemKeys;
- if(!eligible.length)return log({state:'spending_held',reason:'Finite model-run/token/no-progress guard reached; already reviewed results may still finish',...spending});
+ let affinity=null;try{affinity=JSON.parse(await readFile(join(state,'affinity.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
+ const selection=selectAffinity({affinity,items:snapshot.items,itemKeys:scope.itemKeys,modelHeld:spending.modelHeld});
+ await writeAtomicJson(join(state,'affinity.json'),selection.affinity);
+ const eligible=selection.onlyItemKeys;
+ if(!eligible.length)return log({...selection,...spending});
  const job=await api('dispatch:claimNext',{leaseId:randomUUID(),onlyItemKeys:eligible,reviewedAcceptanceOnly:spending.modelHeld});
- if(job.state!=='claimed')return log(job);
+ if(job.state!=='claimed')return log({...job,affinity:selection.affinity});
+ await writeAtomicJson(join(state,'affinity.json'),{itemKey:job.item.key});
  try{
   if(job.phase==='triage'){
    const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'triage',result:'submitted',team:'implementation',detail:'Trusted controller routed the explicitly authorized pilot step without a model call',evidence:scope.criteria[job.item.key]??job.item.acceptance});return log({item:job.item.key,phase:'triage',finish});
   }
   if(job.phase==='accept'){
+   await api('dispatch:checkpoint',{itemKey:job.item.key,leaseId:job.leaseId,sessionId:`controller:${job.leaseId}`,actorName:'Orion',checkpoint:'Controller deterministic acceptance started; not a model session'});
    const current=await revision();if(current!==job.item.submissionRevision||current!==job.item.qaRevision)throw Error('Acceptance source differs from reviewed source');
    const tests=(await readdir(join(workspace,'scripts/orwell-pilot'))).filter(name=>name.endsWith('.test.mjs')).sort().map(name=>`scripts/orwell-pilot/${name}`);
    const commands=[['/usr/bin/node',['--test',...tests]],...['live-contract','acceptance','pause'].map(name=>['/usr/bin/node',[`scripts/test-dispatch-${name}.cjs`]]),[join(workspace,'node_modules/.bin/tsc'),['--noEmit','-p','convex/tsconfig.json']]];
-   let evidence='';
-   for(const [binary,args] of commands){const check=await command(binary,args,{timeoutMs:120000});evidence+=`${binary} ${args.join(' ')}\n${check.out}\n${check.err}\n`;if(check.code!==0)throw Error(`Final verification failed: ${binary} ${args.join(' ')}`);}
+   let evidence='';const checkRecords=[];
+   for(const [binary,args] of commands){const check=await command(binary,args,{timeoutMs:120000});checkRecords.push({name:args.includes('--test')?'pilot':args.some(a=>a.endsWith('live-contract.cjs'))?'live-contract':args.some(a=>a.endsWith('acceptance.cjs'))?'acceptance':args.some(a=>a.endsWith('pause.cjs'))?'pause':'typecheck',code:check.code});await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});evidence+=`${binary} ${args.join(' ')}\n${check.out}\n${check.err}\n`;if(check.code!==0)throw Error(`Final verification failed: ${binary} ${args.join(' ')}`);}
    await writeFile(join(state,`checks-${job.leaseId}.txt`),evidence,{mode:0o600});
    // Exercise candidate admission against the real original allocation, not
    // only synthetic fixtures. Run generated source without root privileges.
@@ -226,10 +238,15 @@ async function main() {
    await writeFile(join(state,`original-policy-${job.leaseId}.txt`),realPolicy.out+'\n'+realPolicy.err,{mode:0o600});
    if(realPolicy.code!==0){const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'changes_requested',detail:'Candidate failed the actual original-policy admission check; repair and fresh QA required',evidence:realPolicy.err.slice(-2500)});return log({item:job.item.key,phase:'accept',finish});}
    if(!measured.checks.codex.allowed||!measured.checks.claude.allowed)throw Error('Native allowance held');
+   checkRecords.push({name:'original-policy',code:realPolicy.code});
+   const checksPath=join(state,`checks-${job.leaseId}.json`);
+   await writeAtomicJson(checksPath,{itemKey:job.item.key,leaseId:job.leaseId,revision:current,commands:checkRecords,output:evidence,originalPolicy:realPolicy.out});
+   await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});
    await activateReviewedSource(job,current);
+   const proof=await acceptanceProof({checksPath,deploymentPath:join(state,'deployment.json'),itemKey:job.item.key,leaseId:job.leaseId,revision:current});
    const sourceCommit=await commitReviewedSource({workspace,state,uid,gid,home,log:line=>console.log(line)});
    if(sourceCommit.state!=='committed')throw Error('Reviewed source must be committed before checklist completion');
-   const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent providers, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider} worker ${job.item.workerSessionId}; ${job.item.qaProvider} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; all pilot tests, dispatch live-contract/acceptance/pause and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});return log({item:job.item.key,phase:'accept',finish});
+   const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent providers, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider} worker ${job.item.workerSessionId}; ${job.item.qaProvider} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; all pilot tests, dispatch live-contract/acceptance/pause and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted')await writeAtomicJson(join(state,'affinity.json'),null);return log({item:job.item.key,phase:'accept',finish});
   }
   await runModel(job);
  }catch(error){await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:'failed',detail:error.message.slice(0,2800)}).catch(()=>{});throw error;}

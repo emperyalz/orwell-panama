@@ -30,7 +30,7 @@ The original allocation is unchanged: at most 30 additional weekly percentage po
 
 The original pilot runs from October 15 at 3:50:25 p.m. Detroit time to October 16 at 3:50:25 p.m. Native usage is checked before every model launch and every 45 seconds during a run. Missing or invalid usage stops work. A real weekly reset never renews the allocation. Expired short session windows can be reconciled and recorded while every original weekly baseline is retained.
 
-Additional finite bounds: one model at a time; eight minutes per model turn; 24 model runs; 12 since an actual acceptance; secondary ceilings of 15 million reported/observed tokens and 1 million fresh tokens. Cached input is recorded separately. A model-spending ceiling still allows already reviewed non-model acceptance. Budget and deadline stops appear in the shared scoreboard pause reason, and a user pause is preserved.
+Additional finite bounds: one model at a time; eight minutes per model turn; 32 model runs; 12 since an actual acceptance; secondary ceilings of 15 million reported/observed tokens and 1 million fresh tokens. Cached input is recorded separately. A model-spending ceiling still allows already reviewed non-model acceptance. Budget and deadline stops appear in the shared scoreboard pause reason, and a user pause is preserved.
 
 These are admission and termination controls, not a provider-enforced hard quota. Native meters can lag and an in-flight request can overshoot. The three-point reserve and bounded turns provide headroom. Token counts and CLI list-price estimates do not establish subscription dollars charged.
 
@@ -61,3 +61,21 @@ Source: `scripts/orwell-pilot/`, `convex/dispatch.ts`, `convex/scoreboard.ts`, r
 Evidence: `/Users/ericnunlee/Documents/Codex/2026-10-15/agent-team-video-review/pilot-qa/vps-live/`. Native receipts preserve actual providers, model names, sessions, usage, revisions and outcomes. The video synthesis remains in the parent research folder.
 
 Git release bookkeeping is being connected before continuing the remaining pilot checks. It records a task-to-file checklist, preserves unrelated work, skips unreleased source, and retains reviewed runtime changes without pushing or adding credentials. The broader Orwell backlog is preserved; completing this pilot does not imply every application request is finished.
+
+### Acceptance repair submission — 2026-10-16
+
+The candidate caller now checkpoints the exact `controller:<leaseId>` acceptance identity before deterministic verification. It saves command names, actual exit codes and output in `checks-<leaseId>.json`, and saves the actual deployment exit code, URL, revision and lease in `deployment.json`. `acceptance-proof.mjs` reads those records back and hashes their actual bytes. The internal finish contract requires those hashes, the same item/lease/revision, and all six successful checks (pilot, live-contract, acceptance, pause, typecheck, original-policy). Arbitrary marker prose cannot finalize a checklist. The backend records proof hashes alongside completion. These are trusted controller attestations; public callers cannot write them, and the backend does not independently read VPS files.
+
+`affinity.json` persists the shared workspace owner through triage, work, review rejection, repairs, retries and blocked states. Only acceptance or explicit supersession releases ownership; missing owners hold visibly. The acceptance repair gates every other candidate. A conflicting preexisting owner holds both rather than silently publishing it or discarding its work. Selection regressions exercise these transitions and model-only spending holds. Empty preflight directories remain uncounted; corrupt/interrupted execution markers remain spending holds.
+
+The secondary finite ceiling is 32 runs to include recorded setup/recovery overhead. This does not renew or increase the original 30 percentage-point weekly allocation, 3-point reserve, 24-hour deadline, 12 runs since acceptance, 15M reported/observed token ceiling or 1M fresh-token ceiling.
+
+Read-only production observation used `/opt/orwell-evidence/runtime.json` and its public `dispatch:snapshot` query example at `https://fleet-vole-527.convex.cloud/api/query`. The accepted `lead-orchestration-accountability/qa` event is at 1792108042660; submitted author session `01a141f2-322b-7512-8948-454acf7334f7` and accepted reviewer session `9bfc5dfa-07e4-4730-82cd-f853fd91989d` have matching published revision `sha256:f1123d9742a37f1ea0c041de98dbdff3b60fc5df933454de7f36ee9ed73bb791`. The latest published deployment instead belongs to the later budget item at revision `sha256:111acd96a504d367938b1ae72c43aad83aa9b8b4c30e4e31e1e9c484a0569aed`; this is not evidence that this repair has deployed. Saved real-session regressions reopen `/opt/orwell-evidence/session-contract.json` without rewriting historical profiles.
+
+Submission verification (implementation evidence, not independent acceptance):
+
+- Pending independent QA of the exact submitted source revision.
+- Pending controller deployment, commit, and live acceptance under the repaired contract.
+- Historical accepted-event inspection is read-only; no prior acceptance or source record was rewritten.
+
+The worker ran all pilot tests, dispatch acceptance/live-contract/pause harnesses, the Convex typecheck and controller syntax check. Only the controller may perform activation and checklist completion. A candidate/installed source difference before that handoff is expected.

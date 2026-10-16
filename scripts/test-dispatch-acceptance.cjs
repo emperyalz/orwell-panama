@@ -30,9 +30,20 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  await assert.rejects(()=>finish(context(item,{...reviewer,lastActivityAt:now-600000}),args),/fresh observed session/);
  assert.equal((await finish(context(),args)).state,'accept_ready');
  assert.equal((await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args)).replayed,true);
- const accepted={...item,state:'accept_running',qaProvider:'claude',qaRevision:other,qaSessionId:'review-real',qaReviewerKey:'qa'};
- await assert.rejects(()=>finish(context(accepted),{...args,phase:'accept',sessionId:'controller:actual'}),/unchanged revision/);
+ const proof={itemKey:item.key,leaseId:item.leaseId,revision,checksHash:revision,deploymentHash:other,deploymentUrl:'https://prod.convex.cloud',checks:['pilot','live-contract','acceptance','pause','typecheck','original-policy'].map(name=>({name,code:0}))};
+ const accepted={...item,state:'accept_running',activeSessionId:`controller:${item.leaseId}`,qaProvider:'claude',qaRevision:revision,qaSessionId:'review-real',qaReviewerKey:'qa',leaseUntil:now+60000};
+ await assert.rejects(()=>finish(context(accepted),{...args,phase:'accept',sessionId:'review-real',artifactRevision:revision,evidence:'Review passed'}),/trusted controller/,'Reviewer cannot directly complete task');
+ await assert.rejects(()=>finish(context(accepted),{...args,phase:'accept',sessionId:`controller:${item.leaseId}`,artifactRevision:revision,evidence:'Deterministic acceptance: checks complete'}),/deployment evidence/,'Checks without deployment cannot complete task');
+ await assert.rejects(()=>finish(context({...accepted,qaRevision:other}),{...args,phase:'accept',acceptanceProof:proof,sessionId:`controller:${item.leaseId}`,artifactRevision:revision,evidence:'Deterministic acceptance: checks complete; deployment https://prod; tests checks passed'}),/unchanged reviewed source revision/,'Stale review revision cannot complete task');
+ await assert.rejects(()=>finish(context(),{...args,reviewerKey:'author'}),/fresh observed session/,'Author cannot act as QA');
+ for(const patch of [{revision:other},{leaseId:'other'},{checksHash:'invented'},{checks:proof.checks.map(c=>({...c,code:1}))}])await assert.rejects(()=>finish(context(accepted),{...args,phase:'accept',sessionId:`controller:${item.leaseId}`,acceptanceProof:{...proof,...patch}}),/saved deterministic checks/);
  await assert.rejects(()=>finish(context({...item,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'changes_requested'}),args),/different result/);
+ const successfulCtx=context(accepted),query=successfulCtx.db.query;const patches=[];
+ successfulCtx.db.query=table=>{if(table==='projectTasks')return {withIndex:()=>({unique:async()=>({_id:'task',status:'doing',checklist:[{key:'step',done:false}]})})};if(table==='projectAgents')return {withIndex:(_name,cb)=>{let key;cb({eq(_field,value){key=value;return this}});return {unique:async()=>key==='author'?{key:'author',name:'Author',team:'implementation'}:{key:'qa',name:'Reviewer',team:'qa'}}}};return query(table);};
+ successfulCtx.db.patch=async(id,patch)=>patches.push({id,patch});
+ assert.equal((await finish(successfulCtx,{...args,phase:'accept',sessionId:`controller:${item.leaseId}`,acceptanceProof:proof})).state,'accepted');
+ assert.equal(patches.find(p=>p.id==='item').patch.deploymentRevision,revision);
+ assert.equal(patches.find(p=>p.id==='task').patch.checklist[0].review.reviewerKey,'qa');
  // Replay actual saved native sessions at their measured completion times.
  if(fs.existsSync('/opt/orwell-evidence/session-contract.json')){
   const saved=JSON.parse(fs.readFileSync('/opt/orwell-evidence/session-contract.json','utf8'));

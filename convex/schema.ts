@@ -24,6 +24,7 @@ export default defineSchema({
     leaseId:v.optional(v.string()),leaseUntil:v.optional(v.number()),activeSessionId:v.optional(v.string()),activeActorName:v.optional(v.string()),activeActorKey:v.optional(v.string()),workerSessionId:v.optional(v.string()),qaSessionId:v.optional(v.string()),contributorKey:v.optional(v.string()),model:v.optional(v.string()),
     checkpoint:v.optional(v.string()),evidence:v.optional(v.string()),qaEvidence:v.optional(v.string()),qaReviewerKey:v.optional(v.string()),
     workerProvider:v.optional(v.string()),qaProvider:v.optional(v.string()),submissionRevision:v.optional(v.string()),qaRevision:v.optional(v.string()),
+    deterministicRevision:v.optional(v.string()),deterministicEvidence:v.optional(v.string()),deploymentRevision:v.optional(v.string()),deploymentEvidence:v.optional(v.string()),
     lastFinishedLeaseId:v.optional(v.string()),lastFinishedResult:v.optional(v.string()),
     blockedReason:v.optional(v.string()),nextAction:v.optional(v.string()),lastProgressAt:v.optional(v.number()),
     createdAt:v.number(),updatedAt:v.number(),acceptedAt:v.optional(v.number()),

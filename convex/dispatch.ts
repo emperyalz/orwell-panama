@@ -90,7 +90,7 @@ export const recordUsage=internalMutation({args:{itemKey:v.string(),leaseId:v.st
  return {recorded:true};
 }});
 
-export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(),phase,result,detail:v.string(),evidence:v.optional(v.string()),sessionId:v.optional(v.string()),contributorKey:v.optional(v.string()),reviewerKey:v.optional(v.string()),provider:v.optional(v.union(v.literal('codex'),v.literal('claude'))),artifactRevision:v.optional(v.string()),team:v.optional(v.union(v.literal('research'),v.literal('implementation')))},handler:async(ctx,args)=>{
+export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(),phase,result,detail:v.string(),evidence:v.optional(v.string()),sessionId:v.optional(v.string()),contributorKey:v.optional(v.string()),reviewerKey:v.optional(v.string()),provider:v.optional(v.union(v.literal('codex'),v.literal('claude'))),artifactRevision:v.optional(v.string()),acceptanceProof:v.optional(v.object({itemKey:v.string(),leaseId:v.string(),revision:v.string(),checksHash:v.string(),deploymentHash:v.string(),deploymentUrl:v.string(),checks:v.array(v.object({name:v.string(),code:v.number()}))})),team:v.optional(v.union(v.literal('research'),v.literal('implementation')))},handler:async(ctx,args)=>{
  const item=await ctx.db.query('projectDispatchItems').withIndex('by_key',q=>q.eq('key',args.itemKey)).unique();
  if(item?.lastFinishedLeaseId===args.leaseId){if(item.lastFinishedResult!==args.result)throw Error('Lease already finished with a different result');return {state:item.state,replayed:true};}
  if(!item||item.leaseId!==args.leaseId||!item.leaseUntil||item.leaseUntil<=Date.now())throw Error('Lease no longer owns this step');
@@ -140,6 +140,11 @@ export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(
  }
  if(args.phase==='accept'){
   if(args.result==='changes_requested'){await ctx.db.patch(item._id,{...base,state:'ready',acceptAttempt:item.acceptAttempt+1,checkpoint:brief(args.detail)});await event(ctx,item.key,'executive_returned',args.sessionId??'Orion',args.detail,args.leaseId);return {state:'ready'};}
+  if(args.result!=='accepted'||args.sessionId!==`controller:${args.leaseId}`||!args.acceptanceProof)throw Error('Only the trusted controller may finalize after deterministic checks and deployment evidence');
+  if(item.state!=='accept_running'||item.activeSessionId!==args.sessionId)throw Error('Controller acceptance must use the active acceptance lease');
+  if(!/^sha256:[a-f0-9]{64}$/.test(args.artifactRevision??'')||args.artifactRevision!==item.submissionRevision||args.artifactRevision!==item.qaRevision)throw Error('Controller acceptance requires the unchanged reviewed source revision');
+  const proof=args.acceptanceProof,required=['pilot','live-contract','acceptance','pause','typecheck','original-policy'];
+  if(proof.itemKey!==item.key||proof.leaseId!==args.leaseId||proof.revision!==args.artifactRevision||![proof.checksHash,proof.deploymentHash].every(h=>/^sha256:[a-f0-9]{64}$/.test(h))||!/^https:\/\/[^\s/]+$/.test(proof.deploymentUrl)||proof.checks.length!==required.length||required.some(name=>proof.checks.filter(c=>c.name===name&&c.code===0).length!==1))throw Error('Controller acceptance requires successful saved deterministic checks and production deployment records');
   if(args.result!=='accepted'||!args.sessionId||!args.evidence?.trim()||!item.qaReviewerKey||!item.qaSessionId||!item.workerSessionId||!item.contributorKey)throw Error('Orion acceptance requires independent QA and actual run evidence');
   if(!item.submissionRevision||item.qaRevision!==item.submissionRevision||args.artifactRevision!==item.submissionRevision||!item.workerProvider||!item.qaProvider||item.workerProvider===item.qaProvider)throw Error('Acceptance requires unchanged revision and independent provider QA');
   const task=await ctx.db.query('projectTasks').withIndex('by_key',q=>q.eq('key',item.taskKey)).unique();const step=task?.checklist?.find(s=>s.key===item.stepKey);
@@ -149,7 +154,7 @@ export const finish=internalMutation({args:{itemKey:v.string(),leaseId:v.string(
   const checklist=task.checklist!.map(s=>s.key===item.stepKey?{...s,done:true,evidence:`${item.evidence}; QA: ${item.qaEvidence}; Orion: ${args.evidence}`,completedAt:now,completedBy:[contributor.name],completedByKeys:[contributor.key],review:{reviewerKey:reviewer.key,reviewedAt:now,evidence:item.qaEvidence!,outcome:'accepted' as const}}:s);
   const allDone=checklist.every(s=>s.done);
   await ctx.db.patch(task._id,{checklist,status:allDone?'done':task.status==='todo'?'doing':task.status,updatedAt:now,...(allDone?{completedAt:now,evidence:`All checklist steps accepted; latest: ${args.evidence}`}:{})});
-  await ctx.db.patch(item._id,{...base,state:'accepted',acceptedAt:now,acceptAttempt:item.acceptAttempt+1});await event(ctx,item.key,'accepted',args.sessionId,args.detail,args.leaseId);return {state:'accepted'};
+  await ctx.db.patch(item._id,{...base,deterministicRevision:proof.revision,deterministicEvidence:JSON.stringify({hash:proof.checksHash,checks:proof.checks,leaseId:proof.leaseId}),deploymentRevision:proof.revision,deploymentEvidence:JSON.stringify({hash:proof.deploymentHash,url:proof.deploymentUrl,leaseId:proof.leaseId}),state:'accepted',acceptedAt:now,acceptAttempt:item.acceptAttempt+1});await event(ctx,item.key,'accepted',args.sessionId,args.detail,args.leaseId);return {state:'accepted'};
  }
  throw Error('Unsupported result');
 }});
@@ -212,6 +217,16 @@ export const recordInterruptedReconciliation=internalMutation({args:{itemKey:v.s
  if(!history.some(e=>e.kind==='checkpoint'&&e.leaseId===args.leaseId&&e.detail.includes(`(run ${args.sessionId})`)))throw Error('Actual interrupted session must be recorded on this lease');
  await event(ctx,args.itemKey,'interrupted_usage_reconciled',args.sessionId,args.detail,args.leaseId);
  return {recorded:true};
+}});
+
+/** Internal prerequisite resolution requires a fresh worker and a new QA decision. */
+export const releaseResolvedPrerequisite=internalMutation({args:{itemKey:v.string(),evidence:v.string()},handler:async(ctx,args)=>{
+ if(!args.evidence.trim())throw Error('Concrete prerequisite resolution required');
+ const item=await ctx.db.query('projectDispatchItems').withIndex('by_key',q=>q.eq('key',args.itemKey)).unique();
+ if(!item||item.leaseId||!['ready','blocked','qa_ready','accept_ready'].includes(item.state))throw Error('Only unleased open work may resume');
+ await ctx.db.patch(item._id,{state:'ready',lead:item.team==='research'?'Iris':'Rowan',blockedReason:undefined,nextAction:undefined,retryAt:undefined,qaRevision:undefined,checkpoint:brief(args.evidence),updatedAt:Date.now()});
+ await event(ctx,item.key,'prerequisite_resolved','controller',args.evidence);
+ return {state:'ready'};
 }});
 
 /** Return an internally resolved deployment handoff to Ada without inventing a new run. */
