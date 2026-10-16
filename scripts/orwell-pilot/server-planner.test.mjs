@@ -18,3 +18,11 @@ test('Claude planner standard tier selects stronger independent QA only with a c
  const standard=compilePlan({scope,backlog,plan:{tasks:[base]}});assert.equal(standard.modelProposals[key].codex,'gpt-6.1-sol');assert.equal(standard.modelProposals[key].claude,'sonnet');assert.equal(standard.modelReasons[key],base.reason);
  const economy=compilePlan({scope,backlog,plan:{tasks:[{...base,modelTier:'economy'}]}});assert.equal(economy.modelProposals[key].codex,'gpt-6-luna');assert.equal(economy.modelReasons[key],undefined);
 });
+
+test('two failed proposals hold unchanged backlog even after cooldown, while changed source contract permits repair',()=>{
+ const first=planningState(input);
+ const previous={lastBacklogHash:first.backlogHash,nextPlanAt:now-1,consecutiveFailures:2,lastError:'Rejected writable source'};
+ const held=planningState({...input,previous});assert.equal(held.planningAllowed,false);assert.match(held.reason,/two failed proposals.*Rejected writable source/);
+ assert.equal(planningState({...input,previous:{...previous,lastBacklogHash:'older-contract'}}).planningAllowed,true);
+ const onlyOnce=planningState({...input,previous:{...previous,consecutiveFailures:1}});assert.equal(onlyOnce.planningAllowed,true);
+});

@@ -58,7 +58,7 @@ export function validatePlan({plan,backlog,policy={},existingPaths=[],verifiedAs
    if(!['backend','frontend','evidence'].includes(task.delivery)||!['economy','standard'].includes(task.modelTier))throw Error('Invalid delivery or model tier');
    if(row.state&&!['ready','triage_ready'].includes(row.state)||row.leaseUntil>now||row.retryAt>now)throw Error(`Step is not available for a new worker: ${task.itemKey}`);
    if(!Array.isArray(task.allowedPaths)||!task.allowedPaths.length||task.allowedPaths.length>25||new Set(task.allowedPaths).size!==task.allowedPaths.length)throw Error('Invalid exact writable path list');
-   for(const path of task.allowedPaths)validatePath(path,existing,assets);
+   for(const path of task.allowedPaths){try{validatePath(path,existing,assets);}catch(error){throw Error(`${error.message}: ${path}`);}}
    fields(task.verification,['kind']);
    if(!VERIFICATION_KINDS.includes(task.verification.kind))throw Error('Verifier kind is not trusted');
    if(!Array.isArray(task.dependencies)||new Set(task.dependencies).size!==task.dependencies.length||task.dependencies.length>30)throw Error('Invalid dependencies');

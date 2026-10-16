@@ -45,3 +45,11 @@ test('scoreboard and dispatch shapes combine without reopening checked rows; exp
  assert.equal(check(plan(),{backlog:{scoreboard:board,dispatch:{items:[{key,state:'ready'}]}}}).allowed,false);
  assert.equal(check(plan(),{policy:{itemKeys:[other]}}).allowed,false);
 });
+
+test('recorded career-history input stays read-only and rejections identify the exact path',()=>{
+ const p=plan();p.tasks[0].allowedPaths.push('docs/accepted-career-histories-2026-10-08.json');
+ assert.match(check(p).reason,/outside trusted product source inventory: docs\/accepted-career-histories-2026-10-08.json/);
+ p.tasks[0].allowedPaths.pop();p.tasks[0].allowedPaths.push('src/components/reference/CareerHistory.tsx');
+ assert.match(check(p).reason,/Evidence delivery cannot change application source/);
+ p.tasks[0].allowedPaths.pop();assert.equal(check(p).allowed,true);
+});
