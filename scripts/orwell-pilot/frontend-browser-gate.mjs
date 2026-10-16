@@ -19,7 +19,7 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
    const work=await panel.locator('.controller-status-work').innerText();
    if(!work.includes(snapshot.progress.completed+' / '+snapshot.progress.total))throw Error('Displayed progress differs from authoritative checklist');
    for(const blocker of snapshot.blockers)if(!work.replace(/\s+/g,' ').includes(blocker.reason.replace(/\s+/g,' ')))throw Error('Actual blocker missing from scoreboard: '+blocker.key);
-   const screenshot=join(directory,'scoreboard-budget40.png');await page.screenshot({path:screenshot,fullPage:true});
+   const screenshot=join(directory,'scoreboard-budget40.png');await panel.screenshot({path:screenshot});
    checks.push({kind:'actual-live-scoreboard',providerLimits:snapshot.providers.map(p=>({provider:p.provider,limitPoints:p.limitPoints})),progress:snapshot.progress,blockerKeys:snapshot.blockers.map(b=>b.key),screenshot});
   }else if(itemKey==='communication-trends/track-communication-changes'){
    const r=await fetch('https://fleet-vole-527.convex.cloud/api/query',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'intelligence:archive',args:{},format:'json'})});const data=(await r.json()).value;
