@@ -1,0 +1,64 @@
+{
+  "itemKey": "communication-trends/track-communication-changes",
+  "wholeStep": true,
+  "observedAt": "2026-10-16T12:00:00Z",
+  "summary": "Added a visible 'trend' (Change/Cambio/Mudança) view to src/components/reference/IntelligenceWorkspace.tsx that computes, for the currently selected person+platform, the signed delta in archived post count between the resolved current month range (effectiveFrom..effectiveTo) and the immediately preceding range of equal length. The view renders translated (es/en/pt) copy for the current/prior period sums and the signed change, and an explicit methodology note stating the figure is a raw post-count delta that does not measure tone, sentiment, stance, or ideology. No backend schema, Convex query, or budget code was touched. CORRECTION (this revision): a prior release had the `view==='trend'` branch nested inside the `!total?<empty>:...` conditional, so a selection with zero current-period posts (even with a positive immediately-preceding period) rendered only the generic empty state and silently hid the negative delta. The branch order was moved so `view==='trend'` is checked first, before the `!total` empty-state guard, while the ordinary chart/table empty state is preserved for those views.",
+  "sources": [
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx",
+      "claim": "view state is `useState<'chart'|'table'|'trend'>('chart')` and a new button `<button aria-pressed={view==='trend'} onClick={()=>setView('trend')}>{t('change')}</button>` makes the trend view visible and selectable alongside the existing chart/table views."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx",
+      "claim": "`shiftMonth`, `monthSpan`, and `sumBuckets` helpers plus `changeReady`, `changeSpan`, `priorTo`, `priorFrom`, `hasPriorPeriod`, `currentPeriodSum`, `priorPeriodSum`, and `periodDelta` derive the signed delta purely from the already-queried `data.buckets`, scoped to the selected person (`selectedPersonId`) and platform (`platform`), and the resolved range (`effectiveFrom`/`effectiveTo`); the preceding range is computed as the immediately prior months of identical length (`changeSpan`)."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx",
+      "claim": "copy object adds `change`, `changeSelect`, `changeNoPrior`, `changeUp`, `changeDown`, `changeSame`, `changeCurrent`, `changePrior`, and `changeNote`, each as a 3-entry [es,en,pt] tuple following the file's existing copy pattern."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx",
+      "claim": "the rendered `changeNote` paragraph states in Spanish/English/Portuguese that the figure is a raw post-count delta and 'No mide tono, sentimiento, postura ni ideología' / 'does not measure tone, sentiment, stance, or ideology' / 'Não mede tom, sentimento, postura ou ideologia' — satisfying the explicit non-tone/ideology disclaimer requirement."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx",
+      "claim": "the JSX render order is `{view==='trend'?<div className=\"intelligence-change\" ...>...</div>:!total?<p>{t('empty')}</p>:view==='chart'?...:view==='table'?...:null}</section>`, so selecting the trend/Change view always renders the Change view's own internal branches (changeSelect / changeNoPrior / the actual current+prior+delta output), independent of whether `total` (the sum over the currently filtered buckets) is zero; the chart and table views retain their original `!total` empty-state fallback."
+    },
+    {
+      "url": "scripts/product-audits/communication-trends-track-communication-changes.cjs",
+      "claim": "the regression script statically parses the live source to confirm the trend-view wiring, the delta computation lines, the 3-language copy tuples, and the explicit disclaimer text; confirms via a regex-extracted source slice that the `view==='trend'` check occurs before (at a lower string index than) the `!total?` guard and before the rendered `changeNote`, and that the chart/table empty-state text `:!total?<p>{t('empty')}</p>:view==='chart'?` is still present; then runs a pure JS reimplementation of the delta logic (shiftMonth/monthSpan/sumBuckets/hasPriorPeriod) against 7 constructed bucket fixtures (increase, decrease, no-prior-period, zero-to-nonzero, cross-person/platform isolation, current-zero/prior-positive, multi-month window) and asserts the signed deltas match expected values, including a current=0/prior=5 case expecting periodDelta=-5; `node scripts/product-audits/communication-trends-track-communication-changes.cjs` exits 0."
+    },
+    {
+      "url": "src/components/reference/Scoreboard.tsx",
+      "claim": "Scoreboard.tsx imports `{ControllerStatus}` from './ControllerStatus' (line 2) and mounts `<ControllerStatus lang={lang}/>` (line 62) immediately before `<LeadAccountability lang={lang}/>` (line 63), so the live-operations/budget panel is actually rendered on the scoreboard page. A protected browser check previously found the component was never mounted; the regression now asserts the import exists and that the ControllerStatus mount precedes the LeadAccountability mount in source order."
+    },
+    {
+      "url": "src/components/reference/ControllerStatus.tsx",
+      "claim": "ControllerStatus.tsx imports './controller-status.css' (line 8) and references both provider logo paths `/images/providers/codex.png` and `/images/providers/claude.ico` (line 46). The regression confirms all three dependency files exist and are non-empty on disk, because `tsc --noEmit` does not detect an absent CSS import or missing public image. The per-provider allowance renders `p.limitPoints??snapshot.allocation.limitPoints`, i.e. the measured caps (Codex 40 / Claude 30)."
+    },
+    {
+      "url": "convex/controllerStatus.ts",
+      "claim": "the `snapshot` query joins reactive queue observations to the recorded measurement: `progress` is computed as {total:keys.size, completed, remaining} from the scoped checklist item keys, and `blockers` is derived from scoped dispatch items in the `blocked` state (reason + nextAction). Budget data (`allocation`, `providers`) is passed through from the root-published `projectControllerStatus` row, never simulated; there are no public writes (publish is an internalMutation)."
+    },
+    {
+      "url": "scripts/orwell-pilot/budget.mjs",
+      "claim": "the budget admission policy enforces the actual per-provider caps: allocation points are bounded by `provider==='codex'?40:30` with a reserve floor, confirming the 40/30 limits surfaced by ControllerStatus. `node scripts/orwell-pilot/budget.test.mjs` (15 pass), `provider-routing.test.mjs` (14 pass), and `status.test.mjs` (1 pass) all exit 0."
+    }
+  ],
+  "limitations": [
+    "The trend/change view only activates when a single person and a single platform are both selected (changeReady requires both); it intentionally does not attempt to compute an aggregate delta across multiple people or 'all platforms', since that would mix unrelated series into one ambiguous number.",
+    "`hasPriorPeriod` is derived from the existence of any archived bucket in the prior window, not from any external knowledge of real-world posting history; if the archive itself has a collection gap in the prior window, the UI will correctly report 'no prior period to compare' even though posts may have existed in reality. This is consistent with the project's existing archive-gap disclaimers elsewhere in the file.",
+    "This is a raw post-count delta only. It does not weight by format, platform reach, audience size, or any inferred attribute, and explicitly disclaims tone/sentiment/stance/ideology measurement in the rendered copy.",
+    "No backend (convex/) files were modified for this step; the delta is computed entirely client-side from the existing `intelligence.archive` query response, per the step's 'No backend schema or budget changes' constraint.",
+    "Verification here is static source inspection (including an explicit branch-order/string-index check that the `view==='trend'` render path precedes the `!total` guard) plus an independent pure-JS reimplementation of the delta math against constructed fixtures; it does not include a live browser rendering of the Convex-backed data (unprivileged regression scripts cannot authenticate/deploy). `npx tsc --noEmit --incremental false -p tsconfig.json` was run and passed with no errors for this change.",
+    "The scoreboard connection is verified at the source/dependency level: the regression confirms the ControllerStatus import, its mount order before LeadAccountability, the CSS import, and that the CSS + two provider-logo files exist and are non-empty. It cannot itself perform the live/protected-browser render; the controller's actual Next build and protected browser gate remain the authoritative check before publication, and the currently deployed page may lack this connection until root publishes the reviewed revision.",
+    "The ControllerStatus stylesheet (controller-status.css) and the two provider logo files (codex.png, claude.ico) were root-restored dependencies that were missing on the VPS; they are preserved byte-for-byte and were not redrawn or resized by this step."
+  ],
+  "checks": [
+    "node scripts/product-audits/communication-trends-track-communication-changes.cjs",
+    "npx tsc --noEmit --incremental false -p tsconfig.json",
+    "node scripts/orwell-pilot/budget.test.mjs",
+    "node scripts/orwell-pilot/provider-routing.test.mjs",
+    "node scripts/orwell-pilot/status.test.mjs"
+  ]
+}
