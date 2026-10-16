@@ -9,7 +9,19 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
  const directory=join(stateDir,`browser-${Date.now()}`);await mkdir(directory,{recursive:true,mode:0o700});
  const checks=[];
  try{
-  if(itemKey==='communication-trends/label-uncertainty-and-archive-gaps'){
+  if(itemKey==='scoreboard-budget40/apply-and-verify'){
+   const page=await browser.newPage();const response=await page.goto(productionUrl+'/scoreboard#live-operations',{waitUntil:'domcontentloaded',timeout:60000});
+   if(response?.status()!==200)throw Error('Scoreboard unavailable');
+   const panel=page.locator('#live-operations');await panel.locator('.controller-status-providers').waitFor({state:'visible',timeout:60000});
+   const r=await fetch('https://fleet-vole-527.convex.cloud/api/query',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'controllerStatus:snapshot',args:{},format:'json'})});const snapshot=(await r.json()).value;
+   const budget=await panel.locator('.controller-status-allowance').innerText();
+   if(!budget.includes('Codex 40')||!budget.includes('Claude 30'))throw Error('Distinct40/30 provider budgets missing from live scoreboard');
+   const work=await panel.locator('.controller-status-work').innerText();
+   if(!work.includes(snapshot.progress.completed+' / '+snapshot.progress.total))throw Error('Displayed progress differs from authoritative checklist');
+   for(const blocker of snapshot.blockers)if(!work.includes(blocker.reason))throw Error('Actual blocker missing from scoreboard: '+blocker.key);
+   const screenshot=join(directory,'scoreboard-budget40.png');await page.screenshot({path:screenshot,fullPage:true});
+   checks.push({kind:'actual-live-scoreboard',providerLimits:snapshot.providers.map(p=>({provider:p.provider,limitPoints:p.limitPoints})),progress:snapshot.progress,blockerKeys:snapshot.blockers.map(b=>b.key),screenshot});
+  }else if(itemKey==='communication-trends/label-uncertainty-and-archive-gaps'){
    const response=await fetch('https://fleet-vole-527.convex.cloud/api/query',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'intelligence:archive',args:{},format:'json'}),signal:AbortSignal.timeout(30000)});
    const result=await response.json();if(!response.ok||result.status!=='success')throw Error('Live archive unavailable');
    const data=result.value,account=data.accounts.find(a=>a.posts===0),person=data.people.find(p=>p.id===account?.person);

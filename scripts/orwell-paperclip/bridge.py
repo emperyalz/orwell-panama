@@ -295,7 +295,10 @@ class Bridge:
         # Read only. Never reset baselines, extend deadlines, or expand allocation.
         if policy.get("subscriptionOnly") is not True or policy.get("allowPaidFallback") is not False:
             return "Subscription policy held"
-        if (policy.get("allocationPercentagePoints") != 30 or policy.get("reservePercentagePoints") != 3
+        limits = policy.get("providerAllocations", {})
+        if (not isinstance(limits, dict) or set(limits) - {"codex", "claude"}
+                or limits.get("codex", 30) not in range(4, 41) or limits.get("claude", 30) not in range(4, 31)
+                or policy.get("allocationPercentagePoints") != 30 or policy.get("reservePercentagePoints") != 3
                 or not isinstance(policy.get("startedAt"), (int, float))
                 or not isinstance(policy.get("endsAt"), (int, float))
                 or not policy["startedAt"] <= now < policy["endsAt"]):

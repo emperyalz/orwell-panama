@@ -60,7 +60,7 @@ async function publishStatus(runtimeState=controllerState,reason=controllerReaso
  const receipts=[];for(const id of await readdir(join(state,'runs')).catch(()=>[])){
   try{receipts.push(JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8')));}catch{}
  }
- await api('controllerStatus:publish',statusObservation({policy,scope,snapshots:lastMeters,checks:lastChecks,receipts,state:runtimeState,reason}));
+ await api('controllerStatus:publish',statusObservation({policy,scope:{...scope,itemKeys:scope.serverPlanning&&plannerPolicy?.itemKeys?[...new Set([...plannerPolicy.itemKeys,...scope.itemKeys])]:scope.itemKeys},snapshots:lastMeters,checks:lastChecks,receipts,state:runtimeState,reason}));
 }
 async function api(path,args={},kind='mutation') {
  const response=await fetch(`${config.url}/api/${kind}`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Convex ${config.adminKey}`},body:JSON.stringify({path,args,format:'json'}),signal:AbortSignal.timeout(30000)});

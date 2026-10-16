@@ -98,3 +98,12 @@ test('clock jitter tolerance cannot apply to other providers, sources or authent
  for(const value of [shortBase,shortCurrent])value.windows.push({id:'short',durationMinutes:300,usedPercent:10,resetsAt:now/1000+5000});shortCurrent.windows[1].resetsAt++;
  assert.equal(run({snapshot:shortCurrent,baseline:shortBase}).allowed,false);
 });
+
+test('explicit Codex40 override retains Claude30, reserve3 and original baseline',()=>{
+ const p={...policy,providerAllocations:{codex:40,claude:30}};
+ assert.equal(run({policy:p,snapshot:snapshot(53)}).remaining[0].availablePercentagePoints,5);
+ assert.equal(run({policy:p,snapshot:snapshot(58)}).allowed,false);
+ const base={...snapshot(),provider:'claude'},current={...snapshot(48),provider:'claude'};
+ assert.equal(run({policy:p,baseline:base,snapshot:current}).allowed,false);
+ for(const providerAllocations of [{codex:41},{claude:40},{codex:0},{codex:null},{unknown:40},null,[]])assert.equal(run({policy:{...policy,providerAllocations}}).allowed,false);
+});

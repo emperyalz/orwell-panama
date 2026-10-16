@@ -1,3 +1,4 @@
+import {providerAllocation,validAllocationPolicy} from './budget.mjs';
 /** Native subscription routing. Measurements stay account-wide; no token/quota conversion. */
 export const PROVIDERS=Object.freeze(['codex','claude']);
 export const ROUTING_MAX_AGE_MS=120_000;
@@ -23,7 +24,8 @@ export function oppositeProvider(provider){if(!known(provider))throw Error('Actu
 export function routingPolicyError(policy,now=Date.now()){
  if(policy?.reviewMode!==undefined&&!['cross-provider',CLAUDE_CROSS_MODEL].includes(policy.reviewMode))return 'Unknown independent review mode';
  if(policy?.subscriptionOnly!==true||policy.allowPaidFallback!==false)return 'Subscription-only routing policy is required';
- if(!Number.isFinite(policy.allocationPercentagePoints)||policy.allocationPercentagePoints<=0||policy.allocationPercentagePoints>30||!Number.isFinite(policy.reservePercentagePoints)||policy.reservePercentagePoints<3||policy.reservePercentagePoints>=policy.allocationPercentagePoints)return 'Original allocation and safety reserve are required';
+ if(!validAllocationPolicy(policy))return 'Original allocation and safety reserve are required';
+ if(policy.authorProvider!==undefined&&policy.authorProvider!=='claude')return 'Only the explicitly pinned Claude author is supported';
  if(!Number.isFinite(policy.startedAt)||!Number.isFinite(policy.endsAt)||policy.startedAt>now||policy.endsAt<=now||policy.endsAt<=policy.startedAt||policy.endsAt-policy.startedAt>86_400_000)return 'Original allocation window has not started or has ended';
  return null;
 }
@@ -34,6 +36,7 @@ function available(provider,checks){
  return Number.isFinite(points)&&points>0?points:null;
 }
 function chooseHeavy(checks,policy,previousProvider,hysteresisPoints){
+ if(policy.authorProvider){const points=available(policy.authorProvider,checks);return points===null?null:{provider:policy.authorProvider,points,normalized:points/providerAllocation(policy,policy.authorProvider)};}
  const candidates=PROVIDERS.map(provider=>({provider,points:available(provider,checks)})).filter(row=>row.points!==null).map(row=>({...row,normalized:row.points/policy.allocationPercentagePoints})).sort((a,b)=>b.normalized-a.normalized||a.provider.localeCompare(b.provider));
  const best=candidates[0];if(!best)return null;
  const previous=candidates.find(row=>row.provider===previousProvider);
@@ -69,7 +72,7 @@ export function routeProvider({phase,item={},checks,policy,previousProvider,rese
   return {allowed:true,phase,provider,role:provider,workerProvider:item.workerProvider,reason:`Independent QA uses ${provider}, opposite the recorded ${item.workerProvider} author`};
  }
  const heavy=chooseHeavy(checks,policy,previousProvider,hysteresisPoints);
- if(!heavy)return deny(PROVIDERS.map(provider=>blockedReason(provider,checks)).join('; '));
+ if(!heavy)return deny(policy.authorProvider?blockedReason(policy.authorProvider,checks):PROVIDERS.map(provider=>blockedReason(provider,checks)).join('; '));
  if(phase==='planner')return {allowed:true,phase,provider:heavy.provider,role:heavy.provider,headroomPoints:heavy.points,normalizedHeadroom:heavy.normalized,reviewBlocked:PROVIDERS.some(provider=>available(provider,checks)===null||available(provider,checks)<REVIEW_HEADROOM_POINTS),reason:'Plan on the admitted provider with more remaining original weekly allocation; execution retains independent-review gates'};
  const stored=item.workerProvider,reserved=reservation?.workerProvider;
  if(stored!==undefined&&!known(stored))return deny('Stored worker provider is invalid');

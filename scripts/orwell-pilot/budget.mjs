@@ -47,13 +47,23 @@ export function validateSnapshot(snapshot, now = Date.now(), maxAgeMs = 120_000)
   return null;
 }
 
+/** Root policy may raise only Codex to Eric's explicitly authorized40-point cap. */
+export function providerAllocation(policy,provider){
+ const overrides=policy?.providerAllocations;
+ if(overrides!==undefined&&(!overrides||typeof overrides!=='object'||Array.isArray(overrides)||Object.keys(overrides).some(k=>!['codex','claude'].includes(k))))return NaN;
+ return overrides&&Object.hasOwn(overrides,provider)?overrides[provider]:policy?.allocationPercentagePoints;
+}
+export function validAllocationPolicy(policy){
+ if(!policy||!validPct(policy.allocationPercentagePoints)||policy.allocationPercentagePoints<=0||policy.allocationPercentagePoints>30||!validPct(policy.reservePercentagePoints)||policy.reservePercentagePoints<3)return false;
+ return ['codex','claude'].every(provider=>{const limit=providerAllocation(policy,provider);return validPct(limit)&&limit>policy.reservePercentagePoints&&limit<=(provider==='codex'?40:30);});
+}
+
 /** A pilot is a finite allocation. Resets or disappearing buckets require reconciliation. */
 export function admitSubscription({snapshot, baseline, policy, activeRuns, now = Date.now()}) {
   const hold = reason => ({allowed: false, state: 'held', reason});
   if (!policy || policy.subscriptionOnly !== true || policy.allowPaidFallback !== false)
     return hold('Subscription-only policy is required');
-  if (!validPct(policy.allocationPercentagePoints) || policy.allocationPercentagePoints === 0 || policy.allocationPercentagePoints > 30 ||
-      !validPct(policy.reservePercentagePoints) || policy.reservePercentagePoints < 3 || policy.reservePercentagePoints >= policy.allocationPercentagePoints)
+  if (!validAllocationPolicy(policy))
     return hold('Invalid allocation or safety reserve');
   if (!Number.isFinite(policy.startedAt) || !Number.isFinite(policy.endsAt) ||
       policy.startedAt > now || policy.endsAt <= now || policy.endsAt <= policy.startedAt || policy.endsAt-policy.startedAt > 24*60*60_000)
@@ -103,7 +113,7 @@ export function admitSubscription({snapshot, baseline, policy, activeRuns, now =
   if (!weekly.length) return hold('A measured weekly subscription window is required');
   for (const {current,prior} of weekly) {
     const used = current.usedPercent - prior.usedPercent;
-    const available = policy.allocationPercentagePoints - policy.reservePercentagePoints - used;
+    const available = providerAllocation(policy,snapshot.provider) - policy.reservePercentagePoints - used;
     if (available <= 0) return hold('Pilot weekly allocation reserve reached');
     remaining.push({id: current.id, usedPercentagePoints: used, availablePercentagePoints: available});
   }

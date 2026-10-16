@@ -129,3 +129,14 @@ test('cross-model routing publishes QA model and preserves the actual running au
  assert.equal(active.items['work/step'].role,'claude');assert.equal(active.items['qa/step'].role,'claude');assert.equal(active.items['qa/step'].model,'opus');assert.equal(active.items['qa/step'].allowed,false);
  const stillCodex=routingObservation({items:[running[0]],itemKeys:['work/step'],checks:checks(null,26),policy:cross,previous:{reservations:{'work/step':{workerProvider:'codex'}}},now});assert.equal(stillCodex.items['work/step'].role,'codex');
 });
+
+test('Claude-pinned cross-provider operation reserves Codex for independent QA',()=>{
+ const p={...policy,reviewMode:'cross-provider',authorProvider:'claude',providerAllocations:{codex:40,claude:30}};
+ assert.equal(route({policy:p,checks:checks(5,2)}).provider,'claude');
+ assert.equal(route({phase:'planner',policy:p,checks:checks(5,2)}).provider,'claude');
+ assert.equal(route({phase:'qa',policy:p,item:{workerProvider:'claude'},checks:checks(5,2)}).provider,'codex');
+ assert.equal(route({policy:p,checks:checks(5,null)}).allowed,false);
+ assert.equal(route({policy:p,checks:checks(5,null)}).reason.startsWith('claude held:'),true);
+ assert.equal(route({policy:p,checks:checks(null,25)}).allowed,false);
+ assert.equal(route({phase:'qa',policy:p,item:{workerProvider:'claude'},checks:checks(null,25)}).allowed,false);
+});
