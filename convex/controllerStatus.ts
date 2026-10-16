@@ -22,12 +22,19 @@ export const snapshot=query({args:{},handler:async ctx=>{
  ]);
  const keys=new Set(status.scopeItemKeys),scoped=items.filter(i=>keys.has(i.key));
  const active=scoped.filter(i=>i.leaseUntil&&i.leaseUntil>now&&['running','qa_running','accept_running'].includes(i.state)).map(i=>({key:i.key,label:i.label,state:i.state,owner:i.activeActorName??i.lead,model:agents.find(a=>a.key===i.activeSessionId)?.model??(i.state==='accept_running'?'Deterministic checks':'Starting session'),lastProgressAt:i.lastProgressAt??i.updatedAt,leaseUntil:i.leaseUntil!}));
+ // Only actual native sessions with an explicit preparation assignment and
+ // validated original-step binding are shown. They do not alter acceptance.
+ const preparation=agents.filter(a=>a.binding&&a.assignment.en.startsWith('Read-only preparation:')).map(a=>({
+  key:`${a.binding!.taskKey}/${a.binding!.stepKey}`,sessionId:a.key,rosterKey:a.binding!.rosterKey??'',owner:a.name,model:a.model,
+  state:a.status,lastProgressAt:a.lastActivityAt,assignment:a.assignment,
+  label:tasks.find(t=>t.key===a.binding!.taskKey)?.checklist?.find(c=>c.key===a.binding!.stepKey)?.label.en??a.binding!.stepKey,
+ })).sort((a,b)=>b.lastProgressAt-a.lastProgressAt).slice(0,12);
  const checked=new Set(tasks.flatMap(task=>(task.checklist??[]).filter(step=>step.done).map(step=>`${task.key}/${step.key}`)));
  const progress={total:keys.size,completed:[...keys].filter(key=>checked.has(key)).length,remaining:[...keys].filter(key=>!checked.has(key)).length};
  const blockers=scoped.filter(item=>item.state==='blocked').map(item=>({key:item.key,label:item.label,reason:item.blockedReason??'Missing recorded prerequisite',nextAction:item.nextAction??'',updatedAt:item.updatedAt}));
  const open=scoped.filter(i=>!['accepted','superseded'].includes(i.state));
  const monitor=monitors.at(0),paused=monitor?.dispatchPaused;
- return {observedAt:status.observedAt,state:active.length?'working':paused?'held':status.state,reason:paused?monitor.pauseReason.en:status.reason,scopeLabel:status.scopeLabel,scopeItemKeys:status.scopeItemKeys,allocation:status.allocation,providers:status.providers,runs:status.runs,active,progress,blockers,
+ return {observedAt:status.observedAt,state:active.length?'working':paused?'held':status.state,reason:paused?monitor.pauseReason.en:status.reason,scopeLabel:status.scopeLabel,scopeItemKeys:status.scopeItemKeys,allocation:status.allocation,providers:status.providers,runs:status.runs,active,preparation,progress,blockers,
   queue:{ready:open.filter(i=>['ready','triage_ready'].includes(i.state)).length,qa:open.filter(i=>['qa_ready','qa_running'].includes(i.state)).length,accept:open.filter(i=>['accept_ready','accept_running'].includes(i.state)).length,blocked:open.filter(i=>i.state==='blocked').length,scopeOpen:open.length,nonPilotOpen:tasks.filter(t=>t.status!=='superseded'&&!t.key.startsWith('subscription-agent-pilot')).reduce((n,t)=>n+(t.checklist??[]).filter(c=>!c.done).length,0)},
   events:events.filter(e=>keys.has(e.itemKey)).slice(0,10).map(e=>({itemKey:e.itemKey,kind:e.kind,actor:e.actor,at:e.at,detail:e.detail})),
  };
