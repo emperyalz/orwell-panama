@@ -1,0 +1,107 @@
+{
+  "model": {
+    "repository": "Qwen/Qwen2.5-Coder-3B-Instruct-GGUF",
+    "commit": "f74adce6aa16316c625447af059dbebe4983757c",
+    "file": "qwen2.5-coder-3b-instruct-q4_k_m.gguf",
+    "bytes": 2104932800,
+    "sha256": "724fb256bec1ff062b2f65e4569e871ad2e95ab2a3989723d1769c54294730b7",
+    "runtime": "llama.cpp b11678",
+    "runtimeSha256": "16122345af3b1c7529ca1d22c36a858eb47e7d80f08a5a3ed3a1357878e55847"
+  },
+  "isolation": {
+    "user": "orwell-local-reviewer",
+    "cpuLimit": 2,
+    "memoryMax": "5G",
+    "network": false,
+    "providerCredentials": false,
+    "concurrency": 1
+  },
+  "state": "not_qualified",
+  "cases": 4,
+  "correct": 2,
+  "truePositives": 0,
+  "trueNegatives": 2,
+  "falseNegatives": 2,
+  "falsePositives": 0,
+  "noVerdict": 0,
+  "failedRuns": 0,
+  "codeGroundingPassed": true,
+  "totalWallMs": 94403,
+  "releaseAuthority": false,
+  "mayApprove": false,
+  "providerQaReplacement": false,
+  "records": [
+    {
+      "id": "case-01",
+      "category": "archive",
+      "expected": "clean",
+      "oracle": "clean",
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 42596,
+      "peakRssKiB": 3519624,
+      "sourceFile": "convex/intelligence.ts",
+      "sourceHash": "4186e18f9c5baae057d6df30868ee7d88668bd0c8966dac620375b63646e84f7",
+      "answer": {
+        "verdict": "clean",
+        "reason": "The provided JavaScript function `examples` correctly processes an array of posts to preserve at least one example for every distinct person, platform, month, and format containing posts. It uses a `Map` to store posts based on a unique key formed by these attributes. The function iterates over each post, constructs a key, and updates the map only if the current post's date is later than the stored date for that key. This ensures that the most recent post for each combination of attributes is retained. The function then returns an array of the stored posts, which is filtered by the UI to show only the selected month."
+      }
+    },
+    {
+      "id": "case-02",
+      "category": "path",
+      "expected": "defect",
+      "oracle": "defect",
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 13295,
+      "peakRssKiB": 3508624,
+      "sourceFile": "scripts/orwell-pilot/product-release.mjs",
+      "sourceHash": "6a718d56d4f239b59495ab58817780b23b0de3fc6bdf9fe1375099a5a9e082c6",
+      "answer": {
+        "verdict": "clean",
+        "reason": "The function `permits` correctly checks if a file starts with any of the allowed paths. It ensures that if a path ends with a slash, it allows files within that directory, and if it doesn't, it only allows the exact file. This implementation meets the specified requirements."
+      }
+    },
+    {
+      "id": "case-03",
+      "category": "archive",
+      "expected": "defect",
+      "oracle": "defect",
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 21865,
+      "peakRssKiB": 3519288,
+      "sourceFile": "convex/intelligence.ts",
+      "sourceHash": "4186e18f9c5baae057d6df30868ee7d88668bd0c8966dac620375b63646e84f7",
+      "answer": {
+        "verdict": "clean",
+        "reason": "The provided JavaScript function `examples` correctly processes an array of posts to preserve at least one example for every distinct person, platform, month, and format containing posts. It uses a `Map` to store posts based on a unique key formed by the person, platform, and format. The function ensures that the most recent post for each key is retained, and it returns the values from the `Map` as an array. This implementation meets the requirement of preserving at least one example for every distinct combination of person, platform, month, and format."
+      }
+    },
+    {
+      "id": "case-04",
+      "category": "path",
+      "expected": "clean",
+      "oracle": "clean",
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 16647,
+      "peakRssKiB": 3509612,
+      "sourceFile": "scripts/orwell-pilot/product-release.mjs",
+      "sourceHash": "6a718d56d4f239b59495ab58817780b23b0de3fc6bdf9fe1375099a5a9e082c6",
+      "answer": {
+        "verdict": "clean",
+        "reason": "The function `permits` correctly implements the specified behavior. It checks if the `file` starts with the `path` if the `path` ends with a slash, or if the `file` is exactly equal to the `path`. This ensures that files inside directories are permitted, and only the exact file is permitted if the path does not end with a slash."
+      }
+    }
+  ],
+  "priorRuntimeAttempt": {
+    "state": "runtime_interface_failure",
+    "wallMs": 45912,
+    "generatedVerdicts": 0,
+    "artifactDirectory": "/tmp/orwell-local-reviewer-qualification-attempt-01",
+    "note": "JSON grammar sampler failed before token generation; raw initial receipts preserved."
+  },
+  "combinedWallMs": 140315
+}
