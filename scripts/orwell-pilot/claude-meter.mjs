@@ -10,8 +10,9 @@ export function normalizeClaudeMeter(payload, now=Date.now()) {
   const windows=Object.entries(payload).flatMap(([id,row])=>{
     if(!row || id==='seven_day_breakdown' || !(id==='five_hour'||id.startsWith('seven_day')))return [];
     // seven_day_breakdown is explanatory usage metadata, not a quota window.
+    const inactive=id==='five_hour'&&row.utilization===0&&row.resets_at===null&&!row.locked_reason;
     return [{id,usedPercent:row.utilization,durationMinutes:id==='five_hour'?300:10080,
-      resetsAt:Math.round(Date.parse(row.resets_at)/60000)*60,reached:Boolean(row.locked_reason)}];
+      resetsAt:inactive?null:Math.round(Date.parse(row.resets_at)/60000)*60,reached:Boolean(row.locked_reason),...(inactive?{inactive:true}:{})}];
   });
   if(!windows.some(w=>w.id==='seven_day'))throw Error('Claude weekly allowance is unavailable');
   return {provider:'claude',source:'claude-code/native-oauth-usage',observedAt:now,windows,authType:'claudeAi',creditsEnabled:false};

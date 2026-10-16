@@ -1,9 +1,11 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 import { multiplayerTables } from "./multiplayerSchema";
+import {statusFields} from './controllerStatusData';
 
 export default defineSchema({
   ...multiplayerTables,
+  projectControllerStatus:defineTable({key:v.string(),...statusFields}).index('by_key',['key']),
   projectRosterLayout:defineTable({key:v.string(),orderedKeys:v.array(v.string()),updatedAt:v.number()}).index('by_key',['key']),
  agentAvatarOverrides:defineTable({agentKey:v.string(),storageId:v.optional(v.id('_storage')),catalogKey:v.optional(v.string()),contentType:v.optional(v.string()),updatedAt:v.number()}).index('by_agent_key',['agentKey']),
   agentAvatarChanges:defineTable({createdAt:v.number(),undone:v.boolean(),entries:v.array(v.object({agentKey:v.string(),before:v.union(v.null(),v.object({catalogKey:v.optional(v.string()),storageId:v.optional(v.id('_storage')),contentType:v.optional(v.string()),updatedAt:v.number()})),after:v.union(v.null(),v.object({catalogKey:v.optional(v.string()),storageId:v.optional(v.id('_storage')),contentType:v.optional(v.string()),updatedAt:v.number()}))}))}),
