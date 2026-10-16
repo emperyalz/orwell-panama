@@ -1,6 +1,7 @@
 /** Subscription admission uses provider percentages, never token-to-quota guesses. */
 export const WEEK_MINUTES = 7 * 24 * 60;
 const validPct = n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 100;
+const inactiveClaudeWindow=(snapshot,w)=>snapshot.provider==='claude'&&snapshot.source==='claude-code/native-oauth-usage'&&snapshot.authType==='claudeAi'&&snapshot.creditsEnabled===false&&w.id==='five_hour'&&w.durationMinutes===300&&w.inactive===true&&w.usedPercent===0&&w.resetsAt===null&&!w.reached;
 
 export function codexSnapshot(result, now = Date.now()) {
   const buckets = result?.rateLimitsByLimitId ?? (result?.rateLimits ? {legacy: result.rateLimits} : {});
@@ -29,6 +30,9 @@ export function validateSnapshot(snapshot, now = Date.now(), maxAgeMs = 120_000)
     return 'A measured weekly subscription window is required';
   if (new Set(snapshot.windows.map(w => w.id)).size !== snapshot.windows.length) return 'Duplicate usage windows';
   for (const w of snapshot.windows) {
+    // Native Claude explicitly reports no active five-hour window as zero/null.
+    // Keep that provider observation; never invent a reset or renew the week.
+    if(inactiveClaudeWindow(snapshot,w))continue;
     if (!validPct(w.usedPercent) || !Number.isFinite(w.resetsAt) || w.resetsAt * 1000 <= now ||
         !Number.isFinite(w.durationMinutes) || w.durationMinutes <= 0) return 'Invalid or expired usage window';
     if (w.reached) return 'Provider reports a reached limit';
@@ -70,6 +74,10 @@ export function admitSubscription({snapshot, baseline, policy, activeRuns, now =
     const current = snapshot.windows.find(w => w.id === prior.id);
     if (!current || !validPct(prior.usedPercent) || current.durationMinutes !== prior.durationMinutes)
       return hold('Usage changed buckets; reconcile before spending');
+    if(inactiveClaudeWindow(snapshot,current)){
+      if(!inactiveClaudeWindow(baseline,prior)&&(!Number.isFinite(prior.resetsAt)||prior.resetsAt*1000>now))return hold('Inactive short window conflicts with unexpired baseline');
+      continue;
+    }
     if (current.durationMinutes === WEEK_MINUTES) {
       // A weekly reset ends the baseline's measurement window. Never roll the
       // allocation forward against the provider's new week.
@@ -117,7 +125,7 @@ export function reconcileShortWindows({snapshot, baseline, policy, now = Date.no
   const records = [];
   const windows = baseline.windows.map(prior => {
     const current = snapshot.windows.find(w => w.id === prior.id);
-    if (prior.durationMinutes === WEEK_MINUTES || !current || prior.resetsAt * 1000 > now ||
+    if (prior.durationMinutes === WEEK_MINUTES || !current || inactiveClaudeWindow(snapshot,current) || prior.resetsAt * 1000 > now ||
         current.resetsAt <= prior.resetsAt || current.durationMinutes !== prior.durationMinutes || !validPct(prior.usedPercent)) return prior;
     records.push({id: prior.id, at: now, previous: prior, current});
     return {...current};

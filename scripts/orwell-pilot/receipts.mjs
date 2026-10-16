@@ -4,7 +4,7 @@ import {normalizeCodexUsage} from './budget.mjs';
 /** Secondary ceilings only; native percentages remain the spending authority. */
 export function finiteModelCeiling({runs,tokens,freshTokens,withoutAcceptance}) {
  if(![runs,tokens,freshTokens,withoutAcceptance].every(n=>Number.isSafeInteger(n)&&n>=0)||freshTokens>tokens)return true;
- return runs>=32||tokens>=15_000_000||freshTokens>=1_000_000||withoutAcceptance>=12;
+ return runs>=64||tokens>=25_000_000||freshTokens>=3_000_000||withoutAcceptance>=12;
 }
 export async function receiptBudget(directory,now=Date.now()) {
  const recent=[];

@@ -10,6 +10,7 @@ import {legalOutcome,finiteModelCeiling} from './receipts.mjs';
 import {selectAffinity} from './selection.mjs';
 import {acceptanceProof} from './acceptance-proof.mjs';
 import {commitReviewedSource} from './source-commit.mjs';
+import {statusObservation} from './status.mjs';
 
 const state='/var/lib/orwell-agent-controller',workspace='/home/orwell/build',tools='/home/orwell/agent-tools/node_modules/.bin';
 const home='/home/orwell',uid=1001,gid=1001;
@@ -20,6 +21,14 @@ const config=JSON.parse(await readFile('/etc/orwell-agent-controller/credentials
 const policy=JSON.parse(await readFile(join(state,'policy.json'),'utf8'));
 const scope=JSON.parse(await readFile(join(state,'scope.json'),'utf8'));
 const log=value=>console.log(JSON.stringify({at:new Date().toISOString(),...value}));
+let lastMeters={},lastChecks={},controllerState='checking',controllerReason='Checking native subscription usage';
+async function publishStatus(runtimeState=controllerState,reason=controllerReason){
+ controllerState=runtimeState;controllerReason=reason;
+ const receipts=[];for(const id of await readdir(join(state,'runs')).catch(()=>[])){
+  try{receipts.push(JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8')));}catch{}
+ }
+ await api('controllerStatus:publish',statusObservation({policy,scope,snapshots:lastMeters,checks:lastChecks,receipts,state:runtimeState,reason}));
+}
 async function api(path,args={},kind='mutation') {
  const response=await fetch(`${config.url}/api/${kind}`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Convex ${config.adminKey}`},body:JSON.stringify({path,args,format:'json'}),signal:AbortSignal.timeout(30000)});
  const result=await response.json();
@@ -46,6 +55,7 @@ async function meters() {
 }
 async function admission(activeRuns=0) {
  const snapshots=await meters(),checks={};
+ lastMeters=snapshots;
  for(const provider of ['codex','claude']) {
   const reconciled=reconcileShortWindows({snapshot:snapshots[provider],baseline:policy.baselines[provider],policy});
   if(reconciled.records.length){
@@ -54,9 +64,11 @@ async function admission(activeRuns=0) {
    await writeAtomicJson(join(state,'policy.json'),policy);
   }
   checks[provider]=admitSubscription({snapshot:snapshots[provider],baseline:policy.baselines[provider],policy,activeRuns});
-  if(!checks[provider].allowed)throw Error(`${provider} held: ${checks[provider].reason}`);
  }
+ lastChecks=checks;
  await writeAtomicJson(join(state,'usage.json'),{at:Date.now(),snapshots,checks});
+ await publishStatus();
+ for(const provider of ['codex','claude'])if(!checks[provider].allowed)throw Error(`${provider} held: ${checks[provider].reason}`);
  const published='/opt/orwell-evidence/pilot.json';await writeAtomicJson(published,{policy,lastControllerAdmission:{at:Date.now(),snapshots,checks}});await chmod(published,0o444);return {snapshots,checks};
 }
 const excluded=new Set(['node_modules','.git','.next','.vercel','.impeccable','artifacts','tmp','output']);
@@ -104,7 +116,7 @@ function parseAnswer(text) {
  throw Error('Model did not return a valid JSON outcome');
 }
 function prompt(job,qa) {
- return `You are ${qa?'Rawls, an independent Claude reviewer in Ada\'s QA team':'Lin, a Codex implementation worker under Rowan'}. You are not alone in this codebase. Preserve other work. Do not spawn agents.\nActual Orwell task: ${job.item.taskTitle}. Step: ${job.item.key}: ${job.item.label}.\nAcceptance: ${scope.criteria[job.item.key]??job.item.acceptance}.\nPrior evidence: ${job.item.evidence??''}.\nPrior QA defects: ${job.item.qaEvidence??''}. Checkpoint: ${job.item.checkpoint??''}.\n${qa?'The source is a frozen read-only snapshot. Inspect actual relevant source and run focused meaningful tests. Do not edit source or accept merely because tests pass. Check missing edge cases and real production behavior if required. Reject material defects with exact repairs.':'Implement this bounded step and run focused verification. Source changes are allowed only in scripts/orwell-pilot/, scripts/test-dispatch-acceptance.cjs, convex/dispatch.ts, convex/scoreboard.ts, convex/schema.ts, convex/dispatchPriority.ts and the pilot documentation. Do not touch portraits, UI, credentials, deployment settings, unrelated files or task state. Controller handles deployment and acceptance. Avoid broad reads. No commit or deployment yourself.'}\nUse subscription access only. Budget finite, one worker at a time. Finish within 8 minutes. Return one JSON object with required string fields result,detail,evidence,team. result=${qa?'accepted or changes_requested':'submitted or failed or needs_input'}. team=implementation. Evidence must give exact inspected files and commands. Turn ending does not complete the checklist.`;
+ return `You are ${qa?'Rawls, an independent Claude reviewer in Ada\'s QA team':'Lin, a Codex implementation worker under Rowan'}. You are not alone in this codebase. Preserve other work. Do not spawn agents.\nActual Orwell task: ${job.item.taskTitle}. Context: ${job.item.taskDetail??''}. Step: ${job.item.key}: ${job.item.label}.\nAcceptance: ${scope.criteria[job.item.key]??job.item.acceptance}.\nPrior evidence: ${job.item.evidence??''}.\nPrior QA defects: ${job.item.qaEvidence??''}. Checkpoint: ${job.item.checkpoint??''}.\n${qa?'The source is a frozen read-only snapshot. Inspect actual relevant source and run focused meaningful tests. Do not edit source or accept merely because tests pass. Check missing edge cases and real production behavior if required. Reject material defects with exact repairs.':'Implement this bounded step and run focused verification. Source changes are allowed only in scripts/orwell-pilot/, scripts/test-dispatch-*.cjs, convex/dispatch.ts, convex/scoreboard.ts, convex/schema.ts, convex/dispatchPriority.ts, convex/controllerStatus.ts, convex/controllerStatusData.ts, convex/agentActivity.ts, convex/leadAccountability.ts, convex/leadMetrics.ts and docs/vps-backlog-execution-2026-10-15.md. This step is part of the actual existing Orwell backlog, not another pilot qualification. Use published /opt/orwell-evidence/backlog.json for recent real run evidence. Do not broaden the task or spend turns re-auditing accepted pilot checks. Do not touch portraits, UI, credentials, deployment settings, unrelated files or task state. Controller handles deployment and acceptance. Avoid broad reads. No commit or deployment yourself.'}\nUse subscription access only. Budget finite, one worker at a time. Finish within 8 minutes. Return one JSON object with required string fields result,detail,evidence,team. result=${qa?'accepted or changes_requested':'submitted or failed or needs_input'}. team=implementation. Evidence must give exact inspected files and commands. Turn ending does not complete the checklist.`;
 }
 async function runModel(job) {
  const qa=job.phase==='qa',provider=qa?'claude':'codex',person=qa?reviewer:author;
@@ -207,7 +219,7 @@ async function receiptGuard() {
 async function main() {
  let spending;try{spending=await receiptGuard();}catch(error){await api('dispatch:stopPilot',{reason:error.message,modelOnly:false});throw error;}
  try{await admission();}catch(error){await api('dispatch:stopPilot',{reason:error.message,modelOnly:false});throw error;}
- if(spending.modelHeld)await api('dispatch:stopPilot',{reason:'Finite 32 runs / 12 since acceptance / 15,000,000 reported or observed tokens / 1,000,000 fresh tokens ceiling reached; reviewed non-model acceptance remains eligible',modelOnly:true});
+ if(spending.modelHeld)await api('dispatch:stopPilot',{reason:'Finite 64 runs / 12 since acceptance / 25,000,000 reported or observed tokens / 3,000,000 fresh tokens ceiling reached; reviewed non-model acceptance remains eligible',modelOnly:true});
  await api('dispatch:sync');await api('dispatch:recoverExpired');
  const snapshot=await api('dispatch:snapshot',{},'query');
  if(snapshot.items.some(i=>i.leaseUntil>Date.now()))return log({state:'busy'});
@@ -215,9 +227,10 @@ async function main() {
  const selection=selectAffinity({affinity,items:snapshot.items,itemKeys:scope.itemKeys,modelHeld:spending.modelHeld});
  await writeAtomicJson(join(state,'affinity.json'),selection.affinity);
  const eligible=selection.onlyItemKeys;
- if(!eligible.length)return log({...selection,...spending});
+ if(!eligible.length){await publishStatus(selection.state,selection.reason??'No eligible step in the authorized backlog');return log({...selection,...spending});}
  const job=await api('dispatch:claimNext',{leaseId:randomUUID(),onlyItemKeys:eligible,reviewedAcceptanceOnly:spending.modelHeld});
- if(job.state!=='claimed')return log({...job,affinity:selection.affinity});
+ if(job.state!=='claimed'){await publishStatus(job.state,job.reason??'No eligible step in the authorized backlog');return log({...job,affinity:selection.affinity});}
+ await publishStatus('working',`${job.phase}: ${job.item.label}`);
  await writeAtomicJson(join(state,'affinity.json'),{itemKey:job.item.key});
  try{
   if(job.phase==='triage'){
@@ -251,5 +264,5 @@ async function main() {
   await runModel(job);
  }catch(error){await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:job.phase,result:'failed',detail:error.message.slice(0,2800)}).catch(()=>{});throw error;}
 }
-try{await main();await writeAtomicJson(join(state,'health.json'),{state:'healthy',at:Date.now()});}
-catch(error){log({state:'held',reason:error.message});await writeAtomicJson(join(state,'health.json'),{state:'held',at:Date.now(),reason:error.message});process.exitCode=2;}
+try{await main();await publishStatus();await writeAtomicJson(join(state,'health.json'),{state:controllerState,at:Date.now(),reason:controllerReason});}
+catch(error){log({state:'held',reason:error.message});await publishStatus('held',error.message).catch(e=>log({telemetryError:e.message}));await writeAtomicJson(join(state,'health.json'),{state:'held',at:Date.now(),reason:error.message});process.exitCode=2;}

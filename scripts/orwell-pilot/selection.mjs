@@ -9,5 +9,6 @@ export function selectAffinity({affinity,items,itemKeys,modelHeld=false}) {
  }
  // The acceptance repair must be released before any other candidate.
  if(gate&&!['accepted','superseded'].includes(gate.state))return selectAffinity({affinity:{itemKey:gate.key},items,itemKeys,modelHeld});
- return {affinity:null,onlyItemKeys:itemKeys.filter(key=>!modelHeld||items.some(i=>i.key===key&&i.state==='accept_ready')),state:'ready'};
+ const eligible=itemKeys.filter(key=>items.some(i=>i.key===key&&['ready','triage_ready','qa_ready','accept_ready'].includes(i.state)&&(!modelHeld||i.state==='accept_ready')));
+ return {affinity:null,onlyItemKeys:eligible,state:eligible.length?'ready':'idle'};
 }
