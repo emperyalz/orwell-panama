@@ -33,6 +33,12 @@ test('missing and interrupted run accounting blocks further spending',async()=>f
  b=await receiptBudget(directory);assert.equal(b.tokens,105);assert.equal(b.unreconciledRuns,1);assert.equal(b.exceeded,true);
  await writeFile(join(directory,'interrupted','receipt.json'),JSON.stringify({usage:{input_tokens:100,cached_input_tokens:80,output_tokens:5},finish:{state:'qa_ready'},usagePersisted:false}));
  b=await receiptBudget(directory);assert.equal(b.unreconciledRuns,1);assert.equal(b.exceeded,true);
+ assert.equal(b.unknownUsageRuns,0);
+ // A valid partial count still cannot clear an absent finalization/reconciliation.
+ await writeFile(join(directory,'interrupted','receipt.json'),JSON.stringify({usage:{input_tokens:100,cached_input_tokens:80,output_tokens:5},finish:{state:'qa_ready'},usagePersisted:true}));
+ b=await receiptBudget(directory);assert.equal(b.unreconciledRuns,0);assert.equal(b.exceeded,false);
+ await writeFile(join(directory,'interrupted','receipt.json'),JSON.stringify({usage:null,finish:{state:'qa_ready'},usagePersisted:false}));
+ b=await receiptBudget(directory);assert.equal(b.unknownUsageRuns,1);assert.equal(b.exceeded,true,'Unknown unpersisted usage holds all further spend');
 }));
 test('work cannot self-accept and QA result must match the structured contract',()=>{
  const answer={result:'accepted',detail:'Evidence inspected',evidence:'artifact hash',team:'none'};

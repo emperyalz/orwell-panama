@@ -37,7 +37,14 @@ test('expired short windows reconcile once without rewriting original weekly all
 
 test('real interrupted recovery retains partial usage and has no recovered verdict', {skip:!existsSync(root+'recovery.json')},()=>{
  const {policy,nativeQuotaReconciliation:r}=read('recovery.json');
+ const runtime=read('runtime.json');
  const now=Math.max(...Object.values(r.snapshots).map(s=>s.observedAt));
+ assert.equal(runtime.publicQueries.url,'https://fleet-vole-527.convex.cloud/api/query');
+ assert.deepEqual(runtime.publicQueries.bodyExample,{path:'dispatch:snapshot',args:{},format:'json'});
+ assert.equal(r.sessionId,'3587f5b8-24e5-49e8-af87-d1831ce323db');
+ assert.equal(r.observedUsage.exactFinalTotalKnown,false);
+ assert.equal(r.observedUsage.total_tokens,r.observedUsage.input_tokens+r.observedUsage.output_tokens);
+ assert.ok(r.observedUsage.observedRequests>0);
  const result=quotaReconciliation({sessionId:r.sessionId,observedUsage:r.observedUsage,snapshots:r.snapshots,policy,now});
  assert.equal(result.exactFinalTotalKnown,false);assert.equal(result.observedUsage.total_tokens,213596);
  assert.equal(result.originalWeeklyBaselines,policy.baselines);assert.equal(result.verdict,undefined);

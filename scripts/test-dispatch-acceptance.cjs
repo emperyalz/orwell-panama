@@ -25,11 +25,14 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  await assert.rejects(()=>finish(context(),{...args,provider:'codex'}),/different provider/);
  await assert.rejects(()=>finish(context(),{...args,artifactRevision:other}),/exact submitted revision/);
  await assert.rejects(()=>finish(context({...item,leaseUntil:now-1}),args),/Lease no longer/);
+ await assert.rejects(()=>finish(context({...item,leaseId:'reassigned-lease-123456',activeSessionId:'new-session'}),args),/Lease no longer/,'A prior lease cannot finish after reassignment');
  await assert.rejects(()=>finish(context(item,{...reviewer,binding:{...reviewer.binding,evidence:'unrelated'}}),args),/fresh observed session/);
  await assert.rejects(()=>finish(context(item,reviewer,[]),args),/event history/);
  await assert.rejects(()=>finish(context(item,{...reviewer,lastActivityAt:now-600000}),args),/fresh observed session/);
  assert.equal((await finish(context(),args)).state,'accept_ready');
- assert.equal((await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args)).replayed,true);
+ const replayed=await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args);
+ assert.equal(replayed.replayed,true);
+ assert.equal((await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args)).state,'accept_ready','Same receipt replay remains idempotent');
  const proof={itemKey:item.key,leaseId:item.leaseId,revision,checksHash:revision,deploymentHash:other,deploymentUrl:'https://prod.convex.cloud',checks:['pilot','live-contract','acceptance','pause','typecheck','original-policy'].map(name=>({name,code:0}))};
  const accepted={...item,state:'accept_running',activeSessionId:`controller:${item.leaseId}`,qaProvider:'claude',qaRevision:revision,qaSessionId:'review-real',qaReviewerKey:'qa',leaseUntil:now+60000};
  await assert.rejects(()=>finish(context(accepted),{...args,phase:'accept',sessionId:'review-real',artifactRevision:revision,evidence:'Review passed'}),/trusted controller/,'Reviewer cannot directly complete task');
@@ -72,5 +75,5 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  monitor={...monitor,pauseReason:{en:'Eric paused dispatch',es:'Eric paused dispatch',pt:'Eric paused dispatch'}};
  await stop(stopCtx,{reason:'deadline reached',modelOnly:false});assert.ok(monitor.pauseReason.en.startsWith('Eric paused dispatch'));
  assert.equal((await claim(claimCtx,{leaseId:'fixture-lease-123456',reviewedAcceptanceOnly:true})).state,'paused');
- console.log('PASS self-review, wrong provider, stale revision, expired lease, unknown/stale/unobserved reviewer, contradictory replay and stale executive acceptance rejected; fresh exact-revision QA allowed');
+ console.log('PASS idempotent finish replay; contradictory replay, expired/reassigned leases, self-review, wrong provider, stale revision, unknown/stale/unobserved reviewer and stale executive acceptance rejected; fresh exact-revision QA allowed');
 })().catch(error=>{console.error(error);process.exitCode=1;});
