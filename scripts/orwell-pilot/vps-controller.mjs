@@ -158,8 +158,9 @@ function prompt(job,qa,provider,person) {
 }
 async function runModel(job) {
  const qa=job.phase==='qa',person=qa?reviewer:job.item.team==='research'?researchAuthor:author;
+ let structuredHandoffRecovery=false;
  if(!qa&&job.item.qaAttempt>0){
-  const prior=[];for(const id of await readdir(join(state,'runs'))){try{const receipt=JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8'));if(receipt.job?.item?.key===job.item.key&&receipt.job.phase==='qa')prior.push(receipt);}catch{}}
+  const prior=[];for(const id of await readdir(join(state,'runs'))){try{const receipt=JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8'));if(receipt.job?.item?.key===job.item.key&&receipt.job.phase==='qa')prior.push(receipt);if(receipt.job?.item?.key===job.item.key&&receipt.job.phase==='work'&&receipt.usagePersisted&&receipt.exit?.code===1&&receipt.finishArgs?.detail?.includes('error_max_structured_output_retries'))structuredHandoffRecovery=true;}catch{}}
   const latest=prior.sort((a,b)=>b.finishedAt-a.finishedAt)[0];
   if(latest?.answer?.result==='changes_requested')job.item.qaEvidence=`Required repairs: ${latest.answer.detail}\nInspection evidence: ${latest.answer.evidence}`;
  }
@@ -182,7 +183,7 @@ async function runModel(job) {
  let retry=null;
  if(!qa){try{const saved=JSON.parse(await readFile(join(state,'retry-model.json'),'utf8'));if(saved.itemKey===job.item.key)retry=saved;}catch(error){if(error.code!=='ENOENT')throw error;}}
  const repairReason=qa?'':job.item.qaEvidence?.trim()||retry?.reason||'';
- const proposal=!qa&&provider==='claude'&&(job.item.qaAttempt??0)>=2&&repairReason?'opus':scope.modelProposals?.[job.item.key]?.[provider]??(provider==='codex'?retry?.model:null);
+ const proposal=!qa&&provider==='claude'&&structuredHandoffRecovery?'sonnet':!qa&&provider==='claude'&&(job.item.qaAttempt??0)>=2&&repairReason?'opus':scope.modelProposals?.[job.item.key]?.[provider]??(provider==='codex'?retry?.model:null);
  const selected=selectNativeModel({provider,phase:job.phase,proposal,repairReason,taskReason:scope.modelReasons?.[job.item.key]??'',qaFailures:job.item.qaAttempt??0});
  let model=selected.model;
  const {args}=nativeRunSpec({provider,phase:job.phase,model,cwd,schema});
