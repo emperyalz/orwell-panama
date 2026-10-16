@@ -454,6 +454,31 @@ class BridgeTests(unittest.TestCase):
         bridge.atomic_json(self.b.scope_path, {"serverPlanning": True, "itemKeys": ["social-identity-audit/missing"]})
         self.assertEqual(self.b.scope(), {"social-identity-audit/missing"})
 
+    def test_linked_product_wake_assigns_before_reserved_issue_id(self):
+        self.b.config.update(assignAgents=False, linkExplicitWakes=True)
+        self.b.sync()
+        wake = next(c for c in self.http.calls if c[0].endswith("/wakeup"))
+        self.assertEqual(wake[2]["payload"]["issueId"], ISSUE)
+        assignment = next(c for c in self.http.calls if c[1] == "PATCH" and c[2].get("assigneeAgentId") == AGENTS["codex"])
+        self.assertEqual(assignment[2]["status"], "backlog")
+        self.assertLess(self.http.calls.index(assignment), self.http.calls.index(wake))
+        self.b.sync(wake=False)
+        self.assertEqual(self.http.issues[0]["assigneeAgentId"], AGENTS["codex"])
+
+    def test_linked_planner_issue_reports_actual_failure_without_product_completion(self):
+        self.planner_setup()
+        self.b.config["linkExplicitWakes"] = True
+        state = bridge.read_json(self.b.planner_path)
+        bridge.atomic_json(self.b.planner_path, {**state, "state": "held", "lastError": "Path outside trusted inventory",
+            "lastSessionId": "actual-native-session", "lastModel": "sonnet"})
+        issue_id = self.b.sync_planner_issue()
+        issue = self.http.issues[-1]
+        self.assertEqual(issue["status"], "blocked")
+        self.assertIn("actual-native-session", issue["description"])
+        self.assertIn("sonnet", issue["description"])
+        self.assertIn("Path outside", issue["unblockDescriptor"]["action"])
+        self.assertEqual(self.b.mapping["plannerIssueId"], issue_id)
+
     def test_planner_wakes_once_and_idle_polls_do_not_infer(self):
         self.planner_setup()
         self.b.sync()

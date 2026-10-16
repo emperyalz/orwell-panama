@@ -417,6 +417,50 @@ class Bridge:
         return hashlib.sha256(json.dumps([planner.get(key) for key in
             ("backlogHash", "lastPlanAt", "nextPlanAt", "planCount")]).encode()).hexdigest()
 
+    def linked_issue(self, issue_id, role):
+        """Assign while backlogged, which Paperclip does not implicitly wake.
+
+        The persisted explicit wake is the sole execution authority. Assignment
+        must precede its reserved issueId or Paperclip cancels it as stale.
+        """
+        if self.config.get("linkExplicitWakes", False):
+            self.pc(f"/api/issues/{issue_id}", "PATCH", {
+                "status": "backlog", "assigneeAgentId": self.config["agents"][role],
+                "assigneeUserId": None, "unblockDescriptor": None,
+            })
+
+    def sync_planner_issue(self):
+        if not self.config.get("linkExplicitWakes", False) or not self.config["agents"].get("planner"):
+            return None
+        planner = read_json(self.planner_path, {})
+        running = planner.get("state") == "planning" and bool(planner.get("activeSessionId"))
+        reason = clean(planner.get("lastError") or planner.get("reason") or "Awaiting the next admitted planning cycle")
+        desired = {"title": "Plan the next authorized Orwell product batch",
+            "description": "<!-- orwell:server-planning -->\nNative subscription planning; this is orchestration, not a completed product checkbox.\n"
+                + f"Observed state: {clean(planner.get('state') or 'unknown')}. Remaining: {planner.get('remaining', 'unknown')}.\n"
+                + f"Session: {clean(planner.get('activeSessionId') or planner.get('lastSessionId') or 'not observed')}. "
+                + f"Provider/model: {clean(planner.get('activeProvider') or planner.get('lastProvider') or 'unknown')}/"
+                + f"{clean(planner.get('activeModel') or planner.get('lastModel') or 'unknown')}.\n"
+                + f"Checkpoint/blocker: {reason}. Next eligible time: {planner.get('nextPlanAt', 'unknown')}.\n"
+                + "Paperclip dollar accounting is not the native subscription quota meter.",
+            "status": "in_progress" if running else "blocked" if planner.get("lastError") else "backlog",
+            "assigneeAgentId": self.config["agents"]["planner"], "assigneeUserId": None,
+            "unblockDescriptor": {"owner": "Orion / guarded root controller", "action": reason} if not running and planner.get("lastError") else None}
+        issue_id = self.mapping.get("plannerIssueId")
+        remote = self.pc(self.company_path + "/issues")
+        issue = next((i for i in remote if i["id"] == issue_id or "<!-- orwell:server-planning -->" in (i.get("description") or "")), None)
+        if issue is None:
+            # Creation in backlog prevents an implicit assignment wake.
+            issue = self.pc(self.company_path + "/issues", "POST", {**desired, "status": "backlog", "unblockDescriptor": None,
+                "idempotencyKey": "orwell:server-planning"})
+        issue_id = issue["id"]
+        self.mapping["plannerIssueId"] = issue_id
+        self.save()
+        patch = {k: v for k, v in desired.items() if issue.get(k) != v}
+        if patch:
+            self.pc(f"/api/issues/{issue_id}", "PATCH", patch)
+        return issue_id
+
     def wake_planner(self, snapshot, tasks, health):
         if self.planner_reason(snapshot, tasks, health):
             return
@@ -431,9 +475,11 @@ class Bridge:
             self.mapping["plannerDaily"] = {"day": day, "count": count + 1}
             self.mapping["plannerWake"] = {"token": token, "backlogHash": planner["backlogHash"], "at": now_ms(), "state": "attempted"}
             self.save()
+        if self.config.get("linkExplicitWakes", False):
+            self.linked_issue(self.mapping["plannerIssueId"], "planner")
         self.pc(f"/api/agents/{self.config['agents']['planner']}/wakeup", "POST", {
             "source": "automation", "triggerDetail": "system", "reason": "orwell_server_planning_ready",
-            "payload": {"orwellPlannerToken": token}, "idempotencyKey": "orwell-planner:" + token,
+            "payload": {"orwellPlannerToken": token, **({"issueId": self.mapping["plannerIssueId"]} if self.config.get("linkExplicitWakes", False) else {})}, "idempotencyKey": "orwell-planner:" + token,
         })
 
     @staticmethod
@@ -543,6 +589,8 @@ class Bridge:
                     row = self.mapping["items"].setdefault(key, {"eventHashes": []})
                     row["issueId"] = issue_id
                     self.save()
+                if self.config.get("linkExplicitWakes", False) and role and existing.get("assigneeAgentId") == self.config["agents"].get(role):
+                    desired.update(assigneeAgentId=existing["assigneeAgentId"], assigneeUserId=None)
                 patch = {k: value for k, value in desired.items() if existing.get(k) != value}
                 if patch:
                     self.pc(f"/api/issues/{issue_id}", "PATCH", patch)
@@ -567,6 +615,7 @@ class Bridge:
                         with self.mapping_lock:
                             row["eventHashes"] = (row["eventHashes"] + [digest])[-200:]
                             self.save()
+            self.sync_planner_issue()
             if wake and self.config.get("enableWakeups", False):
                 self.wake_ready(snapshot, tasks, health)
         finally:
@@ -614,11 +663,12 @@ class Bridge:
                 # Persist BEFORE POST: an uncertain request never creates an automatic retry loop.
                 self.mapping["wakes"][key] = {"token": token, "at": now_ms(), "role": role, "state": "attempted"}
                 self.save()
+            self.linked_issue(row["issueId"], role)
             self.pc(f"/api/agents/{self.config['agents'][role]}/wakeup", "POST", {
                 "source": "automation", "triggerDetail": "system", "reason": "orwell_phase_ready",
                 # An unassigned issueId triggers Paperclip's stale-assignee gate.
                 # Carry source correlation without claiming Paperclip task authority.
-                "payload": {"orwellIssueId": row["issueId"], "orwellItemKey": key}, "idempotencyKey": "orwell:" + token,
+                "payload": {"orwellIssueId": row["issueId"], "orwellItemKey": key, **({"issueId": row["issueId"]} if self.config.get("linkExplicitWakes", False) else {})}, "idempotencyKey": "orwell:" + token,
             })
             return
         self.wake_planner(snapshot, tasks, health)
