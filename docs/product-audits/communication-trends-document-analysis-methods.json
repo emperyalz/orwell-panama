@@ -1,0 +1,48 @@
+{
+  "itemKey": "communication-trends/document-analysis-methods",
+  "wholeStep": true,
+  "observedAt": "2026-10-16T00:00:00.000Z",
+  "summary": "Documented, with exact file:line citations into convex/intelligence.ts and convex/activity.ts, how the live system ingests/validates/dedupes social posts, buckets activity by person/platform/UTC-month/format with one representative example per bucket, attributes posts to accounts via handle-regex matching (tiktok/x_twitter) vs person-platform scope (other platforms), and applies the IntelligenceWorkspace.tsx month-range filter plus the activity.list limit cap (50) and the take=Math.max(limit*8,100) over-fetch (floored at 100, so exactly 8x limit only when limit>=13 and more than 8x when limit<13), with per-kind .take(take) reads and a final trim back to limit via diverse(). No source files were modified; this is a read-only documentation audit of existing behavior.",
+  "sources": [
+    {
+      "url": "convex/activity.ts:33",
+      "claim": "ingest skips items unless sourceUrl matches /^https:\\/\\//, publishedAt is finite and not more than Date.now()+86400000, and dedupes inserts by looking up an existing row via the by_politician_url index on politicianId+sourceUrl before inserting"
+    },
+    {
+      "url": "convex/activity.ts:35",
+      "claim": "logRun records kind, inserted count and errors for each collection run into collectionRuns"
+    },
+    {
+      "url": "convex/intelligence.ts:4",
+      "claim": "archive query reads stored social posts, people, accounts, collectionRuns and the latest social-archive run"
+    },
+    {
+      "url": "convex/intelligence.ts:13-25",
+      "claim": "archive buckets posts by [person, platform, month, format] where month is the UTC month via toISOString().slice(0,7) and format is derived from a tiktok/reel/reels/shorts URL regex or mediaKind, then keeps a single most-recent representative example per bucket key"
+    },
+    {
+      "url": "convex/intelligence.ts:29",
+      "claim": "accounts attribution treats tiktok and x_twitter as identified platforms requiring a regex-extracted handle match against the stored account handle, while all other platforms fall back to person+platform scope matching with scope field 'account' vs 'person-platform'"
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:27-34",
+      "claim": "the workspace computes a default 12-UTC-month lookback window from the latest available bucket month, lets an explicit 'from'/'to' override it, filters buckets by cohort/platform/month-range string comparison, and fills a continuous month series with zero for months lacking a matching bucket"
+    },
+    {
+      "url": "convex/activity.ts:16-28",
+      "claim": "list caps the requested limit at 50 via Math.min(args.limit||12,50), then sets take=Math.max(limit*8,100) which is floored at 100 so it equals 8x the limit only when limit>=13 and is strictly more than 8x the limit when limit<13 (e.g. limit 12 -> take 100 > 96); it over-fetches that many rows per kind via .take(take) on both the by_politician_date and by_published branches (lines 20-21) before the diverse() selector trims the enriched rows back to limit via diverse(enriched,limit,args.kind) (line 28); paginated uses standard Convex paginationOpts cursor pagination instead of this limit/take logic"
+    }
+  ],
+  "limitations": [
+    "Audit covers only the cited mechanisms in convex/intelligence.ts, convex/activity.ts, and the month-filter block of IntelligenceWorkspace.tsx; it does not audit upstream scraping/collection callers of ingest or any other exports in these files.",
+    "Format and activity-count fields documented here are structural/volume signals only (URL shape, media kind, row counts); the cited code contains no tone, sentiment, stance, or ideology computation, so no claim is made that these counts measure tone or ideology.",
+    "No source files were changed as part of this step; this is documentation of existing behavior only."
+  ],
+  "checks": [
+    "scripts/product-audits/communication-trends-document-analysis-methods.cjs loads the live text of convex/intelligence.ts, convex/activity.ts and src/components/reference/IntelligenceWorkspace.tsx and asserts, for every cited behavior, that each snippet is present verbatim on its cited line number in current source, exiting nonzero if any citation is missing or has drifted to a different line (37 checks total).",
+    "(a) Ingest/collection: https-scheme guard, finite-and-not->now+1day publishedAt guard, by_politician_url dedupe lookup, insert-with-collectedAt-vs-image-only-backfill branch, and logRun's collectionRuns insert are each asserted against convex/activity.ts:33 and :35.",
+    "(b) Bucketing: social-only archive input (intelligence.ts:6 kind==='social' filter), finite-timestamp continue guard (:14), person=String(politicianId)/platform||'unknown' derivation (:15), UTC month toISOString().slice(0,7) (:16), short-form URL regex and mediaKind video/image/unspecified fallback (:17), [person,platform,month,format] bucket key (:18), count++/latest=Math.max accumulation (:20), and one-latest-representative example per key (:24) are each asserted.",
+    "(c) Account attribution: identified tiktok/x_twitter predicate, handle normalization (strip leading @ + lowercase), politicianId&&platform match predicate, non-identified return-true fallback, TikTok capture regex /tiktok.com/@([^/?#]+)/i, X/Twitter capture regex /(?:x|twitter).com/([^/?#]+)/status//i, lowercased captured-group===handle comparison, and scope:'account'|'person-platform' field are each asserted against intelligence.ts:29.",
+    "(d) Date filters/limits: list limit cap Math.min(args.limit||12,50) (activity.ts:17), take=Math.max(limit*8,100) over-fetch floor (:18), per-kind .take(take) on by_politician_date and by_published branches (:20-21), final diverse(enriched,limit,args.kind) trim (:28), paginated() .paginate(args.paginationOpts) cursor pagination (:15); plus frontend cohort person/party/province/search filter (IntelligenceWorkspace.tsx:26), default 12-month lookback and effectiveFrom=from||defaultFrom override (:28), cohort ids set (:29), bucket filters by cohort membership, platform equality, explicit from (b.month>=effectiveFrom) and explicit to (b.month<=to) bounds (:29), zero-filled month series (:33), and per-platform count accumulation (:34)."
+  ]
+}
