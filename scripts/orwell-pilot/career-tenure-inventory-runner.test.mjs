@@ -1,3 +1,4 @@
+import {execFileSync} from 'node:child_process';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,readFile,writeFile,rm} from 'node:fs/promises';
@@ -66,3 +67,14 @@ test('rejects invalid item, broad or missing path grants, same-model review and 
  const root=await workspace();try{const sourceHash=(await readCareerTenureSources(root)).sourceHash,client=mockClient();for(const changes of [{item:{key:'other/item'}},{policy:{...policy(),itemKeys:['anything']}},{policy:{...policy(),sourcePaths:['../secrets']}},{policy:{...policy(),sourcePaths:CAREER_TENURE_SOURCES.slice(0,2)}},{phase:'accept'}]){const args={client,policy:policy(),item:{key:CAREER_TENURE_ITEM},phase:'work',workspace:root,sourceRevision:sourceHash,batchIndex:0,...changes};await assert.rejects(runCareerTenureInventoryJob(args));}assert.equal(client.calls.length,0);
  }finally{await rm(root,{recursive:true,force:true});}
 });
+
+ test('persisted trusted validator executes against actual compact UI source, and catches altered date facts',async()=>{
+ const root=await workspace();try{
+  const loaded=await readCareerTenureSources(root),prepared=await prepareCareerTenureArtifacts({workspace:root,sourceRevision:loaded.sourceHash,notes:[]});
+  await persistCareerTenureArtifacts(root,prepared.artifacts);
+  const run=()=>execFileSync(process.execPath,[join(root,CAREER_TENURE_OUTPUTS[2])],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']});
+  assert.equal(JSON.parse(run()).facts,32);
+  const p=join(root,CAREER_TENURE_OUTPUTS[0]),altered=JSON.parse(await readFile(p,'utf8'));altered.facts[0].startDate='1900-01-01';await writeFile(p,JSON.stringify(altered));
+  assert.throws(run);
+ }finally{await rm(root,{recursive:true,force:true});}
+ });
