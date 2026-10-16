@@ -141,11 +141,11 @@ def issue_status(item, step, in_scope):
         return "done"  # preserve historical completion recorded before dispatch existed
     if step.get("done") or item.get("state") == "accepted":
         return "blocked"  # mismatched source facts need reconciliation
-    if not in_scope:
-        return "backlog"
     state = item.get("state")
     if state == "blocked":
         return "blocked"
+    if not in_scope:
+        return "backlog"
     if state in {"qa_ready", "qa_running", "accept_ready", "accept_running"}:
         return "in_review"
     if state == "running":
@@ -615,6 +615,17 @@ class Bridge:
                         with self.mapping_lock:
                             row["eventHashes"] = (row["eventHashes"] + [digest])[-200:]
                             self.save()
+            # Supersession is authoritative task evidence, never inferred from
+            # a completed adapter turn or an administrative duplicate title.
+            superseded = {task["key"] for task in tasks if task.get("status") == "superseded"}
+            for key, row in list(self.mapping["items"].items()):
+                if key.split("/", 1)[0] in superseded:
+                    issue = by_id.get(row.get("issueId"))
+                    if issue and issue.get("status") != "cancelled":
+                        self.pc(f"/api/issues/{issue['id']}", "PATCH", {
+                            "status": "cancelled", "assigneeAgentId": None,
+                            "assigneeUserId": self.config.get("boardUserId", "local-board"),
+                            "unblockDescriptor": None})
             self.sync_planner_issue()
             if wake and self.config.get("enableWakeups", False):
                 self.wake_ready(snapshot, tasks, health)

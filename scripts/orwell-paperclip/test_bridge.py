@@ -454,6 +454,15 @@ class BridgeTests(unittest.TestCase):
         bridge.atomic_json(self.b.scope_path, {"serverPlanning": True, "itemKeys": ["social-identity-audit/missing"]})
         self.assertEqual(self.b.scope(), {"social-identity-audit/missing"})
 
+    def test_real_blocker_remains_visible_outside_execution_scope(self):
+        self.assertEqual(bridge.issue_status({"state": "blocked"}, {"done": False}, False), "blocked")
+
+    def test_authoritatively_superseded_task_cancels_stale_mirror(self):
+        self.b.sync(wake=False)
+        self.http.tasks[0]["status"] = "superseded"
+        self.b.sync(wake=False)
+        self.assertEqual(self.http.issues[0]["status"], "cancelled")
+
     def test_linked_product_wake_assigns_before_reserved_issue_id(self):
         self.b.config.update(assignAgents=False, linkExplicitWakes=True)
         self.b.sync()
