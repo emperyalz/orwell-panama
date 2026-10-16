@@ -55,6 +55,7 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
     if(errors.length)throw Error(`Product browser runtime error: ${errors.join('; ')}`);
     checks.push({language,scenario:'selected-month-gap',person:positivePerson.externalId,platform:positive.platform,accountHasPosts:positive.posts,month:'1900-01',screenshot:gapScreenshot,runtimeErrors:errors});
     await dates.nth(1).fill('1900-02');
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(null)))));
     await label.waitFor({state:'visible',timeout:10000});
     if(!(await label.innerText()).startsWith(prefix)||await page.locator('.intelligence-examples article').count())throw Error('Selected multi-month empty-range gap behavior is incorrect');
     checks.push({language,scenario:'selected-empty-range-gap',person:positivePerson.externalId,platform:positive.platform,from:'1900-01',to:'1900-02',gapVisible:true});await context.close();
