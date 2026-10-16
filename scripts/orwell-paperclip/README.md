@@ -105,7 +105,9 @@ their original `done` history and are labeled "Historical recorded completion, n
 new controller acceptance." A mismatch between existing dispatch and checkbox
 facts remains blocked for reconciliation. Out-of-scope open
 product steps remain `backlog`. Either native provider may own work; independent
-QA must use the opposite provider from the actual recorded author. Triage and
+QA normally uses the opposite provider from the actual recorded author. The
+root-authorized `claude-cross-model` mode below permits separate Sonnet/Opus
+sessions within Claude. Triage and
 final acceptance belong to Orion. Issue descriptions and explicit wake targets reflect
 these real owners. Issues remain assigned to the board user to satisfy Paperclip's
 active-state ownership requirement while suppressing implicit agent wakes from
@@ -170,6 +172,23 @@ the public item `workerProvider` and rejects a same-provider review. Root's
 read-only scheduler must refresh quota/routing before wake eligibility, including
 while idle; polling this bridge does not call a native meter or model itself.
 
+The narrow exception requires live root `scope.reviewMode:"claude-cross-model"`.
+Only Claude can use it. The actual author profile must be known Sonnet or Opus;
+the fresh QA route's `model` must name the opposite profile. When root omits that
+model, the opposite canonical profile is deterministic. Unknown or identical
+profiles remain held. A Codex quota hold does not prevent an admitted Claude
+route. This does not permit same-provider Codex review.
+
+Convex persists `workerModel` and `qaModel` from the actual observed
+`projectAgents` session records, never from claimed model arguments, and exposes
+them through snapshots/claims. Internal `dispatch:finish` accepts optional
+`reviewMode:"claude-cross-model"`; root must pass that authorization for QA and
+final acceptance. Both stages check distinct bound author/reviewer sessions and
+canonical Sonnet/Opus models against their recorded values. Existing reviewer
+identity, fresh QA binding, exact submitted revision, usage and deterministic
+acceptance requirements remain in force. Full native IDs such as
+`claude-sonnet-4-6` canonicalize strictly; ambiguous model strings fail closed.
+
 Optional planning requires `agents.planner`, `enablePlanningWakeups:true`, live
 `scope.serverPlanning:true`, and root-owned `planner.json`:
 
@@ -189,7 +208,7 @@ The planner cannot wake while a product phase is eligible or any lease is active
 It needs a fresh admitted `routing.planner` provider and the original allocation
 window. Root remains responsible for actual pause/budget checks, bounded planning,
 strict plan-contract validation and writing a new product batch. Actual product
-implementation still requires independent opposite-provider QA and root acceptance;
+implementation still requires independent QA under the authorized review mode and root acceptance;
 planning proposals do not incur a separate model review turn.
 The bridge writes no scope or task facts.
 

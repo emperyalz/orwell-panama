@@ -1,6 +1,11 @@
+import {CLAUDE_CROSS_MODEL,independentClaudeModel} from './provider-routing.mjs';
+
 /** Paperclip requests one authorized phase; it cannot widen scope or budget. */
-export function paperclipRequest({request,scope,items,routing,now=Date.now()}){
+export function paperclipRequest({request,scope,items,routing,policy,now=Date.now()}){
  const deny=reason=>({allowed:false,reason});
+ const reviewMode=policy===undefined?scope.reviewMode:policy.reviewMode;
+ if(policy!==undefined&&scope.reviewMode!==undefined&&scope.reviewMode!==(reviewMode??'cross-provider'))return deny('Root policy and scope review modes do not match');
+ const crossModel=reviewMode===CLAUDE_CROSS_MODEL;
  if(!request||typeof request.requestId!=='string'||!/^[a-zA-Z0-9-]{16,100}$/.test(request.requestId)||!Number.isFinite(request.requestedAt)||request.requestedAt>now+5000||now-request.requestedAt>120000)return deny('Waiting for a fresh Paperclip assignment');
  // Planning is a separate root-controlled action. It grants no product lease,
  // no new writable scope and no relaxation of the independent-review gates.
@@ -15,8 +20,17 @@ export function paperclipRequest({request,scope,items,routing,now=Date.now()}){
   const row=routing.items?.[item.key];
   if(!row?.allowed||row.phase!==phase||!['codex','claude'].includes(row.role))return deny(row?.reason??'Controller has not admitted this provider phase');
   role=row.role;
-  if(phase==='qa'&&(!['codex','claude'].includes(item.workerProvider)||role===item.workerProvider))return deny('QA must use the opposite actual worker provider');
-  if(phase==='work'&&item.workerProvider&&role!==item.workerProvider)return deny('Repair must stay with its actual worker provider');
+  if(crossModel){
+   if(role!=='claude'||row.reviewMode!==CLAUDE_CROSS_MODEL)return deny('Claude-only policy requires matching root provider routing');
+   if(phase==='qa'){
+    if(!['codex','claude'].includes(item.workerProvider))return deny('The actual worker provider is required for QA');
+    let required='sonnet';if(item.workerProvider==='claude'){try{required=independentClaudeModel(item.workerModel);}catch(error){return deny(error.message);}}
+    if(row.model!==required)return deny('Claude QA must use the distinct model selected from the actual author model');
+   }
+  }else{
+   if(phase==='qa'&&(!['codex','claude'].includes(item.workerProvider)||role===item.workerProvider))return deny('QA must use the opposite actual worker provider');
+   if(phase==='work'&&item.workerProvider&&role!==item.workerProvider)return deny('Repair must stay with its actual worker provider');
+  }
  }else role='orion';
  if(request.role!==role)return deny('Paperclip role does not match the independent workflow phase');
  return {allowed:true,itemKey:item.key,role};

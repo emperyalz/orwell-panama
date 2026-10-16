@@ -30,3 +30,24 @@ test('planner requests need explicit root scope authorization and never claim a 
  assert.equal(paperclipRequest({...input,scope:{itemKeys:[key]}}).allowed,false);
  assert.equal(paperclipRequest({...input,request:{...input.request,requestedAt:now-120001}}).allowed,false);
 });
+
+
+test('same-provider QA is allowed only by explicit root cross-model policy and distinct model routing',()=>{
+ const item={key,state:'qa_ready',workerProvider:'claude',workerModel:'claude-sonnet-4-6'};
+ const route=routing('claude','qa');Object.assign(route.items[key],{reviewMode:'claude-cross-model',model:'opus'});
+ const input={request:{...request,role:'claude'},scope:{itemKeys:[key],reviewMode:'claude-cross-model'},policy:{reviewMode:'claude-cross-model'},items:[item],routing:route,now};
+ assert.equal(paperclipRequest(input).allowed,true);
+ for(const patch of [{model:'sonnet'},{model:undefined},{reviewMode:'cross-provider'},{role:'codex'}])assert.equal(paperclipRequest({...input,routing:{...route,items:{[key]:{...route.items[key],...patch}}}}).allowed,false);
+ assert.equal(paperclipRequest({...input,items:[{...item,workerModel:'unknown'}]}).allowed,false);
+ assert.equal(paperclipRequest({...input,policy:{},scope:{itemKeys:[key]}}).allowed,false);
+ assert.equal(paperclipRequest({...input,policy:{}}).allowed,false);
+ assert.equal(paperclipRequest({...input,policy:undefined}).allowed,true);
+ const old={...item,workerProvider:'codex',workerModel:'gpt-6-luna'},oldRoute={...route,items:{[key]:{...route.items[key],model:'sonnet'}}};assert.equal(paperclipRequest({...input,items:[old],routing:oldRoute}).allowed,true);
+});
+
+test('explicit Claude-only policy permits recorded repair handover while strict legacy mode preserves provider pinning',()=>{
+ const route=routing('claude','work');route.items[key].reviewMode='claude-cross-model';
+ const input={request:{...request,role:'claude'},scope:{itemKeys:[key],reviewMode:'claude-cross-model'},policy:{reviewMode:'claude-cross-model'},items:[{key,state:'ready',workerProvider:'codex'}],routing:route,now};
+ assert.equal(paperclipRequest(input).allowed,true);
+ assert.equal(paperclipRequest({...input,policy:undefined,scope:{itemKeys:[key]}}).allowed,false);
+});

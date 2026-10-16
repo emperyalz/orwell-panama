@@ -38,6 +38,34 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  assert.match(returned.checkpoint,/return to Rowan/);
  await assert.rejects(()=>finish(context(),{...rejection,evidence:'Needs changes'}),/actionable findings/,'Vague rejection must not return work without actionable findings');
  assert.equal((await finish(context(),args)).state,'accept_ready');
+ // Same-provider QA is a root opt-in and must derive both models from actual sessions.
+ function claudeContext(data,authorModel='claude-sonnet-4-6',qaModel='claude-opus-4-6'){
+  const ctx=context(data,{...reviewer,model:qaModel}),original=ctx.db.query;
+  const author={key:'author',name:'Author',team:'implementation'};
+  const authorSession={...author,key:'worker-real',model:authorModel,status:'completed',lastActivityAt:now,binding:{taskKey:'task',stepKey:'step',rosterKey:'author',observedAt:now-100,evidence:`Actual claude CLI session worker-real; lease ${data.state==='running'?data.leaseId:'author-lease-123456'}`}};
+  const qaSession={...reviewer,key:'review-real',model:qaModel,status:'completed'};
+  ctx.db.query=table=>table==='projectAgents'?{withIndex:(_name,callback)=>{let key;callback({eq(_field,value){key=value;return this}});return {unique:async()=>key==='worker-real'?authorSession:key==='review-real'?qaSession:key==='author'?author:reviewer}}}:table==='runtimeTeamPositions'?{collect:async()=>[{tier:'worker',team:'qa',runKeys:['qa']},{tier:'worker',team:'implementation',runKeys:['author']}]}:original(table);
+  return ctx;
+ }
+ const claudeItem={...item,workerProvider:'claude',workerModel:'sonnet'};
+ const claudeArgs={...args,reviewMode:'claude-cross-model'};
+ await assert.rejects(()=>finish(claudeContext(claudeItem),args),/different provider/,'Same Claude provider needs explicit trusted opt-in');
+ await assert.rejects(()=>finish(context(),{...args,provider:'codex',reviewMode:'claude-cross-model'}),/different provider/,'The opt-in does not permit same-provider Codex review');
+ await assert.rejects(()=>finish(claudeContext(claudeItem,'sonnet','sonnet'),claudeArgs),/different verified/,'Separate sessions with the same Claude model cannot approve');
+ await assert.rejects(()=>finish(claudeContext(claudeItem,'sonnet','opus-unverified'),claudeArgs),/different verified/,'Ambiguous model names cannot establish independent profiles');
+ await assert.rejects(()=>finish(claudeContext({...claudeItem,workerSessionId:'review-real'}),claudeArgs),/own work/,'A fresh session cannot review itself');
+ await assert.rejects(()=>finish(claudeContext(claudeItem),{...claudeArgs,reviewerKey:'author'}),/fresh observed session/,'Cross-model mode preserves separate roster identities');
+ await assert.rejects(()=>finish(claudeContext(claudeItem),{...claudeArgs,artifactRevision:other}),/exact submitted revision/);
+ await assert.rejects(()=>finish(claudeContext({...claudeItem,workerModel:'opus'}),claudeArgs),/different verified/,'Stored model cannot contradict actual author session');
+ const claudePatches=[],claudeQa=claudeContext(claudeItem);claudeQa.db.patch=async(id,patch)=>claudePatches.push({id,patch});
+ assert.equal((await finish(claudeQa,claudeArgs)).state,'accept_ready');
+ assert.equal(claudePatches[0].patch.qaModel,'opus','Full observed model name is canonicalized from actual QA session');
+ assert.equal((await finish(claudeContext({...claudeItem,workerModel:'opus'},'claude-opus-4-6','claude-sonnet-4-6'),claudeArgs)).state,'accept_ready','Opus authors can receive independent Sonnet QA');
+ const observedWork={...item,state:'running',activeSessionId:'worker-real',workerProvider:undefined};
+ const workCtx=claudeContext(observedWork),workPatches=[];workCtx.db.patch=async(id,patch)=>workPatches.push({id,patch});
+ workCtx.db.query=(original=>table=>table==='projectDispatchEvents'?{withIndex:()=>({collect:async()=>[{kind:'checkpoint',leaseId:item.leaseId,actor:'Author',detail:'Actual author (run worker-real)'}]})}:original(table))(workCtx.db.query);
+ await finish(workCtx,{...args,phase:'work',result:'submitted',sessionId:'worker-real',contributorKey:'author',provider:'claude'});
+ assert.equal(workPatches[0].patch.workerModel,'sonnet','Worker model derives from actual observed author session');
  const replayed=await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args);
  assert.equal(replayed.replayed,true);
  assert.equal((await finish(context({...item,leaseId:undefined,lastFinishedLeaseId:args.leaseId,lastFinishedResult:'accepted',state:'accept_ready'}),args)).state,'accept_ready','Same receipt replay remains idempotent');
@@ -55,6 +83,13 @@ const args={itemKey:'task/step',leaseId:item.leaseId,phase:'qa',result:'accepted
  assert.equal((await finish(successfulCtx,{...args,phase:'accept',sessionId:`controller:${item.leaseId}`,acceptanceProof:proof})).state,'accepted');
  assert.equal(patches.find(p=>p.id==='item').patch.deploymentRevision,revision);
  assert.equal(patches.find(p=>p.id==='task').patch.checklist[0].review.reviewerKey,'qa');
+ const acceptedClaude={...accepted,workerProvider:'claude',qaProvider:'claude',workerModel:'sonnet',qaModel:'opus'};
+ const claudeAccept=claudeContext(acceptedClaude),claudeQuery=claudeAccept.db.query;
+ claudeAccept.db.query=table=>table==='projectTasks'?{withIndex:()=>({unique:async()=>({_id:'task',status:'doing',checklist:[{key:'step',done:false}]})})}:claudeQuery(table);
+ assert.equal((await finish(claudeAccept,{...claudeArgs,phase:'accept',sessionId:`controller:${item.leaseId}`,acceptanceProof:proof})).state,'accepted');
+ await assert.rejects(()=>finish(claudeAccept,{...args,phase:'accept',sessionId:`controller:${item.leaseId}`,acceptanceProof:proof}),/independent provider or authorized/,'Final acceptance also requires trusted opt-in');
+ const badClaudeAccept=claudeContext({...acceptedClaude,qaModel:'sonnet'});
+ await assert.rejects(()=>finish(badClaudeAccept,{...claudeArgs,phase:'accept',sessionId:`controller:${item.leaseId}`,acceptanceProof:proof}),/different observed/,'Final acceptance rechecks stored models against actual sessions');
  // Replay actual saved native sessions at their measured completion times.
  if(fs.existsSync('/opt/orwell-evidence/session-contract.json')){
   const saved=JSON.parse(fs.readFileSync('/opt/orwell-evidence/session-contract.json','utf8'));

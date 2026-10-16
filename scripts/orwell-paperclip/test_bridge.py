@@ -372,6 +372,27 @@ class BridgeTests(unittest.TestCase):
         self.dynamic_route(phase="qa", role="codex")
         self.assertIn("Independent QA", self.reason("codex"))
 
+    def test_claude_cross_model_qa_requires_explicit_root_scope_and_known_profiles(self):
+        item = self.http.snapshot["items"][0]
+        item.update(state="qa_ready", workerProvider="claude", workerModel="sonnet")
+        route = self.dynamic_route(phase="qa", role="claude")
+        route["items"][KEY]["model"] = "opus"
+        bridge.atomic_json(self.b.routing_path, route)
+        self.assertIn("Independent QA", self.reason("claude"))
+        bridge.atomic_json(self.b.scope_path, {"itemKeys": [KEY], "reviewMode": "claude-cross-model"})
+        self.assertIsNone(self.reason("claude"))
+        route["items"][KEY]["model"] = "claude-sonnet-4-6"
+        bridge.atomic_json(self.b.routing_path, route)
+        self.assertIn("Independent QA", self.reason("claude"))
+        route["items"][KEY]["model"] = "unknown"
+        bridge.atomic_json(self.b.routing_path, route)
+        self.assertIn("Independent QA", self.reason("claude"))
+        route["items"][KEY].pop("model")
+        bridge.atomic_json(self.b.routing_path, route)
+        self.assertIsNone(self.reason("claude"))
+        item["workerModel"] = "haiku"
+        self.assertIn("Independent QA", self.reason("claude"))
+
     def test_qa_does_not_require_exhausted_author_provider(self):
         self.http.snapshot["items"][0].update(state="qa_ready", workerProvider="codex")
         self.dynamic_route(phase="qa", role="claude")

@@ -113,6 +113,14 @@ def english(value):
     return value.get("en", "") if isinstance(value, dict) else str(value or "")
 
 
+def claude_model(value):
+    value = value.strip().lower() if isinstance(value, str) else ""
+    for profile in ("sonnet", "opus"):
+        if re.fullmatch(r"(?:claude-)?" + profile + r"(?:-\d+(?:[.-]\d+)*)?", value):
+            return profile
+    return None
+
+
 def phase_role(item):
     state = item.get("state")
     if state in {"qa_ready", "qa_running"}:
@@ -316,8 +324,18 @@ class Bridge:
             route = self.routing_row(item, now)
             if not route or route.get("allowed") is not True:
                 return "Authoritative provider routing held"
-            if phase == "qa" and (item.get("workerProvider") not in {"codex", "claude"} or role == item["workerProvider"]):
-                return "Independent QA provider held"
+            if phase == "qa":
+                author = item.get("workerProvider")
+                if author not in {"codex", "claude"}:
+                    return "Independent QA provider held"
+                if role == author:
+                    scope = read_json(self.scope_path, {})
+                    worker_model = claude_model(item.get("workerModel"))
+                    target_model = (claude_model(route["model"]) if "model" in route else
+                                    ("opus" if worker_model == "sonnet" else "sonnet" if worker_model == "opus" else None))
+                    if (scope.get("reviewMode") != "claude-cross-model" or author != "claude"
+                            or not worker_model or not target_model or worker_model == target_model):
+                        return "Independent QA provider or Claude model held"
         if selected_role != role:
             return "Role does not own the observed phase"
         if (item.get("retryAt") or 0) > now:
