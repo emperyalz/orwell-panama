@@ -6,12 +6,18 @@ import {quotaReconciliation} from './interrupted-usage.mjs';
 import {normalizeClaudeMeter} from './claude-meter.mjs';
 const root='/opt/orwell-evidence/';
 const read=name=>JSON.parse(readFileSync(root+name,'utf8'));
-test('saved original allocation admits baseline captured 1ms before policy start', {skip:!existsSync(root+'pilot.json')},()=>{
+test('saved original baseline admits its initial snapshot and reproduces current admitted or held decisions', {skip:!existsSync(root+'pilot.json')},()=>{
  const {policy,lastControllerAdmission:observed}=read('pilot.json');
  assert.equal(policy.startedAt-policy.baselines.codex.observedAt,1);
- for(const provider of ['codex','claude'])assert.equal(admitSubscription({policy,baseline:policy.baselines[provider],snapshot:observed.snapshots[provider],activeRuns:0,now:observed.at}).allowed,true);
+ for(const provider of ['codex','claude']){
+  const baseline=policy.baselines[provider];
+  assert.equal(admitSubscription({policy,baseline,snapshot:{...baseline,observedAt:Math.max(policy.startedAt,baseline.observedAt)},activeRuns:0,now:Math.max(policy.startedAt,baseline.observedAt)}).allowed,true);
+  const actual=admitSubscription({policy,baseline,snapshot:observed.snapshots[provider],activeRuns:0,now:observed.at});
+  assert.equal(actual.allowed,observed.checks[provider].allowed);
+  if(!actual.allowed)assert.equal(actual.reason,observed.checks[provider].reason);
+ }
  const baseline={...policy.baselines.codex,observedAt:policy.startedAt-5001};
- assert.equal(admitSubscription({policy,baseline,snapshot:observed.snapshots.codex,activeRuns:0,now:observed.at}).allowed,false);
+ assert.equal(admitSubscription({policy,baseline,snapshot:{...policy.baselines.codex,observedAt:policy.startedAt},activeRuns:0,now:policy.startedAt}).allowed,false);
 });
 test('actual native populated breakdown remains metadata', {skip:!existsSync(root+'native-meter-case.json')},()=>{
  const payload=read('native-meter-case.json'),now=Date.parse(payload.seven_day_breakdown.as_of);
