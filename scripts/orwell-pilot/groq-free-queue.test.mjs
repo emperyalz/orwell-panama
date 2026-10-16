@@ -1,3 +1,4 @@
+import {GroqFreeRateLimitError} from './groq-free-client.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,readFile,writeFile,rm,mkdir} from 'node:fs/promises';
@@ -28,4 +29,18 @@ test('six author batches, deterministic finalization, and six fresh QA batches r
  saved=JSON.parse(await readFile(queuePath,'utf8')).jobs[0];assert.equal(saved.phase,'repair');assert.deepEqual(saved.priorQa[2],['one bounded correction']);const oldSubmission=saved.submissionHash;await tick();saved=JSON.parse(await readFile(queuePath,'utf8')).jobs[0];assert.equal(saved.phase,'qa');assert.equal(saved.qaBatchIndex,0);assert.equal(saved.qaBatches.length,0);assert.equal(saved.qaHistory.length,3);assert.equal(saved.submissionHash,sha(`${sourceHash}\n${sha('artifacts-2')}`));assert.notEqual(saved.submissionHash,oldSubmission);
  for(let i=0;i<6;i++){await tick();saved=JSON.parse(await readFile(queuePath,'utf8')).jobs[0];assert.equal(saved.qaBatches.length,i+1);if(i<5)assert.equal(saved.state,'review');}
  saved=JSON.parse(await readFile(queuePath,'utf8')).jobs[0];assert.equal(saved.state,'accepted_preparation');assert.equal(saved.productAccepted,false);assert.equal(saved.checklistCompleted,false);assert.equal(saved.qaBatches.length,6);assert.equal(request.length,16);assert.ok(request.slice(0,6).every((r,i)=>r.phase==='work'&&r.batchIndex===i&&r.sourceRevision===sourceHash));assert.ok(request.slice(6,9).every((r,i)=>r.phase==='qa'&&r.batchIndex===i&&r.sourceRevision===sourceHash&&r.item.submissionRevision===oldSubmission));assert.equal(request[9].phase,'repair');assert.equal(request[9].batchIndex,2);assert.deepEqual(request[9].item.priorQa,['one bounded correction']);assert.equal(request[9].item.repairCount,1);assert.equal(request[9].item.priorAuthorSessionId,'session-3');assert.ok(request.slice(10).every((r,i)=>r.phase==='qa'&&r.batchIndex===i&&r.sourceRevision===sourceHash&&r.item.submissionRevision===saved.submissionHash&&r.item.authorBatches.length===6));assert.ok(request.slice(10).every((r,i)=>r.item.priorQaSessions.length===3+i));assert.equal(new Set(saved.qaBatches.map(x=>x.sessionId)).size,6);assert.ok(saved.qaBatches.every(x=>!saved.qaHistory.some(old=>old.sessionId===x.sessionId)));
+});
+
+test('known HTTP429 without Retry-After defers safely and does not replay before backoff',async t=>{
+ const root=await mkdtemp(join(tmpdir(),'groq-rate-test-')),workspace=join(root,'workspace'),queuePath=join(root,'queue.json'),statePath=join(root,'state.json'),safeViewPath=join(root,'safe.json');t.after(()=>rm(root,{recursive:true,force:true}));
+ await mkdir(join(workspace,'docs'),{recursive:true});await mkdir(join(workspace,'src/components/reference'),{recursive:true});
+ await writeFile(join(workspace,item.sourcePaths[0]),'fixture');await writeFile(join(workspace,item.sourcePaths[1]),'component');
+ const sourceHash=sha(`${item.sourcePaths[0]}\0${sha('fixture')}\n${item.sourcePaths[1]}\0${sha('component')}\n`);
+ await writeFile(queuePath,JSON.stringify({schema:1,paused:false,jobs:[{...structuredClone(item),sourceHash}]}));
+ let calls=0;const runnerModuleOverride={runCareerTenureInventoryJob:async()=>{calls++;throw new GroqFreeRateLimitError('HTTP429',{receipt:{httpStatus:429},retryAfterMs:null});},prepareCareerTenureArtifacts:async()=>{throw Error('rate limited call must not finalize');},persistCareerTenureArtifacts:async()=>{throw Error('rate limited call must not write artifacts');}};
+ const apiImpl=async path=>path==='leadAccountability:snapshot'?{monitor:{dispatchPaused:false}}:[{key:'career-history',status:'doing',checklist:[{key:'document-tenure-dates',done:false,label:{en:'Inventory'}}]}];
+ const tick=now=>processGroqFreeQueue({queuePath,statePath,safeViewPath,workspace,testMode:true,now,apiImpl,clientOverride:{},runnerModuleOverride});
+ const now=Date.now(),result=await tick(now);assert.equal(result.state,'deferred');assert.equal(calls,1);assert.ok(result.retryAt>=now+60000);
+ const saved=JSON.parse(await readFile(queuePath,'utf8')).jobs[0];assert.equal(saved.state,'queued');assert.equal(saved.workBatchIndex,undefined);assert.equal(saved.lastReceipt.httpStatus,429);
+ await tick(now+1000);assert.equal(calls,1);
 });
