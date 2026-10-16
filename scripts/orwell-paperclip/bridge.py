@@ -443,9 +443,9 @@ class Bridge:
                 + f"{clean(planner.get('activeModel') or planner.get('lastModel') or 'unknown')}.\n"
                 + f"Checkpoint/blocker: {reason}. Next eligible time: {planner.get('nextPlanAt', 'unknown')}.\n"
                 + "Paperclip dollar accounting is not the native subscription quota meter.",
-            "status": "in_progress" if running else "blocked" if planner.get("lastError") else "backlog",
+            "status": "in_progress" if running else "blocked" if planner.get("state") in {"held", "failed"} and planner.get("lastError") else "backlog",
             "assigneeAgentId": self.config["agents"]["planner"], "assigneeUserId": None,
-            "unblockDescriptor": {"owner": "Orion / guarded root controller", "action": reason} if not running and planner.get("lastError") else None}
+            "unblockDescriptor": {"owner": "board", "action": reason} if not running and planner.get("state") in {"held", "failed"} and planner.get("lastError") else None}
         issue_id = self.mapping.get("plannerIssueId")
         remote = self.pc(self.company_path + "/issues")
         issue = next((i for i in remote if i["id"] == issue_id or "<!-- orwell:server-planning -->" in (i.get("description") or "")), None)
