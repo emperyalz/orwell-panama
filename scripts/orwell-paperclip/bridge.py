@@ -153,6 +153,64 @@ def issue_status(item, step, in_scope):
     return "todo"
 
 
+
+def read_free_preparation(path):
+    """Accept only a bounded atomic observation published by the root worker."""
+    try:
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+        with os.fdopen(fd, "r", encoding="utf-8") as stream:
+            info = os.fstat(stream.fileno())
+            if not stat.S_ISREG(info.st_mode) or info.st_uid != 0 or stat.S_IMODE(info.st_mode) not in {0o600, 0o640} or info.st_size > 65536:
+                return {}
+            return json.load(stream)
+    except (OSError, ValueError):
+        return {}
+
+
+def free_preparation_overlay(view, item_key, step, observed_now):
+    """Expose verified free-lane preparation without granting checklist authority."""
+    if step.get("done") or not isinstance(view, dict):
+        return None
+    jobs = view.get("jobs", [])
+    job = next((row for row in jobs if isinstance(row, dict)
+                and row.get("productItemKey") == item_key), None) if isinstance(jobs, list) else None
+    if not job or job.get("provider") != "groq" or job.get("productAccepted") is not False:
+        return None
+    observed = view.get("observedAt")
+    fresh = isinstance(observed, (int, float)) and observed_now - 120000 <= observed <= observed_now + 5000
+    if not fresh:
+        return None
+    state = job.get("state")
+    batch_count = job.get("batchCount", 3)
+    if not isinstance(batch_count, int) or isinstance(batch_count, bool) or not 1 <= batch_count <= 32:
+        return None
+    counts = (job.get("authorBatchCount", 0), job.get("qaBatchCount", 0))
+    if any(not isinstance(value, int) or isinstance(value, bool) or not 0 <= value <= batch_count for value in counts):
+        return None
+    if state == "accepted_preparation":
+        if counts != (batch_count, batch_count) or not job.get("artifactHash"):
+            return None
+        status = "in_review"
+    elif fresh and state in {"running", "review"}:
+        status = "in_progress" if state == "running" else "in_review"
+    elif fresh and state in {"queued", "deferred"} and sum(counts):
+        status = "in_progress"
+    elif fresh and state == "blocked" and job.get("reason"):
+        status = "blocked"
+    else:
+        return None
+    description = (f"Free-provider PREPARATION: {clean(state)}; provider Groq; "
+                   f"author {clean(job.get('authorModel'))}, reviewer {clean(job.get('reviewerModel'))}; "
+                   f"author batches {counts[0]}/{batch_count}, independent QA batches {counts[1]}/{batch_count}. "
+                   f"Source revision {clean(job.get('sourceHash'))}; artifact revision {clean(job.get('artifactHash'))}. "
+                   "The original product checklist remains open; preparation never grants release authority.\n")
+    if job.get("reason"):
+        description += f"Free-lane wait/blocker: {clean(job['reason'])}.\n"
+    if job.get("retryAt"):
+        description += f"Next eligible retry (Unix ms): {clean(job['retryAt'])}.\n"
+    return {"status": status, "description": description, "reason": clean(job.get("reason", ""))}
+
+
 def unblock_descriptor(item, step, status):
     if status != "blocked":
         return None
@@ -537,6 +595,7 @@ class Bridge:
             by_id = {i["id"]: i for i in remote}
             for key, (task, step) in steps.items():
                 item = items.get(key, {})
+                observed_native_state = item.get("state") or "historical record"
                 # Admission holds are real execution blockers, even when the
                 # product itself remains ready. Never manufacture activity.
                 routing = read_json(self.routing_path, {})
@@ -556,7 +615,14 @@ class Bridge:
                 prep_receipt = prep_result.get("receipt", {})
                 prep_running = bool(prep_job and preparation.get("state") in {"preparation_running", "qa_running"})
                 status = "in_progress" if prep_running else "in_review" if prep_job and preparation.get("state") in {"awaiting_independent_preparation_qa", "inreview", "preparation_review_returned", "prepared-awaiting-integration"} else issue_status(item, step, key in allowed)
-                role = self.item_phase_role(item)[1] if item else "orion"
+                free_view = read_free_preparation("/var/lib/orwell-paperclip/free-preparation.json")
+                free_prep = free_preparation_overlay(free_view, key, step, now_ms())
+                if free_prep:
+                    status = free_prep["status"]
+                    if status == "blocked":
+                        item = {**item, "state": "blocked", "blockedReason": free_prep["reason"],
+                                "nextAction": "The VPS free worker must resolve the recorded source/QA issue or retry when its verified free quota resets. Subscription ceilings remain unchanged."}
+                role = "orion" if free_prep else self.item_phase_role(item)[1] if item else "orion"
                 desired = {
                     "title": clean(f"{english(task['title'])}: {english(step['label'])}", 230),
                     "description": (f"<!-- orwell:{key} -->\n"
@@ -568,13 +634,14 @@ class Bridge:
                            f"observed session {clean(prep_execution.get('sessionId') or prep_receipt.get('sessionId') or 'awaiting native receipt')}. "
                            "Read-only research/QA; no product implementation or checkbox acceptance.\n"
                            + (f"Independent preparation QA: {clean(prep_decision.get('result'))}. {clean(prep_decision.get('detail'))}\n" if prep_decision else "") if prep_job else "")
-                        + f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
+                        + (free_prep["description"] if free_prep else "")
+                        + f"Observed native queue state: {clean(observed_native_state, 100)}.\n"
                         + (f"Observed native worker: {clean(active[key].get('owner'), 160)}. Model: {clean(active[key].get('model'), 160)}.\n" if key in active else "")
                         +
                         f"Guarded phase owner: {role or 'pending root provider selection'}. Paperclip process agent: {self.config['agents'].get(role, 'not selected')}.\n\n"
                         "Convex owns acceptance and checkbox facts. Only the guarded root controller may execute this issue."
                         + ("\nHistorical recorded completion, no new controller acceptance." if step.get("done") is True and not item.get("state") else "")
-                        + ("\nOutside the current implementation scope; separately authorized read-only preparation is recorded above." if prep_job and key not in allowed else "\nOutside the current authorized execution scope." if key not in allowed else "")),
+                        + ("\nOutside the current implementation scope; separately authorized read-only preparation is recorded above." if (prep_job or free_prep) and key not in allowed else "\nOutside the current authorized execution scope." if key not in allowed else "")),
                     # Pinned Paperclip unconditionally wakes assigned agents for
                     # board comments. Board-managed issues plus explicit wakes
                     # avoid phantom process runs; active issues require an owner.
