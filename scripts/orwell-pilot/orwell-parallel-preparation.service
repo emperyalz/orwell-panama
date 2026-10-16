@@ -1,0 +1,22 @@
+[Unit]
+Description=Bounded Orwell parallel read-only backlog preparation
+After=network-online.target
+[Service]
+Type=oneshot
+User=root
+Environment=ORWELL_UID=1001
+Environment=ORWELL_GID=1001
+Environment=ORWELL_CONTROLLER_LOCK_HELD=1
+WorkingDirectory=/home/orwell/build
+ExecStart=/usr/bin/flock -w 900 /var/lib/orwell-agent-controller/controller.lock /usr/bin/node /opt/orwell-agent-controller/parallel-preparation.mjs
+TimeoutStartSec=45min
+KillMode=control-group
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ReadWritePaths=/home/orwell/build /home/orwell/.claude /var/lib/orwell-agent-controller /opt/orwell-workspaces /opt/orwell-evidence
+MemoryMax=4G
+CPUQuota=200%
+TasksMax=256
+UMask=0077

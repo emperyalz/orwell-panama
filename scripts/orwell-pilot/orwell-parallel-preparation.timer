@@ -1,0 +1,9 @@
+[Unit]
+Description=Reconcile allowlisted Orwell preparation without duplicate model runs
+[Timer]
+OnBootSec=3min
+OnUnitInactiveSec=3min
+Unit=orwell-parallel-preparation.service
+Persistent=true
+[Install]
+WantedBy=timers.target
