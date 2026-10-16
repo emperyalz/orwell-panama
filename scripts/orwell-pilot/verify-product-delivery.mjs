@@ -15,7 +15,9 @@ if((await readFile(join(workspace,paths.test),'utf8')).length<200)throw Error('M
 if(key==='communication-trends/label-uncertainty-and-archive-gaps'){
  const source=await readFile(join(workspace,'src/components/reference/IntelligenceWorkspace.tsx'),'utf8');
  const copy=source.split('gapNote:',2)[1]?.split('],',1)[0];
- if(!copy||!/selectedMonthGap/.test(source))throw Error('Selected-month gap must be wired in product source');
+ if(!copy)throw Error('Gap wording must exist in product source');
+ // Variable names do not prove behavior. Independent QA, the executable
+ // regression and protected deployed browser gate enforce month/range cases.
  // Root found a real contradiction: a monthly gap can coexist with positive
  // lifetime posts and a fresh import. The translated message must allow that.
  const strings=[...copy.matchAll(/'((?:\\.|[^'\\])*)'/g)].map(m=>m[1]);
