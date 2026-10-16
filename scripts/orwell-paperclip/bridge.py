@@ -551,7 +551,7 @@ class Bridge:
                 prep_result = next((r for r in preparation.get("results", []) if r.get("job", {}).get("itemKey") == key), {})
                 prep_receipt = prep_result.get("receipt", {})
                 prep_running = bool(prep_job and preparation.get("state") in {"preparation_running", "qa_running"})
-                status = "in_progress" if prep_running else issue_status(item, step, key in allowed)
+                status = "in_progress" if prep_running else "in_review" if prep_job and preparation.get("state") == "awaiting_independent_preparation_qa" else issue_status(item, step, key in allowed)
                 role = self.item_phase_role(item)[1] if item else "orion"
                 desired = {
                     "title": clean(f"{english(task['title'])}: {english(step['label'])}", 230),
@@ -569,7 +569,7 @@ class Bridge:
                         f"Guarded phase owner: {role or 'pending root provider selection'}. Paperclip process agent: {self.config['agents'].get(role, 'not selected')}.\n\n"
                         "Convex owns acceptance and checkbox facts. Only the guarded root controller may execute this issue."
                         + ("\nHistorical recorded completion, no new controller acceptance." if step.get("done") is True and not item.get("state") else "")
-                        + ("\nOutside the current authorized execution scope." if key not in allowed else "")),
+                        + ("\nOutside the current implementation scope; separately authorized read-only preparation is recorded above." if prep_job and key not in allowed else "\nOutside the current authorized execution scope." if key not in allowed else "")),
                     # Pinned Paperclip unconditionally wakes assigned agents for
                     # board comments. Board-managed issues plus explicit wakes
                     # avoid phantom process runs; active issues require an owner.
