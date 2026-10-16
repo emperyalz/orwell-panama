@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {admitSubscription} from './budget.mjs';
-import {routeProvider,selectNativeModel,nativeRunSpec,routingObservation,oppositeProvider} from './provider-routing.mjs';
+import {routeProvider,selectNativeModel,nativeRunSpec,routingObservation,oppositeProvider,normalizeClaudeModel,independentClaudeModel} from './provider-routing.mjs';
 const now=1792120000000,week=10080,resetsAt=now/1000+86400;
 const window=(usedPercent,id='week')=>({id,durationMinutes:week,resetsAt,usedPercent});
 const snapshot=(provider,usedPercent)=>({provider,observedAt:now,windows:[window(usedPercent)]});
@@ -69,6 +69,7 @@ test('native command permissions follow work versus QA and keep subscription-onl
  const work=nativeRunSpec({...input,provider:'claude',phase:'work'}),qa=nativeRunSpec({...input,provider:'claude',phase:'qa'});
  assert.match(work.args[work.args.indexOf('--tools')+1],/Write,Edit/);assert.doesNotMatch(qa.args[qa.args.indexOf('--tools')+1],/Write|Edit/);
  assert.equal(work.sourceWritable,true);assert.equal(qa.sourceWritable,false);assert.equal(qa.args[qa.args.indexOf('--max-turns')+1],'24');
+ assert.equal(work.args.includes('--json-schema'),false);assert.equal(qa.args.includes('--json-schema'),false);
  const codex=nativeRunSpec({...input,model:'gpt-6-luna',provider:'codex',phase:'qa'});
  assert.equal(codex.sourceWritable,false);assert.equal(codex.args[codex.args.indexOf('-C')+1],'/opt/orwell-reviews/frozen');assert.ok(codex.args.includes('forced_login_method="chatgpt"'));assert.ok(codex.args.includes('features.multi_agent=false'));
  assert.throws(()=>nativeRunSpec({...input,provider:'claude',phase:'qa',model:'gpt-6-luna'}),/Invalid native run model/);
@@ -82,4 +83,49 @@ test('published routing preserves actual running providers and cannot route comp
  assert.equal(result.items['running/step'].role,'codex');assert.equal(result.items['running/step'].allowed,false);assert.equal(result.items['review-running/step'].role,'codex');
  assert.equal(result.items['done/step'],undefined);assert.equal(result.items['outside/step'],undefined);assert.equal(result.reservations['done/step'],undefined);
  assert.equal(previous.reservations['done/step'].workerProvider,'claude');
+});
+
+
+test('explicit Claude cross-model mode runs planning, work and repairs without Codex quota',()=>{
+ const cross={...policy,reviewMode:'claude-cross-model'},onlyClaude=checks(null,26);
+ for(const phase of ['planner','work']){const result=route({phase,policy:cross,checks:onlyClaude});assert.equal(result.allowed,true);assert.equal(result.provider,'claude');}
+ const repair=route({policy:cross,checks:onlyClaude,item:{workerProvider:'codex'},reservation:{workerProvider:'codex'}});assert.equal(repair.allowed,true);assert.equal(repair.provider,'claude');assert.equal(repair.handoverFrom,'codex');
+ assert.equal(route({policy:cross,checks:checks(26,null)}).allowed,false);
+ assert.equal(route({policy:cross,checks:checks(null,.5)}).allowed,false);
+ assert.equal(route({policy:cross,checks:checks(null,26),phase:'planner'}).reviewBlocked,false);
+ assert.equal(route({policy:{...cross,allocationPercentagePoints:50},checks:onlyClaude}).allowed,false);
+ assert.equal(route({policy:{...cross,endsAt:now},checks:onlyClaude}).allowed,false);
+});
+
+test('same-provider Claude QA requires a known distinct actual author model and preserves old Codex QA',()=>{
+ const cross={...policy,reviewMode:'claude-cross-model'},onlyClaude=checks(null,26);
+ for(const [workerModel,expected]of [['sonnet','opus'],['claude-sonnet-4-6','opus'],['claude-opus-4-7','sonnet']]){
+  const result=route({phase:'qa',policy:cross,checks:onlyClaude,item:{workerProvider:'claude',workerModel}});assert.equal(result.allowed,true);assert.equal(result.provider,'claude');assert.equal(result.model,expected);assert.equal(result.reviewMode,'claude-cross-model');
+  const selected=selectNativeModel({provider:'claude',phase:'qa',policy:cross,workerProvider:'claude',workerModel});assert.equal(selected.model,expected);
+ }
+ for(const workerModel of [undefined,'unknown','haiku','claude-sonnet-4-6,claude-opus-4-7']){
+  assert.equal(route({phase:'qa',policy:cross,checks:onlyClaude,item:{workerProvider:'claude',workerModel}}).allowed,false);
+  assert.throws(()=>selectNativeModel({provider:'claude',phase:'qa',policy:cross,workerProvider:'claude',workerModel}),/single actual Sonnet or Opus/);
+ }
+ const old=route({phase:'qa',policy:cross,checks:onlyClaude,item:{workerProvider:'codex',workerModel:'gpt-6-luna'}});assert.equal(old.allowed,true);assert.equal(old.model,'sonnet');
+ assert.equal(selectNativeModel({provider:'claude',phase:'qa',policy:cross,workerProvider:'codex',workerModel:'gpt-6-luna'}).model,'sonnet');
+ assert.throws(()=>selectNativeModel({provider:'codex',policy:cross}),/Claude-only policy/);
+ assert.equal(selectNativeModel({provider:'claude',policy:cross,phase:'work',proposal:'opus',repairReason:'First mechanical repair',qaFailures:1}).model,'sonnet');
+ assert.equal(route({phase:'qa',checks:onlyClaude,item:{workerProvider:'claude',workerModel:'sonnet'}}).allowed,false);
+});
+
+test('canonical Claude aliases reject ambiguity and normalization never guesses a different family',()=>{
+ for(const [model,family]of [['sonnet','sonnet'],['opus','opus'],['claude-sonnet-4-6-20260514','sonnet'],['claude-3-7-sonnet-20250219','sonnet'],['claude-opus-4-7','opus']])assert.equal(normalizeClaudeModel(model),family);
+ for(const model of [null,undefined,'','Sonnet','sonnet ','claude-haiku-4-5','sonnet,opus','claude-sonnet-4-6,claude-sonnet-4-7','arbitrary-sonnet'])assert.equal(normalizeClaudeModel(model),null);
+ assert.equal(independentClaudeModel('claude-sonnet-4-6'),'opus');assert.equal(independentClaudeModel('opus'),'sonnet');
+});
+
+test('cross-model routing publishes QA model and preserves the actual running author during explicit handover',()=>{
+ const cross={...policy,reviewMode:'claude-cross-model'},items=[{key:'work/step',state:'ready',workerProvider:'codex'},{key:'qa/step',state:'qa_ready',workerProvider:'claude',workerModel:'claude-sonnet-4-6'}];
+ const observation=routingObservation({items,itemKeys:items.map(i=>i.key),checks:checks(null,26),policy:cross,now});
+ assert.equal(observation.items['work/step'].role,'claude');assert.equal(observation.items['qa/step'].model,'opus');assert.equal(observation.items['qa/step'].allowed,true);
+ const running=[{...items[0],state:'running',lead:'Rowan'},{...items[1],state:'qa_running'}];
+ const active=routingObservation({items:running,itemKeys:items.map(i=>i.key),checks:checks(null,26),policy:cross,previous:observation,now});
+ assert.equal(active.items['work/step'].role,'claude');assert.equal(active.items['qa/step'].role,'claude');assert.equal(active.items['qa/step'].model,'opus');assert.equal(active.items['qa/step'].allowed,false);
+ const stillCodex=routingObservation({items:[running[0]],itemKeys:['work/step'],checks:checks(null,26),policy:cross,previous:{reservations:{'work/step':{workerProvider:'codex'}}},now});assert.equal(stillCodex.items['work/step'].role,'codex');
 });

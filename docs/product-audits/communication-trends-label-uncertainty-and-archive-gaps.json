@@ -1,0 +1,84 @@
+{
+  "itemKey": "communication-trends/label-uncertainty-and-archive-gaps",
+  "wholeStep": true,
+  "observedAt": "2026-10-16T00:00:00Z",
+  "summary": "Added a visible, translated (es/en/pt) 'gapNote' label to IntelligenceWorkspace.tsx's Account coverage section, distinct from healthNote/missing, rendered conditionally when the filtered accounts include one with posts:0, when lastSocialImport is missing/stale (>30 days), or when the selected person/platform has zero matching buckets/examples across the inclusive resolved range [effectiveFrom,effectiveTo] despite the account existing (selectedRangeGap). Range-aware repair: the prior author limited the selected-period trigger to a single resolved month (selectedMonth=effectiveFrom===effectiveTo), so a legitimate two-month empty range such as 1900-01..1900-02 with positive lifetime posts and a fresh import never fired. selectedRangeGap now compares b.month>=effectiveFrom&&b.month<=effectiveTo (and the examples' UTC month in the same bounds), covering explicit same-month from/to, an implicit-end single month (effectiveTo=to||months.at(-1)), and genuine multi-month ranges, while preserving the implicit-latest-month behavior, the existing dead-path removal (effectiveFrom===to), and all existing filters. gapNote copy (unchanged) names the empty selected month/period/filter as a separate reason (it can fire with positive lifetime posts and a fresh import) with conditional, non-accusatory language keeping the Archive gap:/Brecha de archivo:/Falha no arquivo: prefixes. The regression script now (a) rejects the superseded single-month-only gate and month-equality comparison, (b) requires the inclusive-range selectedRangeGap expression, and (c) runs 13 executable behavior cases (empty single month, empty two-month range 1900-01..1900-02, implicit-end empty range, covered range via bucket and via example, wrong person/platform, no platform, inverted bounds, zero-post account, stale and missing import, covered month no-false-flag). Verified: node scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs -> PASS (exit 0); npx tsc --noEmit --incremental false -p tsconfig.json -> exit 0.",
+  "sources": [
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:17",
+      "claim": "copy.gapNote defines three non-empty, mutually distinct (from healthNote/missing) translated strings in the existing [es,en,pt] tuple pattern, each keeping its Archive gap prefix and naming the selected month/period/filter as a separate, conditionally-worded reason that does not assert the account is inactive."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:39",
+      "claim": "importStale is true when data.lastSocialImport is missing or its date is more than 30 days old."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:40",
+      "claim": "hasZeroPostAccount is true when any account in the currently filtered accounts list has posts:0."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:41",
+      "claim": "selectedPersonId resolves the single selected person via the initial deep-link state or the person filter."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:42",
+      "claim": "effectiveTo=to||months.at(-1)||'' resolves the empty `to` default to the last archived month so the selection is a well-defined inclusive range [effectiveFrom,effectiveTo]; this replaces the prior unreachable effectiveFrom===to comparison and the superseded single-month-only selectedMonth gate."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:43",
+      "claim": "selectedRangeGap is true only when one person and one platform are selected with valid bounds (effectiveFrom<=effectiveTo), an account for that exact person+platform exists in data.accounts, and neither data.buckets (count>0) nor data.examples has a matching entry for that person+platform whose month falls in the inclusive range [effectiveFrom,effectiveTo]; it is range-aware (explicit same-month, implicit-end, and multi-month such as 1900-01..1900-02) and can fire with positive lifetime posts and a fresh import."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:44",
+      "claim": "showGapNote combines importStale, hasZeroPostAccount, and selectedRangeGap with logical OR."
+    },
+    {
+      "url": "src/components/reference/IntelligenceWorkspace.tsx:63",
+      "claim": "The gapNote label is rendered conditionally ({showGapNote&&<p ...>{t('gapNote')}</p>}) inside the Account coverage section, not unconditionally."
+    }
+  ],
+  "limitations": [
+    "The 30-day staleness threshold is a newly introduced operational default, not drawn from a pre-existing documented SLA in this codebase.",
+    "The label is a single shared status line in the Account coverage section rather than rendered per individual table cell; selectedRangeGap activates when exactly one person and one platform are selected, so 'all platforms'/'all people' views rely on hasZeroPostAccount/importStale only. For a wide default window (no from/to) it fires only when the whole last-12-archived-months window is empty for the selected person+platform.",
+    "selectedRangeGap reflects only the selected period/range, not lifetime activity; the copy deliberately avoids asserting the account is inactive because the trigger can fire for an active account whose selected range simply has no archived post.",
+    "The regression script combines static source parsing (regex over IntelligenceWorkspace.tsx) with executable behavior cases run against pure reimplementations that mirror the asserted source expressions verbatim; it does not render the React component or exercise live Convex data, and the behavior cases stay in sync with the source only because the 4d regex asserts the exact source expression. Root's protected semantic gate and deployed three-language browser cases (zero account, covered month, implicit-end empty month, explicit empty month, including mobile) remain the authoritative runtime verification."
+  ],
+  "checks": [
+    {
+      "name": "gapNote i18n key exists with non-empty en/es/pt strings",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "gapNote text is distinct from healthNote and missing text in all three languages",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "gapNote is rendered conditionally in JSX guarded by showGapNote",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "The dead path effectiveFrom===to is absent, effectiveTo resolves to||months.at(-1), and the superseded single-month-only gate (selectedMonth=effectiveFrom===effectiveTo / month-equality comparison) is rejected so multi-month empty ranges are not silently untriggered",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "showGapNote is derived from zero-post accounts, stale/missing lastSocialImport, and the inclusive-range selectedRangeGap (buckets/examples compared with b.month>=effectiveFrom&&b.month<=effectiveTo, not month equality)",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "13 executable behavior cases: empty single month, empty two-month range 1900-01..1900-02 (positive lifetime + fresh import), implicit-end empty range, covered range via bucket and via example, wrong person/platform, no platform, inverted bounds, zero-post account, stale and missing import, covered month no-false-flag",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "gapNote keeps Archive gap:/Brecha de archivo:/Falha no arquivo: prefixes, names the selected month/period/filter as a separate reason, and uses conditional language that does not assert the account is inactive",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "Copy/trigger consistency: each language binds an empty selection to a possible archive OR collection gap in one clause (EN 'empty selection may reflect a collection or archive gap'; ES 'selección vacía puede reflejar una brecha de recolección o de archivo'; PT 'seleção vazia pode refletir uma falha de coleta ou de arquivo'); a mutant that names the period but drops the gap relationship fails (verified EN/ES mutants exit 1)",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    },
+    {
+      "name": "gapNote presents its three causes as mutually exclusive alternatives (o/or/ou) so no single cause is implied to be the only explanation for an empty selection",
+      "script": "scripts/product-audits/communication-trends-label-uncertainty-and-archive-gaps.cjs"
+    }
+  ]
+}

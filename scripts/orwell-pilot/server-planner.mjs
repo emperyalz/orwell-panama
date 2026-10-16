@@ -84,8 +84,8 @@ export async function runServerPlanner({state,workspace,tools,env,uid,gid,backlo
   if(sessionId&&Date.now()-lastEventAt>15000&&(e.type==='assistant'||e.type==='item.completed')){lastEventAt=Date.now();serial=serial.then(()=>observe('progress',`Native ${provider} planner reported a completed source-inspection event`)).catch(e=>{error=e;kill();});}
  }
  child.stdout.on('data',d=>{raw+=d;pending+=d;let p;while((p=pending.indexOf('\n'))>=0){event(pending.slice(0,p));pending=pending.slice(p+1);}if(raw.length>8_000_000){error=Error('Planner output bound exceeded');kill();}});
- child.stderr.on('data',d=>stderr=(stderr+d).slice(-3000));child.stdin.on('error',()=>{});child.stdin.end(prompt);
- let busy=false;const watch=setInterval(async()=>{if(busy)return;busy=true;try{await admission(0,['claude','codex']);const s=await api('leadAccountability:snapshot',{},'query');if(s.monitor?.dispatchPaused)throw Error('Dispatch was paused');}catch(e){error=e;kill();}finally{busy=false;}},45000);
+ child.stderr.on('data',d=>stderr=(stderr+d).slice(-3000));child.stdin.on('error',()=>{});child.stdin.end(`${prompt}\nExact required JSON schema: ${JSON.stringify(planSchema)}\nReturn only the JSON object, without XML or commentary.`);
+ let busy=false;const watch=setInterval(async()=>{if(busy)return;busy=true;try{await admission(0,policy.reviewMode==='claude-cross-model'?['claude']:['claude','codex']);const s=await api('leadAccountability:snapshot',{},'query');if(s.monitor?.dispatchPaused)throw Error('Dispatch was paused');}catch(e){error=e;kill();}finally{busy=false;}},45000);
  const timer=setTimeout(()=>{error=Error('Eight-minute planner bound reached');kill();},480000);
  const exit=await new Promise((resolve,reject)=>{child.on('error',reject);child.on('close',(code,signal)=>resolve({code,signal}));});clearInterval(watch);clearTimeout(timer);
  if(pending.trim())event(pending);await serial;await writeFile(join(dir,'events.jsonl'),raw,{mode:0o600});
