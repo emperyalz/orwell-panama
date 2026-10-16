@@ -18,7 +18,7 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
    if(!budget.includes('Codex 40')||!budget.includes('Claude 30'))throw Error('Distinct40/30 provider budgets missing from live scoreboard');
    const work=await panel.locator('.controller-status-work').innerText();
    if(!work.includes(snapshot.progress.completed+' / '+snapshot.progress.total))throw Error('Displayed progress differs from authoritative checklist');
-   for(const blocker of snapshot.blockers)if(!work.includes(blocker.reason))throw Error('Actual blocker missing from scoreboard: '+blocker.key);
+   for(const blocker of snapshot.blockers)if(!work.replace(/\s+/g,' ').includes(blocker.reason.replace(/\s+/g,' ')))throw Error('Actual blocker missing from scoreboard: '+blocker.key);
    const screenshot=join(directory,'scoreboard-budget40.png');await page.screenshot({path:screenshot,fullPage:true});
    checks.push({kind:'actual-live-scoreboard',providerLimits:snapshot.providers.map(p=>({provider:p.provider,limitPoints:p.limitPoints})),progress:snapshot.progress,blockerKeys:snapshot.blockers.map(b=>b.key),screenshot});
   }else if(itemKey==='communication-trends/track-communication-changes'){
