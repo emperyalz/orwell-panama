@@ -155,12 +155,13 @@ function parseAnswer(text) {
  throw Error('Model did not return a valid JSON outcome');
 }
 function prompt(job,qa,provider,person) {
+ if(!qa&&scope.handoffOnly?.[job.item.key])return `You are ${person.name}, the observed Claude author verification/handoff worker. Source is a frozen read-only snapshot; preserve all work. Do not spawn agents or edit files. Existing implementation and audit artifacts are already present. This is NOT another implementation turn. ${scope.criteria[job.item.key]}\nBatch targeted source reads into one Bash call and all required tests into one Bash call. At most4 tool calls,8turns, then return ONLY one JSON object with required string fields result,detail,evidence,team. result=submitted if verified, otherwise failed with concrete evidence. team=implementation. No changes or deployment; root and fresh opposite-provider QA follow.`;
  return `You are ${person.name}, ${qa?`an independent ${provider} reviewer in Ada's QA team`:job.item.team==='research'?`a ${provider} research worker under Iris`:`a ${provider} implementation worker under Rowan`}. You are not alone in this codebase. Preserve other work. Do not spawn agents.\nActual Orwell task: ${job.item.taskTitle}. Context: ${job.item.taskDetail??''}. Step: ${job.item.key}: ${job.item.label}.\nAcceptance: ${scope.criteria[job.item.key]??job.item.acceptance}.\n${qa?`Independent review scope: ${JSON.stringify(scope.allowedPaths?.[job.item.key]??[])}. Actual author provider/model: ${job.item.workerProvider}/${job.item.workerModel??'unknown'}. Author self-evaluation and conversation are withheld.`:`Prior evidence: ${job.item.evidence??''}. Prior QA defects: ${job.item.qaEvidence??''}. Checkpoint: ${job.item.checkpoint??''}.`}\n${qa?'The source is a frozen read-only snapshot. Focus on the changed files named in prior evidence. Batch related file reads and test commands into a few Bash calls. Do not reread the full WORKLIST or re-audit completed pilot steps. Reserve turns for your final JSON outcome before the24-turn bound. Inspect relevant source and run focused meaningful tests. Do not edit source or accept merely because tests pass. Check missing edge cases and real production behavior if required. Report ALL material findings together. Reject only a reproducible behavior/source/data defect, an actual failing required check, or absent required proof. Each defect must state expected versus observed behavior and an exact reproduction or concrete counterexample. Do not block correct behavior for hypothetical wording-test mutations, stylistic preferences or checks outside acceptance. This snapshot has no .git metadata. For a whole-app TypeScript check use npx tsc --noEmit --incremental false -p tsconfig.json so it writes no tsbuildinfo; a forbidden cache write is not a product defect. You may accept when required behavior, evidence and independent checks are complete; root publication remains separate.':'Implement or research this bounded PRODUCT step. Exact writable paths are listed in /opt/orwell-evidence/product-scope.json under allowedPaths for this key; all other files belong to others and must be preserved. Use public query instructions in /opt/orwell-evidence/backlog.json. Do not repeat infrastructure qualification. Research must reopen primary sources and distinguish missing, unsourced, conflicting and inaccessible evidence; never invent facts or activate paid collection. Source changes are allowed only in your listed paths. Do not touch credentials, unrelated assets, task states or deployments. Controller handles publication and acceptance. Batch reads and commands; no commit or deployment yourself.'}\nUse subscription access only. Budget finite, one worker at a time. Finish within 8 minutes. Return one JSON object with required string fields result,detail,evidence,team. result=${qa?'accepted or changes_requested':'submitted or failed or needs_input'}. team=${qa?'implementation':job.item.team}. Evidence must give exact inspected files and commands. Turn ending does not complete the checklist.`;
 }
 async function runModel(job) {
  // Publish the exact root-owned scope used by this run, including approved operator handoffs.
  await writeAtomicJson('/opt/orwell-evidence/product-scope.json',scope);await chmod('/opt/orwell-evidence/product-scope.json',0o444);
- const qa=job.phase==='qa',person=qa?reviewer:job.item.team==='research'?researchAuthor:author;
+ const qa=job.phase==='qa',handoff=job.phase==='work'&&scope.handoffOnly?.[job.item.key]===true,person=qa?reviewer:job.item.team==='research'?researchAuthor:author;
  let structuredHandoffRecovery=false;
  if(!qa&&job.item.qaAttempt>0){
   const prior=[];for(const id of await readdir(join(state,'runs'))){try{const receipt=JSON.parse(await readFile(join(state,'runs',id,'receipt.json'),'utf8'));if(receipt.job?.item?.key===job.item.key&&receipt.job.phase==='qa')prior.push(receipt);if(receipt.job?.item?.key===job.item.key&&receipt.job.phase==='work'&&receipt.usagePersisted&&receipt.exit?.code===1&&receipt.finishArgs?.detail?.includes('error_max_structured_output_retries'))structuredHandoffRecovery=true;}catch{}}
@@ -181,7 +182,7 @@ async function runModel(job) {
  const beforeManifest=!qa&&scope.allowedPaths?.[job.item.key]?await sourceManifest(workspace):null;
  if(qa&&before!==job.item.submissionRevision)throw Error('Workspace differs from submitted revision; QA cannot review');
  const baselineDirectory=qa?null:await freeze(job.leaseId+'-baseline');
- const cwd=qa?await freeze(job.leaseId):workspace;
+ const cwd=qa||handoff?await freeze(job.leaseId):workspace;
  const schema={type:'object',additionalProperties:false,required:['result','detail','evidence','team'],properties:{result:{type:'string',enum:['submitted','changes_requested','accepted','needs_input','failed']},detail:{type:'string'},evidence:{type:'string'},team:{type:'string',enum:['implementation','research','none']}}};
  let retry=null;
  if(!qa){try{const saved=JSON.parse(await readFile(join(state,'retry-model.json'),'utf8'));if(saved.itemKey===job.item.key)retry=saved;}catch(error){if(error.code!=='ENOENT')throw error;}}
@@ -189,7 +190,8 @@ async function runModel(job) {
  const proposal=!qa&&provider==='claude'&&structuredHandoffRecovery?'sonnet':!qa&&provider==='claude'&&(job.item.qaAttempt??0)>=2&&repairReason?'opus':scope.modelProposals?.[job.item.key]?.[provider]??(provider==='codex'?retry?.model:null);
  const selected=selectNativeModel({provider,phase:job.phase,proposal,repairReason,taskReason:scope.modelReasons?.[job.item.key]??'',qaFailures:job.item.qaAttempt??0,policy,workerModel:job.item.workerModel,workerProvider:job.item.workerProvider});
  let model=selected.model,modelUsage;
- const {args}=nativeRunSpec({provider,phase:job.phase,model,cwd,schema});
+ const {args}=nativeRunSpec({provider,phase:handoff?'planner':job.phase,model,cwd,schema});
+ if(handoff&&provider==='claude')args[args.indexOf('--max-turns')+1]='8';
  await writeAtomicJson(join(dir,'execution.json'),{job,provider,model,modelReason:selected.reason,routingReason:chosen.reason,before,baselineDirectory,beforeManifest,startedAt:Date.now()});
  const child=spawn(`${tools}/${provider}`,args,{cwd,env,uid,gid,detached:true,stdio:['pipe','pipe','pipe']});
  let pending='',raw='',stderr='',sessionId,usage,answerText='',answerObject,completed=false,streamError,serial=Promise.resolve(),lastCheckpointAt=0,checkpointCount=0;
@@ -256,7 +258,7 @@ async function runModel(job) {
  const receipt={job,provider,model,modelUsage,sessionId,usage,usagePersisted,exit,before,after,afterManifest:await sourceManifest(workspace),answer,finishArgs,finishedAt:Date.now(),finish:null};
  await writeAtomicJson(join(dir,'receipt.json'),receipt);
  const finish=await api('dispatch:finish',finishArgs);
- if(!streamError&&job.phase==='work'){await rm(join(state,'retry-model.json'),{force:true}).catch(()=>{});}
+ if(!streamError&&job.phase==='work'){await rm(join(state,'retry-model.json'),{force:true}).catch(()=>{});if(handoff){delete scope.handoffOnly[job.item.key];await writeAtomicJson(join(state,'scope.json'),scope);}}
  await writeAtomicJson(join(dir,'receipt.json'),{...receipt,finish});
  log({item:job.item.key,phase:job.phase,provider,sessionId,model,usage,finish});return finish;
 }
