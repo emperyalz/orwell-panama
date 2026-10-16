@@ -21,6 +21,22 @@ export async function verifyProductBrowser({itemKey,stateDir='/var/lib/orwell-ag
    for(const blocker of snapshot.blockers)if(!work.includes(blocker.reason))throw Error('Actual blocker missing from scoreboard: '+blocker.key);
    const screenshot=join(directory,'scoreboard-budget40.png');await page.screenshot({path:screenshot,fullPage:true});
    checks.push({kind:'actual-live-scoreboard',providerLimits:snapshot.providers.map(p=>({provider:p.provider,limitPoints:p.limitPoints})),progress:snapshot.progress,blockerKeys:snapshot.blockers.map(b=>b.key),screenshot});
+  }else if(itemKey==='communication-trends/track-communication-changes'){
+   const r=await fetch('https://fleet-vole-527.convex.cloud/api/query',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'intelligence:archive',args:{},format:'json'})});const data=(await r.json()).value;
+   const shift=m=>{const d=new Date(m+'-01T00:00:00Z');d.setUTCMonth(d.getUTCMonth()+1);return d.toISOString().slice(0,7);};
+   const prior=data.buckets.find(b=>b.count>0&&data.people.some(p=>p.id===b.person)&&data.accounts.some(a=>a.person===b.person&&a.platform===b.platform&&a.posts>0)&&!data.buckets.some(c=>c.person===b.person&&c.platform===b.platform&&c.month===shift(b.month)&&c.count>0));
+   if(!prior)throw Error('Actual zero-current positive-prior archive fixture required');
+   const person=data.people.find(p=>p.id===prior.person),month=shift(prior.month),sum=data.buckets.filter(b=>b.person===prior.person&&b.platform===prior.platform&&b.month===prior.month).reduce((n,b)=>n+b.count,0);
+   const context=await browser.newContext({viewport:{width:1440,height:1000}});await context.addInitScript(()=>localStorage.setItem('orwell-panama-language','en'));
+   const page=await context.newPage();await page.goto(productionUrl+'/inteligencia?person='+encodeURIComponent(person.externalId),{waitUntil:'domcontentloaded',timeout:60000});await page.locator('.intelligence-health tbody tr').first().waitFor({state:'visible',timeout:60000});
+   await page.locator('.intelligence-platforms button').nth([...new Set(data.buckets.map(b=>b.platform))].sort().indexOf(prior.platform)+1).click();
+   const dates=page.locator('.intelligence-filters input[type=month]');await dates.nth(0).fill(month);await dates.nth(1).fill(month);await page.locator('.intelligence-trend header button').nth(2).click();
+   const change=page.locator('.intelligence-change[role=status]');await change.waitFor({state:'visible',timeout:15000});
+   const values=(await change.locator('strong').allTextContents()).map(t=>Number(t.replace(/[^0-9+-]/g,'')));
+   if(JSON.stringify(values)!==JSON.stringify([0,sum,-sum]))throw Error('Rendered0-minus-N delta differs from actual archived counts: '+JSON.stringify({values,expected:[0,sum,-sum]}));
+   const screenshot=join(directory,'actual-zero-current-decline.png');await page.screenshot({path:screenshot,fullPage:true});
+   await page.locator('.intelligence-trend header button').nth(0).click();if(await change.isVisible())throw Error('Chart selection did not preserve ordinary empty state');
+   checks.push({kind:'actual-zero-current-decline',person:person.externalId,platform:prior.platform,month,priorMonth:prior.month,values,screenshot});await context.close();
   }else if(itemKey==='communication-trends/label-uncertainty-and-archive-gaps'){
    const response=await fetch('https://fleet-vole-527.convex.cloud/api/query',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'intelligence:archive',args:{},format:'json'}),signal:AbortSignal.timeout(30000)});
    const result=await response.json();if(!response.ok||result.status!=='success')throw Error('Live archive unavailable');
