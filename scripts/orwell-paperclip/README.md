@@ -160,3 +160,10 @@ comment wake behavior in the pinned issues route. Explicit wakes carry custom
 role agent. Using the reserved `issueId` field without that agent as assignee causes the
 pinned version to cancel the run as `issue_assignee_changed` before execution.
 The root-private pending wake mapping supplies exact item binding to the adapter.
+
+
+## Independent product gate
+
+`verify-profile-facts.mjs` is the independently authored semantic birthday gate for the91-profile inventory. Install its exact reviewed bytes root-owned and read-only at `/opt/orwell-evidence/verify-profile-facts.mjs`; the private scope runs it after the author-written verifier. It compares the inventory against raw observations and normalizes equivalent full ISO, Spanish-written and day/month/year dates while preserving precision. Its `--self-test` covers equivalent dates, a true contradiction and invalid date/precision cases. An author verifier that regenerates the same buggy classification is insufficient, even if another model accepts it.
+
+The root controller returns a failed product gate to the same author with actionable findings and requires fresh independent QA. It does not close the checkbox on model agreement alone. Issue descriptions expose the full trusted acceptance criteria, observed queue state and current native owner/model, in addition to bounded event comments.

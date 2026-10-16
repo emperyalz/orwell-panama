@@ -323,6 +323,8 @@ class Bridge:
             allowed = self.scope()
             steps = self.product_steps(tasks)
             items = {i["key"]: i for i in snapshot["items"]}
+            criteria = read_json(self.scope_path, {}).get("criteria", {})
+            active = {i["key"]: i for i in (health or {}).get("active", [])}
             remote = self.pc(self.company_path + "/issues")
             if not isinstance(remote, list):
                 raise ValueError("Expected the Paperclip issue list")
@@ -335,7 +337,10 @@ class Bridge:
                     "title": clean(f"{english(task['title'])}: {english(step['label'])}", 230),
                     "description": (f"<!-- orwell:{key} -->\n"
                         f"Original checklist: {key}\n\n{clean(english(task.get('detail')), 2500)}\n\n"
-                        f"Acceptance: {clean(english(step['label']), 1500)}\n\n"
+                        f"Acceptance: {clean(criteria.get(key) or english(step['label']), 7000)}\n\n"
+                        f"Observed queue state: {clean(item.get('state') or 'historical record', 100)}.\n"
+                        + (f"Observed native worker: {clean(active[key].get('owner'), 160)}. Model: {clean(active[key].get('model'), 160)}.\n" if key in active else "")
+                        +
                         f"Guarded phase owner: {role}. Paperclip process agent: {self.config['agents'][role]}.\n\n"
                         "Convex owns acceptance and checkbox facts. Only the guarded root controller may execute this issue."
                         + ("\nHistorical recorded completion, no new controller acceptance." if step.get("done") is True and not item.get("state") else "")
