@@ -55,6 +55,12 @@ export const recordReview=internalMutation({args:{key:v.string(),taskKey:v.strin
  if(previous)await ctx.db.patch(previous._id,args);else await ctx.db.insert('projectReviewQueue',{...args,requestedAt:Date.now()});
 }});
 
+/** The dispatch pause alone, from the one monitor row. Pause gates poll this every minute; snapshot reads six tables. */
+export const pause=query({args:{},handler:async ctx=>{
+ const monitor=await ctx.db.query('projectLeadMonitor').withIndex('by_key',q=>q.eq('key',ROOT)).unique();
+ return {monitor:monitor?{startedAt:monitor.startedAt,observedAt:monitor.observedAt,dispatchPaused:monitor.dispatchPaused,pauseReason:monitor.pauseReason}:null};
+}});
+
 export const snapshot=query({args:{},handler:async ctx=>{
  const [monitor,tasks,agents,records,reviews,dispatchItems]=await Promise.all([ctx.db.query('projectLeadMonitor').withIndex('by_key',q=>q.eq('key',ROOT)).unique(),ctx.db.query('projectTasks').collect(),ctx.db.query('projectAgents').collect(),ctx.db.query('projectStepExecution').collect(),ctx.db.query('projectReviewQueue').collect(),ctx.db.query('projectDispatchItems').collect()]);
  const now=Date.now();

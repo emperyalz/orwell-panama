@@ -40,7 +40,7 @@ async function refreshRouting(items){
   const missing=dependencies.filter(dependency=>!historicallyDone.has(dependency)&&!observed.some(item=>item.key===dependency&&item.state==='accepted'));
   if(missing.length&&routing.items[key])Object.assign(routing.items[key],{allowed:false,reason:`Waiting for accepted dependencies: ${missing.join(', ')}`});
  }
- const monitor=(await api('leadAccountability:snapshot',{},'query')).monitor;
+ const monitor=(await api('leadAccountability:pause',{},'query')).monitor;
  const globallyPaused=monitor?.dispatchPaused===true,modelCeilingPause=globallyPaused&&monitor.pauseReason?.en?.startsWith('Pilot model ceiling:');
  if(scope.serverPlanning===true){
   plannerPolicy=JSON.parse(await readFile(join(state,'planner-policy.json'),'utf8'));
@@ -244,7 +244,7 @@ async function runModel(job) {
  let watchdogBusy=false;
  const watchdog=setInterval(async()=>{
   if(watchdogBusy)return;watchdogBusy=true;
-  try{await admission(0,qa||policy.reviewMode==='claude-cross-model'?[provider]:[provider,oppositeProvider(provider)]);const snapshot=await api('leadAccountability:snapshot',{},'query');if(snapshot.monitor?.dispatchPaused)throw Error('Dispatch was paused');await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});}
+  try{await admission(0,qa||policy.reviewMode==='claude-cross-model'?[provider]:[provider,oppositeProvider(provider)]);const snapshot=await api('leadAccountability:pause',{},'query');if(snapshot.monitor?.dispatchPaused)throw Error('Dispatch was paused');await api('dispatch:renewLease',{itemKey:job.item.key,leaseId:job.leaseId});}
   catch(error){streamError=error;kill();}finally{watchdogBusy=false;}
  },45000);
  const timeout=setTimeout(()=>{streamError=Error('Eight-minute model time limit');kill();},8*60_000);
@@ -385,7 +385,7 @@ async function main() {
    const proof=await acceptanceProof({checksPath,deploymentPath:join(state,'deployment.json'),itemKey:job.item.key,leaseId:job.leaseId,revision:current});
    const finish=await api('dispatch:finish',{itemKey:job.item.key,leaseId:job.leaseId,phase:'accept',result:'accepted',...(policy.reviewMode==='claude-cross-model'?{reviewMode:'claude-cross-model'}:{}),acceptanceProof:proof,sessionId:`controller:${job.leaseId}`,artifactRevision:current,detail:'Deterministic acceptance: independent reviewer models and sessions, exact revision, persisted usage and final checks verified',evidence:`Hostinger ${current}; ${job.item.workerProvider}/${job.item.workerModel??'recorded native model'} worker ${job.item.workerSessionId}; ${job.item.qaProvider}/${job.item.qaModel??'recorded native model'} reviewer ${job.item.qaSessionId}; Git ${sourceCommit.commit}; product-specific checks where configured, controller regressions, dispatch acceptance guards and Convex typecheck passed; receipt journal /var/lib/orwell-agent-controller/runs`});await writeAtomicJson(join(state,'last-acceptance.json'),{at:Date.now(),itemKey:job.item.key,revision:current,finish});if(finish.state==='accepted'){
     await writeAtomicJson(join(state,'affinity.json'),null);
-    const remaining=await receiptGuard(),monitor=(await api('leadAccountability:snapshot',{},'query')).monitor;
+    const remaining=await receiptGuard(),monitor=(await api('leadAccountability:pause',{},'query')).monitor;
     if(!remaining.modelHeld&&monitor?.dispatchPaused&&monitor.pauseReason?.en?.startsWith('Pilot model ceiling:')){
      const reason='A real reviewed product release reset the12-runs-without-acceptance ceiling; original subscription/reserve/deadline and absolute run/token guards remain active';
      await api('leadAccountability:configure',{dispatchPaused:false,reason:{en:reason,es:reason,pt:reason}});
