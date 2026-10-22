@@ -24,7 +24,9 @@ export const list=query({args:{politicianId:v.optional(v.id('politicians')),kind
   args.kind==='news'?Promise.resolve([]):readKind('social'),
  ]);
  const rows=[...news,...social].sort((a,b)=>b.publishedAt-a.publishedAt);
- const enriched=await Promise.all(rows.map(async r=>({...r,person:await ctx.db.get(r.politicianId)})));
+ // A few people own most rows; read each politician once instead of once per row.
+ const people=new Map(await Promise.all([...new Set(rows.map(r=>r.politicianId))].map(async id=>[id,await ctx.db.get(id)] as const)));
+ const enriched=rows.map(r=>({...r,person:people.get(r.politicianId)??null}));
  return diverse(enriched,limit,args.kind);
 }});
 export const accounts=internalQuery({args:{},handler:ctx=>ctx.db.query('accounts').collect()});
