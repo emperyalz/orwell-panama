@@ -5,14 +5,18 @@ const text=v.object({en:v.string(),es:v.string(),pt:v.string()});
 const readiness=v.union(v.literal('ready'),v.literal('waiting_input'),v.literal('waiting_review'),v.literal('blocked'),v.literal('unclassified'));
 const ROOT='01a09321-0212-73f0-b32b-c3045945d6c6';
 const FRESH=300_000;
+const FULL_WHEN_PAUSED=600_000;
 
 /** Trusted observation, not a dispatcher. Wait clocks begin when first observed. */
 export const observe=internalMutation({args:{},handler:async ctx=>{
  const now=Date.now();
- const [tasks,agents,records,dispatchItems]=await Promise.all([ctx.db.query('projectTasks').collect(),ctx.db.query('projectAgents').collect(),ctx.db.query('projectStepExecution').collect(),ctx.db.query('projectDispatchItems').collect()]);
  let monitor=await ctx.db.query('projectLeadMonitor').withIndex('by_key',q=>q.eq('key',ROOT)).unique();
+ // While dispatch is paused nothing claims work, so the wait clocks only need a full pass every
+ // FULL_WHEN_PAUSED; the heartbeat alone keeps capacity freshness. Unpausing gets a full pass at once.
+ if(monitor?.dispatchPaused&&now-(monitor.fullObservedAt??0)<FULL_WHEN_PAUSED){await ctx.db.patch(monitor._id,{observedAt:now});return {observed:0,heartbeat:true};}
+ const [tasks,agents,records,dispatchItems]=await Promise.all([ctx.db.query('projectTasks').collect(),ctx.db.query('projectAgents').collect(),ctx.db.query('projectStepExecution').collect(),ctx.db.query('projectDispatchItems').collect()]);
  if(!monitor){const id=await ctx.db.insert('projectLeadMonitor',{key:ROOT,startedAt:now,observedAt:now,capacity:4,dispatchPaused:true,pauseReason:{en:'Eric paused new agent dispatches while discussing orchestration.',es:'Eric pausó nuevas asignaciones mientras revisa la coordinación.',pt:'Eric pausou novas atribuições enquanto discute a coordenação.'}});monitor=await ctx.db.get(id);}
- if(monitor)await ctx.db.patch(monitor._id,{observedAt:now});
+ if(monitor)await ctx.db.patch(monitor._id,{observedAt:now,fullObservedAt:now});
  const indexed=new Map(records.map(row=>[`${row.taskKey}/${row.stepKey}`,row]));
  const active=agents.filter(agent=>agent.status==='running'&&now-agent.lastActivityAt<=FRESH&&agent.work?.assignmentEn===agent.assignment.en);
  let observed=0;
@@ -25,8 +29,10 @@ export const observe=internalMutation({args:{},handler:async ctx=>{
   const waitingSince=ownerKeys.length?undefined:previous?.waitingSince??now;
   const handoffAt=ownerKeys.length?undefined:previous?.ownerKeys.length?now:previous?.handoffAt;
   const value={taskKey:task.key,stepKey:step.key,firstObservedAt:previous?.firstObservedAt??now,observedAt:now,ownerKeys,waitingSince,handoffAt,readiness:previous?.readiness??'unclassified' as const};
+  // An unchanged row is only re-stamped every FULL_WHEN_PAUSED: each patch re-runs every snapshot subscriber.
+  const unchanged=previous&&previous.waitingSince===value.waitingSince&&previous.handoffAt===value.handoffAt&&previous.ownerKeys.join()===value.ownerKeys.join()&&now-previous.observedAt<FULL_WHEN_PAUSED;
   if(previous){
-   await ctx.db.patch(previous._id,value);
+   if(!unchanged)await ctx.db.patch(previous._id,value);
   }else await ctx.db.insert('projectStepExecution',value);
   observed++;
  }
