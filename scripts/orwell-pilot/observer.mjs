@@ -22,8 +22,11 @@ async function query(path){
  return response.value;
 }
 async function observe(){
- const queue=await query('dispatch:snapshot');
+ // The one-row pause first: a paused queue claims nothing, so the 0.5 MB queue read can wait.
  const lead=await query('leadAccountability:pause');
+ paused=lead.monitor?.dispatchPaused===true;
+ if(paused&&Date.now()-lastFullAt<PAUSED_EVERY_MS){await writeAtomicJson(join(stateDirectory,'health.json'),{lastSuccessfulObservationAt:Date.now(),paused:true});return;}
+ const queue=await query('dispatch:snapshot');lastFullAt=Date.now();
  const counts={};for(const item of queue.items)counts[item.state]=(counts[item.state]??0)+1;
  const ready=queue.items.filter(i=>['ready','qa_ready','accept_ready'].includes(i.state)&&['doing','todo'].includes(i.taskStatus));
  const phases={accept_ready:0,qa_ready:1,ready:2};
@@ -41,6 +44,7 @@ async function observe(){
  }
  await writeAtomicJson(join(stateDirectory,'health.json'),{lastSuccessfulObservationAt:Date.now(),fingerprint});
 }
+const PAUSED_EVERY_MS=1_800_000;let paused=false,lastFullAt=0;
 do{
  try{await observe();}catch(error){console.error(JSON.stringify({event:'observation_failed',at:Date.now(),reason:error.message}));if(process.argv.includes('--once'))process.exitCode=1;}
  if(process.argv.includes('--once'))break;

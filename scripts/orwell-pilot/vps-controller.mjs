@@ -406,5 +406,19 @@ async function main() {
   throw error;
  }
 }
-try{await main();await publishStatus();await writeAtomicJson(join(state,'health.json'),{state:controllerState,at:Date.now(),reason:controllerReason});}
+// The timer fires every minute. While held, the full check (receipt guard, admission, stopPilot,
+// status publish) repeats every HELD_RECHECK_MS, or at once when the pause lifts or a run receipt
+// changes; in between a run reads only the one-row pause.
+const HELD_RECHECK_MS=30*60_000;
+async function heldAndUnchanged(){
+ let health;try{health=JSON.parse(await readFile(join(state,'health.json'),'utf8'));}catch{return false;}
+ if(health.state!=='held'||!(Date.now()-health.at<HELD_RECHECK_MS))return false;
+ for(const id of await readdir(join(state,'runs')).catch(()=>[])){
+  const changed=await lstat(join(state,'runs',id,'receipt.json')).then(s=>s.mtimeMs>health.at,()=>false);
+  if(changed)return false;
+ }
+ return (await api('leadAccountability:pause',{},'query')).monitor?.dispatchPaused===true;
+}
+if(await heldAndUnchanged().catch(()=>false))log({state:'held',skipped:true,reason:'Held and unchanged; next full check within 30 minutes'});
+else try{await main();await publishStatus();await writeAtomicJson(join(state,'health.json'),{state:controllerState,at:Date.now(),reason:controllerReason});}
 catch(error){log({state:'held',reason:error.message});await publishStatus('held',error.message).catch(e=>log({telemetryError:e.message}));await writeAtomicJson(join(state,'health.json'),{state:'held',at:Date.now(),reason:error.message});process.exitCode=2;}

@@ -13,7 +13,7 @@ export const observe=internalMutation({args:{},handler:async ctx=>{
  let monitor=await ctx.db.query('projectLeadMonitor').withIndex('by_key',q=>q.eq('key',ROOT)).unique();
  // While dispatch is paused nothing claims work, so the wait clocks only need a full pass every
  // FULL_WHEN_PAUSED; the heartbeat alone keeps capacity freshness. Unpausing gets a full pass at once.
- if(monitor?.dispatchPaused&&now-(monitor.fullObservedAt??0)<FULL_WHEN_PAUSED){await ctx.db.patch(monitor._id,{observedAt:now});return {observed:0,heartbeat:true};}
+ if(monitor?.dispatchPaused&&now-(monitor.fullObservedAt??0)<FULL_WHEN_PAUSED){await ctx.db.patch(monitor._id,{observedAt:now});return {observed:0,heartbeat:true,paused:true};}
  const [tasks,agents,records,dispatchItems]=await Promise.all([ctx.db.query('projectTasks').collect(),ctx.db.query('projectAgents').collect(),ctx.db.query('projectStepExecution').collect(),ctx.db.query('projectDispatchItems').collect()]);
  if(!monitor){const id=await ctx.db.insert('projectLeadMonitor',{key:ROOT,startedAt:now,observedAt:now,capacity:4,dispatchPaused:true,pauseReason:{en:'Eric paused new agent dispatches while discussing orchestration.',es:'Eric pausó nuevas asignaciones mientras revisa la coordinación.',pt:'Eric pausou novas atribuições enquanto discute a coordenação.'}});monitor=await ctx.db.get(id);}
  if(monitor)await ctx.db.patch(monitor._id,{observedAt:now,fullObservedAt:now});
@@ -36,7 +36,7 @@ export const observe=internalMutation({args:{},handler:async ctx=>{
   }else await ctx.db.insert('projectStepExecution',value);
   observed++;
  }
- return {observed};
+ return {observed,paused:monitor?.dispatchPaused??true};
 }});
 
 export const configure=internalMutation({args:{dispatchPaused:v.boolean(),reason:text},handler:async(ctx,args)=>{
@@ -91,7 +91,8 @@ export const snapshot=query({args:{},handler:async ctx=>{
  const metrics=leadMetrics(agents,steps,now,1,monitor?.dispatchPaused??true);
  const liveCount=liveDispatch.size;
  // The claim gate is serialized; a stale collector or expired lease cannot prove free execution capacity.
- const capacityUnknown=!monitor||now-monitor.observedAt>60_000||dispatchItems.some(item=>['running','qa_running','accept_running'].includes(item.state)&&(!item.leaseUntil||item.leaseUntil<=now));
+ // A paused queue claims nothing, so its capacity is known (unused) without a fresh heartbeat.
+ const capacityUnknown=!monitor||(!monitor.dispatchPaused&&now-monitor.observedAt>60_000)||dispatchItems.some(item=>['running','qa_running','accept_running'].includes(item.state)&&(!item.leaseUntil||item.leaseUntil<=now));
  const unusedSlots=capacityUnknown?null:Math.max(0,1-liveCount);
  const missedHandoffs=unusedSlots===null?null:!monitor?.dispatchPaused&&unusedSlots>0?steps.filter(step=>step.readiness==='ready'&&!step.owners.length&&step.handoffAt!==undefined&&now-step.handoffAt>=60_000).length:0;
  return {monitor:monitor?{startedAt:monitor.startedAt,observedAt:monitor.observedAt,dispatchPaused:monitor.dispatchPaused,pauseReason:monitor.pauseReason}:null,coordinatorAssignment,capacity:1,...metrics,running:liveCount,unusedSlots,missedHandoffs,steps,reviews:[...reviews.filter(row=>row.status==='pending'&&!dispatchItems.some(item=>item.taskKey===row.taskKey&&['qa_ready','qa_running'].includes(item.state))).map(({key,title,requestedAt})=>({key,title,requestedAt})),...dispatchItems.filter(item=>['qa_ready','qa_running'].includes(item.state)).map(item=>({key:`dispatch:${item.key}`,title:tasks.find(task=>task.key===item.taskKey)?.checklist?.find(step=>step.key===item.stepKey)?.label??{en:item.label,es:item.label,pt:item.label},requestedAt:item.updatedAt}))]};
