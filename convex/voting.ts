@@ -1,4 +1,4 @@
-import { query } from "./_generated/server";
+import { internalMutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 export const getVoteDetail=query({args:{politicianId:v.id('politicians'),questionId:v.number()},handler:async(ctx,args)=>{
@@ -142,8 +142,40 @@ export const getDeputyDashboard = query({
   },
 });
 
-/** Internal helper for chamber-wide stats. */
+/** Chamber-wide stats from the one stored row (refreshChamberStats); computed live only before the first refresh. */
 async function getChamberStatsInternal(ctx: any) {
+  const row = await ctx.db
+    .query("chamberStats")
+    .withIndex("by_key", (q: any) => q.eq("key", CHAMBER_KEY))
+    .first();
+  if (row) {
+    const { totalSessions, avgAttendance, avgLoyalty, totalDeputies } = row;
+    return { totalSessions, avgAttendance, avgLoyalty, totalDeputies };
+  }
+  return computeChamberStats(ctx);
+}
+
+const CHAMBER_KEY = "chamber";
+
+/** Recompute and store chamber-wide stats. Scans every deputy's profile and analytics (~1 MB), so it
+ * runs after vote data changes, never per profile view. */
+export async function storeChamberStats(ctx: any) {
+  const stats = await computeChamberStats(ctx);
+  const row = await ctx.db
+    .query("chamberStats")
+    .withIndex("by_key", (q: any) => q.eq("key", CHAMBER_KEY))
+    .first();
+  if (row) await ctx.db.patch(row._id, { ...stats, computedAt: Date.now() });
+  else await ctx.db.insert("chamberStats", { key: CHAMBER_KEY, ...stats, computedAt: Date.now() });
+  return stats;
+}
+
+export const refreshChamberStats = internalMutation({
+  args: {},
+  handler: (ctx) => storeChamberStats(ctx),
+});
+
+async function computeChamberStats(ctx: any) {
   const profiles = await ctx.db
     .query("deputyVotingProfiles")
     .collect();

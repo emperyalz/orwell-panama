@@ -392,6 +392,14 @@ export default defineSchema({
     .index("by_politicianId", ["politicianId"]),
 
   // Pre-computed cross-deputy analytics (~244 rows)
+  chamberStats: defineTable({
+    key: v.string(),
+    totalSessions: v.number(),
+    avgAttendance: v.number(),
+    avgLoyalty: v.number(),
+    totalDeputies: v.number(),
+    computedAt: v.number(),
+  }).index("by_key", ["key"]),
   deputyAnalytics: defineTable({
     deputyId: v.number(),
     politicianId: v.optional(v.id("politicians")),

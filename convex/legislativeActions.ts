@@ -27,6 +27,7 @@ export const refreshReport=internalAction({args:{reportId:v.number(),remaining:v
    for(let i=0;i<records.length;i+=80)inserted+=await ctx.runMutation(internal.legislativeRefresh.ingest,{reportId:report.id,sessionId:report.sessionId,sessionDate,votingId:voting.id,votingTitle:voting.title,records:records.slice(i,i+80)});
   }
   for(const deputyId of deputies)await ctx.runMutation(internal.legislativeRefresh.aggregate,{deputyId});
+  if(deputies.size)await ctx.runMutation(internal.voting.refreshChamberStats,{});
   await ctx.runMutation(internal.legislativeRefresh.complete,{reportIds:[reportId]});
  }catch(error){errors.push(`${reportId}: ${String(error)}`);}
  await ctx.runMutation(internal.activity.logRun,{kind:'legislative',inserted,errors});

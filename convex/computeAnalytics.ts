@@ -1,3 +1,4 @@
+import { storeChamberStats } from "./voting";
 import { internalAction, internalMutation, internalQuery } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
@@ -468,5 +469,6 @@ export const upsertBatch = internalMutation({
         await ctx.db.insert("deputyAnalytics", { ...rec, createdAt: now, updatedAt: now });
       }
     }
+    await storeChamberStats(ctx);
   },
 });

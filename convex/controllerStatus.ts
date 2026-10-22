@@ -7,6 +7,10 @@ export const publish=internalMutation({args:statusFields,handler:async(ctx,args)
  if(args.observedAt>now+5000||args.observedAt<now-120000||args.scopeItemKeys.length>200||args.providers.length>2||args.reason.length>2000)throw Error('Invalid controller observation');
  const previous=await ctx.db.query('projectControllerStatus').withIndex('by_key',q=>q.eq('key','hostinger')).unique();
  if(previous&&previous.observedAt>args.observedAt)return {ignored:true};
+ // An identical observation is re-stamped only once it nears the panel's 120 s staleness mark;
+ // every rewrite re-runs each snapshot subscriber for nothing.
+ const {_id,_creationTime,key,observedAt,...was}=previous??({} as any),{observedAt:_now,...is}=args;
+ if(previous&&args.observedAt-previous.observedAt<90_000&&JSON.stringify(was)===JSON.stringify(is))return {unchanged:true};
  if(previous)await ctx.db.replace(previous._id,{key:'hostinger',...args});
  else await ctx.db.insert('projectControllerStatus',{key:'hostinger',...args});
  return {recorded:true};
